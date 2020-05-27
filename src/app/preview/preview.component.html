@@ -1,0 +1,21 @@
+<div class="box-preview-component">
+    <!-- Componentes exibidos com detalhes -->
+
+    <!-- Componente do Github -->
+    <app-github *ngIf="type == 'github'" 
+        [inputName]='userName' 
+        [inputTitle]='title'>
+    </app-github>
+
+    <!-- Componente do Resumo -->
+    <app-resumo *ngIf="type == 'resumo'" 
+        [inputName]='userName' 
+        [inputTitle]='title'>
+    </app-resumo>
+
+    <!-- Componente do Flickr -->
+    <app-flickr *ngIf="type == 'flickr'" 
+        [inputName]='userName' 
+        [inputTitle]='title'>
+    </app-flickr>
+</div>

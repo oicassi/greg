@@ -1,13 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR" data-theme="light">
+
 <head>
   <meta charset="utf-8">
   <title>GregV01</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    /**
+     * Script para buscar o tema no localStorage
+     **/
+    var temaAplicacao = localStorage.getItem('temaAplicacao');
+    if (temaAplicacao && temaAplicacao.length > 1) {
+      document.documentElement.setAttribute('data-theme', temaAplicacao);
+    }
+  </script>
 </head>
+
+
 <body>
   <app-root></app-root>
 </body>
+
 </html>

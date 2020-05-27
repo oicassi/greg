@@ -1,0 +1,67 @@
+@import "../../assets/scss/_basics/colors.scss";
+
+.container-main {
+    background-color: var(--color-lightblue) !important;
+    padding: 20px;
+    min-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 2px 3px #555588;
+    margin-left: 10px;
+    border-radius: 5px;
+    min-width: 230px;
+}
+
+.container-title {
+    padding: 5px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+}
+
+.componente-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-width: 210px;
+    height: 150px;
+    margin: auto;
+    margin-bottom: 15px !important;
+    background-color: var(--color-white);
+    box-shadow: 0 2px 3px #555588;
+    transition: all 100ms;
+    border-radius: 5px;
+    flex-basis: content;
+}
+
+.componente-box:hover {
+    box-shadow: 0 5px 5px #555588;
+}
+
+.comp-list {
+    border: none;
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .comp-list.cdk-drop-list-dragging .componente-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  

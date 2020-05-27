@@ -1,0 +1,31 @@
+<div class="container-box">
+
+    <!-- Título do componente -->
+    <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+
+    <!-- Botões para adicionar / remover colunas -->
+    <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"
+        [disabled]="columns.length === 1" style="margin-right: .5em" pTooltip="Remover coluna">
+    </button>
+    <button pButton type="button" icon="pi pi-plus" title="Add Column" (click)="addColumn()"
+        [disabled]="columns.length === 3" pTooltip="Adicionar coluna">
+    </button>
+    
+    <!-- Container geral dos textos -->
+    <div class="p-grid" style="margin-top: .5em">
+
+        <!-- Container para cada texto -->
+        <div class="p-col" *ngFor="let col of columns; let i=index" [@animation]="'visible'">
+            <div class="text-space" style="text-align: center; align-items: center; align-content: center; overflow-y: auto;">
+                <input type="text" pInputText placeholder="Assunto" [(ngModel)]="columns[i].assunto" [readonly]="!col.edit" style="margin-bottom: .5em;" />
+                <br/>
+                <textarea rows="5"  pInputTextarea  [(ngModel)]="columns[i].body" [readonly]="!col.edit"></textarea>
+                <br/>
+
+                <!-- Botões de salvar/editar -->
+                <button pButton type="button" label="Salvar" (click)="save(i)" *ngIf="col.edit" class="ui-button-success" style="margin-top: .5em;"></button>
+                <button pButton type="button" label="Editar" (click)="edit(i)" *ngIf="!col.edit" class="ui-button-warning" style="margin-top: .5em"></button>
+            </div>
+        </div>
+    </div>
+</div>

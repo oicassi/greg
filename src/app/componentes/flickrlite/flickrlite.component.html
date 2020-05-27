@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="p-grid p-dir-col p-justify-center p-align-center">
+
+        <!-- Título do componente de customização -->
+        <div class="p-col box">
+            <h3 style="text-align: center;">Componente Flickr - Customização</h3>
+        </div>
+
+        <!-- Nome que será atribuído ao componente -->
+        <div class="p-col box">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-file-o" style="line-height: 0.7;"></i></span>
+                <input type="text" pInputText placeholder="Nome do componente" [(ngModel)]="componentName" [readonly]="!edit">
+            </div>
+        </div>
+
+        <!-- Escolha da forma de login (user name ou email) -->
+        <div class="p-col box">
+            <div class="ui-inputgroup">
+                <p-dropdown [options]="logins" [(ngModel)]="loginOpcao" placeholder="Forma de login" #loginSelector
+                    (onChange)="selecionarLogin($event.value, loginSelector)" *ngIf="edit"></p-dropdown>
+            </div>
+        </div>
+
+        <!-- Input para o user name ou email -->
+        <div class="p-col box" *ngIf="loginOpcao != '' || userName">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-user" style="line-height: 0.7;"></i></span>
+                <input type="text" pInputText [placeholder]="loginOpcao" [(ngModel)]="userName" [readonly]="!edit" (keyup.enter)="emitirEvento()">
+            </div>
+        </div>
+
+        <!-- Botão para ligar o componente -->
+        <div class="p-col box">
+            <button pButton type="button" label="Adicionar" (click)="emitirEvento()" *ngIf="edit"></button>
+        </div>
+    </div>
+</div>
+
+<!-- Toaster que é exibido caso ocorra algum erro -->
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

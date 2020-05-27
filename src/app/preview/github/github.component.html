@@ -1,0 +1,63 @@
+<div class="container-box">
+    <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+
+    <!-- Mensagem para o caso de ocorrer erro na busca pelos repositórios -->
+    <div *ngIf="errorMsg != ''">
+        <h3 style="text-align: center;">{{errorMsg}}</h3>
+    </div>
+
+    <!-- Spinner do loader -->
+    <div *ngIf="loaderSrv.getLoader() && repos.length < 1" style="display: flex;align-content: center;align-items: center;justify-content: center; width: 100%;">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+
+    <div class="p-grid p-justify-start">
+
+        <!-- Card do profile -->
+        <div class="p-col-2" *ngIf="errorMsg == ''">
+            <p-card header="{{userName}}">
+                <p-header>
+                    <span style="display: flex; justify-items: center;justify-content: center;">
+                        <a href="{{urlProfile}}"><img src="{{urlPic}}" alt="Imagem avatar"
+                        style="width: 150px; height: 150px; cursor: pointer;"></a>
+                    </span>
+                </p-header>
+            </p-card>
+        </div>
+
+        <!-- Cards dos repositorios -->
+        <div class="p-col-10">
+            <div class="p-grid p-justify-start"
+                style="flex-wrap: nowrap; overflow-x: auto; height: 300px;">
+
+                <!-- Visualização com tabs -->
+                <p-tabView style="height: 270px; max-width: 200%;">
+                    <p-tabPanel *ngFor="let repo of repos" header="{{repo.name}}">
+                        <p style="text-align: justify; word-break: break-word;">{{repo.description}}</p>
+                        <br>
+                        <p><i class="pi pi-calendar"></i> {{repo.data}}</p>
+                        <br>
+                        <a href="{{repo.url}}"><button pButton type="button" label="Acessar"></button></a>
+                    </p-tabPanel>
+                </p-tabView>
+
+
+                <!-- Visualização com cards -->
+                <!-- <div class="p-col-4" *ngFor="let repo of repos" style="height: 270px;">
+                    <p-card header="{{repo.name}}">
+                        <p style="text-align: justify; word-break: break-word;">Descrição: {{repo.description}}</p>
+                        <br>
+                        <p>Data: {{repo.data}}</p>
+                        <p-footer>
+                            <a href="{{repo.url}}"><button pButton type="button" label="Acessar"></button></a>
+                        </p-footer>
+                    </p-card>
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toaster para ser exibido caso algo ruim aconteça -->
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

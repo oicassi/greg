@@ -1,0 +1,15 @@
+<header>
+    <div class="p-grid p-justify-between navbar-header">
+
+        <!-- Logo -->
+        <div class="p-col-2 p-sm-12 p-md-6 p-lg-2 navbar-item">
+            <img class="logo" src="../../assets/imgs/logov1.png" alt="logo">
+        </div>
+
+        <!-- Menu dropdown do usuário -->
+        <div class="p-col-2 p-sm-12 p-md-6 p-lg-2 user-menu navbar-item">
+            <p-dropdown #acaoSelector [options]="acoes" [(ngModel)]="acaoSelecionada" (onChange)="executarAcao($event.value)">
+            </p-dropdown>
+        </div>
+    </div>
+</header>

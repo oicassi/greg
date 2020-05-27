@@ -1,0 +1,39 @@
+<div class="container-box">
+
+    <!-- Título do componente -->
+    <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+
+    <!-- Exibição de Spinner durante o carregamento de informações -->
+    <div class="p-grid p-justify-center" *ngIf="loaderSrv.getLoader()">
+        <div class="p-col-12" style="text-align: center; align-items: center; align-content: center;">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+    </div>
+
+    <div class="p-grid p-justify-start" *ngIf="!loaderSrv.getLoader()">
+
+        <!-- Card do profile -->
+        <div class="p-col-3 p-align-center">
+            <p-card header="{{flickrName}}">
+                <p style = "margin-top: 30px; text-align: center;"><img src="{{urlPic}}" style="height:100px; width:100px"></p>
+                <p style="margin-top: 30px; text-align: center"> {{flickrName}} ({{flickrAlias}})</p>
+                <p style="margin-top: 30px; text-align: center"><i class="pi pi-images"></i> {{numFotos}} fotos</p>
+                <hr style="margin-top: 30px;" />
+                <div style="word-break: break-word; margin-top: 30px;">
+                    <p style="text-align: justify;">{{flickrDescription}}</p>
+                </div>
+                <p-footer style="margin-top: 30px;">
+                    <a href="{{urlProfile}}" target="_blank"><button pButton type="button" label="Acessar perfil"></button></a>
+                </p-footer>
+            </p-card>
+        </div>
+
+        <!-- Galeria de imagens -->
+        <div class="p-col-9" style="text-align: center; align-items: center; align-content: center;">
+            <p-galleria [images]="fotos" panelWidth="600" panelHeight="413" [showCaption]="true"></p-galleria>
+        </div>
+    </div>
+</div>
+
+<!-- Toaster para ser exibido caso ocorra algum erro -->
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

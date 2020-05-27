@@ -1,0 +1,19 @@
+html {
+    --color-green: #56e39f;
+    --color-darkblue: #102542;
+    --color-lightblue: #c6dbf0;
+    --color-white: #fcfaf9;
+    --color-purple: #6457a6;
+    --color-fg-0: #333333;
+    --color-fg-inv: #eeeeee;
+}
+
+html[data-theme="dark"] {
+    --color-green: #369165;
+    --color-darkblue: #215296;
+    --color-lightblue: #292929;
+    --color-white: #1f1f1f;
+    --color-purple: #352a69;
+    --color-fg-0: #eeeeee;
+    --color-fg-inv: #282828;
+}
