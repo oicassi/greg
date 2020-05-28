@@ -25,13 +25,21 @@
                 [isEdit]='false'>
             </app-resumolite>
 
-             <!-- Componente não editável - Flickr -->
-             <app-flickrlite *ngIf="comp.tipo == 'flickr'"
-             [inputName]=comp.user
-             [inputTitle]=comp.titulo
-             [inputType]='comp.tipo'
-             [isEdit]='false'>
+            <!-- Componente não editável - Flickr -->
+            <app-flickrlite *ngIf="comp.tipo == 'flickr'"
+                [inputName]=comp.user
+                [inputTitle]=comp.titulo
+                [inputType]='comp.tipo'
+                [isEdit]='false'>
             </app-flickrlite>
+
+            <!-- Componente não editável - Freesound -->
+            <app-freesoundlite *ngIf="comp.tipo == 'freesound'"
+                [inputName]=comp.user
+                [inputTitle]=comp.titulo
+                [inputType]='comp.tipo'
+                [isEdit]='false'>
+           </app-freesoundlite>
         </div>
 
         <!-- Seletor de componente -->
@@ -64,6 +72,14 @@
                 [inputType]='compSelecionado'
                 [isEdit]='true'>
             </app-flickrlite>
+
+            <!-- Componente Freesound -->
+            <app-freesoundlite (createComponent)="ligaComponente($event)" *ngIf="compSelecionado == 'freesound'"
+                [inputName]=''
+                [inputTitle]=''
+                [inputType]='compSelecionado'
+                [isEdit]='true'>
+            </app-freesoundlite>
         </div>
     </div>
 </div>

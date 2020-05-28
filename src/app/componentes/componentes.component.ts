@@ -27,7 +27,8 @@ export class ComponentesComponent implements OnInit {
     this.comps = [
       {label: 'Github', value:'github'},
       {label: 'Flickr', value:'flickr'},
-      {label: 'Resumo', value:'resumo'}
+      {label: 'Resumo', value:'resumo'},
+      {label: 'Freesound', value: 'freesound'}
     ];
   }
 

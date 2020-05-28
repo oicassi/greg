@@ -29,6 +29,9 @@ import { FlickrComponent } from './preview/flickr/flickr.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { GalleriaModule } from 'primeng/galleria';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FreesoundliteComponent } from './componentes/freesoundlite/freesoundlite.component';
+import { FreesoundComponent } from './preview/freesound/freesound.component';
+import  {OrderListModule } from 'primeng/orderlist';
 
 
 @NgModule({
@@ -43,6 +46,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ResumoComponent,
     FlickrliteComponent,
     FlickrComponent,
+    FreesoundliteComponent,
+    FreesoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TooltipModule,
     ProgressSpinnerModule,
     GalleriaModule,
-    DragDropModule
+    DragDropModule,
+    OrderListModule
   ],
   providers: [
     MessageService,

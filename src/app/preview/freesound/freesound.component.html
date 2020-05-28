@@ -1,0 +1,65 @@
+<div class="container-box">
+
+    <!-- Título do componente -->
+    <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+
+    <!-- Exibição de Spinner durante o carregamento de informações -->
+    <div class="p-grid p-justify-center" *ngIf="loaderSrv.getLoader() && audios.length < 1">
+        <div class="p-col-12" style="text-align: center; align-items: center; align-content: center;">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+    </div>
+
+    <div class="p-grid p-justify-start" *ngIf="audios.length > 0">
+
+        <!-- Card do profile -->
+        <div class="p-col-3 p-align-center">
+            <p-card header="{{userName}}">
+                <p style = "margin-top: 30px; text-align: center;"><img src="{{urlPic}}" style="height:100px; width:100px"></p>
+                <p style="margin-top: 30px; text-align: center"><i class="pi pi-volume-up"></i> {{numAudios}} audios</p>
+                <hr style="margin-top: 30px;" />
+                <div style="word-break: break-word; margin-top: 30px;">
+                    <p style="text-align: justify;">{{freesoundDescription}}</p>
+                </div>
+                <p-footer style="margin-top: 30px;">
+                    <a href="{{urlProfile}}" target="_blank"><button pButton type="button" label="Acessar perfil"></button></a>
+                </p-footer>
+            </p-card>
+        </div>
+
+        <!-- Tocador de músicas e playlist -->
+        <div class="p-col-9">
+            <div class="p-grid p-dir-col" style="margin-right: 10px;">
+
+                <!-- Tocador de músicas -->
+                <div class="p-col-12">
+                    <audio controls src={{selectedAudio.url}} [autoplay]="autoPlay"style="width: 100%;"></audio>
+                </div>
+
+                <!-- Tocador de músicas -->
+                <div class="p-col-12">
+                    <p style="text-align: justify;">Tocando agora: <span style="font-weight: bold !important;">{{selectedAudio.name}}</span></p>
+                </div>
+
+                <!-- Playlist -->
+                <div class=p-col-12 style="width: 100%;">
+                    <p-orderList [value]="audios" header="Áudios" [listStyle]="{'height':'250px'}" (onSelectionChange)="trocaAudio($event.value[0])">
+                        <ng-template let-audio pTemplate="item">
+                            <div class="ui-helper-clearfix">
+                                <div style="display:inline-block; margin:0 0 2px 2px; font-weight: bold !important;">{{audio.name}}</div>
+                                <div style="opacity: 0.7;float:right;margin:0 5px 2px 0"><em *ngFor="let tag of audio.tags">#{{tag}} </em></div>
+                                <div style="word-break: break-word; margin-top: 10px;">
+                                    <p style="text-align: justify;">{{audio.description}}</p>
+                                </div>
+                            </div>
+                            <hr />
+                        </ng-template>
+                    </p-orderList>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toaster para ser exibido caso ocorra algum erro -->
+<p-toast [style]="{marginTop: '80px'}"></p-toast>

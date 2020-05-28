@@ -1,0 +1,8 @@
+{
+    "/apiv2/*": {
+        "target": "https://freesound.org",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

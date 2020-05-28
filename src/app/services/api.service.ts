@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,12 @@ export class ApiService {
   flickrFotosPublicas = 'flickr.people.getPublicPhotos';  // URL para buscar as fotos públicas de um usuário (a partir do seu NSID)
   // OBS: As requisições tem um parâmetro 'nojsoncallback' setado para 1 que é para evitar que o Flicker coloque a resposta num wrapper inútil
 
+  // Infos para requests ao Freesound
+  freesoundUrl = '/apiv2/';                                     // URL base para as requisições à API do Freesound (por enquanto só requisições GET)
+  freesoundApiKey = '7hcXRSYLbFBBJ6nxwafrkPfp4XOmydctF4F5P2lH'; // Appkey fornecida pelo freesound no cadastro
+  freesoundProfile = 'users/';                                  // URL para buscar as informações de perfil de um usuário
+  freesoundAudios = 'users/' //<username>/sounds                // URL para buscar lista de músicas de um usuário. OBS: tem que completar a URL conforme o comentário
+  freesoundBaseParams = 'name,previews,tags,description';
   constructor(private _http: HttpClient) { }
 
   /**
@@ -93,7 +99,7 @@ export class ApiService {
 
     try {
       let photoParams = new HttpParams();
-      photoParams = photoParams.append('api_key', this.flickrApiKey)
+      photoParams = photoParams.append('api_key', this.flickrApiKey);
       photoParams = photoParams.append('format', this.flickrFormat);
       photoParams = photoParams.append('nojsoncallback', '1');
       photoParams = photoParams.append('method', this.flickrFotosPublicas);
@@ -102,6 +108,59 @@ export class ApiService {
       const photoOptions = { params: photoParams };
 
       return this._http.get(this.flickrUrl, photoOptions);
+    } catch (err) {
+      return err;
+    }
+  }
+
+  /**
+  * Método para buscar informações do pefil no Freesound com base em um username
+  * @param userName nome do usuário para busca de perfil
+  */
+  getFreesoundProfile(userName: string) {
+    try {
+      let url = `${this.freesoundUrl}${this.freesoundProfile}${userName}`;
+      let profileParams = new HttpParams();
+      profileParams = profileParams.append('token', this.freesoundApiKey);
+
+      // const profileHeaders: HttpHeaders = new HttpHeaders({
+      //   'Accept': 'application/json, text/plain, */*',
+      //   'Access-Control-Request-Headers': 'access-control-allow-origin',
+      //   'Access-Control-Request-Method': 'GET',
+      //   'Access-Control-Allow-Origin': '*'
+      // });
+        
+      
+      const profileOptions = { params: profileParams };
+
+      return this._http.get(url, profileOptions);
+
+    } catch (err) {
+      return err;
+    }
+  }
+
+  /**
+   * Método para buscar a lista de áudios de um determinado usuário
+   * @param userName nome do usuário que serão buscados os áudios
+   */
+  getFreesoundAudios(userName: string) {
+    try {
+      let url = `${this.freesoundUrl}${this.freesoundAudios}${userName}/sounds`;
+      let audioParams = new HttpParams();
+      audioParams = audioParams.append('token', this.freesoundApiKey)
+      audioParams = audioParams.append('fields', this.freesoundBaseParams);
+
+      // const audioHeaders: HttpHeaders = new HttpHeaders({
+      //   'Accept': 'application/json, text/plain, */*',
+      //   'Access-Control-Request-Headers': 'access-control-allow-origin',
+      //   'Access-Control-Request-Method': 'GET',
+      //   'Access-Control-Allow-Origin': 'https://freesound.org'
+      // });
+
+      const audioOptions = { params: audioParams };
+      return this._http.get(url, audioOptions);
+
     } catch (err) {
       return err;
     }
