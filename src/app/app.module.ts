@@ -1,6 +1,6 @@
-import { LoaderService } from './services/loader.service';
+import { LoaderService } from './core/_services/loader.service';
 import { HttpClientModule, HttpParams, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { ApiService } from './services/api.service';
+import { ApiService } from './core/_services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
