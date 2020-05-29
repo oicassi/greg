@@ -23,3 +23,14 @@ html.transition *:after {
     transition: all 450ms !important;
     transition-delay: 0 !important;
 }
+
+// tratamento de login e pagina de registro
+
+  .register-page {
+    padding: 6rem 2rem;
+  }
+  
+  .login-page {
+    padding: 10rem 2rem;
+  }
+  

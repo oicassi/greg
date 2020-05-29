@@ -11,5 +11,8 @@
             <p-dropdown #acaoSelector [options]="acoes" [(ngModel)]="acaoSelecionada" (onChange)="executarAcao($event.value)">
             </p-dropdown>
         </div>
+
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+        
     </div>
 </header>
