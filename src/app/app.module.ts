@@ -1,5 +1,5 @@
 import { LoaderService } from './services/loader.service';
-import { HttpClientModule, HttpParams } from '@angular/common/http';
+import { HttpClientModule, HttpParams } from "@angular/common/http";
 import { ApiService } from './services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -20,6 +20,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { GithubComponent } from './preview/github/github.component';
 import { CardModule } from 'primeng/card';
+import {GalleriaModule} from 'primeng/galleria';
 import { TabViewModule } from 'primeng/tabview';
 import { ResumoComponent } from './preview/resumo/resumo.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -27,7 +28,6 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FlickrliteComponent } from './componentes/flickrlite/flickrlite.component';
 import { FlickrComponent } from './preview/flickr/flickr.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { GalleriaModule } from 'primeng/galleria';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FreesoundliteComponent } from './componentes/freesoundlite/freesoundlite.component';
 import { FreesoundComponent } from './preview/freesound/freesound.component';
@@ -73,7 +73,7 @@ import  {OrderListModule } from 'primeng/orderlist';
     MessageService,
     ApiService,
     LoaderService,
-    HttpParams
+    
   ],
   bootstrap: [AppComponent]
 })
