@@ -1,7 +1,15 @@
-<div class="container-box">
+<div class="container-box" #base>
 
     <!-- Título do componente -->
-    <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+    <div class="p-grid p-dir-row">
+        <div class="p-col-2"></div>
+        <div class="p-col-8">
+            <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+        </div>
+        <div class="p-col-2" style="display: flex; flex-direction: row; justify-content: end;" (click)="openConfig()">
+            <i class="pi pi-cog" style="cursor: pointer;"></i>
+        </div>
+    </div>
 
     <!-- Exibição de Spinner durante o carregamento de informações -->
     <div class="p-grid p-justify-center" *ngIf="loaderSrv.getLoader() && fotos.length < 1">
@@ -37,3 +45,50 @@
 
 <!-- Toaster para ser exibido caso ocorra algum erro -->
 <p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+
+<p-sidebar [(visible)]="showConfigDialog" position="right" [baseZIndex]="10000">
+    <div class="p-grid p-dir-col" style="justify-content: space-evenly;">
+        <h3 style="margin: 20px; text-align: center; color:#555555; font-size: 1.3rem;">Cor de fundo do componente: {{title}}</h3>
+
+        <div class="p-col-12" (click)="changeBgColor('purple')" class="color-selector"
+            style="background-color: #b894f6 !important;">
+            <p style="text-align: center;">Roxo</p>
+        </div>
+
+        <div class="p-col-12" (click)="changeBgColor('yellow')" class="color-selector"
+            style="background-color: #fefb99 !important;">
+            <p style="text-align: center;">Amarelo</p>
+        </div>
+
+        <div class="p-col-12" (click)="changeBgColor('blue')" class="color-selector"
+            style="background-color: #94a1f6 !important;">
+            <p style="text-align: center;">Azul</p>
+        </div>
+
+        <div class="p-col-12" (click)="changeBgColor('pink')" class="color-selector"
+            style="background-color: #e994f6 !important;">
+            <p style="text-align: center;">Rosa</p>
+        </div>
+
+        <div class="p-col-12" (click)="changeBgColor('red')" class="color-selector"
+            style="background-color: #E57373 !important;">
+            <p style="text-align: center;">Vermelho</p>
+        </div>
+
+        <div class="p-col-12" (click)="changeBgColor('green')" class="color-selector"
+            style="background-color: #80CBC4 !important;">
+            <p style="text-align: center;">Verde</p>
+        </div>
+
+        <div class="p-col-12" (click)="changeBgColor('brown')" class="color-selector"
+            style="background-color: #BCAAA4 !important;">
+            <p style="text-align: center;">Marrom</p>
+        </div>
+
+        <div class="p-col-12" (click)="changeBgColor('white')" class="color-selector"
+            style="background-color: #fcfaf9 !important;">
+            <p style="text-align: center;">Branco</p>
+        </div>
+    </div>
+</p-sidebar>

@@ -10,6 +10,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class ComponentesComponent implements OnInit {
 
   @Output() componenteLigado : EventEmitter<Info[]> = new EventEmitter<Info[]>()  // Emissor para passar array atualizado de compoentes ligados ao App component
+  @Output() previewEmitter: EventEmitter<boolean> = new EventEmitter();
+
   @ViewChild('compSelector', {static: false}) dropdown: Dropdown;
 
   componentesSelecionados: Info[] = []  // Array de componentes selecionados
@@ -62,5 +64,9 @@ export class ComponentesComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.componentesSelecionados, event.previousIndex, event.currentIndex);
     this.componenteLigado.emit(this.componentesSelecionados);
+  }
+
+  fullPreviewEmit() {
+    this.previewEmitter.emit(true);
   }
 }

@@ -1,8 +1,14 @@
 <div class="container-main">
 
     <!-- Titulo exibido na lista de componentes -->
-    <div class="container-title">
-        <h3 style="text-align: center;">Componentes</h3>
+    <div class="p-grid p-dir-row">
+        <div class="p-col-2"></div>
+        <div class="p-col-8">
+            <h3 style="text-align: center;">Componentes</h3>
+        </div>
+        <div class="p-col-2" style="display: flex; flex-direction: row; justify-content: end;" (click)="fullPreviewEmit()">
+            <i class="pi pi-external-link" style="cursor: pointer;"></i>
+        </div>
     </div>
     
     <div cdkDropList (cdkDropListDropped)="drop($event)" class="p-grid p-dir-col comp-list">

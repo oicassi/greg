@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-preview',
@@ -11,11 +11,15 @@ export class PreviewComponent implements OnInit {
   @Input() inputTitle: string;  // Recebe o título do componente
   @Input() inputType: string;   // Recebe o tipo do componente
   @Input() globalId: number;    // Recebe o id geral do elemento
+  @Input() inputBgColor: string // Recebe a cor de fundo do componente
+
+  @Output() colorUpdate: EventEmitter<any> = new EventEmitter();
 
   userName: string;
   title: string;
   type: string;
   id: number;
+  bgColor: string;
   constructor() { }
 
   ngOnInit(): void {
@@ -29,6 +33,11 @@ export class PreviewComponent implements OnInit {
     this.title = this.inputTitle;
     this.type = this.inputType;
     this.id = this.globalId;
+    this.bgColor = this.inputBgColor;
     console.log('tipo: ' + this.type);
+  }
+
+  updateBgColor(event) {
+    this.colorUpdate.emit(event);
   }
 }

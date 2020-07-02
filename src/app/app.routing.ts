@@ -6,12 +6,14 @@ import { LoginComponent } from "./login";
 import { RegisterComponent } from "./register";
 import { AuthGuard } from "src/app/core/_guards";
 import { AppComponent } from './app.component';
+import { FullpreviewComponent } from './fullpreview/fullpreview.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "admin", component: HomeAdminComponent, canActivate: [AuthGuard] },
+  { path: "fullpreview", component: FullpreviewComponent},
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" },

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Info } from '../models/info.model';
+import { Router } from '@angular/router';
+import { PreviewService } from '../core/_services/preview.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,13 @@ export class HomeComponent{
 
   title = 'greg-v01';
   compsLigados: Info[] = [];  // Lista dos componentes ligados para serem exibidos no preview
+
+  constructor(
+    private router: Router,
+    private _prevSrv: PreviewService
+    ) {
+    
+  }
 
   /**
    * Metodo executado quando um componente é ligado e então o array de componente ligados é atualizado
@@ -40,5 +49,21 @@ export class HomeComponent{
     window.setTimeout(() => {
       document.documentElement.classList.remove('transition');
     }, 600);
+  }
+
+  updateComponentBgColor(event) {
+    const {id, color} = event;
+
+    let i = this.compsLigados.findIndex(comp => comp.id === id);
+    if (i > -1) {
+      this.compsLigados[i].bgColor = color;
+    }
+    console.log("atualizado cor");
+    console.log(this.compsLigados);
+  }
+
+  openFullPreview() {
+    this._prevSrv.setCompsLigados(this.compsLigados);
+    this.router.navigate(["fullpreview"]);
   }
 }
