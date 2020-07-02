@@ -10,11 +10,12 @@ export class PreviewComponent implements OnInit {
   @Input() inputName: string;   // Recebe a informação de usuário (user name ou email, por exemplo)
   @Input() inputTitle: string;  // Recebe o título do componente
   @Input() inputType: string;   // Recebe o tipo do componente
+  @Input() globalId: number;    // Recebe o id geral do elemento
 
   userName: string;
   title: string;
   type: string;
-
+  id: number;
   constructor() { }
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class PreviewComponent implements OnInit {
     this.userName = this.inputName;
     this.title = this.inputTitle;
     this.type = this.inputType;
+    this.id = this.globalId;
     console.log('tipo: ' + this.type);
   }
 }

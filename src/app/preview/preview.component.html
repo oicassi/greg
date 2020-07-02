@@ -4,24 +4,28 @@
     <!-- Componente do Github -->
     <app-github *ngIf="type == 'github'" 
         [inputName]='userName' 
-        [inputTitle]='title'>
+        [inputTitle]='title'
+        [inputId]='id'>
     </app-github>
 
     <!-- Componente do Resumo -->
     <app-resumo *ngIf="type == 'resumo'" 
         [inputName]='userName' 
-        [inputTitle]='title'>
+        [inputTitle]='title'
+        [inputId]='id'>
     </app-resumo>
 
     <!-- Componente do Flickr -->
     <app-flickr *ngIf="type == 'flickr'" 
         [inputName]='userName' 
-        [inputTitle]='title'>
+        [inputTitle]='title'
+        [inputId]='id'>
     </app-flickr>
 
     <!-- Componente do Freesound -->
     <app-freesound *ngIf="type == 'freesound'" 
         [inputName]='userName' 
-        [inputTitle]='title'>
+        [inputTitle]='title'
+        [inputId]='id'>
     </app-freesound>
 </div>

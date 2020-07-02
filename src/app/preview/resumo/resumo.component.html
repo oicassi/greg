@@ -1,7 +1,16 @@
-<div class="container-box">
+<div class="container-box" #base>
 
     <!-- Título do componente -->
-    <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+    <div class="p-grid p-dir-row">
+        <div class="p-col-2"></div>
+        <div class="p-col-8">
+            <h3 style="text-align: center;margin-bottom: 10px;">{{title}}</h3>
+        </div>
+        <div class="p-col-2" style="display: flex; flex-direction: row; justify-content: end;" (click)="changeColor()">
+            <i class="pi pi-cog" style="cursor: pointer;"></i>
+        </div>
+    </div>
+    
 
     <!-- Botões para adicionar / remover colunas -->
     <button pButton type="button" icon="pi pi-minus" title="Remove Column" (click)="removeColumn()"

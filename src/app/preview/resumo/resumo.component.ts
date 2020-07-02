@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 
 /**
@@ -41,7 +41,7 @@ export class ResumoComponent implements OnInit {
 
   @Input() inputName: string;   // Input com as informações do usuário
   @Input() inputTitle: string;  // Input com o título do componente
-
+  @ViewChild('base',{static:false})base: ElementRef;
   userName: string;
   title: string;
   columns: ResumoItem[] = []    // Itens de resumo
@@ -114,5 +114,9 @@ export class ResumoComponent implements OnInit {
    */
   edit(i: number) {
     this.columns[i].edit = true;
+  }
+
+  changeColor() {
+    this.base.nativeElement.style.backgroundColor="blue";
   }
 }

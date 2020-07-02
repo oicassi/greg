@@ -77,6 +77,7 @@ export class FlickrliteComponent implements OnInit {
     this.info.user = `${this.loginOpcao};;${this.userName}`;
     this.info.titulo = this.componentName;
     this.info.tipo = this.tipo;
+    this.info.bgColor = 'default';
     this.createComponent.emit(this.info);
   }
 }

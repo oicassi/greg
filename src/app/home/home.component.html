@@ -11,8 +11,8 @@
     <!-- Preview de componentes ligados -->
     <div class="p-col-9">
         <div class="p-grid p-dir-col" style="margin-right: 10px;">
-            <div class="p-col-12" *ngFor="let comp of compsLigados">
-                <app-preview [inputName]=comp.user [inputTitle]=comp.titulo [inputType]='comp.tipo'></app-preview>
+            <div class="p-col-12" *ngFor="let comp of compsLigados; let i = index">
+                <app-preview [inputName]=comp.user [inputTitle]=comp.titulo [inputType]='comp.tipo'[globalId]=i></app-preview>
             </div>
         </div>
     </div>

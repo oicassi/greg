@@ -50,6 +50,7 @@ export class FreesoundliteComponent implements OnInit {
     this.info.user = this.userName;
     this.info.titulo = this.componentName;
     this.info.tipo = this.tipo;
+    this.info.bgColor = 'default';
     this.createComponent.emit(this.info);
   }
 

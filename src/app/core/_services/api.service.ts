@@ -121,15 +121,7 @@ export class ApiService {
     try {
       let url = `${this.freesoundUrl}${this.freesoundProfile}${userName}`;
       let profileParams = new HttpParams();
-      profileParams = profileParams.append('token', this.freesoundApiKey);
-
-      // const profileHeaders: HttpHeaders = new HttpHeaders({
-      //   'Accept': 'application/json, text/plain, */*',
-      //   'Access-Control-Request-Headers': 'access-control-allow-origin',
-      //   'Access-Control-Request-Method': 'GET',
-      //   'Access-Control-Allow-Origin': '*'
-      // });
-        
+      profileParams = profileParams.append('token', this.freesoundApiKey);        
       
       const profileOptions = { params: profileParams };
 
@@ -150,13 +142,6 @@ export class ApiService {
       let audioParams = new HttpParams();
       audioParams = audioParams.append('token', this.freesoundApiKey)
       audioParams = audioParams.append('fields', this.freesoundBaseParams);
-
-      // const audioHeaders: HttpHeaders = new HttpHeaders({
-      //   'Accept': 'application/json, text/plain, */*',
-      //   'Access-Control-Request-Headers': 'access-control-allow-origin',
-      //   'Access-Control-Request-Method': 'GET',
-      //   'Access-Control-Allow-Origin': 'https://freesound.org'
-      // });
 
       const audioOptions = { params: audioParams };
       return this._http.get(url, audioOptions);

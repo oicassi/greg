@@ -6,4 +6,5 @@ export class Info {
     tipo: string;
     titulo: string;
     user: string;
+    bgColor: string;
 }
