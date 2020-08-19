@@ -1,6 +1,5 @@
 import { LoaderService } from './../../core/_services/loader.service';
 import { ApiService } from './../../core/_services/api.service';
-
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { MessageService } from 'primeng/api';
 

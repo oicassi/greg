@@ -1,8 +1,9 @@
-﻿import { HomeComponent } from './home/home.component';
+﻿import { HomeAdminComponent } from './home-admin/home-admin.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+
 import { Routes, RouterModule } from "@angular/router";
 
-import { HomeAdminComponent } from "./home-admin";
-import { LoginComponent } from "./login";
 import { RegisterComponent } from "./register";
 import { AuthGuard } from "src/app/core/_guards";
 import { AppComponent } from './app.component';
