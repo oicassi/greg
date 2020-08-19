@@ -1,18 +1,7 @@
-<!-- Header da aplicação -->
-<app-header (themeChange)="mudarTema($event)"></app-header>
-<div class="p-grid p-align-stretch">
-
-    <!-- Lista lateral de componentes -->
-    <div class="p-col-3">
-        <app-componentes (componenteLigado)="ligarComponente($event)"></app-componentes>
+  <!-- main app container -->
+  <div class="main-app">
+          <alert></alert>
+          <router-outlet></router-outlet>    
     </div>
-
-    <!-- Preview de componentes ligados -->
-    <div class="p-col-9">
-        <div class="p-grid p-dir-col" style="margin-right: 10px;">
-            <div class="p-col-12" *ngFor="let comp of compsLigados">
-                <app-preview [inputName]=comp.user [inputTitle]=comp.titulo [inputType]='comp.tipo'></app-preview>
-            </div>
-        </div>
-    </div>
-</div>
+  
+  

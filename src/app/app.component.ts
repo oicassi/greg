@@ -1,43 +1,25 @@
+import { User } from 'src/app/core/_models';
+import { AuthenticationService } from 'src/app/core/_services';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { Info } from './models/info.model';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  currentUser: User;
 
-  title = 'greg-v01';
-  compsLigados: Info[] = [];  // Lista dos componentes ligados para serem exibidos no preview
-
-  /**
-   * Metodo executado quando um componente é ligado e então o array de componente ligados é atualizado
-   * @param event Array de componentes ligados passado por event emitter
-   */
-  ligarComponente(event) {
-    this.compsLigados = event;
-    console.log('Componentes ligados');
-    console.log(this.compsLigados)
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser.subscribe(
+      (x) => (this.currentUser = x)
+    );
   }
 
-  /**
-   * Metodo para mudança de temas (254% experimental e com bugs)
-   * @param tema Nome do tema que será aplicado
-   */
-  mudarTema(tema: string) {
-    this.trans();
-    document.documentElement.setAttribute('data-theme', tema);
-    localStorage.setItem('temaAplicacao', tema);
-  }
-
-  /**
-   * Método para aplicar classe de transição na mudança de temas
-   */
-  trans() {
-    document.documentElement.classList.add('transition');
-    window.setTimeout(() => {
-      document.documentElement.classList.remove('transition');
-    }, 600);
-  }
+ 
 }

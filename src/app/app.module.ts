@@ -1,6 +1,6 @@
-import { LoaderService } from './services/loader.service';
-import { HttpClientModule, HttpParams } from '@angular/common/http';
-import { ApiService } from './services/api.service';
+import { LoaderService } from './core/_services/loader.service';
+import { HttpClientModule, HttpParams, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { ApiService } from './core/_services/api.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
@@ -20,6 +20,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { GithubComponent } from './preview/github/github.component';
 import { CardModule } from 'primeng/card';
+import {GalleriaModule} from 'primeng/galleria';
 import { TabViewModule } from 'primeng/tabview';
 import { ResumoComponent } from './preview/resumo/resumo.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -27,11 +28,23 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FlickrliteComponent } from './componentes/flickrlite/flickrlite.component';
 import { FlickrComponent } from './preview/flickr/flickr.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { GalleriaModule } from 'primeng/galleria';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FreesoundliteComponent } from './componentes/freesoundlite/freesoundlite.component';
 import { FreesoundComponent } from './preview/freesound/freesound.component';
 import  {OrderListModule } from 'primeng/orderlist';
+import { ReactiveFormsModule } from "@angular/forms";
+
+// used to create fake backend
+import { fakeBackendProvider } from "src/app/core/_helpers";
+import { JwtInterceptor, ErrorInterceptor } from "src/app/core/_helpers";
+
+import { routing } from "./app.routing";
+import { HomeAdminComponent } from "./home-admin";
+import { LoginComponent } from "./login";
+import { RegisterComponent } from "./register";
+import { AlertComponent } from "src/app/core/_components";
+import { HomeComponent } from './home/home.component';
+
 
 
 @NgModule({
@@ -48,11 +61,17 @@ import  {OrderListModule } from 'primeng/orderlist';
     FlickrComponent,
     FreesoundliteComponent,
     FreesoundComponent,
+    AlertComponent,
+    HomeAdminComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     DropdownModule,
+    ReactiveFormsModule,
     FormsModule,
     InputTextModule,
     ButtonModule,
@@ -67,13 +86,19 @@ import  {OrderListModule } from 'primeng/orderlist';
     ProgressSpinnerModule,
     GalleriaModule,
     DragDropModule,
-    OrderListModule
+    OrderListModule,
+    routing
   ],
   providers: [
     MessageService,
     ApiService,
     LoaderService,
-    HttpParams
+    
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    // fakeBackendProvider,
   ],
   bootstrap: [AppComponent]
 })

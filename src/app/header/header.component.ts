@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/core/_services';
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import {SelectItem} from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown/dropdown';
@@ -20,7 +22,8 @@ export class HeaderComponent implements OnInit {
   /**
    * Carrega infos básicas como tema atual e nome
    */
-  constructor() {
+  constructor(private router: Router,
+    private authenticationService: AuthenticationService) {
     this.temaAtual = document.documentElement.getAttribute('data-theme');
     this.userName = 'Gregrzito';
     this.acoes = [
@@ -32,6 +35,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+   
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(["/login"]);
+  }
+
 
   /**
    * Executa alguma ação quando há alteração no menu dropdown do usuário
