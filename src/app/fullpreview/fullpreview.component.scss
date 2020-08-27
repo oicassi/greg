@@ -1,0 +1,18 @@
+.box-preview-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.componenteBox {
+  width: 90%;
+  margin: 15px 0;
+  box-shadow: 0 2px 3px #555588;
+  transition: all 500ms;
+}
+
+.componenteBox:hover {
+  box-shadow: 0 2px 7px #555588;
+}

@@ -1,7 +1,13 @@
 import { LoaderService } from './../../core/_services/loader.service';
 import { ApiService } from './../../core/_services/api.service';
+<<<<<<< HEAD
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+=======
+
+import { Component, OnInit, Input, ViewEncapsulation, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+>>>>>>> bg-cores
 import { MessageService } from 'primeng/api';
+import { CustomizeService } from 'src/app/core/_services/customize.service';
 
 /**
  * Classe para o modelo básico de foto exibida
@@ -20,14 +26,23 @@ export class Foto {
   providers: [MessageService],
   encapsulation: ViewEncapsulation.None
 })
-export class FlickrComponent implements OnInit {
+export class FlickrComponent implements OnInit, AfterViewInit {
 
   @Input() inputName: string;   // Input com as informações do usuário do flickr (nome ou email)
   @Input() inputTitle: string;  // Título do componente
+  @Input() inputId: number      // Input com o id do componente
+  @Input() inputBgColor: string // Input com a cor do backgorund do componente
+
+  @Output() colorChange: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('base',{static:false})base: ElementRef;
 
   userName: string;
   title: string;
+  id: number;
+  bgColor: string;
   errorMsg: string;
+  showConfigDialog: boolean = false;
 
   // Especificas do flickr
   flickrName: string;         // Nome exibido no flickr
@@ -44,7 +59,8 @@ export class FlickrComponent implements OnInit {
   constructor(
     private _apiSrv: ApiService,
     private _msgSrv: MessageService,
-    public loaderSrv: LoaderService) { 
+    public loaderSrv: LoaderService,
+    private _custmSrv:CustomizeService) { 
     
   }
 
@@ -64,8 +80,17 @@ export class FlickrComponent implements OnInit {
     console.log('flickr afterContent');
     this.userName = this.inputName;
     this.title = this.inputTitle;
+    this.id = this.inputId;
+    this.bgColor = this.inputBgColor;
+   
     this.loaderSrv.showLoader();
     this.setProfile();
+  }
+
+  ngAfterViewInit() {
+    if (this.bgColor !== 'default') {
+      this.changeBgColor(this.bgColor);
+    }
   }
 
   /**
@@ -127,5 +152,32 @@ export class FlickrComponent implements OnInit {
     }
     this.loaderSrv.hideLoader();  
     console.log(this.fotos);
+  }
+
+  openConfig() {
+    this.showConfigDialog = !this.showConfigDialog;
+  }
+
+  changeBgColor(color:string = null) {
+    if (!color || color === 'default') {
+      console.log('Cor não alterada');
+      return;
+    }
+
+    let cor = this._custmSrv.getHexaColor(color);
+    this.base.nativeElement.style.backgroundColor = cor;
+    this.bgColor = color; 
+    if (this.showConfigDialog) {
+      this.openConfig();
+    }
+    this.emitBgChange(color);
+  }
+
+  emitBgChange(color:string) {
+    let event = {
+      color:color,
+      id:this.id
+    }
+    this.colorChange.emit(event);
   }
 }

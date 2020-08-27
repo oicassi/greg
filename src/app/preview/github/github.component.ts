@@ -2,8 +2,9 @@ import { LoaderService } from './../../core/_services/loader.service';
 import { ApiService } from './../../core/_services/api.service';
 
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { CustomizeService } from 'src/app/core/_services/customize.service';
 
 /**
  * Classe com informações básicas de um repositório
@@ -21,13 +22,23 @@ export class Repo {
   styleUrls: ['./github.component.scss'],
   providers: [MessageService],
 })
-export class GithubComponent implements OnInit {
+export class GithubComponent implements OnInit, AfterViewInit {
 
   @Input() inputName: string;   // Input com as informações de usuário
   @Input() inputTitle: string;  // input com o título do componente
+  @Input() inputId: number      // Input com o id do componente
+  @Input() inputBgColor: string // Input com a cor do backgorund do componente
+
+  @Output() colorChange: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('base',{static:false})base: ElementRef;
 
   userName: string;
   title: string;
+  id: number;
+  bgColor: string;
+  showConfigDialog: boolean = false;
+
   urlPic: string;
   urlProfile: string;
   errorMsg: string;
@@ -36,7 +47,8 @@ export class GithubComponent implements OnInit {
   constructor(
     private _apiSrv: ApiService,
     private _msgSrv: MessageService,
-    public loaderSrv: LoaderService) { 
+    public loaderSrv: LoaderService,
+    private _custmSrv:CustomizeService) { 
 
   }
 
@@ -54,7 +66,15 @@ export class GithubComponent implements OnInit {
     this.loaderSrv.showLoader;
     this.userName = this.inputName;
     this.title = this.inputTitle;
+    this.id = this.inputId;
+    this.bgColor = this.inputBgColor;
     this.fetchRepoData()
+  }
+
+  ngAfterViewInit() {
+    if (this.bgColor !== 'default') {
+      this.changeBgColor(this.bgColor);
+    }
   }
 
   /**
@@ -86,5 +106,31 @@ export class GithubComponent implements OnInit {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  openConfig() {
+    this.showConfigDialog = !this.showConfigDialog;
+  }
+
+  changeBgColor(color:string = null) {
+    if (!color || color === 'default') {
+      console.log('Cor não alterada');
+      return;
+    }
+    let cor = this._custmSrv.getHexaColor(color);
+    this.base.nativeElement.style.backgroundColor = cor;
+    this.bgColor = color; 
+    if (this.showConfigDialog) {
+      this.openConfig();
+    }
+    this.emitBgChange(color);
+  }
+
+  emitBgChange(color:string) {
+    let event = {
+      color:color,
+      id:this.id
+    }
+    this.colorChange.emit(event);
   }
 }

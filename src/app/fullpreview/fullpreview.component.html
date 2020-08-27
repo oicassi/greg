@@ -1,0 +1,46 @@
+<div class="box-preview-component" *ngIf="compsLigados.length > 0">
+
+  <div *ngFor="let comp of compsLigados" class="componenteBox">
+
+  <!-- Componente do Github -->
+  
+    <app-github *ngIf="comp.tipo == 'github'" 
+      [inputName]='comp.user' 
+      [inputTitle]='comp.titulo'
+      [inputId]='comp.id'
+      [inputBgColor]='comp.bgColor'>
+    </app-github>
+
+
+  <!-- Componente do Resumo -->
+  
+    <app-resumo *ngIf="comp.tipo == 'resumo'" 
+      [inputName]='comp.user' 
+      [inputTitle]='comp.titulo'
+      [inputId]='comp.id'
+      [inputBgColor]='comp.bgColor'>
+    </app-resumo>
+  
+
+  <!-- Componente do Flickr -->
+  
+    <app-flickr *ngIf="comp.tipo == 'flickr'" 
+      [inputName]='comp.user' 
+      [inputTitle]='comp.titulo'
+      [inputId]='comp.id'
+      [inputBgColor]='comp.bgColor'>
+    </app-flickr>
+  
+
+  <!-- Componente do Freesound -->
+
+    <app-freesound *ngIf="comp.tipo == 'freesound'" 
+      [inputName]='comp.user' 
+      [inputTitle]='comp.titulo'
+      [inputId]='comp.id'
+      [inputBgColor]='comp.bgColor'>
+    </app-freesound>
+
+    
+  </div>
+</div>

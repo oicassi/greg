@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CustomizeService } from 'src/app/core/_services/customize.service';
+import { PreviewService } from 'src/app/core/_services/preview.service';
 
 /**
  * Classe base com as informações mínimas para cada item de resumo
@@ -37,18 +39,31 @@ export class ResumoItem {
   encapsulation: ViewEncapsulation.None
 
 })
-export class ResumoComponent implements OnInit {
+export class ResumoComponent implements OnInit, AfterViewInit {
 
   @Input() inputName: string;   // Input com as informações do usuário
   @Input() inputTitle: string;  // Input com o título do componente
+  @Input() inputId: number      // Input com o id do componente
+  @Input() inputBgColor: string // Input com a cor do backgorund do componente
 
+  @Output() colorChange: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('base',{static:false})base: ElementRef;
   userName: string;
   title: string;
+  id: number;
+  bgColor: string;
+  showConfigDialog: boolean = false;
+
+
   columns: ResumoItem[] = []    // Itens de resumo
   columnsBkp: ResumoItem[] = [] // Backup dos resmos (para manter uma informação ao remover citens)
   colNum = 1;
 
-  constructor() { }
+  constructor(
+    private _custmSrv:CustomizeService,
+    private _prevSrv:PreviewService
+  ) { }
 
   /**
    * Inicialização de um primeiro item de resumo
@@ -69,6 +84,19 @@ export class ResumoComponent implements OnInit {
   ngAfterContentInit(): void {
     this.userName = this.inputName;
     this.title = this.inputTitle;
+    this.id = this.inputId;
+    this.bgColor = this.inputBgColor;
+    
+  }
+
+  ngAfterViewInit() {
+    if (this.bgColor !== 'default') {
+      this.changeBgColor(this.bgColor);
+    }
+    if (this._prevSrv.getResumos(this.id) && this._prevSrv.getResumos(this.id).length > 0) {
+      this.columns = this._prevSrv.getResumos(this.id);
+      this.columns.forEach(col => col.edit = false)
+    }
   }
 
   /**
@@ -106,6 +134,7 @@ export class ResumoComponent implements OnInit {
     this.columns[i].edit = false;
     this.columnsBkp[i].assunto = this.columns[i].assunto;
     this.columnsBkp[i].body = this.columns[i].body;
+    this._prevSrv.setResumos(this.id, this.columns);
   }
 
   /**
@@ -114,5 +143,31 @@ export class ResumoComponent implements OnInit {
    */
   edit(i: number) {
     this.columns[i].edit = true;
+  }
+
+  openConfig() {
+    this.showConfigDialog = !this.showConfigDialog;
+  }
+
+  changeBgColor(color:string = null) {
+    if (!color || color === 'default') {
+      console.log('Cor não alterada');
+      return;
+    }
+    let cor = this._custmSrv.getHexaColor(color);
+    this.base.nativeElement.style.backgroundColor = cor;
+    this.bgColor = color; 
+    if (this.showConfigDialog) {
+      this.openConfig();
+    }
+    this.emitBgChange(color);
+  }
+
+  emitBgChange(color:string) {
+    let event = {
+      color:color,
+      id:this.id
+    }
+    this.colorChange.emit(event);
   }
 }

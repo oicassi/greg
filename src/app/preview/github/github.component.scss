@@ -13,3 +13,22 @@
     color: var(--color-fg-inv) !important;
 }
 
+.color-selector {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:#333333 !important;
+    margin: 5px 3px;
+    height: 50px; 
+    border: 1 px solid lightgray; 
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0px 3px #555588;
+    transition: all 300ms;
+}
+
+.color-selector:hover {
+    box-shadow: 0 0px 7px #555588;
+}
+

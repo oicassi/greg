@@ -7,12 +7,14 @@ import { Routes, RouterModule } from "@angular/router";
 import { RegisterComponent } from "./register";
 import { AuthGuard } from "src/app/core/_guards";
 import { AppComponent } from './app.component';
+import { FullpreviewComponent } from './fullpreview/fullpreview.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent,  canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "admin", component: HomeAdminComponent, canActivate: [AuthGuard] },
+  { path: "fullpreview", component: FullpreviewComponent},
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" },
