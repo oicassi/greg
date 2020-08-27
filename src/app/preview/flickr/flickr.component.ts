@@ -1,11 +1,6 @@
 import { LoaderService } from './../../core/_services/loader.service';
 import { ApiService } from './../../core/_services/api.service';
-<<<<<<< HEAD
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-=======
-
 import { Component, OnInit, Input, ViewEncapsulation, EventEmitter, Output, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
->>>>>>> bg-cores
 import { MessageService } from 'primeng/api';
 import { CustomizeService } from 'src/app/core/_services/customize.service';
 
