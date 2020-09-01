@@ -50,26 +50,26 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    // this.authenticationService
-    //   .login(this.f.username.value, this.f.password.value)
-    //   .pipe(first())
-    //   .subscribe(
-    //     (data) => {
-    //       this.router.navigate([this.returnUrl]);
-    //     },
-    //     (error) => {
-    //       this.alertService.error(error);
-    //       this.loading = false;
-    //     }
-    //   );
+    this.authenticationService
+      .login(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate([this.returnUrl]);
+        },
+        (error) => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
 
-    var user = <User>({
-      username : this.f.username.value,
-      password : this.f.password.value,
-      token: 'some_bullshit_token'
-    })
+    // var user = <User>({
+    //   username : this.f.username.value,
+    //   password : this.f.password.value,
+    //   token: 'some_bullshit_token'
+    // })
 
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    this.router.navigate([this.returnUrl]);
+    // localStorage.setItem('currentUser', JSON.stringify(user));
+    // this.router.navigate([this.returnUrl]);
   }
 }
