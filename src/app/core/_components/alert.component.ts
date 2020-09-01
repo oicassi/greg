@@ -2,6 +2,7 @@
 import { Subscription } from "rxjs";
 
 import { AlertService } from "src/app/core/_services";
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: "alert",
@@ -15,7 +16,9 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.alertService.getMessage().subscribe((message) => {
+      console.log(message);
       this.message = message;
+
     });
   }
 

@@ -43,18 +43,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             // get users
             if (request.url.endsWith('/users') && request.method === 'GET') {
                 // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                // if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     return of(new HttpResponse({ status: 200, body: users }));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
-                }
+                // } else {
+                //     // return 401 not authorised if token is null or invalid
+                //     return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                // }
             }
 
             // get user by id
             if (request.url.match(/\/users\/\d+$/) && request.method === 'GET') {
                 // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                // if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
                     let urlParts = request.url.split('/');
                     let id = parseInt(urlParts[urlParts.length - 1]);
@@ -62,10 +62,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     let user = matchedUsers.length ? matchedUsers[0] : null;
 
                     return of(new HttpResponse({ status: 200, body: user }));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
-                }
+                // } else {
+                //     // return 401 not authorised if token is null or invalid
+                //     return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                // }
             }
 
             // register user
@@ -91,7 +91,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             // delete user
             if (request.url.match(/\/users\/\d+$/) && request.method === 'DELETE') {
                 // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-                if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                // if (request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     // find user by id in users array
                     let urlParts = request.url.split('/');
                     let id = parseInt(urlParts[urlParts.length - 1]);
@@ -107,10 +107,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
                     // respond 200 OK
                     return of(new HttpResponse({ status: 200 }));
-                } else {
-                    // return 401 not authorised if token is null or invalid
-                    return throwError({ status: 401, error: { message: 'Unauthorised' } });
-                }
+                // } else {
+                //     // return 401 not authorised if token is null or invalid
+                //     return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                // }
             }
 
             // pass through any requests not handled above
