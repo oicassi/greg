@@ -1,0 +1,16 @@
+<div class="container-fluid principal">
+    <div class="row">
+        <div class="col-md-8 esquerda">
+            <br>
+            <div class="d-flex justify-content-center slogan">
+                <h1>GREGS |</h1> segura na mão de deus e vai
+            </div>
+            <img src="../../assets/imgs/login-img.png" alt="background">
+        </div>
+        <div class="col-md-4 direita">
+            <alert></alert>
+            <app-login (onRegister)="mudaAbaDireita($event)" #login *ngIf="isLogin"></app-login>
+            <app-register (onCancel)="mudaAbaDireita($event)" #register *ngIf="!isLogin"></app-register>
+        </div>
+      </div>
+  </div>

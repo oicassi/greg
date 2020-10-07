@@ -2,6 +2,7 @@
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { first } from "rxjs/operators";
+import { Output, EventEmitter } from '@angular/core';
 
 import {
   AlertService,
@@ -9,12 +10,19 @@ import {
   AuthenticationService,
 } from "src/app/core/_services";
 
-@Component({ templateUrl: "register.component.html" })
+@Component({ selector: 'app-register', templateUrl: "register.component.html" })
 export class RegisterComponent implements OnInit {
+  
+  
+  @Output() onCancel= new EventEmitter(); 
+  
+  
   registerForm: FormGroup;
   loading = false;
   submitted = false;
 
+
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -40,6 +48,10 @@ export class RegisterComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() {
     return this.registerForm.controls;
+  }
+
+  changeValor(){
+    this.onCancel.emit(true);
   }
 
   onSubmit() {

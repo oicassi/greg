@@ -1,4 +1,5 @@
-﻿import { HomeAdminComponent } from './home-admin/home-admin.component';
+﻿import { LoginRegisterComponent } from './login-register/login-register.component';
+import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
@@ -11,7 +12,7 @@ import { FullpreviewComponent } from './fullpreview/fullpreview.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent,  canActivate: [AuthGuard] },
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginRegisterComponent },
   { path: "register", component: RegisterComponent },
   { path: "admin", component: HomeAdminComponent, canActivate: [AuthGuard] },
   { path: "fullpreview", component: FullpreviewComponent},

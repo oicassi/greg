@@ -47,6 +47,7 @@ import { RegisterComponent } from "./register";
 import { AlertComponent } from "src/app/core/_components";
 import { HomeComponent } from './home/home.component';
 import { FullpreviewComponent } from './fullpreview/fullpreview.component';
+import { LoginRegisterComponent } from './login-register/login-register.component';
 
 
 
@@ -70,6 +71,7 @@ import { FullpreviewComponent } from './fullpreview/fullpreview.component';
     RegisterComponent,
     HomeComponent,
     FullpreviewComponent,
+    LoginRegisterComponent,
   ],
   imports: [
     BrowserModule,
