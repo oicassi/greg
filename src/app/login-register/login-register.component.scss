@@ -1,0 +1,19 @@
+.esquerda {
+    background-color: #504688;
+}
+
+.slogan{
+    color:white;
+}
+
+img {
+    max-width: fit-content;
+    max-height: 40%;
+    display:block;
+    margin:auto;
+}
+
+.principal {
+    height: 100vh;
+    overflow-y: hidden !important; // hide vertical
+}

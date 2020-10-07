@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { first } from "rxjs/operators";
@@ -6,12 +6,18 @@ import { first } from "rxjs/operators";
 import { AlertService, AuthenticationService } from "src/app/core/_services";
 import { User } from '../core/_models/user';
 
-@Component({ templateUrl: "login.component.html" })
+@Component({
+  selector: 'app-login',
+  templateUrl: "login.component.html" 
+})
+
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
+
+  @Output() onRegister= new EventEmitter(); 
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,6 +45,14 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;
+  }
+
+  changeValor(){
+    this.onRegister.emit(false);
+  }
+  
+  onMudouValor(evento){
+    console.log(evento);
   }
 
   onSubmit() {
