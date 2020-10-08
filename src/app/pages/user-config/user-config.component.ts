@@ -1,6 +1,7 @@
-import { Validators } from '@angular/forms';
+import { FormUtils } from './../../shared/form-utils';
+import { Validators, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -51,9 +52,9 @@ export class UserConfigComponent implements OnInit {
   get nomeUsuario() {
     return this.userForm.get('nomeUsuario');
   } 
+
   
-
-
+  
   setupForm() {
     this.userForm = this.formBuilder.group({
 
