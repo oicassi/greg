@@ -1,5 +1,5 @@
 import { MessageService } from 'primeng/api';
-import { Info } from './../../models/info.model';
+import { Info } from 'src/app/shared/models/info.model';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { Dropdown } from 'primeng/dropdown/dropdown';
 

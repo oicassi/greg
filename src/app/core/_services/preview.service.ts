@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Info } from 'src/app/models/info.model';
 import { ResumoItem } from 'src/app/preview/resumo/resumo.component';
+import { Info } from 'src/app/shared/models/info.model';
 
 export class ResumoRestore {
   id: number;

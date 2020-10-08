@@ -2,7 +2,6 @@ import { User } from 'src/app/core/_models';
 import { AuthenticationService } from 'src/app/core/_services';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { Info } from './models/info.model';
 
 @Component({
   selector: 'app',

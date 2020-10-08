@@ -1,3 +1,6 @@
+import { FullpreviewComponent } from './pages/fullpreview/fullpreview.component';
+import { HomeComponent } from './pages/home/home.component';
+import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { PagesModule } from './pages/pages.module';
 import { LoaderService } from './core/_services/loader.service';
 import { HttpClientModule, HttpParams, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -19,11 +22,11 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-import {DialogModule} from 'primeng/dialog';
-import {SidebarModule} from 'primeng/sidebar';
+import { DialogModule } from 'primeng/dialog';
+import { SidebarModule } from 'primeng/sidebar';
 import { GithubComponent } from './preview/github/github.component';
 import { CardModule } from 'primeng/card';
-import {GalleriaModule} from 'primeng/galleria';
+import { GalleriaModule } from 'primeng/galleria';
 import { TabViewModule } from 'primeng/tabview';
 import { ResumoComponent } from './preview/resumo/resumo.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -34,16 +37,13 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FreesoundliteComponent } from './componentes/freesoundlite/freesoundlite.component';
 import { FreesoundComponent } from './preview/freesound/freesound.component';
-import  {OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'primeng/orderlist';
 import { ReactiveFormsModule } from "@angular/forms";
 
 // used to create fake backend
 import { fakeBackendProvider } from "src/app/core/_helpers";
 
 import { routing } from "./app.routing";
-import { HomeAdminComponent } from "./home-admin";
-import { HomeComponent } from './home/home.component';
-import { FullpreviewComponent } from './fullpreview/fullpreview.component';
 
 
 
@@ -94,7 +94,7 @@ import { FullpreviewComponent } from './fullpreview/fullpreview.component';
     MessageService,
     ApiService,
     LoaderService,
-    
+
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 

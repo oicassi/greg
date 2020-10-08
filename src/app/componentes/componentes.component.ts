@@ -1,4 +1,4 @@
-import { Info } from './../models/info.model';
+import { Info } from 'src/app/shared/models/info.model';
 import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Dropdown } from 'primeng/dropdown/dropdown';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
