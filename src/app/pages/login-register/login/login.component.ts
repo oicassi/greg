@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { first } from "rxjs/operators";
 
 import { AlertService, AuthenticationService } from "src/app/core/_services";
-import { User } from '../core/_models/user';
+
 
 @Component({
   selector: 'app-login',

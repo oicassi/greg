@@ -1,5 +1,5 @@
-import { RegisterComponent } from './../register/register.component';
-import { LoginComponent } from './../login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
