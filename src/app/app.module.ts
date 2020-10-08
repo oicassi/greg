@@ -1,3 +1,4 @@
+import { PagesModule } from './pages/pages.module';
 import { LoaderService } from './core/_services/loader.service';
 import { HttpClientModule, HttpParams, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ApiService } from './core/_services/api.service';
@@ -38,16 +39,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 // used to create fake backend
 import { fakeBackendProvider } from "src/app/core/_helpers";
-import { JwtInterceptor, ErrorInterceptor } from "src/app/core/_helpers";
 
 import { routing } from "./app.routing";
 import { HomeAdminComponent } from "./home-admin";
-import { LoginComponent } from "./login";
-import { RegisterComponent } from "./register";
-import { AlertComponent } from "src/app/core/_components";
 import { HomeComponent } from './home/home.component';
 import { FullpreviewComponent } from './fullpreview/fullpreview.component';
-import { LoginRegisterComponent } from './login-register/login-register.component';
 
 
 
@@ -65,13 +61,9 @@ import { LoginRegisterComponent } from './login-register/login-register.componen
     FlickrComponent,
     FreesoundliteComponent,
     FreesoundComponent,
-    AlertComponent,
     HomeAdminComponent,
-    LoginComponent,
-    RegisterComponent,
     HomeComponent,
     FullpreviewComponent,
-    LoginRegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +83,7 @@ import { LoginRegisterComponent } from './login-register/login-register.componen
     TooltipModule,
     ProgressSpinnerModule,
     GalleriaModule,
+    PagesModule,
     DragDropModule,
     OrderListModule,
     DialogModule,
