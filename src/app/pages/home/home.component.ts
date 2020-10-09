@@ -38,7 +38,7 @@ export class HomeComponent{
   mudarTema(tema: string) {
     this.trans();
     document.documentElement.setAttribute('data-theme', tema);
-    localStorage.setItem('temaAplicacao', tema);
+    // localStorage.setItem('temaAplicacao', tema);
   }
 
   /**

@@ -9,6 +9,7 @@ import { LoginComponent } from './login-register/login/login.component';
 import { LoginRegisterComponent } from './login-register/login-register.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UserConfigComponent } from './user-config/user-config.component';
+import { MatSliderModule } from '@angular/material';
 
 
 @NgModule({

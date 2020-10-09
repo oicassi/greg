@@ -1,3 +1,4 @@
+import { MatMenuModule } from '@angular/material/menu';
 import { FullpreviewComponent } from './pages/fullpreview/fullpreview.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
@@ -44,6 +45,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { fakeBackendProvider } from "src/app/core/_helpers";
 
 import { routing } from "./app.routing";
+import { MatSliderModule, MatIconModule, MatIcon } from '@angular/material';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -64,12 +67,15 @@ import { routing } from "./app.routing";
     HomeAdminComponent,
     HomeComponent,
     FullpreviewComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     DropdownModule,
     ReactiveFormsModule,
+    MatMenuModule,
+    MatIconModule,
     FormsModule,
     InputTextModule,
     ButtonModule,

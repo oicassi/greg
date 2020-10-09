@@ -48,4 +48,8 @@ export class AuthenticationService {
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
   }
+
+  isLogado(): boolean{
+    return (localStorage.getItem("currentUser") ? true : false);
+  }
 }

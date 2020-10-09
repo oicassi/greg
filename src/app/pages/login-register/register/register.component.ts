@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         (data) => {
           this.alertService.success("Registration successful", true);
-          this.router.navigate(["/login"]);
+          this.changeValor();
         },
         (error) => {
           this.alertService.error(error);
