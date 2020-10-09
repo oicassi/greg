@@ -15,7 +15,7 @@ export class PreviewComponent implements OnInit {
 
   @Output() colorUpdate: EventEmitter<any> = new EventEmitter();
 
-  userName: string;
+  email: string;
   title: string;
   type: string;
   id: number;
@@ -29,7 +29,7 @@ export class PreviewComponent implements OnInit {
    * Inicializa as variáveis básicas de um componente para passa-los atraés do Input dos mesmos
    */
   ngAfterContentInit(): void {
-    this.userName = this.inputName;
+    this.email = this.inputName;
     this.title = this.inputTitle;
     this.type = this.inputType;
     this.id = this.globalId;

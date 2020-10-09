@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ["", Validators.required],
+      email: ["", Validators.required],
       password: ["", Validators.required],
     });
 
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authenticationService
-      .login(this.f.username.value, this.f.password.value)
+      .login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         (data) => {
@@ -78,12 +78,12 @@ export class LoginComponent implements OnInit {
       );
 
     // var user = <User>({
-    //   username : this.f.username.value,
+    //   email : this.f.email.value,
     //   password : this.f.password.value,
     //   token: 'some_bullshit_token'
     // })
 
-    // localStorage.setItem('currentUser', JSON.stringify(user));
+    // localStorage.setItem('userToken', JSON.stringify(user));
     // this.router.navigate([this.returnUrl]);
   }
 }

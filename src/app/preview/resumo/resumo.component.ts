@@ -49,7 +49,7 @@ export class ResumoComponent implements OnInit, AfterViewInit {
   @Output() colorChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('base',{static:false})base: ElementRef;
-  userName: string;
+  email: string;
   title: string;
   id: number;
   bgColor: string;
@@ -82,7 +82,7 @@ export class ResumoComponent implements OnInit, AfterViewInit {
    * Atribuiçã das variáveis com base nos Inputs
    */
   ngAfterContentInit(): void {
-    this.userName = this.inputName;
+    this.email = this.inputName;
     this.title = this.inputTitle;
     this.id = this.inputId;
     this.bgColor = this.inputBgColor;

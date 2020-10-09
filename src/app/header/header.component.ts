@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('acaoSelector', {static: false}) dropdown: Dropdown;           // Referência ao menu dropdown do usuário
 
   acoes: any[] = [];
-  userName: string;
+  email: string;
   acaoSelecionada: string;
   temaAtual: string;
   
@@ -25,9 +25,9 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router,
     private authenticationService: AuthenticationService) {
     this.temaAtual = document.documentElement.getAttribute('data-theme');
-    this.userName = 'Gregrzito';
+    this.email = 'Gregrzito';
     this.acoes = [
-      {label: this.userName, value: null}, 
+      {label: this.email, value: null}, 
       {label: 'Mudar tema', value:'tema'},
       {label: 'Logout', value:'logout'}
     ];
