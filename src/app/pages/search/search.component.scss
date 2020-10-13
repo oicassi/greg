@@ -1,0 +1,212 @@
+// Importa as cores básicas da aplicação
+@import "../../../assets/scss/_basics/colors.scss";
+
+.search-page {
+  background-color: var(--color-bg-0);
+  min-height: 100vh;
+}
+
+@mixin header-basic {
+  width: 100%;
+  min-height: 55px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.search-header-container {
+  @include header-basic;
+  justify-content: flex-end;
+  transition: all 800ms;
+}
+
+.search-header-container-result {
+  margin-top: -100px;
+  opacity: 0;
+}
+
+@keyframes showNavBar {
+  from {
+    top: -60px;
+  }
+  to {
+    top: 0px;
+  }
+}
+
+#navbar-container {
+  @include header-basic;
+  justify-content: space-between;
+  box-shadow: 0 0 4px var(--color-fg-0);
+  margin-left: -15px;
+  position: fixed;
+  width: 100%;
+  animation-name: showNavBar;
+  animation-duration: 0.3s;
+  z-index: 1000;
+  background-color: var(--color-bg-0);
+  box-sizing: border-box;
+}
+
+#navbar-input-search {
+  width: 70%;
+  min-width: 500px;
+}
+
+#navbar-logo-input {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 70%;
+}
+
+@keyframes showContainer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.search-logo-container {
+  min-height: 280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  animation-name: showContainer;
+  animation-duration: 0.5s;
+  transition: all 800ms;
+}
+
+.search-logo-container-result {
+  margin-top: -180px;
+  opacity: 0;
+  min-height: 120px;
+}
+
+.logo-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+
+@mixin logos {
+  color: var(--color-main);
+  padding: 0 20px;
+}
+.logo-big {
+  @include logos;
+  font-size: 5rem;
+  border-right: 2px solid var(--color-main);
+}
+
+#navbar-logo-big {
+  @include logos;
+  font-size: 2rem;
+}
+
+.logo-small {
+  @include logos;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.logo-text {
+  color: inherit;
+  font-size: inherit;
+}
+
+.search-container {
+  margin-top: 30px;
+  width: 50%;
+}
+
+@keyframes showResultContainer {
+  from {
+    opacity: 0;
+    top: 500px;
+  }
+  to {
+    opacity: 1;
+    top: 125px;
+  }
+}
+
+.search-result-container {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: 1fr;
+  animation-name: showResultContainer;
+  animation-duration: 0.5s;
+  overflow-y: auto;
+  position: relative;
+  top: 125px;
+}
+
+.card-container {
+  width: 200px;
+  max-width: 200px;
+  height: 300px;
+  max-height: 300px;
+}
+
+.no-data-message-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  top: 70px;
+}
+
+.no-data-texto {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.no-data-img {
+  height: 300px;
+  width: 300px;
+}
+
+.spinner-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  top: 70px;
+}
+
+@keyframes tagCloudContainer {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tag-cloud-container {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1.2);
+  animation-name: tagCloudContainer;
+  animation-duration: 0.5s;
+  transition: all 800ms;
+}
+
+.tag-cloud-container-result {
+  // margin-top: 1000px;
+  opacity: 0;
+}
