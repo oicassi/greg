@@ -14,7 +14,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(
-      JSON.parse(localStorage.getItem("userToken"))
+      JSON.parse(localStorage.getItem("authToken"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -36,7 +36,7 @@ export class AuthenticationService {
           // login successful if there's a jwt token in the response
           if (response.data) {
             // store response details and jwt token in local storage to keep response logged in between page refreshes
-            localStorage.setItem("userToken", JSON.stringify(response.data));
+            localStorage.setItem("authToken", JSON.stringify(response.data));
             this.currentUserSubject.next(response.data);
           }
 

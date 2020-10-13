@@ -17,7 +17,6 @@ export class UserService {
   }
 
   register(user: Usuario) {
-    console.log(user);
     return this.http.put(`${environment.apiUrl}/usuario`, user);
   }
 

@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
     //   token: 'some_bullshit_token'
     // })
 
-    // localStorage.setItem('userToken', JSON.stringify(user));
+    // localStorage.setItem('authToken', JSON.stringify(user));
     // this.router.navigate([this.returnUrl]);
   }
 }

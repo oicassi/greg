@@ -19,6 +19,4 @@ export class AppComponent {
       (x) => (this.currentUser = x)
     );
   }
-
- 
 }
