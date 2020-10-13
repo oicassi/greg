@@ -1,0 +1,94 @@
+<div class="container-fluid search-page">
+
+  <!-- Navbar que aparece no resultado da pesquisa -->
+  <div id="navbar-container" *ngIf="!showContainer">
+    <div id="navbar-logo-input">
+      <div id="navbar-logo-big">
+        <span
+          class="logo-text"
+          style="cursor: pointer;"
+          (click)="router.navigate(['/'])">{{titulo}}</span>
+      </div>
+      <div id="navbar-input-search">
+        <app-input-search [preTerm]="searchParam" (term)="previewSearch($event)" (submit)="irParaBusca($event)">
+        </app-input-search>
+      </div>
+    </div>
+    <div id="navbar-landing-buttons">
+      <app-landing-buttons></app-landing-buttons>
+    </div>
+  </div>
+
+  <!-- Botões no canto superior direito -->
+  <div class="search-header-container" [ngClass]="classe ? 'search-header-container-result' : ''" *ngIf="showContainer">
+    <app-landing-buttons></app-landing-buttons>
+  </div>
+
+  <!-- Container com o logo e input search -->
+  <div class="search-logo-container" [ngClass]="classe ? 'search-logo-container-result' : ''" *ngIf="showContainer">
+
+    <!-- Container logo + slogan -->
+    <div class="logo-container">
+
+      <!-- Logo -->
+      <div class="logo-big">
+        <span class="logo-text">{{titulo}}</span>
+      </div>
+
+      <!-- Slogan -->
+      <div class="logo-small">
+        <span class="logo-text">{{slogan}}</span>
+      </div>
+    </div>
+
+    <!-- Input de busca -->
+    <div class="search-container" [ngClass]="classe ? 'search-container-result' : ''">
+      <app-input-search (term)="previewSearch($event)" (submit)="irParaBusca($event)">
+      </app-input-search>
+    </div>
+  </div>
+
+  <!-- Tag cloud -->
+  <div 
+    class="tag-cloud-container" 
+    *ngIf="!showResultado && tagCloud.length"
+    [ngClass]="classe ? 'tag-cloud-container-result' : ''">
+    <angular-tag-cloud
+        [data]="tagCloud"
+        [width]="tagCloudOptions.width"
+        [height]="tagCloudOptions.height"
+        [overflow]="tagCloudOptions.overflow">
+      </angular-tag-cloud>
+  </div>
+
+  <!-- Resultado da busca caso tenha dados -->
+  <div class="search-result-container" *ngIf="showResultado && dadosBusca.length && !_loaderSrv.getLoader()">
+    <div class="card-container" *ngFor="let card of dadosBusca">
+      <app-card [dados]="card"></app-card>
+    </div>
+
+  </div>
+
+  <!-- Resultado da busca caso não tenha dados-->
+  <div class="no-data-message-container" *ngIf="showResultado && !dadosBusca.length && !_loaderSrv.getLoader()">
+
+    <div>
+      <span class="no-data-texto">
+        Nenhum resultado encontrado para os termos buscados
+      </span>
+    </div>
+    <div>
+      <img src="../../../assets/imgs/empty.png" class="no-data-img">
+    </div>
+
+  </div>
+
+  <!-- Exibição de Spinner durante o carregamento de informações -->
+  <div class="spinner-container" *ngIf="_loaderSrv.getLoader()">
+    <div>
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </div>
+
+
+</div>

@@ -88,7 +88,7 @@ import { FullpreviewComponent } from './fullpreview/fullpreview.component';
     OrderListModule,
     DialogModule,
     SidebarModule,
-    routing
+    routing,
   ],
   providers: [
     MessageService,

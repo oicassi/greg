@@ -1,0 +1,13 @@
+<a href="{{dados.url}}" target="_blank">
+<div class="card card-geral">
+  <img src="{{dados.avatar}}" class="card-img-top avatar-round" alt="{{'Avatar'}}">
+  <div class="card-body card-body-geral">
+    <h5 class="card-title">{{dados.nome}}</h5>
+    <div class="tags-container">
+      <span class="tag-text" *ngFor="let tag of dados.tags">
+        #{{tag}}
+      </span>
+    </div>
+  </div>
+</div>
+</a>
