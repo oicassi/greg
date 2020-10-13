@@ -25,6 +25,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fullcalendar/core": "^4.4.2",
+    "angular-tag-cloud-module": "^5.1.0",
     "chart.js": "^2.9.3",
     "clean": "^4.0.2",
     "crypto-js": "^4.0.0",

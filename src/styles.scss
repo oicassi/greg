@@ -36,13 +36,56 @@ html.transition *:after {
     padding: 10rem 2rem;
   }
   
+  // BOTÕES ============================
+
+  // ==== Override bootstrap ===========
+
+  .btn-primary {
+    background-color: var(--color-main);
+    color: var(--color-light);
+    border-color: var(--color-main);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--color-main-dark);
+    border-color: var(--color-main-darker);
+  }
+
+  .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    background-color: var(--color-main-darker);
+    border-color: var(--color-main-darkest);
+  }
+
+  .btn-link {
+    background-color: transparent;
+    color: var(--color-main);
+  }
+
+  .btn-link:hover {
+    color: var(--color-main-dark);
+  }
+
+  // ==== Próprios ======================
+  
   .btn-padrao{
     background-color: #504688 ;
     color: white;
   }
 
+
+  // ANCHORS ============================
+
+  // ==== Próprios ======================
   .anchor-padrao {
     color: #504688 !important;
   }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+  // INPUTS =============================
+
+  // ==== Override bootstrap ============
+
+  .form-control:focus {
+    border-color: var(--color-main-ligth);
+    box-shadow: 0 0 0 .2rem rgba(109, 97, 173, 0.5)
+  }

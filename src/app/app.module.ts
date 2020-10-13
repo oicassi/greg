@@ -94,7 +94,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     OrderListModule,
     DialogModule,
     SidebarModule,
-    routing
+    routing,
   ],
   providers: [
     MessageService,

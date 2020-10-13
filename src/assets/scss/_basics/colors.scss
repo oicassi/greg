@@ -6,6 +6,21 @@ html {
     --color-purple: #6457a6;
     --color-fg-0: #333333;
     --color-fg-inv: #eeeeee;
+
+    --color-main: #504688;
+    --color-main-dark: #403566;
+    --color-main-darker: #403343;
+    --color-main-darkest: #383142;
+    --color-main-ligth:#6156a1;
+    --color-main-lighter: #6d61ad;
+    --color-danger: #FA5A00;
+    --color-bg-0: #F1F1F1;
+    --color-bg-1: #FFFFFF;
+    --color-fg-0: #444444;
+    --color-fg-1: #666666;
+    --color-light: #FFFFFF; 
+    --color-dark: #282828;
+
 }
 
 html[data-theme="dark"] {

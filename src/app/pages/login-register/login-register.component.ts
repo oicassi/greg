@@ -1,6 +1,7 @@
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login-register',
@@ -8,20 +9,28 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./login-register.component.scss']
 })
 export class LoginRegisterComponent implements OnInit {
-  
-  
-  @ViewChild('login', {static: false}) loginComponent: LoginComponent; 
-  
-  @ViewChild('register',{static: false}) registerComponent: RegisterComponent;
-  
+
+
+  @ViewChild('login', { static: false }) loginComponent: LoginComponent;
+
+  @ViewChild('register', { static: false }) registerComponent: RegisterComponent;
+
   isLogin = true;
 
-  mudaAbaDireita(event){
+  mudaAbaDireita(event) {
     console.log(event);
     this.isLogin = event;
   }
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe(params => {
+      if (params && params['action'] && params['action'] === 'register') {
+        this.isLogin = false;
+      }
+    })
+  }
 
   ngOnInit() {
   }

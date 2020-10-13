@@ -1,7 +1,9 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Card } from './../../models/card.model';
+import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { CardsData } from '../_helpers/mock-data';
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -111,6 +113,48 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 //     // return 401 not authorised if token is null or invalid
                 //     return throwError({ status: 401, error: { message: 'Unauthorised' } });
                 // }
+            }
+
+            if (request.url.endsWith('/alltags') && request.method === 'GET') {
+                let tags: string[] = [];
+                CardsData.DATA.forEach((data) => {
+                    for (let tag of data.tags) {
+                        tags.push(tag)
+                    }
+                })
+                return of(new HttpResponse({ status: 200, body: tags }));
+            }
+
+            if (request.url.endsWith('/searchTags') && request.method === 'POST') {
+                let searchTerms:string[] = request.body;
+                if (!searchTerms || !searchTerms.length) {
+                    return of(new HttpResponse({status: 410, body: []}));
+                }
+                let filteredCards:Card[] = [];
+
+                for (let card of CardsData.DATA) {
+                    let found = false;
+                    searchTerms.forEach((term) => {
+                        if (found) {
+                            return;
+                        }
+                        if (card.nome.toLowerCase().includes(term.toLowerCase())) {
+                            filteredCards.push(card);
+                            found = true;
+                        }
+                        if (found) {
+                            return;
+                        }
+                        for (let tag of card.tags) {
+                            if (tag.toLowerCase().includes(term.toLowerCase())) {
+                                filteredCards.push(card);
+                                found = true;
+                                break;
+                            }
+                        }
+                    })
+                }
+                return of(new HttpResponse({status: 200, body: filteredCards}))
             }
 
             // pass through any requests not handled above

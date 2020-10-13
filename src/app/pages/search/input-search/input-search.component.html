@@ -1,0 +1,25 @@
+<div class="input-group">
+    <i class="material-icons icon-corrected-position">
+      search
+    </i>
+  <input
+    #searchBox
+    type="text"
+    class="form-control" 
+    placeholder="Busque por tags ou nomes"
+    aria-label="Busque por tags ou nomes"
+    aria-describedby="button-addon2"
+    [value]="preTerm || ''"
+    (input)="search(searchBox.value)"
+    (keyup.enter)="submitSearch()"/>
+  <div class="input-group-append">
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      id="button-addon2"
+      (click)="submitSearch()"
+    >
+      Pesquisar
+    </button>
+  </div>
+</div>
