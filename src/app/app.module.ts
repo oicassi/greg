@@ -47,6 +47,7 @@ import { fakeBackendProvider } from "src/app/core/_helpers";
 import { routing } from "./app.routing";
 import { MatSliderModule, MatIconModule, MatIcon } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FloatingMenuComponent } from './floating-menu/floating-menu.component';
 
 
 
@@ -68,6 +69,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     HomeComponent,
     FullpreviewComponent,
     NavbarComponent,
+    FloatingMenuComponent,
   ],
   imports: [
     BrowserModule,

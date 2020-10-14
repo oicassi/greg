@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
 import { CardComponent } from './../core/_components/card/card.component';
 import { CustomDirectivesModule } from './../custom-directives/custom-directives.module';
@@ -39,6 +40,7 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
     CommonModule,
     CustomDirectivesModule,
     ProgressSpinnerModule,
+    RouterModule,
     TagCloudModule
   ],
   exports: [LoginRegisterComponent]
