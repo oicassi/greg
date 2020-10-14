@@ -12,11 +12,11 @@ export class PagesService {
   constructor(private _http: HttpClient) { }
 
   getAllTags() {
-    return this._http.get<string[]>(`${environment.apiUrl}/alltags`);
+    return this._http.get<string[]>(`${environment.tagApiUrl}/alltags`);
   }
 
   searchCards(terms: string) {
     let searchTerms = terms.split(' ');
-    return this._http.post<Card[]>(`${environment.apiUrl}/searchTags`, searchTerms);
+    return this._http.post<Card[]>(`${environment.tagApiUrl}/searchTags`, searchTerms);
   }
 }
