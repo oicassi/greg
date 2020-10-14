@@ -14,15 +14,15 @@
         </app-input-search>
       </div>
     </div>
-    <div id="navbar-landing-buttons">
+    <!-- <div id="navbar-landing-buttons" *ngIf="hasToken">
       <app-landing-buttons></app-landing-buttons>
-    </div>
+    </div> -->
   </div>
 
   <!-- Botões no canto superior direito -->
-  <div class="search-header-container" [ngClass]="classe ? 'search-header-container-result' : ''" *ngIf="showContainer">
+   <!-- <div class="search-header-container" [ngClass]="classe ? 'search-header-container-result' : ''" *ngIf="showContainer" >
     <app-landing-buttons></app-landing-buttons>
-  </div>
+  </div>  -->
 
   <!-- Container com o logo e input search -->
   <div class="search-logo-container" [ngClass]="classe ? 'search-logo-container-result' : ''" *ngIf="showContainer">

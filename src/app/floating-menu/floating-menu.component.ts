@@ -16,7 +16,7 @@ export class FloatingMenuComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(["/login"]);
+    this.router.navigate(["login"]);
   }
 
   configuracoes(){
@@ -24,7 +24,7 @@ export class FloatingMenuComponent implements OnInit {
   }
 
   editarPagina(){
-    this.router.navigate(['/']);
+    this.router.navigate(['home']);
   }
 
 }
