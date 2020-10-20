@@ -2,39 +2,39 @@
   <h2>Registre-se</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="firstName">Nome</label>
+      <label for="nome">Nome</label>
       <input
         type="text"
-        formControlName="firstName"
+        formControlName="nome"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"
       />
-      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-        <div *ngIf="f.firstName.errors.required">Digite o nome</div>
+      <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+        <div *ngIf="f.nome.errors.required">Digite o nome</div>
       </div>
     </div>
     <div class="form-group">
-      <label for="lastName">Sobrenome</label>
+      <label for="sobrenome">Sobrenome</label>
       <input
         type="text"
-        formControlName="lastName"
+        formControlName="sobrenome"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.sobrenome.errors }"
       />
-      <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-        <div *ngIf="f.lastName.errors.required">Digite o sobrenome</div>
+      <div *ngIf="submitted && f.sobrenome.errors" class="invalid-feedback">
+        <div *ngIf="f.sobrenome.errors.required">Digite o sobrenome</div>
       </div>
     </div>
     <div class="form-group">
-      <label for="username">Usuário</label>
+      <label for="email">Usuário</label>
       <input
         type="text"
-        formControlName="username"
+        formControlName="email"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
       />
-      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">Digite a senha</div>
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Digite a senha</div>
       </div>
     </div>
     <div class="form-group">
@@ -50,6 +50,18 @@
         <div *ngIf="f.password.errors.minlength">
           Senha precisa de no mínimo 6 caracteres
         </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="url">URL</label>
+      <input
+        type="text"
+        formControlName="url"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.url.errors }"
+      />
+      <div *ngIf="submitted && f.url.errors" class="invalid-feedback">
+        <div *ngIf="f.url.errors.required">Digite a url de sua pagina</div>
       </div>
     </div>
     <div class="form-group">

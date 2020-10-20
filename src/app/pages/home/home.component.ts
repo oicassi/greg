@@ -1,7 +1,7 @@
+import { PreviewService } from './../../core/_services/preview.service';
 import { Component, OnInit } from '@angular/core';
-import { Info } from '../models/info.model';
 import { Router } from '@angular/router';
-import { PreviewService } from '../core/_services/preview.service';
+import { Info } from 'src/app/shared/models/info.model';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +38,7 @@ export class HomeComponent{
   mudarTema(tema: string) {
     this.trans();
     document.documentElement.setAttribute('data-theme', tema);
-    localStorage.setItem('temaAplicacao', tema);
+    // localStorage.setItem('temaAplicacao', tema);
   }
 
   /**

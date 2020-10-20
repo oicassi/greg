@@ -28,6 +28,8 @@
     "angular-tag-cloud-module": "^5.1.0",
     "chart.js": "^2.9.3",
     "clean": "^4.0.2",
+    "crypto-js": "^4.0.0",
+    "jwt-decode": "^2.2.0",
     "primeflex": "^1.1.0",
     "primeicons": "^3.0.0-rc.1",
     "primeng": "^9.0.6",

@@ -1,5 +1,5 @@
 import { MessageService } from 'primeng/api';
-import { Info } from './../../models/info.model';
+import { Info } from 'src/app/shared/models/info.model';
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { Dropdown } from 'primeng/dropdown/dropdown';
 
@@ -19,7 +19,7 @@ export class FlickrliteComponent implements OnInit {
   @Input() isEdit: boolean;                                               // Informação se o editor do componente está ativado ou não
 
   logins : any[] = [];
-  userName: string;
+  email: string;
   componentName: string;
   info: Info;
   edit: boolean;
@@ -33,7 +33,7 @@ export class FlickrliteComponent implements OnInit {
    */
   ngOnInit(): void {
     this.logins = [
-      {label: 'Username', value:'Username'},
+      {label: 'email', value:'email'},
       {label: 'Email', value: 'Email'}
     ]
     this.loginOpcao = ''
@@ -43,9 +43,9 @@ export class FlickrliteComponent implements OnInit {
    * Inicializa as variáveis de nome e título conforme foram recebidas nos Inputs
    */
   ngAfterContentInit() {
-    this.userName = this.inputName
-    if (this.userName) {
-      this.userName = this.userName.split(';;')[1];
+    this.email = this.inputName
+    if (this.email) {
+      this.email = this.email.split(';;')[1];
     }
     this.componentName = (this.inputTitle || 'Meu Flickr');
     this.tipo = this.inputType;
@@ -67,14 +67,14 @@ export class FlickrliteComponent implements OnInit {
    * Liga um componente e emite um evento de que o mesmo foi criado
    */
   emitirEvento() {
-    if (!this.userName) {
+    if (!this.email) {
       console.log('Não foi possível ligar o componente');
-      this._msgSrv.add({severity:'warn', summary: 'Erro', detail:'Forneça um Email/Username para prosseguir'});
+      this._msgSrv.add({severity:'warn', summary: 'Erro', detail:'Forneça um Email/email para prosseguir'});
       return;
     }
     this.info = new Info();
     this.info.id = -1;
-    this.info.user = `${this.loginOpcao};;${this.userName}`;
+    this.info.user = `${this.loginOpcao};;${this.email}`;
     this.info.titulo = this.componentName;
     this.info.tipo = this.tipo;
     this.info.bgColor = 'default';

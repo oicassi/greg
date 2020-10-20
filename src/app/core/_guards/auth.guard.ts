@@ -1,4 +1,5 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { TokenService } from './../_services/token.service';
+import { Injectable } from "@angular/core";
 import {
   Router,
   CanActivate,
@@ -12,11 +13,12 @@ import { AuthenticationService } from "src/app/core/_services";
 export class AuthGuard implements CanActivate {
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private tokenService : TokenService
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(this.tokenService.getToken());
     if (currentUser) {
       // authorised so return true
       return true;

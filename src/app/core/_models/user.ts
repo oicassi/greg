@@ -1,8 +1,9 @@
-﻿export class User {
+﻿export interface Usuario {
     id: number;
-    username: string;
+    email: string;
     password: string;
-    firstName: string;
-    lastName: string;
+    nome: string;
+    sobrenome: string;
     token: string;
+    url: string;
 }

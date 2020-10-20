@@ -1,51 +1,61 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { ResponseCustom } from './../_models/response';
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 import { environment } from "src/environments/environment";
-import { User } from "src/app/core/_models";
+import { Usuario } from "src/app/core/_models";
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<Usuario>;
+  public currentUser: Observable<Usuario>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem("currentUser"))
+    this.currentUserSubject = new BehaviorSubject<Usuario>(
+      JSON.parse(localStorage.getItem("authToken"))
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
+  public get currentUserValue(): Usuario {
     return this.currentUserSubject.value;
   }
 
   // this will be used soon
-  login(username: string, password: string) {
+  login(email: string, password: string) {
     return this.http
-      .post<any>(`${environment.apiUrl}/users/authenticate`, {
-        username,
+      .post<any>(`${environment.apiUrl}/login`, {
+        email,
         password,
       })
       .pipe(
-        map((user) => {
+        map((response: ResponseCustom) => {
+
           // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("currentUser", JSON.stringify(user));
-            this.currentUserSubject.next(user);
+          if (response.data) {
+            // store response details and jwt token in local storage to keep response logged in between page refreshes
+            localStorage.setItem("authToken", JSON.stringify(response.data));
+            this.currentUserSubject.next(response.data);
           }
 
-          return user;
+          return response;
         })
       );
+    // debugger;
+    //   this.http.post(`${environment.apiUrl}/login`, {email,password}).subscribe(x => {
+    //     console.log(x);
+    //   });
   }
 
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
+  }
+
+  isLogado(): boolean{
+    return (localStorage.getItem("currentUser") ? true : false);
   }
 }

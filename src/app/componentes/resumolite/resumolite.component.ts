@@ -1,5 +1,5 @@
 import { MessageService } from 'primeng/api';
-import { Info } from './../../models/info.model';
+import { Info } from 'src/app/shared/models/info.model';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
@@ -16,7 +16,7 @@ export class ResumoliteComponent implements OnInit {
   @Input() inputType: string;                                             // Tipo do componente que é recebido quando o componente já está criado
   @Input() isEdit: boolean;                                               // Informação se o editor do componente está ativado ou não
 
-  userName: string;
+  email: string;
   componentName: string;
   info: Info;
   edit: boolean;
@@ -28,10 +28,10 @@ export class ResumoliteComponent implements OnInit {
   }
 
   /**
-   * Inicialização das variávies com base nos Inputs (detalhe para userName que não é necessário, por enquanto, nesse componente)
+   * Inicialização das variávies com base nos Inputs (detalhe para email que não é necessário, por enquanto, nesse componente)
    */
   ngAfterContentInit() {
-    this.userName = (this.inputName || 'N/A');
+    this.email = (this.inputName || 'N/A');
     this.componentName = (this.inputTitle || 'Meu Resumo');
     this.tipo = this.inputType;
     this.edit = this.isEdit;
@@ -48,7 +48,7 @@ export class ResumoliteComponent implements OnInit {
     }
     this.info = new Info();
     this.info.id = -1;
-    this.info.user = this.userName;
+    this.info.user = this.email;
     this.info.titulo = this.componentName;
     this.info.tipo = this.tipo;
     this.info.bgColor = 'default';

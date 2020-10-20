@@ -32,7 +32,7 @@ export class FlickrComponent implements OnInit, AfterViewInit {
 
   @ViewChild('base',{static:false})base: ElementRef;
 
-  userName: string;
+  email: string;
   title: string;
   id: number;
   bgColor: string;
@@ -73,7 +73,7 @@ export class FlickrComponent implements OnInit, AfterViewInit {
    */
   ngAfterContentInit() {
     console.log('flickr afterContent');
-    this.userName = this.inputName;
+    this.email = this.inputName;
     this.title = this.inputTitle;
     this.id = this.inputId;
     this.bgColor = this.inputBgColor;
@@ -92,7 +92,7 @@ export class FlickrComponent implements OnInit, AfterViewInit {
    * Função que faz a busca pelas informações de perfil e seta os atributos
    */
   async setProfile() {
-    let respNsid = await this._apiSrv.getFlickrNsid(this.userName).toPromise();
+    let respNsid = await this._apiSrv.getFlickrNsid(this.email).toPromise();
     if (respNsid['stat'] == 'fail') {
       console.log('Ocorreu erro ao setar perfil');
       this._msgSrv.add({severity:'error', summary:'Erro Perfil', detail: respNsid['message']});
@@ -108,7 +108,7 @@ export class FlickrComponent implements OnInit, AfterViewInit {
       return;
     }
     console.log(resp);
-    this.flickrName = resp['person']['username']['_content'];
+    this.flickrName = resp['person']['email']['_content'];
     this.flickrDescription = resp['person']['description']['_content'];
     this.flickrAlias = resp['person']['path_alias'];
     this.nsid = (resp['person']['nsid'] || this.flickrName);

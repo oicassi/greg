@@ -13,7 +13,7 @@ export class ApiService {
   flickrApiKey = 'e7e633e002953ef8985e906ba4475e33';      // AppKey fornecida pelo flickr no cadastro
   flickrFormat = 'json';                                  // Especifiação do formato de resposta
   flickrBuscaEmail = 'flickr.people.findByEmail';         // URL para buscar o NSID do usuário a partir de seu email
-  flickrBuscaUserName = 'flickr.people.findByUsername';   // URL para buscar o NSID do usuário a partir de seu user name
+  flickrBuscaemail = 'flickr.people.findByemail';   // URL para buscar o NSID do usuário a partir de seu user name
   flickrProfile = 'flickr.people.getInfo';                // URL para buscar as informações do perfil do usuário (a partir de seu NSID)
   flickrFotosPublicas = 'flickr.people.getPublicPhotos';  // URL para buscar as fotos públicas de um usuário (a partir do seu NSID)
   // OBS: As requisições tem um parâmetro 'nojsoncallback' setado para 1 que é para evitar que o Flicker coloque a resposta num wrapper inútil
@@ -22,7 +22,7 @@ export class ApiService {
   freesoundUrl = '/apiv2/';                                     // URL base para as requisições à API do Freesound (por enquanto só requisições GET)
   freesoundApiKey = '7hcXRSYLbFBBJ6nxwafrkPfp4XOmydctF4F5P2lH'; // Appkey fornecida pelo freesound no cadastro
   freesoundProfile = 'users/';                                  // URL para buscar as informações de perfil de um usuário
-  freesoundAudios = 'users/' //<username>/sounds                // URL para buscar lista de músicas de um usuário. OBS: tem que completar a URL conforme o comentário
+  freesoundAudios = 'users/' //<email>/sounds                // URL para buscar lista de músicas de um usuário. OBS: tem que completar a URL conforme o comentário
   freesoundBaseParams = 'name,previews,tags,description';
   constructor(private _http: HttpClient) { }
 
@@ -38,7 +38,7 @@ export class ApiService {
 
   /**
    * Busca o NSID do usuário baseado no nome do usuário ou email
-   * @param user Username ou email do usuário
+   * @param user email ou email do usuário
    */
   getFlickrNsid(user: string) {
     let userArray = user.split(';;');
@@ -53,9 +53,9 @@ export class ApiService {
           userParams = userParams.append('method', this.flickrBuscaEmail);
           userParams = userParams.append('find_email', userArray[1]);
           break;
-        case 'Username':
-          userParams = userParams.append('method', this.flickrBuscaUserName);
-          userParams = userParams.append('username', userArray[1]);
+        case 'email':
+          userParams = userParams.append('method', this.flickrBuscaemail);
+          userParams = userParams.append('email', userArray[1]);
           break;
         default:
           return { status: 'erro', detail: 'Ocorreu algo errado com o nome' };
@@ -114,12 +114,12 @@ export class ApiService {
   }
 
   /**
-  * Método para buscar informações do pefil no Freesound com base em um username
-  * @param userName nome do usuário para busca de perfil
+  * Método para buscar informações do pefil no Freesound com base em um email
+  * @param email nome do usuário para busca de perfil
   */
-  getFreesoundProfile(userName: string) {
+  getFreesoundProfile(email: string) {
     try {
-      let url = `${this.freesoundUrl}${this.freesoundProfile}${userName}`;
+      let url = `${this.freesoundUrl}${this.freesoundProfile}${email}`;
       let profileParams = new HttpParams();
       profileParams = profileParams.append('token', this.freesoundApiKey);        
       
@@ -134,11 +134,11 @@ export class ApiService {
 
   /**
    * Método para buscar a lista de áudios de um determinado usuário
-   * @param userName nome do usuário que serão buscados os áudios
+   * @param email nome do usuário que serão buscados os áudios
    */
-  getFreesoundAudios(userName: string) {
+  getFreesoundAudios(email: string) {
     try {
-      let url = `${this.freesoundUrl}${this.freesoundAudios}${userName}/sounds`;
+      let url = `${this.freesoundUrl}${this.freesoundAudios}${email}/sounds`;
       let audioParams = new HttpParams();
       audioParams = audioParams.append('token', this.freesoundApiKey)
       audioParams = audioParams.append('fields', this.freesoundBaseParams);

@@ -34,7 +34,7 @@ export class FreesoundComponent implements OnInit, AfterViewInit {
 
   @ViewChild('base',{static:false})base: ElementRef;
 
-  userName: string;
+  email: string;
   title: string;
   id: number;
   bgColor: string;
@@ -71,7 +71,7 @@ export class FreesoundComponent implements OnInit, AfterViewInit {
    * Inicialização de variáveis com base nos Inputs e busca de informações na API do flickr
    */
   ngAfterContentInit() {
-    this.userName = this.inputName;
+    this.email = this.inputName;
     this.title = this.inputTitle;
     this.id = this.inputId;
     this.bgColor = this.inputBgColor;
@@ -90,7 +90,7 @@ export class FreesoundComponent implements OnInit, AfterViewInit {
    */
   async setProfile() {
     console.log('Seting Freesound Profile');
-    let respProfile = await this._apiSrv.getFreesoundProfile(this.userName).toPromise();
+    let respProfile = await this._apiSrv.getFreesoundProfile(this.email).toPromise();
     if (respProfile['detail'] && respProfile['detail'] != '') {
       console.log('Ocorreu erro ao setar perfil');
       this._msgSrv.add({severity:'error', summary:'Erro Perfil', detail: respProfile['detail']});
@@ -117,7 +117,7 @@ export class FreesoundComponent implements OnInit, AfterViewInit {
    */
   async fetchAudios() {
     console.log('Fetching audios');
-    let resp = await this._apiSrv.getFreesoundAudios(this.userName).toPromise();
+    let resp = await this._apiSrv.getFreesoundAudios(this.email).toPromise();
     if (resp['detail'] && resp['detail'] != '') {
       this._msgSrv.add({severity:'error', summary:'Erro busca áudio', detail: resp['detail']});
       this.loaderSrv.hideLoader();

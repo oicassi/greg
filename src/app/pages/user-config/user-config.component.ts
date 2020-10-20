@@ -19,7 +19,7 @@ export class UserConfigComponent implements OnInit {
   }
 
   atualizarDados() {
-    console.log(this.userForm.getRawValue());
+    console.log(JSON.stringify(this.userForm.getRawValue()));
   }
 
   get nome() {

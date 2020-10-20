@@ -33,7 +33,7 @@ export class GithubComponent implements OnInit, AfterViewInit {
 
   @ViewChild('base',{static:false})base: ElementRef;
 
-  userName: string;
+  email: string;
   title: string;
   id: number;
   bgColor: string;
@@ -64,7 +64,7 @@ export class GithubComponent implements OnInit, AfterViewInit {
    */
   ngAfterContentInit(): void {
     this.loaderSrv.showLoader;
-    this.userName = this.inputName;
+    this.email = this.inputName;
     this.title = this.inputTitle;
     this.id = this.inputId;
     this.bgColor = this.inputBgColor;
@@ -82,7 +82,7 @@ export class GithubComponent implements OnInit, AfterViewInit {
    */
   async fetchRepoData() {
     try {
-      let resp = this._apiSrv.getRepos(this.userName).subscribe(res => {
+      let resp = this._apiSrv.getRepos(this.email).subscribe(res => {
         console.log(res);
         if (res['length'] < 1) {
           this.errorMsg = 'Não foram encontrados repositórios para o usuário informado';

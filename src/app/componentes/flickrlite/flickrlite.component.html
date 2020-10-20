@@ -23,10 +23,10 @@
         </div>
 
         <!-- Input para o user name ou email -->
-        <div class="p-col box" *ngIf="loginOpcao != '' || userName">
+        <div class="p-col box" *ngIf="loginOpcao != '' || email">
             <div class="ui-inputgroup">
                 <span class="ui-inputgroup-addon"><i class="pi pi-user" style="line-height: 0.7;"></i></span>
-                <input type="text" pInputText [placeholder]="loginOpcao" [(ngModel)]="userName" [readonly]="!edit" (keyup.enter)="emitirEvento()">
+                <input type="text" pInputText [placeholder]="loginOpcao" [(ngModel)]="email" [readonly]="!edit" (keyup.enter)="emitirEvento()">
             </div>
         </div>
 

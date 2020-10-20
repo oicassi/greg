@@ -1,3 +1,4 @@
+import { TokenService } from './../../core/_services/token.service';
 import { LoaderService } from './../../core/_services/loader.service';
 import { Card } from './../../models/card.model';
 import { environment } from './../../../environments/environment';
@@ -29,7 +30,8 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     public router: Router,
     private _pagesSrv: PagesService,
-    public _loaderSrv: LoaderService
+    public _loaderSrv: LoaderService,
+    private tokenService: TokenService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe(params => {
@@ -73,6 +75,10 @@ export class SearchComponent implements OnInit {
         }
       })
     }
+  }
+
+  get hasToken (){
+    return this.tokenService.hasToken();
   }
 
   irParaBusca(term: string): void {

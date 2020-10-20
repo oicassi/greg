@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -17,6 +18,9 @@ export class LoginRegisterComponent implements OnInit {
 
   isLogin = true;
 
+  titulo = environment.titulo;
+  slogan = environment.slogan;
+  
   mudaAbaDireita(event) {
     console.log(event);
     this.isLogin = event;

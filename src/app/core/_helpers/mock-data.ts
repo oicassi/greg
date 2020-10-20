@@ -62,5 +62,11 @@ export class CardsData {
       avatar: 'https://img2.gratispng.com/20180620/gii/kisspng-michael-scott-the-office-toby-flenderson-meredith-vtv2-5b2a217c700ae9.1388724915294877404589.jpg',
       tags: ['vendas', 'roteirista', 'video', 'parkour', 'gerenciamento']
     },
+    {
+      nome: 'Cleito Cove',
+      url: 'https://pt.wikipedia.org/wiki/Couve-flor',
+      avatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Bloemkool.jpg/800px-Bloemkool.jpg',
+      tags: ['legumes', 'ortaliças', 'comidinha', 'nhum nhum', 'gerenciamento']
+    },
   ]
 }

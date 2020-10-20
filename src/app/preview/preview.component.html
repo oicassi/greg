@@ -3,7 +3,7 @@
 
     <!-- Componente do Github -->
     <app-github *ngIf="type == 'github'" 
-        [inputName]='userName' 
+        [inputName]='email' 
         [inputTitle]='title'
         [inputId]='id'
         [inputBgColor]='bgColor'
@@ -12,7 +12,7 @@
 
     <!-- Componente do Resumo -->
     <app-resumo *ngIf="type == 'resumo'" 
-        [inputName]='userName' 
+        [inputName]='email' 
         [inputTitle]='title'
         [inputId]='id'
         [inputBgColor]='bgColor'
@@ -21,7 +21,7 @@
 
     <!-- Componente do Flickr -->
     <app-flickr *ngIf="type == 'flickr'" 
-        [inputName]='userName' 
+        [inputName]='email' 
         [inputTitle]='title'
         [inputId]='id'
         [inputBgColor]='bgColor'
@@ -30,7 +30,7 @@
 
     <!-- Componente do Freesound -->
     <app-freesound *ngIf="type == 'freesound'" 
-        [inputName]='userName' 
+        [inputName]='email' 
         [inputTitle]='title'
         [inputId]='id'
         [inputBgColor]='bgColor'

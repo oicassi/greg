@@ -2,7 +2,7 @@
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 
-import { User } from "src/app/core/_models";
+import { Usuario } from "src/app/core/_models";
 import { UserService, AuthenticationService } from "src/app/core/_services";
 
 @Component({
@@ -10,9 +10,9 @@ import { UserService, AuthenticationService } from "src/app/core/_services";
   styleUrls: ["home-admin.component.css"],
 })
 export class HomeAdminComponent implements OnInit, OnDestroy {
-  currentUser: User;
+  currentUser: Usuario;
   currentUserSubscription: Subscription;
-  users: User[] = [];
+  users: Usuario[] = [];
 
   constructor(
     private authenticationService: AuthenticationService,
