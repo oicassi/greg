@@ -51,11 +51,11 @@ export class AuthenticationService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem("authToken");
     this.currentUserSubject.next(null);
   }
 
   isLogado(): boolean{
-    return (localStorage.getItem("currentUser") ? true : false);
+    return (localStorage.getItem("authToken") ? true : false);
   }
 }
