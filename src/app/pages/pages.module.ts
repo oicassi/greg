@@ -1,3 +1,4 @@
+import { ButtonModule } from 'primeng/button';
 import { PreviewModule } from './../preview/preview.module';
 import { ComponentesModule } from './../componentes/componentes.module';
 import { HomeComponent } from './home/home.component';
@@ -35,12 +36,14 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
     HomeComponent,
     NotFoundComponent,
     UserConfigComponent,
+    LandingButtonsComponent,
     SearchComponent,
     LandingButtonsComponent,
     InputSearchComponent,
     CardComponent
   ],
   imports: [
+    ButtonModule,
     SharedModule,
     PreviewModule,
     ReactiveFormsModule,

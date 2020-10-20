@@ -1,3 +1,5 @@
+import { AuthenticationService } from 'src/app/core/_services';
+import { Usuario } from 'src/app/core/_models';
 import { TokenService } from './../../core/_services/token.service';
 import { LoaderService } from './../../core/_services/loader.service';
 import { Card } from './../../models/card.model';
@@ -24,6 +26,8 @@ export class SearchComponent implements OnInit {
   tagCloudRaw: CloudData[] = [];
   tagCloud: CloudData[] = [];
   tagCloudOptions: CloudOptions = {};
+  currentUser: Usuario;
+
 
 
   constructor(
@@ -31,7 +35,8 @@ export class SearchComponent implements OnInit {
     public router: Router,
     private _pagesSrv: PagesService,
     public _loaderSrv: LoaderService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private authenticationService: AuthenticationService
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe(params => {
@@ -50,6 +55,17 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buscaUsuario();
+  }
+
+  buscaUsuario() {
+    this.authenticationService.currentUser.subscribe(user => {
+      if (user) this.currentUser = user
+      this.buscarTags();
+    });
+  }
+
+  buscarTags() {
     this._pagesSrv.getAllTags().subscribe((tags) => this.setTagCloud(tags));
     if (this.showResultado) {
       this.mostrarResultadoBusca(this.searchParam);
@@ -77,7 +93,9 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  get hasToken (){
+
+
+  get hasToken() {
     return this.tokenService.hasToken();
   }
 

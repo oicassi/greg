@@ -1,17 +1,17 @@
+<div *ngIf="!currentUser" class="signinbtnClass">
+ <app-landing-buttons></app-landing-buttons>
+</div> 
 <div class="container-fluid search-page">
-
+  <!-- Botões no canto superior direito -->
+  
   <!-- Navbar que aparece no resultado da pesquisa -->
-  <div class="input-cmp" *ngIf="!showContainer">
+  <div class="input-cmp mx-auto" *ngIf="!showContainer">
       <div>
         <app-input-search [preTerm]="searchParam" (term)="previewSearch($event)" (submit)="irParaBusca($event)">
         </app-input-search>
       </div>
   </div>
 
-  <!-- Botões no canto superior direito -->
-   <!-- <div class="search-header-container" [ngClass]="classe ? 'search-header-container-result' : ''" *ngIf="showContainer" >
-    <app-landing-buttons></app-landing-buttons>
-  </div>  -->
 
   <!-- Container com o logo e input search -->
   <div class="search-logo-container" [ngClass]="classe ? 'search-logo-container-result' : ''" *ngIf="showContainer">
