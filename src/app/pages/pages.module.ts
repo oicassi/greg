@@ -1,7 +1,11 @@
+import { PreviewModule } from './../preview/preview.module';
+import { ComponentesModule } from './../componentes/componentes.module';
+import { HomeComponent } from './home/home.component';
+import { HomeAdminComponent } from './home-admin/home-admin.component';
+import { DirectivesModule } from './../shared/directives/directives.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
 import { CardComponent } from './../core/_components/card/card.component';
-import { CustomDirectivesModule } from './../custom-directives/custom-directives.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule  } from '@angular/forms'
@@ -20,13 +24,15 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
 
 
 @NgModule({
-  declarations: 
-  [ LoginComponent,
+  declarations: [ 
+    LoginComponent,
     RegisterComponent,
+    HomeAdminComponent,
     LoginRegisterComponent,
     RegisterComponent,
     LoginComponent,
     AlertComponent,
+    HomeComponent,
     NotFoundComponent,
     UserConfigComponent,
     SearchComponent,
@@ -36,9 +42,12 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
   ],
   imports: [
     SharedModule,
+    PreviewModule,
     ReactiveFormsModule,
     CommonModule,
-    CustomDirectivesModule,
+    ProgressSpinnerModule,
+    ComponentesModule,
+    DirectivesModule,
     ProgressSpinnerModule,
     RouterModule,
     TagCloudModule

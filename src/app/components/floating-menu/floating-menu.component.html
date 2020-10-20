@@ -5,12 +5,12 @@
           <mat-icon>settings</mat-icon>
           <a (click)="configuracoes()">Configurações</a>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="editarPagina()">
           <mat-icon>create</mat-icon>
-          <a (click)="editarPagina()">Editar página</a>
+          <a>Editar página</a>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="logout()" >
           <mat-icon>directions_run</mat-icon>
-          <a (click)="logout()">Logout</a>
+          <a>Logout</a>
         </button>
       </mat-menu>

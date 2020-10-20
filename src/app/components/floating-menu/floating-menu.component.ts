@@ -1,6 +1,6 @@
+import { AuthenticationService } from 'src/app/core/_services';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../core/_services';
 
 @Component({
   selector: 'app-floating-menu',
