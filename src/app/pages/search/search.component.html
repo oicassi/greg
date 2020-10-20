@@ -1,22 +1,11 @@
 <div class="container-fluid search-page">
 
   <!-- Navbar que aparece no resultado da pesquisa -->
-  <div id="navbar-container" *ngIf="!showContainer">
-    <div id="navbar-logo-input">
-      <div id="navbar-logo-big">
-        <span
-          class="logo-text"
-          style="cursor: pointer;"
-          (click)="router.navigate(['/'])">{{titulo}}</span>
-      </div>
-      <div id="navbar-input-search">
+  <div class="input-cmp" *ngIf="!showContainer">
+      <div>
         <app-input-search [preTerm]="searchParam" (term)="previewSearch($event)" (submit)="irParaBusca($event)">
         </app-input-search>
       </div>
-    </div>
-    <!-- <div id="navbar-landing-buttons" *ngIf="hasToken">
-      <app-landing-buttons></app-landing-buttons>
-    </div> -->
   </div>
 
   <!-- Botões no canto superior direito -->
