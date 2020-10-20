@@ -1,7 +1,6 @@
-﻿import { FullpreviewComponent } from './pages/fullpreview/fullpreview.component';
+import { FullpreviewComponent } from './pages/fullpreview/fullpreview.component';
 import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { HomeComponent } from './pages/home/home.component';
-﻿import { CardComponent } from './core/_components/card/card.component';
 import { SearchComponent } from './pages/search/search.component';
 import { UserConfigComponent } from './pages/user-config/user-config.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
