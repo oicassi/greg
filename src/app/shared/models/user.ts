@@ -6,4 +6,11 @@
     sobrenome: string;
     token: string;
     url: string;
+
+    // expiração
+    exp:number;
+    // entrada
+    iat: number;
+    // nome
+    sub: string;
 }

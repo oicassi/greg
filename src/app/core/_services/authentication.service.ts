@@ -1,11 +1,14 @@
-﻿import { ResponseCustom } from './../_models/response';
+﻿import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+
+
+import * as jwt_decode from 'jwt-decode';
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-
 import { environment } from "src/environments/environment";
-import { Usuario } from "src/app/core/_models";
+import { ResponseCustom } from './../../shared/models/response';
+import { Usuario } from './../../shared/models/user';
+
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {
@@ -23,7 +26,6 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  // this will be used soon
   login(email: string, password: string) {
     return this.http
       .post<any>(`${environment.apiUrl}/login`, {
@@ -32,12 +34,11 @@ export class AuthenticationService {
       })
       .pipe(
         map((response: ResponseCustom) => {
-
           // login successful if there's a jwt token in the response
           if (response.data) {
             // store response details and jwt token in local storage to keep response logged in between page refreshes
-            localStorage.setItem("authToken", JSON.stringify(response.data));
-            this.currentUserSubject.next(response.data);
+            localStorage.setItem("authToken", JSON.stringify(response.data.authorization));
+            this.currentUserSubject.next(jwt_decode(response.data.authorization));
           }
 
           return response;

@@ -1,13 +1,14 @@
-import { ToastModule } from 'primeng/toast';
-import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
-import { FreesoundliteComponent } from './freesoundlite/freesoundlite.component';
-import { FlickrliteComponent } from './flickrlite/flickrlite.component';
-import { ComponentesComponent } from './componentes.component';
-import { ResumoliteComponent } from './resumolite/resumolite.component';
-import { GithubliteComponent } from './githublite/githublite.component';
-import { NgModule } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { ToastModule } from 'primeng/toast';
+import { ComponentesComponent } from './componentes.component';
+import { FlickrliteComponent } from './flickrlite/flickrlite.component';
+import { FreesoundliteComponent } from './freesoundlite/freesoundlite.component';
+import { GithubliteComponent } from './githublite/githublite.component';
+import { ResumoliteComponent } from './resumolite/resumolite.component';
 
 
 
@@ -22,6 +23,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     DropdownModule,
+    ButtonModule,
     ToastModule,
     FormsModule 
   ],

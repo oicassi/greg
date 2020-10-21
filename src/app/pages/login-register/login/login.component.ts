@@ -1,9 +1,12 @@
-﻿import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+﻿import { HttpError } from './../../../shared/models/http-error';
+import { AlertService } from './../../../shared/components/alert/alert.service';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { first } from "rxjs/operators";
 
-import { AlertService, AuthenticationService } from "src/app/core/_services";
+import { AuthenticationService } from "src/app/core/_services";
+import HttpStatusCode from 'src/app/shared/enums/http-status';
 
 
 @Component({
@@ -71,9 +74,14 @@ export class LoginComponent implements OnInit {
         (data) => {
           this.router.navigate([this.returnUrl]);
         },
-        (error) => {
-          this.alertService.error(error);
-          this.loading = false;
+        (error: HttpError) => {
+          if(error.status == HttpStatusCode.UNAUTHORIZED){
+            this.alertService.danger("Login ou senha inválidos");
+            this.loading = false;
+          } else {
+            this.alertService.danger("Não foi possível contactar o servidor");
+            this.loading = false;
+          }
         }
       );
 

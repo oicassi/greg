@@ -1,13 +1,13 @@
-import { AuthenticationService } from 'src/app/core/_services';
-import { Usuario } from 'src/app/core/_models';
-import { TokenService } from './../../core/_services/token.service';
-import { LoaderService } from './../../core/_services/loader.service';
-import { Card } from './../../models/card.model';
-import { environment } from './../../../environments/environment';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PagesService } from 'src/app/core/_services/pages.service';
 import { CloudData, CloudOptions } from 'angular-tag-cloud-module/lib/tag-cloud.interfaces';
+import { AuthenticationService } from 'src/app/core/_services';
+import { PagesService } from 'src/app/core/_services/pages.service';
+import { Usuario } from 'src/app/shared/models';
+import { environment } from './../../../environments/environment';
+import { LoaderService } from './../../core/_services/loader.service';
+import { TokenService } from './../../core/_services/token.service';
+import { Card } from './../../models/card.model';
 
 
 @Component({

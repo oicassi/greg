@@ -1,11 +1,13 @@
-﻿import { Component, OnInit } from "@angular/core";
+﻿import HttpStatusCode from 'src/app/shared/enums/http-status';
+import { HttpError } from './../../../shared/models/http-error';
+import { AlertService } from './../../../shared/components/alert/alert.service';
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { first } from "rxjs/operators";
 import { Output, EventEmitter } from '@angular/core';
 
 import {
-  AlertService,
   UserService,
   AuthenticationService,
 } from "src/app/core/_services";
@@ -69,12 +71,17 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success("Registration successful", true);
+          this.alertService.success("Registrado com sucesso");
           this.changeValor();
         },
-        (error) => {
-          this.alertService.error(error);
-          this.loading = false;
+        (error:HttpError) => {
+          if(error.status == HttpStatusCode.BAD_REQUEST){
+            this.alertService.danger("Usuário já cadastrado");
+            this.loading = false;
+          } else {
+            this.alertService.danger("Sei la tio");
+            this.loading = false;
+          }
         }
       );
   }

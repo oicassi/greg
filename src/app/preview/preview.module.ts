@@ -1,3 +1,4 @@
+import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { OrderListModule } from 'primeng/orderlist';
 import { ToastModule } from 'primeng/toast';
@@ -30,6 +31,7 @@ import { Sidebar, SidebarModule } from 'primeng/sidebar';
     CardModule,
     GalleriaModule,
     OrderListModule,
+    ButtonModule,
     FormsModule,
     ToastModule,
     SidebarModule,
