@@ -1,12 +1,14 @@
-﻿import { ResponseCustom } from './../_models/response';
+﻿import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+
+
+import * as jwt_decode from 'jwt-decode';
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-
 import { environment } from "src/environments/environment";
-import { Usuario } from "src/app/core/_models";
-import * as jwt_decode from 'jwt-decode';
+import { ResponseCustom } from './../../shared/models/response';
+import { Usuario } from './../../shared/models/user';
+
 
 @Injectable({ providedIn: "root" })
 export class AuthenticationService {

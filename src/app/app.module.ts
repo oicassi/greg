@@ -1,25 +1,26 @@
-import { ComponentsModule } from './components/components.module';
-import { PreviewModule } from './preview/preview.module';
-import { ComponentesModule } from './componentes/componentes.module';
-import { SharedModule } from './shared/shared.module';
-import { DirectivesModule } from './shared/directives/directives.module';
-import { FullpreviewComponent } from './pages/fullpreview/fullpreview.component';
-import { PagesModule } from './pages/pages.module';
-import { LoaderService } from './core/_services/loader.service';
-import { HttpClientModule, HttpParams, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { ApiService } from './core/_services/api.service';
-import { BrowserModule } from '@angular/platform-browser';
+import { ButtonModule } from 'primeng/button';
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app.component';
 import { MessageService } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-
+import { MessagesModule } from 'primeng/messages';
 // used to create fake backend
 import { fakeBackendProvider } from "src/app/core/_helpers";
-
+import { AppComponent } from './app.component';
 import { routing } from "./app.routing";
+import { ComponentesModule } from './componentes/componentes.module';
+import { ComponentsModule } from './components/components.module';
+import { ApiService } from './core/_services/api.service';
+import { LoaderService } from './core/_services/loader.service';
+import { FullpreviewComponent } from './pages/fullpreview/fullpreview.component';
+import { PagesModule } from './pages/pages.module';
+import { PreviewModule } from './preview/preview.module';
+import { DirectivesModule } from './shared/directives/directives.module';
+import { SharedModule } from './shared/shared.module';
+
+
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { routing } from "./app.routing";
     PagesModule,
     PreviewModule,
     SharedModule,
+    ButtonModule,
     BrowserModule,
     HttpClientModule,
     DirectivesModule,

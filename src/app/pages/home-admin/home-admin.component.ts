@@ -2,8 +2,8 @@
 import { Subscription } from "rxjs";
 import { first } from "rxjs/operators";
 
-import { Usuario } from "src/app/core/_models";
 import { UserService, AuthenticationService } from "src/app/core/_services";
+import { Usuario } from 'src/app/shared/models';
 
 @Component({
   templateUrl: "home-admin.component.html",
