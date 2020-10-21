@@ -1,3 +1,4 @@
+import { CardComponent } from './card/card.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -11,7 +12,7 @@ import { MatIcon, MatIconModule } from '@angular/material';
 @NgModule({
   declarations: [
     FloatingMenuComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     CommonModule,

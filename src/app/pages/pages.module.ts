@@ -1,3 +1,4 @@
+import { CardComponent } from './../components/card/card.component';
 import { ButtonModule } from 'primeng/button';
 import { PreviewModule } from './../preview/preview.module';
 import { ComponentesModule } from './../componentes/componentes.module';
@@ -6,7 +7,6 @@ import { HomeAdminComponent } from './home-admin/home-admin.component';
 import { DirectivesModule } from './../shared/directives/directives.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from './../shared/shared.module';
-import { CardComponent } from './../core/_components/card/card.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule  } from '@angular/forms'
@@ -36,8 +36,8 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
     LandingButtonsComponent,
     SearchComponent,
     LandingButtonsComponent,
+    CardComponent,
     InputSearchComponent,
-    CardComponent
   ],
   imports: [
     ButtonModule,
