@@ -8,7 +8,9 @@
             <img src="../../assets/imgs/login-img.png" alt="background">
         </div>
         <div class="col-md-4 direita">
-            <alert></alert>
+            <div class="fixed-top">
+                <app-alert></app-alert>
+            </div>
             <app-login (onRegister)="mudaAbaDireita($event)" #login *ngIf="isLogin"></app-login>
             <app-register (onCancel)="mudaAbaDireita($event)" #register *ngIf="!isLogin"></app-register>
         </div>
