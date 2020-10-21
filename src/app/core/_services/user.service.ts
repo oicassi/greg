@@ -1,8 +1,8 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Usuario } from './../../shared/models/user';
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { environment } from "src/environments/environment";
-import { Usuario } from "src/app/core/_models";
 
 @Injectable({ providedIn: "root" })
 export class UserService {
