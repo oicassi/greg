@@ -7,7 +7,7 @@ import { Usuario } from 'src/app/shared/models';
 import { environment } from './../../../environments/environment';
 import { LoaderService } from './../../core/_services/loader.service';
 import { TokenService } from './../../core/_services/token.service';
-import { Card } from './../../models/card.model';
+import { Card } from '../../shared/models/card.model';
 
 
 @Component({

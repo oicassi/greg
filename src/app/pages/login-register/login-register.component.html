@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-4 direita">
             <div class="fixed-top">
-                <app-alert></app-alert>
+                <app-alert class="alerta"></app-alert>
             </div>
             <app-login (onRegister)="mudaAbaDireita($event)" #login *ngIf="isLogin"></app-login>
             <app-register (onCancel)="mudaAbaDireita($event)" #register *ngIf="!isLogin"></app-register>

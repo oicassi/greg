@@ -1,4 +1,4 @@
-import { Card } from './../../models/card.model';
+import { Card } from '../../shared/models/card.model';
 import { Component, Input, OnInit } from '@angular/core';
 
 

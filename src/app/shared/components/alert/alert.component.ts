@@ -9,7 +9,6 @@ import { Alert, AlertType } from './../../models/alert';
 })
 export class AlertComponent {
 
-
   @Input() timeout = 3000;
   alerts: Alert[] = [];
 

@@ -40,14 +40,9 @@ export class AuthenticationService {
             localStorage.setItem("authToken", JSON.stringify(response.data.authorization));
             this.currentUserSubject.next(jwt_decode(response.data.authorization));
           }
-
           return response;
         })
       );
-    // debugger;
-    //   this.http.post(`${environment.apiUrl}/login`, {email,password}).subscribe(x => {
-    //     console.log(x);
-    //   });
   }
 
   logout() {

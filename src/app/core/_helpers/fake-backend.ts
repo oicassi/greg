@@ -1,4 +1,4 @@
-﻿import { Card } from './../../models/card.model';
+﻿import { Card } from '../../shared/models/card.model';
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';

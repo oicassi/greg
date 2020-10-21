@@ -1,4 +1,4 @@
-import { Card } from 'src/app/models/card.model';
+import { Card } from 'src/app/shared/models/card.model';
 
 export class CardsData {
   public static DATA: Card[] = [
