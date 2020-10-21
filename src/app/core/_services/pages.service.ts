@@ -1,7 +1,7 @@
 import { HttpClient, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Card } from 'src/app/models/card.model';
+import { Card } from 'src/app/shared/models/card.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
