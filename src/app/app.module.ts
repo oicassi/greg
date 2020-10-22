@@ -20,6 +20,7 @@ import { PagesModule } from './pages/pages.module';
 import { PreviewModule } from './preview/preview.module';
 import { DirectivesModule } from './shared/directives/directives.module';
 import { SharedModule } from './shared/shared.module';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 
 
@@ -48,8 +49,9 @@ import { SharedModule } from './shared/shared.module';
     MessageService,
     ApiService,
     LoaderService,
+    BnNgIdleService,
 
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true, },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
     // provider used to create fake backend

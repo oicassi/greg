@@ -1,8 +1,10 @@
-
-  <!-- main app container -->
-  <div class="main-app">
-    <app-navbar *ngIf='currentUser'></app-navbar>
-          <router-outlet></router-outlet>    
-    </div>
+<!-- main app container -->
+<div class="main-app">
   
- 
+  <div class="fixed-top">
+    <app-alert class="alerta"></app-alert>
+  </div>
+
+  <app-navbar *ngIf='currentUser'></app-navbar>
+  <router-outlet></router-outlet>
+</div>
