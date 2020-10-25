@@ -14,7 +14,10 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@models/*": ["src/app/shared/models/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
