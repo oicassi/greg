@@ -12,16 +12,16 @@ import { AuthGuard } from "src/app/core/_guards";
 import { AppComponent } from './app.component';
 
 const appRoutes: Routes = [
-  { path: "", component: SearchComponent },
-  { path: "search", component: SearchComponent },
-  { path: "home", component: HomeComponent,  canActivate: [AuthGuard] },
-  { path: "login", component: LoginRegisterComponent },
-  { path: "admin", component: HomeAdminComponent, canActivate: [AuthGuard] },
-  { path: "fullpreview", component: FullpreviewComponent, canActivate: [AuthGuard]},
-  { path: "config", component: UserConfigComponent, canActivate: [AuthGuard]},
+  { path: "", component: SearchComponent, data: { title: 'Home' } },
+  { path: "search", component: SearchComponent, data: { title: 'Pesquisar' } },
+  { path: "home", component: HomeComponent, data: { title: 'Editar' }, canActivate: [AuthGuard] },
+  { path: "login", component: LoginRegisterComponent, data: { title: 'Login' } },
+  { path: "admin", component: HomeAdminComponent, data: { title: 'Admin' }, canActivate: [AuthGuard] },
+  { path: "fullpreview", component: FullpreviewComponent, data: { title: 'Preview' }, canActivate: [AuthGuard] },
+  { path: "config", component: UserConfigComponent, data: { title: 'Configurações' }, canActivate: [AuthGuard] },
 
   // otherwise redirect to home
-  { path: "**", component: NotFoundComponent },
+  { path: "**", component: NotFoundComponent, data: {Title:'Not found'} },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

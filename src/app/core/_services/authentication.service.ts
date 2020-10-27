@@ -1,4 +1,5 @@
-﻿import { HttpClient } from "@angular/common/http";
+﻿import { TokenService } from './token.service';
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 
@@ -15,7 +16,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<Usuario>;
   public currentUser: Observable<Usuario>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private tokenService:  TokenService) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(
       JSON.parse(localStorage.getItem("authToken"))
     );
@@ -47,7 +48,7 @@ export class AuthenticationService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("authToken");
+    this.tokenService.removeToken();
     this.currentUserSubject.next(null);
   }
 

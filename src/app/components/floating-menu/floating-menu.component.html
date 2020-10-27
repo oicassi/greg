@@ -3,7 +3,7 @@
       <mat-menu #menu="matMenu" class="mat-menu">
         <button mat-menu-item>
           <mat-icon>settings</mat-icon>
-          <a (click)="configuracoes()">Configurações</a>
+          <a [routerLink]="['/config']" >Configurações</a>
         </button>
         <button mat-menu-item (click)="editarPagina()">
           <mat-icon>create</mat-icon>

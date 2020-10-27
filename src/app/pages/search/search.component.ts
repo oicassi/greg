@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CloudData, CloudOptions } from 'angular-tag-cloud-module/lib/tag-cloud.interfaces';
@@ -38,6 +39,10 @@ export class SearchComponent implements OnInit {
     private tokenService: TokenService,
     private authenticationService: AuthenticationService
   ) {
+    
+  }
+
+  getParametrosRota(){
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe(params => {
       if (params && params['q']) {
@@ -47,8 +52,6 @@ export class SearchComponent implements OnInit {
           this.classe = true;
           this.showContainer = false;
           this.showResultado = true;
-        } else {
-          this.router.navigate(['/']);
         }
       }
     });
