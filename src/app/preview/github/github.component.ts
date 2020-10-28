@@ -17,7 +17,7 @@ export class Repo {
 }
 
 @Component({
-  selector: 'app-github',
+  selector: 'app-github-old',
   templateUrl: './github.component.html',
   styleUrls: ['./github.component.scss'],
   providers: [MessageService],

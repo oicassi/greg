@@ -1,0 +1,15 @@
+<div *ngIf="loading">
+  Carregando o caralho todo
+</div>
+<div *ngIf="!loading">
+  <h3>Componentes de bosta</h3>
+  <div *ngFor="let app of appList">
+    
+    <app-aplicativo-base
+      [dados]="app"
+      [aplicativo]="factoryService.getAplicativo(app.type)"
+    ></app-aplicativo-base>
+    
+    <br/>
+  </div>
+</div>

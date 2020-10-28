@@ -1,4 +1,4 @@
-import { Foto, Repo, Audio } from './aplicativo-item';
+import { Foto, Repo, Audio, Texto } from '@models/aplicativo-item';
 
 /**
  * Comum para todos os aplicativos
@@ -24,7 +24,7 @@ export class AplicativoApi extends AplicativoBase {
 /**
  * Classe com os dados do aplicativo Flickr
  */
-export class AplicativoFlickr {
+export class AplicativoFlickr extends AplicativoApi {
   full_name: string;
   alias: string;
   photo_array: Foto[];
@@ -33,14 +33,35 @@ export class AplicativoFlickr {
 /**
  * Classe com os dados do aplicativo Github
  */
-export class AplicativoGithub {
+export class AplicativoGithub extends AplicativoApi {
   repo_array: Repo[];
 }
 
 /**
  * Classe com os dados do aplicativo Freesound
  */
-export class AplicativoFreesound {
+export class AplicativoFreesound extends AplicativoApi {
   audio_array: Audio[];
+}
+
+/**
+ * Classe com os dados do componente fotos
+ */
+export class AplicativoFoto extends AplicativoBase {
+  photo_array: Foto[];
+}
+
+/**
+ * Classe com os dados do componente texto
+ */
+export class AplicativoTexto extends AplicativoBase {
+  texto_array: Texto[];
+}
+
+/**
+ * Classe com os dados do componente de tags
+ */
+export class AplicativoTags extends AplicativoBase {
+  tag_array: string[];
 }
 

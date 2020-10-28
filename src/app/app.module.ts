@@ -1,3 +1,4 @@
+import { AplicativosModule } from '@aplicativos/aplicativos.module';
 import { JwtInterceptor } from './core/_helpers/jwt.interceptor';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -42,6 +43,7 @@ import { SharedModule } from './shared/shared.module';
     MessageModule,
     MessagesModule,
     PagesModule,
+    AplicativosModule,
     routing,
   ],
   providers: [

@@ -15,7 +15,7 @@ export class Foto {
 
 
 @Component({
-  selector: 'app-flickr',
+  selector: 'app-flickr-old',
   templateUrl: './flickr.component.html',
   styleUrls: ['./flickr.component.scss'],
   providers: [MessageService],

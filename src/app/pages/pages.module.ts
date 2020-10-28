@@ -1,3 +1,4 @@
+import { AplicativosModule } from '@aplicativos/aplicativos.module';
 import { CardComponent } from './../components/card/card.component';
 import { ButtonModule } from 'primeng/button';
 import { PreviewModule } from './../preview/preview.module';
@@ -20,6 +21,7 @@ import { LandingButtonsComponent } from './search/landing-buttons/landing-button
 import { InputSearchComponent } from './search/input-search/input-search.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TagCloudModule } from 'angular-tag-cloud-module';
+import { EditPageComponent } from './edit-page/edit-page.component';
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
     LandingButtonsComponent,
     CardComponent,
     InputSearchComponent,
+    EditPageComponent,
   ],
   imports: [
     ButtonModule,
@@ -50,7 +53,8 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
     DirectivesModule,
     ProgressSpinnerModule,
     RouterModule,
-    TagCloudModule
+    TagCloudModule,
+    AplicativosModule
   ],
   exports: [LoginRegisterComponent]
 })
