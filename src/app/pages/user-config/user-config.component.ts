@@ -30,9 +30,7 @@ export class UserConfigComponent implements OnInit {
   atualizarDados() {
     let user = this.converteObjeto(this.userForm.getRawValue());
 
-    this.userConfigService.postForm(user).subscribe(data => {
-      // do something, if upload success
-      
+    this.userConfigService.postForm(user).subscribe(data => {   
     }, error => {
       console.log(error);
     });
@@ -117,9 +115,9 @@ export class UserConfigComponent implements OnInit {
       sobrenome: ['asdas', [
         Validators.required
       ]],
-      email: ['', []],
+      email: ['a', []],
       // Informações da página
-      urlPagina: ['asdas', [
+      url: ['asdas', [
         Validators.required,
       ]],
       imagemUsuario: ['', []],
@@ -150,7 +148,7 @@ export class UserConfigComponent implements OnInit {
     return this.userForm.get('email');
   }
   
-  get urlPagina() {
-    return this.userForm.get('urlPagina');
+  get url() {
+    return this.userForm.get('url');
   }
 }

@@ -63,11 +63,11 @@
           </div>
           <div class="col-sm-5">
             <div class="form-group row">
-              <label for="urlPagina" class="col-sm-2 col-form-label">URL da página</label>
+              <label for="url" class="col-sm-2 col-form-label">URL da página</label>
               <div class="col-sm-10">
-                <input placeholder="/seuDominio" formControlName="urlPagina" type="text" class="form-control"
-                  id="urlPagina">
-                <div *ngIf="urlPagina.invalid && (urlPagina.dirty || urlPagina.touched)" class="alert alert-danger">
+                <input placeholder="/seuDominio" formControlName="url" type="text" class="form-control"
+                  id="url">
+                <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert alert-danger">
                   URL não pode ficar em branco
                 </div>
               </div>

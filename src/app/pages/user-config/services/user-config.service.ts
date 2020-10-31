@@ -15,7 +15,7 @@ export class UserConfigService {
     postForm(userConfigs: UserConfigs){
         const formData: FormData = new FormData();
         formData.append('fileKey', userConfigs.imagemUsuario, userConfigs.imagemUsuario.nome);
-        return this.http.put(environment.apiUrl, formData);
+        return this.http.put(environment.apiUrl+ '/usuario', userConfigs);
     }
 
 }

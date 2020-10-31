@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
   }
   
   onMudouValor(evento){
-    console.log(evento);
+    
   }
 
   onSubmit() {
@@ -84,14 +84,5 @@ export class LoginComponent implements OnInit {
           }
         }
       );
-
-    // var user = <User>({
-    //   email : this.f.email.value,
-    //   password : this.f.password.value,
-    //   token: 'some_bullshit_token'
-    // })
-
-    // localStorage.setItem('authToken', JSON.stringify(user));
-    // this.router.navigate([this.returnUrl]);
   }
 }
