@@ -1,10 +1,10 @@
-import { FileGregs } from './../../shared/models/file-greg';
-import { UserConfigs } from './../../shared/models/user-configs';
-import { UserConfigService } from './services/user-config.service';
+import { ResponseUser } from './../../shared/models/responses/response-user';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Md5 } from 'ts-md5/dist/md5';
-import { faShekelSign } from '@fortawesome/free-solid-svg-icons';
+import { FileGregs } from './../../shared/models/file-greg';
+import { UserConfigs } from './../../shared/models/user-configs';
+import { UserConfigService } from './services/user-config.service';
 
 
 
@@ -23,36 +23,57 @@ export class UserConfigComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private userConfigService: UserConfigService) { }
 
   ngOnInit() {
-    this.setupForm();
+    this.getUserData();
     this.senhaNovaValidacao();
+    this.setupForm();
+  }
+
+  getUserData() {
+    this.userConfigService
+      .getUser()
+      .subscribe((resposta: ResponseUser) => {
+        console.log(resposta);
+        let strImagem = 'data:image/jpeg;base64,'
+        this.preview = resposta.data.imagemUsuario ? strImagem + resposta.data.imagemUsuario.base64Img : '';
+        this.populateForm(resposta.data);
+      },
+        (err => {
+          console.log(err);
+
+        }))
   }
 
   atualizarDados() {
     let user = this.converteObjeto(this.userForm.getRawValue());
 
-    this.userConfigService.postForm(user).subscribe(data => {   
+    this.userConfigService.postForm(user).subscribe(data => {
     }, error => {
       console.log(error);
     });
-    
-
   }
+
 
   converteObjeto(obj: UserConfigs): UserConfigs {
     let senha1 = this.userForm.get('senhaAntiga').value;
     let senha2 = this.userForm.get('senhaNova').value;
     let user = obj;
 
+
     if ((senha1 && senha2)) {
       user = this.md5Passwords(user);
     }
 
-    if(user.imagemUsuario) { 
-      user.imagemUsuario = this.fileGregs
+    if (user.imagemUsuario) {
+      var strImage = this.fileGregs.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+      user.imagemUsuario.base64Img = strImage;
     }
 
+    console.log(user);
+    
     return user;
   }
+
+
 
   handleFileInput(file: File) {
     this.file = file;
@@ -64,6 +85,8 @@ export class UserConfigComponent implements OnInit {
     };
     reader.readAsDataURL(file);
     this.fileGregs.nome = file.name;
+    console.log(this.fileGregs.base64Img == this.preview);
+
   }
 
   md5Passwords(user: UserConfigs) {
@@ -77,21 +100,23 @@ export class UserConfigComponent implements OnInit {
     return user;
   }
 
-  
+
   senhaNovaValidacao() {
-    this.userForm.get('senhaNova').valueChanges
-    .subscribe(valor => {
-      if (valor) {
-        this.userForm.get('senhaNova').setValidators(Validators.minLength(6))
-        if (!this.userForm.get('senhaAntiga').value) this.userForm.get('senhaAntiga').setValue(undefined)
-        this.validaSenhasDiferentes();
-        this.userForm.get('senhaAntiga').setValidators(Validators.required)
-      } else {
-        this.resetaSenhas();
-      }
-    })
+    if (this.userForm) {
+      this.userForm.get('senhaNova').valueChanges
+        .subscribe(valor => {
+          if (valor) {
+            this.userForm.get('senhaNova').setValidators(Validators.minLength(6))
+            if (!this.userForm.get('senhaAntiga').value) this.userForm.get('senhaAntiga').setValue(undefined)
+            this.validaSenhasDiferentes();
+            this.userForm.get('senhaAntiga').setValidators(Validators.required)
+          } else {
+            this.resetaSenhas();
+          }
+        })
+    }
   }
-  
+
   resetaSenhas() {
     this.userForm.get('senhaAntiga').setValue('');
     this.userForm.get('senhaNova').clearValidators();
@@ -99,25 +124,27 @@ export class UserConfigComponent implements OnInit {
     this.userForm.get('senhaAntiga').reset();
     this.userForm.get('senhaNova').reset();
   }
-  
+
   validaSenhasDiferentes() {
     if (this.userForm.get('senhaAntiga').value == this.userForm.get('senhaNova').value)
-    return this.userForm.get('senhaNova').setErrors({ equivalent: true });
+      return this.userForm.get('senhaNova').setErrors({ equivalent: true });
   }
-  
+
   setupForm() {
+
     this.userForm = this.formBuilder.group({
+
       // Informações pessoais 
-      nome: ['asdas', [
+      nome: ['', [
         Validators.required,
         Validators.minLength(3),
       ]],
-      sobrenome: ['asdas', [
+      sobrenome: ['', [
         Validators.required
       ]],
-      email: ['a', []],
+      email: ['', []],
       // Informações da página
-      url: ['asdas', [
+      url: ['', [
         Validators.required,
       ]],
       imagemUsuario: ['', []],
@@ -127,28 +154,65 @@ export class UserConfigComponent implements OnInit {
     }
     );
   }
-  
+
+  populateForm(user: UserConfigs) {
+
+    this.userForm = this.formBuilder.group({
+
+      // Informações pessoais 
+      nome: [this.retornaAtributo(user.nome), [
+        Validators.required,
+        Validators.minLength(3),
+      ]],
+      sobrenome: [this.retornaAtributo(user.sobrenome), [
+        Validators.required
+      ]],
+      email: [this.retornaAtributo(user.email), []],
+      // Informações da página
+      url: [this.retornaAtributo(user.urlPagina), [
+        Validators.required,
+      ]],
+      imagemUsuario: [this.retornaAtributo(user.imagemUsuario), []],
+      //Senhas
+      senhaAntiga: ['', []],
+      senhaNova: ['', []],
+    }
+    );
+  }
+
+  retornaAtributo(atributo) {
+    console.log(atributo);
+    
+    return atributo ? atributo : '';
+  }
+
   get nome() {
-    return this.userForm.get('nome');
+    if (this.userForm)
+      return this.userForm.get('nome');
   }
-  
+
   get senhaNova() {
-    return this.userForm.get('senhaNova');
+    if (this.userForm)
+      return this.userForm.get('senhaNova');
   }
-  
+
   get senhaAntiga() {
-    return this.userForm.get('senhaAntiga');
+    if (this.userForm)
+      return this.userForm.get('senhaAntiga');
   }
-  
+
   get sobrenome() {
-    return this.userForm.get('sobrenome');
+    if (this.userForm)
+      return this.userForm.get('sobrenome');
   }
-  
+
   get email() {
-    return this.userForm.get('email');
+    if (this.userForm)
+      return this.userForm.get('email');
   }
-  
+
   get url() {
-    return this.userForm.get('url');
+    if (this.userForm)
+      return this.userForm.get('url');
   }
 }

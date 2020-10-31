@@ -13,9 +13,11 @@ export class UserConfigService {
     constructor(private http: HttpClient) {}
 
     postForm(userConfigs: UserConfigs){
-        const formData: FormData = new FormData();
-        formData.append('fileKey', userConfigs.imagemUsuario, userConfigs.imagemUsuario.nome);
-        return this.http.put(environment.apiUrl+ '/usuario', userConfigs);
+        return this.http.put(environment.apiUrl+ '/usuarios', userConfigs);
+    }
+
+    getUser(){
+      return this.http.get(environment.apiUrl + '/usuarios/configs');
     }
 
 }

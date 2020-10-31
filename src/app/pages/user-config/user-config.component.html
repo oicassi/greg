@@ -30,7 +30,7 @@
               <label for="nome" class="col-sm-2 col-form-label">Nome</label>
               <div class="col-sm-10">
                 <input placeholder="nome" formControlName="nome" type="text" class="form-control" id="nome">
-                <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+                <div *ngIf="nome?.invalid && (nome?.dirty || nome?.touched)" class="alert alert-danger">
 
                   <div *ngIf="nome.errors.required">
                     Nome não pode ficar em branco
@@ -67,7 +67,7 @@
               <div class="col-sm-10">
                 <input placeholder="/seuDominio" formControlName="url" type="text" class="form-control"
                   id="url">
-                <div *ngIf="url.invalid && (url.dirty || url.touched)" class="alert alert-danger">
+                <div *ngIf="url?.invalid && (url?.dirty || url?.touched)" class="alert alert-danger">
                   URL não pode ficar em branco
                 </div>
               </div>
