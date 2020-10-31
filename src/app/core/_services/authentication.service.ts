@@ -7,7 +7,7 @@ import * as jwt_decode from 'jwt-decode';
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
-import { ResponseCustom } from './../../shared/models/response';
+import { ResponseCustom } from '../../shared/models/responses/response';
 import { Usuario } from './../../shared/models/user';
 
 

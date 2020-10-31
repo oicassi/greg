@@ -46,7 +46,6 @@ import { BnNgIdleService } from 'bn-ng-idle';
     routing,
   ],
   providers: [
-    MessageService,
     ApiService,
     LoaderService,
     BnNgIdleService,

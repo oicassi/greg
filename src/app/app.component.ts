@@ -46,12 +46,12 @@ export class AppComponent {
       .pipe(switchMap(route => route.data))
       .subscribe(event => {
         console.log(event);
-        this.titleService.setTitle(event.title)
+        this.titleService.setTitle('GREGS - ' + event.title)
       });
   }
 
   idleKiller() {
-    this.bnIdle.startWatching(10).subscribe((isTimedOut: boolean) => {
+    this.bnIdle.startWatching(1200).subscribe((isTimedOut: boolean) => {
       if (isTimedOut && this.currentUser) {
         this.alertService.warning('Sessão expirada, logue novamente');
         this.logout();
