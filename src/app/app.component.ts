@@ -1,3 +1,5 @@
+import { GenericResponse } from './shared/models/responses/generic-response';
+import { UserService } from 'src/app/core/_services';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -21,12 +23,16 @@ export class AppComponent {
     private bnIdle: BnNgIdleService,
     private alertService: AlertService,
     private titleService: Title,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService
   ) {
-    this.authenticationService.currentUser.subscribe(
-      (x) => (this.currentUser = x)
-    );
-  }
+    this.authenticationService.currentUser
+    .pipe(
+      switchMap((user) => {return this.userService.getByEmail(user.sub)})
+    )
+    .subscribe((user: GenericResponse<Usuario>) => {
+      this.currentUser = user.data;
+    })};
 
   ngOnInit(): void {
     this.mudaTitle();
@@ -45,7 +51,6 @@ export class AppComponent {
       }))
       .pipe(switchMap(route => route.data))
       .subscribe(event => {
-        console.log(event);
         this.titleService.setTitle('GREGS - ' + event.title)
       });
   }

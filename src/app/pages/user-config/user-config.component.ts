@@ -1,3 +1,4 @@
+import { AlertService } from './../../shared/components/alert/alert.service';
 import { ResponseUser } from './../../shared/models/responses/response-user';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +21,9 @@ export class UserConfigComponent implements OnInit {
   fileGregs: FileGregs;
   preview: string;
 
-  constructor(private formBuilder: FormBuilder, private userConfigService: UserConfigService) { }
+  constructor(private formBuilder: FormBuilder,
+               private userConfigService: UserConfigService,
+               private alertService: AlertService) { }
 
   ngOnInit() {
     this.getUserData();
@@ -33,8 +36,10 @@ export class UserConfigComponent implements OnInit {
       .getUser()
       .subscribe((resposta: ResponseUser) => {
         console.log(resposta);
+        
         let strImagem = 'data:image/jpeg;base64,'
         this.preview = resposta.data.imagemUsuario ? strImagem + resposta.data.imagemUsuario.base64Img : '';
+        this.fileGregs = resposta.data.imagemUsuario;
         this.populateForm(resposta.data);
       },
         (err => {
@@ -47,8 +52,9 @@ export class UserConfigComponent implements OnInit {
     let user = this.converteObjeto(this.userForm.getRawValue());
 
     this.userConfigService.postForm(user).subscribe(data => {
+      this.alertService.success('Dados atualizados com sucesso');
     }, error => {
-      console.log(error);
+      this.alertService.danger('Não foi posssível atualizar dados de usuario');
     });
   }
 
@@ -63,13 +69,14 @@ export class UserConfigComponent implements OnInit {
       user = this.md5Passwords(user);
     }
 
-    if (user.imagemUsuario) {
+    if (user.imagemUsuario || this.fileGregs) {
       var strImage = this.fileGregs.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+      user.imagemUsuario = this.fileGregs;
       user.imagemUsuario.base64Img = strImage;
+    } else {
+      user.imagemUsuario = null;
     }
 
-    console.log(user);
-    
     return user;
   }
 
@@ -85,8 +92,6 @@ export class UserConfigComponent implements OnInit {
     };
     reader.readAsDataURL(file);
     this.fileGregs.nome = file.name;
-    console.log(this.fileGregs.base64Img == this.preview);
-
   }
 
   md5Passwords(user: UserConfigs) {
@@ -172,7 +177,7 @@ export class UserConfigComponent implements OnInit {
       url: [this.retornaAtributo(user.urlPagina), [
         Validators.required,
       ]],
-      imagemUsuario: [this.retornaAtributo(user.imagemUsuario), []],
+      imagemUsuario: ['', []],
       //Senhas
       senhaAntiga: ['', []],
       senhaNova: ['', []],
@@ -181,8 +186,6 @@ export class UserConfigComponent implements OnInit {
   }
 
   retornaAtributo(atributo) {
-    console.log(atributo);
-    
     return atributo ? atributo : '';
   }
 

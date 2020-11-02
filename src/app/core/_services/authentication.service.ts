@@ -18,13 +18,18 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private tokenService:  TokenService) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(
-      jwt_decode(this.tokenService.getToken())
+      this.getUser()
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): Usuario {
     return this.currentUserSubject.value;
+  }
+
+  getUser(){
+    if(this.isLogado()) return jwt_decode(this.tokenService.getToken())
+    return null;
   }
 
   login(email: string, password: string) {

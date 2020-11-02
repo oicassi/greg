@@ -1,8 +1,9 @@
-﻿import { Usuario } from './../../shared/models/user';
-import { Injectable } from "@angular/core";
+﻿import { HttpParams } from '@angular/common/http';
 import { HttpClient } from "@angular/common/http";
-
+import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { Usuario } from './../../shared/models/user';
+
 
 @Injectable({ providedIn: "root" })
 export class UserService {
@@ -12,12 +13,16 @@ export class UserService {
     return this.http.get<Usuario[]>(`${environment.apiUrl}/users`);
   }
 
-  getById(id: number) {
-    return this.http.get(`${environment.apiUrl}/users/${id}`);
+  getByEmail(email: string) {
+
+    let params = new HttpParams()
+    .set("email",email)
+
+    return this.http.get(`${environment.apiUrl}/usuarios/`,{params: params});
   }
 
   register(user: Usuario) {
-    return this.http.post(`${environment.apiUrl}/usuario`, user);
+    return this.http.post(`${environment.apiUrl}/usuarios`, user);
   }
 
   update(user: Usuario) {

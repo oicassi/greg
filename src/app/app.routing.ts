@@ -8,8 +8,9 @@ import { LoginRegisterComponent } from './pages/login-register/login-register.co
 import { Routes, RouterModule } from "@angular/router";
 
 
-import { AuthGuard } from "src/app/core/_guards";
+
 import { AppComponent } from './app.component';
+import { AuthGuard } from './core/_guards/auth.guard';
 
 const appRoutes: Routes = [
   { path: "", component: SearchComponent, data: { title: 'Home' } },

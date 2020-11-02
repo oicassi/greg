@@ -1,5 +1,6 @@
+import { Usuario } from 'src/app/shared/models';
 import { AuthenticationService } from 'src/app/core/_services';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,9 +10,13 @@ import { Router } from '@angular/router';
 })
 export class FloatingMenuComponent implements OnInit {
 
+  @Input() currentUser: Usuario;
+
   constructor(private authenticationService: AuthenticationService, private router:Router) { }
 
   ngOnInit() {
+    console.log(this.currentUser);
+    
   }
 
   logout() {
@@ -25,6 +30,11 @@ export class FloatingMenuComponent implements OnInit {
 
   editarPagina(){
     this.router.navigate(['home']);
+  }
+
+  get imagemUsuario(){
+    let strImagem = 'data:image/jpeg;base64,'
+    return strImagem + this.currentUser.imagemUsuario.base64Img;
   }
 
 }
