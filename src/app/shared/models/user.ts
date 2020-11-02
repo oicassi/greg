@@ -7,7 +7,7 @@ export interface Usuario {
     password: string;
     nome: string;
     sobrenome: string;
-    token: string;
+    authorization: string;
     url: string;
     imagemUsuario: FileGregs;
     pagina: Pagina;

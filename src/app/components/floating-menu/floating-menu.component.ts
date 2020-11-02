@@ -15,8 +15,6 @@ export class FloatingMenuComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService, private router:Router) { }
 
   ngOnInit() {
-    console.log(this.currentUser);
-    
   }
 
   logout() {
@@ -33,8 +31,9 @@ export class FloatingMenuComponent implements OnInit {
   }
 
   get imagemUsuario(){
+    let strImagemPadrao = 'https://www.w3schools.com/howto/img_avatar.png';
     let strImagem = 'data:image/jpeg;base64,'
-    return strImagem + this.currentUser.imagemUsuario.base64Img;
+    return this.currentUser.imagemUsuario.base64Img? (strImagem + this.currentUser.imagemUsuario.base64Img) : strImagemPadrao;
   }
 
 }

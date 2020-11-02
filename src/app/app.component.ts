@@ -27,11 +27,8 @@ export class AppComponent {
     private userService: UserService
   ) {
     this.authenticationService.currentUser
-    .pipe(
-      switchMap((user) => {return this.userService.getByEmail(user.sub)})
-    )
-    .subscribe((user: GenericResponse<Usuario>) => {
-      this.currentUser = user.data;
+    .subscribe(user => {
+      this.currentUser = user;
     })};
 
   ngOnInit(): void {
@@ -65,6 +62,7 @@ export class AppComponent {
   }
 
   logout() {
+    this.currentUser = null; 
     this.authenticationService.logout();
     this.router.navigate([""]);
   }

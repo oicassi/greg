@@ -11,7 +11,7 @@ import HttpStatusCode from 'src/app/shared/enums/http-status';
 
 @Component({
   selector: 'app-login',
-  templateUrl: "login.component.html" 
+  templateUrl: "login.component.html"
 })
 
 export class LoginComponent implements OnInit {
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
-  @Output() onRegister= new EventEmitter(); 
+  @Output() onRegister = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,12 +50,12 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  changeValor(){
+  changeValor() {
     this.onRegister.emit(false);
   }
-  
-  onMudouValor(evento){
-    
+
+  onMudouValor(evento) {
+
   }
 
   onSubmit() {
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['']);
         },
         (error: HttpError) => {
-          if(error.status == HttpStatusCode.UNAUTHORIZED){
+          if (error.status == HttpStatusCode.UNAUTHORIZED) {
             this.alertService.danger("Login ou senha inválidos");
             this.loading = false;
           } else {
