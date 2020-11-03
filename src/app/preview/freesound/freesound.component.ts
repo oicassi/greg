@@ -17,7 +17,7 @@ export class Audio {
 
 
 @Component({
-  selector: 'app-freesound',
+  selector: 'app-freesound-old',
   templateUrl: './freesound.component.html',
   styleUrls: ['./freesound.component.scss'],
   providers: [MessageService],

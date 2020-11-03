@@ -2,13 +2,13 @@
     <!-- Componentes exibidos com detalhes -->
 
     <!-- Componente do Github -->
-    <app-github *ngIf="type == 'github'" 
+    <app-github-old *ngIf="type == 'github'" 
         [inputName]='email' 
         [inputTitle]='title'
         [inputId]='id'
         [inputBgColor]='bgColor'
         (colorChange)="updateBgColor($event)">
-    </app-github>
+    </app-github-old>
 
     <!-- Componente do Resumo -->
     <app-resumo *ngIf="type == 'resumo'" 
@@ -20,20 +20,20 @@
     </app-resumo>
 
     <!-- Componente do Flickr -->
-    <app-flickr *ngIf="type == 'flickr'" 
+    <app-flickr-old *ngIf="type == 'flickr'" 
         [inputName]='email' 
         [inputTitle]='title'
         [inputId]='id'
         [inputBgColor]='bgColor'
         (colorChange)="updateBgColor($event)">
-    </app-flickr>
+    </app-flickr-old>
 
     <!-- Componente do Freesound -->
-    <app-freesound *ngIf="type == 'freesound'" 
+    <app-freesound-old *ngIf="type == 'freesound'" 
         [inputName]='email' 
         [inputTitle]='title'
         [inputId]='id'
         [inputBgColor]='bgColor'
         (colorChange)="updateBgColor($event)">
-    </app-freesound>
+    </app-freesound-old>
 </div>

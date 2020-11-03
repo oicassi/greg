@@ -4,12 +4,12 @@
 
   <!-- Componente do Github -->
   
-    <app-github *ngIf="comp.tipo == 'github'" 
+    <app-github-old *ngIf="comp.tipo == 'github'" 
       [inputName]='comp.user' 
       [inputTitle]='comp.titulo'
       [inputId]='comp.id'
       [inputBgColor]='comp.bgColor'>
-    </app-github>
+    </app-github-old>
 
 
   <!-- Componente do Resumo -->
@@ -24,22 +24,22 @@
 
   <!-- Componente do Flickr -->
   
-    <app-flickr *ngIf="comp.tipo == 'flickr'" 
+    <app-flickr-old *ngIf="comp.tipo == 'flickr'" 
       [inputName]='comp.user' 
       [inputTitle]='comp.titulo'
       [inputId]='comp.id'
       [inputBgColor]='comp.bgColor'>
-    </app-flickr>
+    </app-flickr-old>
   
 
   <!-- Componente do Freesound -->
 
-    <app-freesound *ngIf="comp.tipo == 'freesound'" 
+    <app-freesound-old *ngIf="comp.tipo == 'freesound'" 
       [inputName]='comp.user' 
       [inputTitle]='comp.titulo'
       [inputId]='comp.id'
       [inputBgColor]='comp.bgColor'>
-    </app-freesound>
+    </app-freesound-old>
 
     
   </div>
