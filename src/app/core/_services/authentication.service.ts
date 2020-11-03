@@ -1,12 +1,12 @@
-﻿import { UserService } from 'src/app/core/_services';
-import { HttpClient } from "@angular/common/http";
+﻿import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as jwt_decode from 'jwt-decode';
 import { BehaviorSubject, Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { Usuario } from 'src/app/shared/models';
+import { UserService } from 'src/app/core/_services';
 import { environment } from "src/environments/environment";
 import { GenericResponse } from './../../shared/models/responses/generic-response';
+import { Usuario } from './../../shared/models/user';
 import { TokenService } from './token.service';
 
 
@@ -22,9 +22,10 @@ export class AuthenticationService {
     private userService: UserService
   ) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(
-      this.getUser()
+      null
     );
     this.currentUser = this.currentUserSubject.asObservable();
+    this.getUser();
   }
 
   public get currentUserValue(): Usuario {
@@ -32,8 +33,14 @@ export class AuthenticationService {
   }
 
   getUser() {
-    if (this.isLogado()) return jwt_decode(this.tokenService.getToken())
-    return null;
+    if (this.tokenService.hasToken()) {
+      let usuario: Usuario = jwt_decode(this.tokenService.getToken());
+      this.userService.getByEmail(usuario.sub)
+        .pipe(map((usuario: GenericResponse<Usuario>) => {
+          this.currentUserSubject.next(usuario.data);
+        }))
+        .subscribe();
+    }
   }
 
   login(email: string, password: string) {
@@ -56,8 +63,8 @@ export class AuthenticationService {
         switchMap((user) => { return this.userService.getByEmail(user.data.sub) })
       )
       .pipe(
-        map((socorro: GenericResponse<Usuario>) =>{
-            return this.currentUserSubject.next(socorro.data);
+        map((socorro: GenericResponse<Usuario>) => {
+          return this.currentUserSubject.next(socorro.data);
         })
       );
   }
@@ -70,5 +77,9 @@ export class AuthenticationService {
 
   isLogado(): boolean {
     return this.tokenService.hasToken();
+  }
+
+  atualizaUser(user: Usuario) {
+    this.currentUserSubject.next(user);
   }
 }

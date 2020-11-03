@@ -1,4 +1,4 @@
-import { ResponseTags } from './../../shared/models/responses/response-tags';
+import { GenericResponse } from './../../shared/models/responses/generic-response';
 import { TagService } from './../../core/_services/tags.service';
 import { OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
@@ -74,7 +74,7 @@ export class SearchComponent implements OnInit {
   }
 
   buscarTags() {
-    this.tagService.getAll().subscribe((tags: ResponseTags) => this.setTagCloud(tags.data))
+    this.tagService.getAll().subscribe((tags: GenericResponse<string[]>) => this.setTagCloud(tags.data))
 
     // this._pagesSrv.getAllTags().subscribe((tags) => this.setTagCloud(tags));
     if (this.showResultado) {

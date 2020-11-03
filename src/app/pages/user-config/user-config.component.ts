@@ -1,11 +1,15 @@
-import { AlertService } from './../../shared/components/alert/alert.service';
-import { ResponseUser } from './../../shared/models/responses/response-user';
+import { map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/core/_services';
+import { UserService } from './../../core/_services/user.service';
+import { GenericResponse } from './../../shared/models/responses/generic-response';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Md5 } from 'ts-md5/dist/md5';
+import { AlertService } from './../../shared/components/alert/alert.service';
 import { FileGregs } from './../../shared/models/file-greg';
 import { UserConfigs } from './../../shared/models/user-configs';
-import { UserConfigService } from './services/user-config.service';
+import { Usuario } from 'src/app/shared/models';
 
 
 
@@ -22,8 +26,9 @@ export class UserConfigComponent implements OnInit {
   preview: string;
 
   constructor(private formBuilder: FormBuilder,
-               private userConfigService: UserConfigService,
-               private alertService: AlertService) { }
+               private alertService: AlertService,
+               private authService: AuthenticationService,
+               private userService: UserService) { }
 
   ngOnInit() {
     this.getUserData();
@@ -32,11 +37,9 @@ export class UserConfigComponent implements OnInit {
   }
 
   getUserData() {
-    this.userConfigService
+    this.userService
       .getUser()
-      .subscribe((resposta: ResponseUser) => {
-        console.log(resposta);
-        
+      .subscribe((resposta: GenericResponse<UserConfigs>) => {
         let strImagem = 'data:image/jpeg;base64,'
         this.preview = resposta.data.imagemUsuario ? strImagem + resposta.data.imagemUsuario.base64Img : '';
         this.fileGregs = resposta.data.imagemUsuario;
@@ -50,8 +53,10 @@ export class UserConfigComponent implements OnInit {
 
   atualizarDados() {
     let user = this.converteObjeto(this.userForm.getRawValue());
-
-    this.userConfigService.postForm(user).subscribe(data => {
+    this.userService.postForm(user)
+    .pipe(switchMap(() => {return this.userService.getByEmail(user.email)}))
+    .pipe(map((userSubject: GenericResponse<Usuario>) => this.authService.atualizaUser(userSubject.data)))
+    .subscribe(data => {
       this.alertService.success('Dados atualizados com sucesso');
     }, error => {
       this.alertService.danger('Não foi posssível atualizar dados de usuario');
