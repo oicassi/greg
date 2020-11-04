@@ -33,7 +33,10 @@ export class FloatingMenuComponent implements OnInit {
   get imagemUsuario(){
     let strImagemPadrao = 'https://www.w3schools.com/howto/img_avatar.png';
     let strImagem = 'data:image/jpeg;base64,'
-    return this.currentUser.imagemUsuario? (strImagem + this.currentUser.imagemUsuario.base64Img) : strImagemPadrao;
+    let user = this.authenticationService.currentUserValue;
+    
+    
+    return user.imagemUsuario.base64Img ? (strImagem + user.imagemUsuario.base64Img) : strImagemPadrao;
   }
 
 }
