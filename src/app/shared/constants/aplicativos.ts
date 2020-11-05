@@ -17,3 +17,39 @@ export class AplicativosConstants {
   static TAGS = TagsComponent;
   static TEXTO = TextoComponent;
 }
+
+export class AplicativosModels {
+  static TODOS = [
+    {
+      type: 'flickr',
+      label: 'Flickr'
+    },
+    {
+      type: 'fotos',
+      label: 'Fotos'
+    },
+    {
+      type: 'freesound',
+      label: 'Freesound'
+    },
+    {
+      type: 'github',
+      label: 'Github'
+    },
+    {
+      type: 'tags',
+      label: 'Tags'
+    },
+    {
+      type: 'texto',
+      label: 'Texto'
+    },
+  ]
+  
+  static TIPOS_API = [
+    'flickr',
+    'freesound',
+    'github'
+  ]
+}
+

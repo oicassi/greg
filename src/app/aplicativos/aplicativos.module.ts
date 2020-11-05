@@ -7,6 +7,8 @@ import { FreesoundComponent } from './freesound/freesound.component';
 import { TextoComponent } from './texto/texto.component';
 import { FotosComponent } from './fotos/fotos.component';
 import { TagsComponent } from './tags/tags.component';
+import { AplicativoControlComponent } from './aplicativo-control/aplicativo-control.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,10 +20,13 @@ import { TagsComponent } from './tags/tags.component';
     FreesoundComponent, 
     TextoComponent, 
     FotosComponent, 
-    TagsComponent
+    TagsComponent,
+    AplicativoControlComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     AplicativoBaseComponent, 
@@ -30,7 +35,8 @@ import { TagsComponent } from './tags/tags.component';
     FreesoundComponent, 
     TextoComponent, 
     FotosComponent, 
-    TagsComponent
+    TagsComponent,
+    AplicativoControlComponent,
   ],
   entryComponents: [
     GithubComponent, 

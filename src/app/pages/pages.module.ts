@@ -22,6 +22,7 @@ import { InputSearchComponent } from './search/input-search/input-search.compone
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TagCloudModule } from 'angular-tag-cloud-module';
 import { EditPageComponent } from './edit-page/edit-page.component';
+import { EditControlComponent } from './edit-page/edit-control/edit-control.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { EditPageComponent } from './edit-page/edit-page.component';
     CardComponent,
     InputSearchComponent,
     EditPageComponent,
+    EditControlComponent,
   ],
   imports: [
     ButtonModule,

@@ -1,0 +1,32 @@
+@import "../../../../assets/scss/_basics/colors.scss";
+
+.control-main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 10px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.edit-control-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.edit-control-title {
+  font-size: 1.3rem;
+  color: var(--color-main-dark);
+}
+
+.title-icon {
+  font-size: 1.3rem;
+  color: var(--color-main-dark);
+  margin-left: 10px;
+  position: relative;
+  top: -3px;
+}

@@ -9,30 +9,108 @@ import {
   AplicativoTexto,
 } from '@models/aplicativo';
 import { Foto, Audio, Repo, Texto } from '@models/aplicativo-item';
+import { AplicativosModels } from '@shared/constants/aplicativos';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AplicativoService {
 
-  dados: AplicativoBase[] = [];
+  aplicativos: AplicativoBase[] = [];
   constructor() {
-    this.dados = [];
-    this.dados.push(this.getMockFlickr());
-    this.dados.push(this.getMockFotos());
-    this.dados.push(this.getMockFreesound());
-    this.dados.push(this.getMockGithub());
-    this.dados.push(this.getMockTags());
-    this.dados.push(this.getMockTexto());
+    this.aplicativos = [];
+    this.aplicativos.push(this.getMockFlickr());
+    this.aplicativos.push(this.getMockFotos());
+    this.aplicativos.push(this.getMockFreesound());
+    // this.aplicativos.push(this.getMockGithub());
+    // this.aplicativos.push(this.getMockTags());
+    // this.aplicativos.push(this.getMockTexto());
    }
 
-  getSuperMockData(): AplicativoBase[] {
-    return this.dados;
+  
+
+  /**
+   * Retorna a lista de aplicativos adicionados à página
+   */
+  getAplicativos(): AplicativoBase[] {
+    return this.aplicativos;
   }
 
-  getMockFlickr(): AplicativoFlickr{
+  /**
+   * Seta uma lista de aplicativos
+   * @param aplicativos Lista de aplicativos
+   */
+  setAplicativos(aplicativos: AplicativoBase[]): void {
+    this.aplicativos = aplicativos;
+  }
+
+  /**
+   * Adiciona um aplicativo à lista de aplicativos
+   * @param aplicativo Aplicativo para ser adicionado
+   */
+  addAplicativo(aplicativo: AplicativoBase): void {
+    // Pegar o order do último aplicativo
+    let apps = this.aplicativos.sort((a, b) => a.order - b.order);
+    aplicativo.order = apps[apps.length - 1].order + 1;
+
+    // Adicionar o aplicativo
+    this.aplicativos.push(aplicativo);
+  }
+
+  /**
+   * Remove um aplicativo da lista com base no order
+   * @param aplicativo Aplicativo para ser removido
+   */
+  removeAplicativo(order: number): void {
+    let i = this.aplicativos.findIndex((app) => app.order === order);
+    if (i >= 0) {
+      this.aplicativos.splice(i, 1);
+    }
+
+    // Shift na ordem dos aplicativos
+    this.aplicativos.forEach((app) => {
+      if (app.order > order) {
+        app.order -= 1;
+      }
+    })
+  }
+
+  /**
+   * Retorna um aplicativo a partir da sua ordem
+   * @param order Ordem do aplicativo
+   */
+  getAplicativoByOrder(order: number): AplicativoBase {
+    let app = this.aplicativos.find((app) => app.order === order);
+    return app;
+  }
+
+  /**
+   * Substitui um aplicativo da lista
+   * @param app Aplicativo novo que irá substituir
+   */
+  replaceAplicativo(app: AplicativoBase): void {
+    console.log(app);
+    let i = this.aplicativos.findIndex((aplicativo) => aplicativo.order === app.order);
+    if (i >= 0) {
+      console.log(i)
+      console.log(this.aplicativos);
+      this.aplicativos.splice(i, 1, app);
+      console.log(this.aplicativos);
+    } else {
+      this.addAplicativo(app);
+    }
+  }
+
+  /**
+   * Retorna a lista de todos os aplicativos 
+   */
+  getTiposAplicativos(): Array<{type: string, label: string}> {
+    return AplicativosModels.TODOS;
+  }
+
+  private getMockFlickr(): AplicativoFlickr{
     let dado = new AplicativoFlickr();
-    dado.component_name = 'Fotos do flickr';
+    dado.component_name = 'Fotos do flickr nome gigante tralalalalalalalalalal anskfdasdfa asdfasf';
     dado.order = 2;
     dado.type = 'flickr';
     dado.fgColor = '#444444';
@@ -62,7 +140,7 @@ export class AplicativoService {
     return dado;
   }
 
-  getMockFotos(): AplicativoFoto {
+  private getMockFotos(): AplicativoFoto {
     let dado = new AplicativoFoto()
     dado.component_name = 'Fotos simples';
     dado.order = 4;
@@ -86,7 +164,7 @@ export class AplicativoService {
     return dado;
   }
 
-  getMockFreesound(): AplicativoFreesound {
+  private getMockFreesound(): AplicativoFreesound {
     let dado = new AplicativoFreesound();
 
     dado.component_name = 'Freesoundzera';
@@ -121,7 +199,7 @@ export class AplicativoService {
     return dado;
   }
 
-  getMockGithub(): AplicativoGithub {
+  private getMockGithub(): AplicativoGithub {
     let dado = new AplicativoGithub();
 
     dado.component_name = 'Githubnei';
@@ -155,7 +233,7 @@ export class AplicativoService {
     return dado;
   }
 
-  getMockTags(): AplicativoTags {
+  private getMockTags(): AplicativoTags {
     let dado = new AplicativoTags();
 
     dado.component_name = 'Tagues';
@@ -169,7 +247,7 @@ export class AplicativoService {
     return dado;
   }
 
-  getMockTexto(): AplicativoTexto {
+  private getMockTexto(): AplicativoTexto {
     let dado = new AplicativoTexto();
 
     dado.component_name = 'Textinhos';
@@ -215,6 +293,8 @@ export class AplicativoService {
     texto2.body = 'Este é o corpo to texto 2 tralalalala';
     dado.texto_array.push(texto2);
       
-    this.dados.push(dado);
+    this.aplicativos.push(dado);
   }
+
+
 }

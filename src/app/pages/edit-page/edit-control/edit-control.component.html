@@ -1,0 +1,25 @@
+<div class="control-main-container" cdkDropList (cdkDropListDropped)="onAplicativosReordenados($event)">
+  
+  <!-- Título -->
+  <div class="edit-control-title-container">
+    <h2 class="edit-control-title">Componentes</h2>
+    <i class="material-icons title-icon">view_day</i>
+  </div>
+
+  <!-- Lista de aplicativos já adicionados -->
+  <app-aplicativo-control *ngFor="let app of aplicativos"
+  [type]="app.type" 
+  [component_name]="app.component_name" 
+  [username]="app.username" 
+  [order]="app.order"
+  ></app-aplicativo-control>
+
+
+  <!-- Novo aplicativo -->
+  <app-aplicativo-control 
+    [type]="" 
+    [component_name]="" 
+    [username]="" 
+    [order]="">
+  </app-aplicativo-control>
+</div>
