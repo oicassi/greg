@@ -36,15 +36,6 @@ export class EditPageComponent implements OnInit {
       .subscribe((event) => {
       this.handleResize();
     })
-
-
-    setTimeout(() => {
-      this.loading = false;
-    }, 1000)
-    setTimeout(() => {
-      console.log('%cFOIIIIIIII', 'color:purple');
-      this._appService.addQualquerCoisa();
-    }, 5000);
   }
 
   ordenarAppList(list: AplicativoBase[]): void {

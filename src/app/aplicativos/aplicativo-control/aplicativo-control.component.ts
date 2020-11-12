@@ -18,12 +18,10 @@ export class AplicativoControlComponent implements OnInit {
 
   @Input() type: string;
   @Input() component_name: string;
-  @Input() username: string;
   @Input() order: number;
 
   // Controle de estado
   isExistente = false;
-  isApi = false;
   isSelecionado = false;
 
   // Formulário;
@@ -47,8 +45,16 @@ export class AplicativoControlComponent implements OnInit {
   /**
    * Retorna uma lista com os tipos de aplicativos possíveis
    */
-  get tiposAplicativos(): Array<{type: string, label: string}> {
+  get tiposAplicativos(): Array<{ type: string, label: string }> {
     return this._appSrv.getTiposAplicativos();
+  }
+
+  /**
+   * Retorna um label do aplicativo
+   */
+  get tipoAplicativo(): string {
+    const aplicativo =  this.tiposAplicativos.find((app) => app.type === this.type);
+    return aplicativo.label;
   }
 
   /**
@@ -61,21 +67,9 @@ export class AplicativoControlComponent implements OnInit {
     }
     this.isExistente = true;
     this.isSelecionado = true;
-    this.initForm();
-
-    // Verifica se é aplicativo que acessa API
-    if (this.username) {
-      this.isApi = true;
-      this.addControleUsername();
-    }
 
     // Altera o label do botão dropdown
     this.alteraLabelSeletor();
-    this._appSrv.getTiposAplicativos().forEach((app) => {
-      if (app.type === this.type) {
-        this.seletorLabel = app.label;
-      }
-    })
   }
 
   /**
@@ -88,27 +82,6 @@ export class AplicativoControlComponent implements OnInit {
         this.validarNomeUnicoComponente.bind(this)
       ]]
     })
-
-    if (this.isExistente) {
-      this.form.controls.component_name.disable();
-    }
-  }
-
-  /**
-   * Adiciona o controle de username para o formulário
-   */
-  addControleUsername(): void {
-    this.form.addControl('username', new FormControl((this.username || ''), [Validators.required]));
-    if (this.isExistente) {
-      this.form.controls.username.disable();
-    }
-  }
-
-  /**
-   * Remove o controle de username para o formulário
-   */
-  removeControleUsername(): void {
-    this.form.removeControl('username');
   }
 
   /**
@@ -126,14 +99,6 @@ export class AplicativoControlComponent implements OnInit {
     this.type = type;
     this.isTypeInvalid = false;
 
-    // Verifica se o tipo selecionado é do tipo API para adicionar o form de usuário
-    this.isApi = AplicativosModels.TIPOS_API.includes(this.type);
-    if (this.isApi) {
-      this.addControleUsername();
-    } else {
-      this.removeControleUsername();
-    }
-
     // Altera o label do botão dropdown
     this.alteraLabelSeletor();
   }
@@ -144,29 +109,24 @@ export class AplicativoControlComponent implements OnInit {
   onClickSalvar(): void {
     // Marcar os campos do formulário como dirty
     this.verificarCamposFormularios(this.form);
-    
-    // Verificar se campos são válidos
+
+    // Verifica se foi selecionado um tipo
     if (!this.type) {
       this.isTypeInvalid = true;
       return;
     }
 
+    // Verifica se o campo de component_name é válido
     if (!this.form.get('component_name').valid) {
       console.log('Falta preencher o nome do componente');
       return;
     }
-    
-    if (this.isApi && !this.form.get('username').valid) {
-      console.log('Falta preencher o username');
-      return;
-    }
+
     let app;
 
     // Verificar se adiciona o aplicativo ou substitui
     if (this.order) {
       app = this._appSrv.getAplicativoByOrder(this.order);
-      console.log('ahhh');
-      console.log(app);
     } else {
       app = this._factorySrv.getModel(this.type);
     }
@@ -174,22 +134,15 @@ export class AplicativoControlComponent implements OnInit {
     // Seta as variáveis
     app.component_name = this.form.get('component_name').value;
     app.type = this.type;
-    if (this.isApi) {
-      app['username'] = this.form.get('username').value;
-    }
 
     // Salva um novo ou substitui um existente
     if (this.order) {
       this._appSrv.replaceAplicativo(app);
-
-      // Reseta o controlador
-      this.resetControlador(this.order);
     } else {
       this._appSrv.addAplicativo(app);
-      
-      // Reseta o status do controlador
-      this.resetControlador();
     }
+    // Reseta o status do controlador
+    this.resetControlador(this.order);
 
     console.log(this._appSrv.getAplicativos());
   }
@@ -207,17 +160,15 @@ export class AplicativoControlComponent implements OnInit {
    */
   onClickEditar(): void {
     this.isExistente = false;
-    this.form.controls.component_name.enable();
-    if (this.isApi) {
-      this.form.controls.username.enable();
-    }
+    this.initForm();
+    this.alteraLabelSeletor();
   }
 
   /**
    * Callback para clique no botão de cancelar
    */
   onClickCancelar(): void {
-    this.resetControlador();
+    this.resetControlador(this.order);
   }
 
   /**
@@ -238,19 +189,18 @@ export class AplicativoControlComponent implements OnInit {
    * Reseta controlador
    * @param order Order do aplciativo (opcional)
    */
-  resetControlador(order = null):void {
-    if (!order) {
-      this.form.removeControl('component_name');
-      this.form.removeControl('username');
-      this.isSelecionado = false;
-      this.isApi = false;
-      this.isExistente = false;
-      this.type = null;
-      this.seletorLabel = 'Tipo de componente';
-    } else {
+  resetControlador(order = null): void {
+    console.log('reset ', order);
+    if (order) {
       this.setEstadoInicial();
+      return;
     }
-    
+    this.form.removeControl('component_name');
+    this.isSelecionado = false;
+    this.isExistente = false;
+    this.type = null;
+    this.seletorLabel = 'Tipo de componente';
+
   }
 
   /**
@@ -275,5 +225,5 @@ export class AplicativoControlComponent implements OnInit {
       }
     })
   }
-  
+
 }

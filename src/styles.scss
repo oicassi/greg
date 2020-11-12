@@ -1,21 +1,20 @@
 @import "assets/scss/main.scss";
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 * {
-    // margin : 0;
-    // padding : 0;
-    color: var(--color-fg-0);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400 !important;
-    font-size: 16px;
-    text-decoration: none;
-    --cor-padrao: #504688;
-
+  // margin : 0;
+  // padding : 0;
+  color: var(--color-fg-0);
+  font-family: "Roboto", sans-serif;
+  font-weight: 400 !important;
+  font-size: 16px;
+  text-decoration: none;
+  --cor-padrao: #504688;
 }
 
 body {
-    margin: auto 0;
-    overflow-x: hidden;
-    background-color: var(--color-bg-0);
+  margin: auto 0;
+  overflow-x: hidden;
+  background-color: var(--color-bg-0);
 }
 
 // Classe para transição de temas
@@ -23,117 +22,157 @@ html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
-    transition: all 450ms !important;
-    transition-delay: 0 !important;
+  transition: all 450ms !important;
+  transition-delay: 0 !important;
 }
 
 // tratamento de login e pagina de registro
 
-  .register-page {
-    padding: 6rem 2rem;
+.register-page {
+  padding: 6rem 2rem;
+}
+
+.login-page {
+  padding: 10rem 2rem;
+}
+
+// Classe para adicionar fade-in nos componentes
+@keyframes fadein {
+  from {
+    opacity: 0;
   }
-  
-  .login-page {
-    padding: 10rem 2rem;
+  to {
+    opacity: 1;
   }
-  
-  // BOTÕES ============================
+}
+.fade-in-geral {
+  animation: fadein 0.5s;
+}
 
-  // ==== Override bootstrap ===========
+// Joga um item para para o máximo à direita dentro de um componente
+.item-push-right {
+  margin-left: auto;
+}
 
-  .btn-primary {
-    background-color: var(--color-main);
-    color: var(--color-light);
-    border-color: var(--color-main);
-  }
-  
-  .btn-primary:hover {
-    background-color: var(--color-main-dark);
-    border-color: var(--color-main-darker);
-  }
+// Joga um item para para o máximo à esquerda dentro de um componente
+.item-push-left {
+  margin-right: auto;
+}
 
-  .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
-    background-color: var(--color-main-darker);
-    border-color: var(--color-main-darkest);
-  }
+// Quando textos são maiores que o container, substitui parte dotexto por reticências
+.text-limiter {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  .btn-link {
-    background-color: transparent;
-    color: var(--color-main);
-  }
+// BOTÕES ============================
 
-  .btn-link:hover {
-    color: var(--color-main-dark);
-  }
+// ==== Override bootstrap ===========
 
-  .btn-outline-primary {
-    color: var(--color-main);
-    border-color: var(--color-main);
-  }
+.btn-primary {
+  background-color: var(--color-main);
+  color: var(--color-light);
+  border-color: var(--color-main);
+}
 
-  .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: var(--color-main);
-  }
+.btn-primary:hover {
+  background-color: var(--color-main-dark);
+  border-color: var(--color-main-darker);
+}
 
-  .btn-outline-primary:hover {
-    border-color: var(--color-main);
-    background-color: var(--color-main);
-    color: #fff;
-  }
-  
-  .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
-    border-color: var(--color-main);
-    background-color: var(--color-main);
-    color: #fff;
-  }
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: var(--color-main-darker);
+  border-color: var(--color-main-darkest);
+}
 
-  // ==== Próprios ======================
-  
-  .btn-padrao{
-    background-color: #504688 ;
-    color: white;
-  }
+.btn-link {
+  background-color: transparent;
+  color: var(--color-main);
+}
 
+.btn-link:hover {
+  color: var(--color-main-dark);
+}
 
-  // ANCHORS ============================
+.btn-outline-primary {
+  color: var(--color-main);
+  border-color: var(--color-main);
+}
 
-  // ==== Próprios ======================
-  .anchor-padrao {
-    color: #504688 !important;
-  }
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+  color: var(--color-main);
+}
 
+.btn-outline-primary:hover {
+  border-color: var(--color-main);
+  background-color: var(--color-main);
+  color: #fff;
+}
 
-  // INPUTS =============================
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-primary.dropdown-toggle {
+  border-color: var(--color-main);
+  background-color: var(--color-main);
+  color: #fff;
+}
 
-  // ==== Override bootstrap ============
+// ==== Próprios ======================
 
-  .form-control:focus {
-    border-color: var(--color-main-ligth);
-    box-shadow: 0 0 0 .2rem rgba(109, 97, 173, 0.5)
-  }
+.btn-padrao {
+  background-color: #504688;
+  color: white;
+}
 
+// ANCHORS ============================
 
-  // BOTÃO DROPDOWN =====================
+// ==== Próprios ======================
+.anchor-padrao {
+  color: #504688 !important;
+}
 
-  // ==== Override bootstrap ============
-  .btn-primary.focus, .btn-primary:focus{
-    box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
-  }
+// INPUTS =============================
 
-  .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
-  }
+// ==== Override bootstrap ============
 
-  .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
-    border-color: var(--color-main);
-    background-color: var(--color-main);
-    color: #fff;
-  }
+.form-control:focus {
+  border-color: var(--color-main-ligth);
+  box-shadow: 0 0 0 0.2rem rgba(109, 97, 173, 0.5);
+}
 
-  .btn-outline-primary.focus, .btn-outline-primary:focus {
-    box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
-  }
+// BOTÃO DROPDOWN =====================
 
-  .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
-  }
+// ==== Override bootstrap ============
+.btn-primary.focus,
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-primary.dropdown-toggle {
+  border-color: var(--color-main);
+  background-color: var(--color-main);
+  color: #fff;
+}
+
+.btn-outline-primary.focus,
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-outline-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}

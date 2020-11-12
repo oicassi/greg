@@ -19,12 +19,12 @@ export class AplicativoService {
   aplicativos: AplicativoBase[] = [];
   constructor() {
     this.aplicativos = [];
-    this.aplicativos.push(this.getMockFlickr());
-    this.aplicativos.push(this.getMockFotos());
+    // this.aplicativos.push(this.getMockFlickr());
+    // this.aplicativos.push(this.getMockFotos());
     this.aplicativos.push(this.getMockFreesound());
-    // this.aplicativos.push(this.getMockGithub());
+    this.aplicativos.push(this.getMockGithub());
     // this.aplicativos.push(this.getMockTags());
-    // this.aplicativos.push(this.getMockTexto());
+    this.aplicativos.push(this.getMockTexto());
    }
 
   
@@ -175,8 +175,8 @@ export class AplicativoService {
 
     dado.username = 'freesoundUser';
     dado.description = 'Áudios maravilhosos do Freesound';
-    dado.profile_url = 'URL para o perfil do Freesound';
-    dado.avatar_img = 'Url para imagem do perfil do Freesound';
+    dado.profile_url = 'https://freesound.org/people/casstway/';
+    dado.avatar_img = 'https://i.pinimg.com/originals/fa/cf/10/facf10980b28a60c9f755c59aba40d39.jpg';
 
     dado.audio_array = [];
 
@@ -210,8 +210,8 @@ export class AplicativoService {
 
     dado.username = 'githubUser';
     dado.description = 'Repos maravilhosos do Github';
-    dado.profile_url = 'URL para o perfil do Github';
-    dado.avatar_img = 'Url para imagem do perfil do Github';
+    dado.profile_url = 'https://github.com/kruchelski';
+    dado.avatar_img = 'https://avatarfiles.alphacoders.com/170/170185.png';
 
     dado.repo_array = [];
 

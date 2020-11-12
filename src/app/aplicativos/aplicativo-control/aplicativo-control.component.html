@@ -1,104 +1,93 @@
 <div class="app-control-main">
 
   <!-- Botao para adicionar aplicativo novo -->
-  <div *ngIf="!isSelecionado" class="app-control-fade-in">
+  <div *ngIf="!isSelecionado" class="fade-in-geral">
     <span (click)="onClickAdicionar()" class="material-icons app-control-add-btn">add_circle_outline</span>
   </div>
 
   <!-- Dropdown para escrolher o tipo que será adicionado e infos básicas-->
-  <div *ngIf="isSelecionado" class="app-control-form-dropdown app-control-fade-in">
+  <div *ngIf="isSelecionado" class="app-control-form-dropdown fade-in-geral">
 
     <!-- Dropdown -->
     <div class="dropdown app-control-dropdown" *ngIf="!isExistente">
-      <button 
-        class="btn dropdown-toggle" 
-        type="button" 
-        id="dropdownMenuButton" 
-        data-toggle="dropdown" 
-        aria-haspopup="true" 
-        aria-expanded="false"
-        [disabled]="isExistente"
-        [ngClass]="isTypeInvalid ? 'btn-outline-danger': 'btn-outline-primary'"
-        >
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false" [disabled]="isExistente"
+        [ngClass]="isTypeInvalid ? 'btn-outline-danger': 'btn-outline-primary'">
         {{seletorLabel}}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <span 
-          class="dropdown-item item-app-type"
-          *ngFor="let tipo of tiposAplicativos"
-          (click)="onTypeSelected(tipo.type)"
-        >
-        {{tipo.label}}</span>
+        <span class="dropdown-item item-app-type" *ngFor="let tipo of tiposAplicativos"
+          (click)="onTypeSelected(tipo.type)">
+          {{tipo.label}}</span>
       </div>
       <div *ngIf="isTypeInvalid" class="error-type-selected">
         <div class="app-control-error-msg" *ngIf="isTypeInvalid">Selecione o tipo do componente</div>
       </div>
     </div>
 
-    <div *ngIf="isExistente" class="app-control-componente-adicionado-title">
+    <!-- Título de um componente já adicionado à lista -->
+    <div *ngIf="isExistente" class="app-control-componente-adicionado-title text-limiter">
       <span class="app-control-componente-adicionado-title-text">{{component_name}}</span>
     </div>
 
     <!-- Inputs -->
-    <div class="app-control-forms">
+    <div class="app-control-forms" *ngIf="!isExistente">
       <form [formGroup]="form">
-        
+
         <!-- Nome do componente -->
         <div class="form-group app-control-input">
           <!-- <label for="component_name">Nome do componente</label> -->
-          <input 
-            type="text" 
-            formControlName="component_name"
-            class="form-control form-control-sm"
+          <input type="text" formControlName="component_name" class="form-control form-control-sm"
             [ngClass]="{'is-invalid': form.controls.component_name.errors && form.controls.component_name.touched}"
-            placeholder="Nome do componente"
-            (keyup.enter)="onClickSalvar()"
-          />
-          <div *ngIf="form.controls.component_name.errors && form.controls.component_name.touched" class="invalid-feedback">
-            <div class="app-control-error-msg" *ngIf="form.controls.component_name.errors.required">Digite o nome do componente</div>
-            <div class="app-control-error-msg" *ngIf="form.controls.component_name.errors.equal">O componente deve ter um nome único</div>
-          </div>
-        </div>
-
-        <!-- Username -->
-        <div class="form-group app-control-input" *ngIf="isApi">
-          <!-- <label for="username">Username</label> -->
-          <input 
-            type="text"
-            formControlName="username"
-            class="form-control form-control-sm"
-            [ngClass]="{'is-invalid': form.controls.username.errors && form.controls.username.touched}"
-            placeholder="Username"
-            (keyup.enter)="onClickSalvar()"
-          />
-          <div *ngIf="form.controls.username.errors && form.controls.username.touched" class="invalid-feedback">
-            <div class="app-control-error-msg" *ngIf="form.controls.username.errors.required">Digite o nome do usuário</div>
+            placeholder="Nome do componente" (keyup.enter)="onClickSalvar()" />
+          <div *ngIf="form.controls.component_name.errors && form.controls.component_name.touched"
+            class="invalid-feedback">
+            <div class="app-control-error-msg" *ngIf="form.controls.component_name.errors.required">Digite o nome do
+              componente</div>
+            <div class="app-control-error-msg" *ngIf="form.controls.component_name.errors.equal">O componente deve ter
+              um nome único</div>
           </div>
         </div>
       </form>
     </div>
-
   </div>
 
-  <!-- Botões gerais -->
-  <div class="app-control-botoes app-control-fade-in">
+  <!-- Botões gerais de adição -->
+  <div class="app-control-botoes fade-in-geral" *ngIf="!isExistente">
 
     <!-- Botão para salvar -->
-    <div *ngIf="isSelecionado" id="app-control-btn-salvar">
+    <div *ngIf="isSelecionado && !isExistente" id="app-control-btn-salvar">
       <button type="button" class="btn btn-primary" (click)="onClickSalvar()">Salvar</button>
     </div>
 
-    <!-- Botão para cancelar / editar -->
+    <!-- Botão para cancelar -->
     <div *ngIf="isSelecionado">
       <button *ngIf="!isExistente" class="btn btn-secondary" (click)="onClickCancelar()">Cancelar</button>
-      <button *ngIf="isExistente" class="btn btn-secondary" (click)="onClickEditar()">Editar</button>
+      <!-- <button *ngIf="isExistente" class="btn btn-secondary" (click)="onClickEditar()">Editar</button> -->
     </div>
-    
-    <!-- Botão para excluir o aplicativo -->
-    <div *ngIf="isExistente" class="btn-push-rigth">
-      <span class="material-icons btn-delete-icon" (click)="onClickRemove()">delete</span>
-    </div>
-
-
   </div>
+
+  <!-- Container com tipo do aplicativo e botões de edição e exclusão -->
+  <div *ngIf="isExistente" class="app-control-container-tipo-botoes">
+
+    <!-- Tipo de um componente já adicionado à lista -->
+    <div class="app-control-componente-adicionado-tipo text-limiter">
+      <span class="app-control-componente-adicionado-tipo-text">{{tipoAplicativo}}</span>
+    </div>
+
+    <!-- Container botões de editar e excluir -->
+    <div *ngIf="isExistente" class="app-control-container-editar-excluir">
+
+      <!-- Botão para editar -->
+      <div>
+        <span class="material-icons btn-edit-icon" (click)="onClickEditar()">create</span>
+      </div>
+
+      <!-- Botão para excluir o aplicativo -->
+      <div class="app-control-container-btn-delete">
+        <span class="material-icons btn-delete-icon" (click)="onClickRemove()">delete</span>
+      </div>
+    </div>
+  </div>
+
 </div>

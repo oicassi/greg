@@ -2,9 +2,13 @@
   <div class="edit-control-container" #sidebar>
     <app-edit-control></app-edit-control>
   </div>
-  <div class="edit-aplicativos-container">
+  <button class="btn btn-secondary edit-sidebar-btn" (click)="toggleClass()" #sidebarButton>sidebar</button>
+  <div class="edit-preview-container">
 
-    <button class="btn btn-secondary edit-sidebar-btn" (click)="toggleClass()" #sidebarButton>sidebar</button>
+    <div style="background-color: blue; height: 200px; width: 50%; margin: auto;">
+
+    </div>
+
     
   </div>
 

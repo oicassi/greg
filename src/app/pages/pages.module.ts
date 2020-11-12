@@ -23,6 +23,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TagCloudModule } from 'angular-tag-cloud-module';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { EditControlComponent } from './edit-page/edit-control/edit-control.component';
+import { EditPreviewComponent } from './edit-page/edit-preview/edit-preview.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { EditControlComponent } from './edit-page/edit-control/edit-control.comp
     InputSearchComponent,
     EditPageComponent,
     EditControlComponent,
+    EditPreviewComponent,
   ],
   imports: [
     ButtonModule,

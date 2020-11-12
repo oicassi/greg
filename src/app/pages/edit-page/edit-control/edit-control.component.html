@@ -8,10 +8,9 @@
 
   <!-- Lista de aplicativos já adicionados -->
   <app-aplicativo-control *ngFor="let app of aplicativos"
-  [type]="app.type" 
-  [component_name]="app.component_name" 
-  [username]="app.username" 
-  [order]="app.order"
+    [type]="app.type" 
+    [component_name]="app.component_name" 
+    [order]="app.order"
   ></app-aplicativo-control>
 
 
@@ -19,7 +18,6 @@
   <app-aplicativo-control 
     [type]="" 
     [component_name]="" 
-    [username]="" 
     [order]="">
   </app-aplicativo-control>
 </div>
