@@ -80,12 +80,12 @@
 
       <!-- Botão para editar -->
       <div>
-        <span class="material-icons btn-edit-icon" (click)="onClickEditar()">create</span>
+        <app-circle-button [icon]="'create'" [color]="'secondary'" (click)="onClickEditar()"></app-circle-button>
       </div>
 
       <!-- Botão para excluir o aplicativo -->
       <div class="app-control-container-btn-delete">
-        <span class="material-icons btn-delete-icon" (click)="onClickRemove()">delete</span>
+        <app-circle-button [icon]="'delete'" [color]="'danger'" (click)="onClickRemove()"></app-circle-button>
       </div>
     </div>
   </div>

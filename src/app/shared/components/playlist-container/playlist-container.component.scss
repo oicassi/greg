@@ -1,0 +1,18 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+.playlist-container {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 10px;
+  color: inherit;
+}
+
+.playlist-empty-array-msg {
+  margin: auto;
+  font-size: 1.2rem;
+  color: var(--color-fg-0);
+}

@@ -1,4 +1,7 @@
+import { FactoryService } from '@services/factory.service';
+import { AplicativoService } from '@services/aplicativo.service';
 import { Component, OnInit } from '@angular/core';
+import { AplicativoBase } from '@models/aplicativo';
 
 @Component({
   selector: 'app-edit-preview',
@@ -7,9 +10,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditPreviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _appSrv: AplicativoService,
+    public factorySrv: FactoryService
+  ) { }
 
   ngOnInit() {
+  }
+
+  /**
+   * Setter do aplicativo
+   */
+  set aplicativos(aplicativos: AplicativoBase[]) {
+    this._appSrv.setAplicativos(aplicativos);
+  }
+
+  /**
+   * Getter dos aplicativos
+   */
+  get aplicativos(): AplicativoBase[] {
+    const apps = this._appSrv.getAplicativos();
+    this.setAplicativosEditable(apps);
+    return apps;
+  }
+
+  /**
+   * Setar que os aplicativos podem ser editados
+   */
+  setAplicativosEditable(apps: AplicativoBase[]): void {
+    apps.forEach((app) => app.isEditable = true);
   }
 
 }

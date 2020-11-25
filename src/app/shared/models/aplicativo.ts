@@ -9,6 +9,8 @@ export class AplicativoBase {
   type: string = '';
   bgColor: string = '#FFFFFF';
   fgColor: string = '#444444';
+  isEdit: boolean = false;
+  isEditable: boolean = false;
 }
 
 /**

@@ -1,0 +1,13 @@
+<!-- Container da lista de reprodução -->
+<div class="playlist-container">
+  <app-playlist-item 
+    style="color: inherit"
+    *ngFor="let audio of audioArray"
+    [audio]="audio"
+    (click)="onAudioSelecionado(audio)"
+  >
+  </app-playlist-item>
+  <div *ngIf="!audioArray || audioArray.length === 0">
+    Nenhum áudio encontrado
+  </div>
+</div>

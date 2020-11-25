@@ -14,6 +14,8 @@ import { AplicativoBase } from '@models/aplicativo';
 export class EditPageComponent implements OnInit {
 
   loading: boolean = false;
+  sidebarButtonIcon = 'menu';
+
   @ViewChild('sidebar', {static: false}) sidebar: ElementRef;
   @ViewChild('sidebarButton', {static: false}) sidebarBtn: ElementRef;
   resizeObs: Observable<Event>;
@@ -60,9 +62,11 @@ export class EditPageComponent implements OnInit {
 
     // Altera a classe do botão
     if (this.sidebarBtn.nativeElement.classList.contains('edit-open-sidebar-btn')) {
-      this.sidebarBtn.nativeElement.classList.remove('edit-open-sidebar-btn')
+      this.sidebarBtn.nativeElement.classList.remove('edit-open-sidebar-btn');
+      this.sidebarButtonIcon = 'menu';
     } else {
-      this.sidebarBtn.nativeElement.classList.add('edit-open-sidebar-btn')
+      this.sidebarBtn.nativeElement.classList.add('edit-open-sidebar-btn');
+      this.sidebarButtonIcon = 'menu_open';
     }
   }
 

@@ -2,8 +2,6 @@ import { FactoryService } from '@services/factory.service';
 import { AplicativoService } from '@services/aplicativo.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
-import { AplicativosModels } from '@shared/constants/aplicativos';
-import { AplicativoBase } from '@models/aplicativo';
 
 /**
  * Componente para adicionar novos aplicativos, informando nome do aplicativo e username (se for aplicativo de acesso à API)
@@ -122,13 +120,24 @@ export class AplicativoControlComponent implements OnInit {
       return;
     }
 
+    console.log('Ordem desse filhodaputa - ', this.order);
     let app;
 
     // Verificar se adiciona o aplicativo ou substitui
-    if (this.order) {
+    if (this.order !== null && this.order !== undefined) {
       app = this._appSrv.getAplicativoByOrder(this.order);
+      app.isEdit = false;
+
+      // Verificar se houve mudança de tipo
+      if (app.type !== this.type) {
+        app = this._factorySrv.getModel(this.type);
+        app.order = this.order;
+        app.isEdit = true;
+      }
+
     } else {
       app = this._factorySrv.getModel(this.type);
+      app.isEdit = true;
     }
 
     // Seta as variáveis
@@ -136,9 +145,11 @@ export class AplicativoControlComponent implements OnInit {
     app.type = this.type;
 
     // Salva um novo ou substitui um existente
-    if (this.order) {
+    if (this.order !== null && this.order !== undefined) {
+      console.log('replacing')
       this._appSrv.replaceAplicativo(app);
     } else {
+      console.log('adding')
       this._appSrv.addAplicativo(app);
     }
     // Reseta o status do controlador
@@ -178,7 +189,7 @@ export class AplicativoControlComponent implements OnInit {
   validarNomeUnicoComponente(input: FormControl) {
     let condition = false;
     this._appSrv.getAplicativos().forEach((app) => {
-      if (app.component_name === input.value && !this.order) {
+      if ((app.component_name === input.value) && (this.order !== app.order)) {
         condition = true;
       }
     })
@@ -191,7 +202,7 @@ export class AplicativoControlComponent implements OnInit {
    */
   resetControlador(order = null): void {
     console.log('reset ', order);
-    if (order) {
+    if (this.order !== null && this.order !== undefined) {
       this.setEstadoInicial();
       return;
     }

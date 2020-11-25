@@ -1,0 +1,42 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+.freesound-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background-color: var(--color-main);
+  color: var(--color-light);
+  font-weight: 200;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  box-shadow: 0px 1px 5px #888888;
+  border-radius: 6px;
+}
+
+.freesound-header-title-text {
+  margin-left: auto;
+  margin-right: auto;
+  color: inherit;
+  font-size: inherit;
+}
+
+.freesound-header-button {
+  margin: 0 5px;
+  font-size: 0.5rem;
+}
+
+.freesound-header-config-button {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  color: var(--color-light);
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.freesound-header-config-button:hover {
+  transform: rotate(180deg) scale(1.2);
+}

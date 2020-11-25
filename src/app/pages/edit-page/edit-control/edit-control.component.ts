@@ -15,6 +15,8 @@ export class EditControlComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Ordena os aplicativos com base no order
+    this.aplicativos = this.aplicativos.sort((a, b) => a.order - b.order);
   }
 
   /**

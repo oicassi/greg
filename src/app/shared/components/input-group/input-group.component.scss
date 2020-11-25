@@ -1,0 +1,60 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+.generic-input-group {
+  width: 100%;
+  justify-content: center;
+}
+
+.input-pad {
+  padding-left:  30px; 
+}
+
+.icon-position {
+  position: absolute;
+  font-size: 1.2rem;
+  top: 9px;
+  left: 10px;
+  z-index: 10;
+  color: var(--color-fg-1);
+}
+
+// Override Bootstrap
+.btn-outline-secondary {
+  border-color: lightgray;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--color-main);
+}
+
+.input-group > .custom-select:not(:first-child), .input-group > .form-control:not(:first-child) {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.btn-outline-primary {
+  border-color: var(--color-main);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--color-main);
+}
+
+.input-group > .custom-select:not(:first-child), .input-group > .form-control:not(:first-child) {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+input {
+  width: 100%;
+}
+
+.generic-input-error-msg {
+  color: inherit;
+  font-size: inherit;
+}
+
+.generic-input-submit-button {
+  justify-content: center;
+  margin-top: 20px;
+}

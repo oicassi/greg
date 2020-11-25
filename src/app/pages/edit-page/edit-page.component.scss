@@ -1,4 +1,4 @@
-@import '../../../assets/scss/_basics/colors.scss';
+@import "../../../assets/scss/_basics/colors.scss";
 
 .edit-main-container {
   display: grid;
@@ -31,11 +31,14 @@
   top: 20px;
   left: 20px;
   transition: all 0.5s;
+  opacity: 0.8;
+  box-shadow: 0 0 10px #444444;
 }
 
 .edit-open-sidebar-btn {
   left: 335px;
 }
+
 @media only screen and (max-width: 850px) {
   .edit-control-container {
     width: 0px;
@@ -43,7 +46,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 100;
+    z-index: -100;
     box-shadow: 1px 0px 10px #bebebe;
   }
 
@@ -55,4 +58,5 @@
 .edit-open-sidebar {
   min-width: 315px;
   width: 25vw;
+  z-index: 100;
 }

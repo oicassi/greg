@@ -1,0 +1,42 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+.playlist-item {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 5px;
+  cursor: pointer;
+  border-bottom: 1px solid lightgray;
+  word-break: break-word;
+  transition: all 0.3s;
+  color: inherit
+}
+
+.playlist-item:hover {
+  box-shadow: 0 0px 5px #ababab;
+}
+
+.playlist-item-name {
+  display: inline-block;
+  width: 25%;
+  min-width: 120px;
+  font-size: 0.9rem;
+  font-weight: 500 !important;
+  color: inherit
+}
+
+.playlist-item-desc {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: inherit;
+  width: 68%;
+}
+
+.playlist-item-tag {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: inherit;
+  opacity: 0.8;
+  font-style: italic;
+  margin: 5px;
+}

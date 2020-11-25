@@ -66,6 +66,117 @@ html.transition *:after {
   text-overflow: ellipsis;
 }
 
+.aplicativo-editing {
+  // border: 2px solid var(--color-warning);
+  box-shadow: 0px 0px 10px var(--color-warning) !important;
+}
+
+// APLICATIVOS GERAL =================================================================
+
+// Container principal dos aplicativos
+.aplicativo-main-container {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: var(--color-bg-1);
+  box-shadow: 0px 1px 5px #888888;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+// Botão de engrenagem para mostrar configurações do componente
+.aplicativo-config-button {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  color: var(--color-fg-1);
+  cursor: pointer;
+  margin: auto;
+  transition: all 0.5s;
+}
+
+.aplicativo-config-button:hover {
+  transform: rotate(180deg) scale(1.2);
+}
+
+// Container com o input group e um botão para alguma ação dentro do menu de configurações
+.aplicativo-input-button-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+// Input group genérico usado para inserir dados de um username, por exemplo
+.aplicativo-input-username-container {
+  width: 50%;
+  min-width: 300px;
+  margin: auto;
+  margin-top: 0;
+}
+
+// Input group genérico dentro do menu de configurações do componente
+.aplicativo-input-config-container {
+  width: 55%;
+  margin: 0;
+  padding-right: 20px;
+}
+
+// Container com os color pickers do menu de configurações
+.color-picker-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
+
+// Container do color picker + label
+.color-picker-label-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+// Color picker genérico
+.color-picker {
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: 1px solid #888888;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 0px 20px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.color-picker:hover {
+  transform: scale(1.2);
+}
+
+// Color picker a esquerda
+#picker1 {
+  box-shadow: -2px 2px 3px #888888;
+  transition: all 0.5s;
+}
+
+#picker1:hover {
+  box-shadow: -3px 3px 12px #888888;
+}
+
+// Color picker a direita
+#picker2 {
+  box-shadow: 2px 2px 3px #888888;
+  transition: all 0.5s;
+}
+
+#picker2:hover {
+  box-shadow: 3px 3px 12px #888888;
+}
+
 // BOTÕES ============================
 
 // ==== Override bootstrap ===========

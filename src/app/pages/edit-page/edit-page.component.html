@@ -2,14 +2,13 @@
   <div class="edit-control-container" #sidebar>
     <app-edit-control></app-edit-control>
   </div>
-  <button class="btn btn-secondary edit-sidebar-btn" (click)="toggleClass()" #sidebarButton>sidebar</button>
+  <button class="btn btn-secondary edit-sidebar-btn" (click)="toggleClass()" #sidebarButton>
+    <span class="material-icons" style="color: var(--color-light);">
+      {{sidebarButtonIcon}}  
+    </span>
+  </button>
   <div class="edit-preview-container">
-
-    <div style="background-color: blue; height: 200px; width: 50%; margin: auto;">
-
-    </div>
-
-    
+    <app-edit-preview></app-edit-preview>
   </div>
 
 </div>

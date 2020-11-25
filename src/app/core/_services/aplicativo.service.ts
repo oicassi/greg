@@ -170,7 +170,7 @@ export class AplicativoService {
     dado.component_name = 'Freesoundzera';
     dado.order = 1;
     dado.type = 'freesound';
-    dado.fgColor = '#444444';
+    dado.fgColor = '#AA4477';
     dado.bgColor = '#94a1f6';
 
     dado.username = 'freesoundUser';
@@ -183,7 +183,7 @@ export class AplicativoService {
     let audio1 = new Audio();
     audio1.name = 'Áudio 1';
     audio1.description = 'Este é o áudio 1';
-    audio1.url = 'Url para o áudio 1';
+    audio1.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3';
     audio1.tags = ['opa', 'ahh', 'papapapa'];
 
     dado.audio_array.push(audio1);
@@ -191,8 +191,32 @@ export class AplicativoService {
     let audio2 = new Audio();
     audio2.name = 'Áudio 2';
     audio2.description = 'Este é o áudio 2';
-    audio2.url = 'Url para o áudio 2';
+    audio2.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
     audio2.tags = ['tnc', 'tccdocaralho', 'cu'];
+
+    dado.audio_array.push(audio2);
+
+    let audio3 = new Audio();
+    audio3.name = 'Áudio 3';
+    audio3.description = 'Este é o áudio 3';
+    audio3.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+    audio3.tags = ['tnc', 'tccdocaralho', 'cu'];
+
+    dado.audio_array.push(audio3);
+
+    let audio4 = new Audio();
+    audio4.name = 'Áudio 4';
+    audio4.description = 'Este é o áudio 2';
+    audio4.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+    audio4.tags = ['tnc', 'tccdocaralho', 'cu'];
+
+    dado.audio_array.push(audio2);
+
+    let audio5 = new Audio();
+    audio5.name = 'Áudio 5';
+    audio5.description = 'Este é o áudio 2';
+    audio5.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+    audio5.tags = ['tnc', 'tccdocaralho', 'cu'];
 
     dado.audio_array.push(audio2);
 
@@ -208,7 +232,7 @@ export class AplicativoService {
     dado.fgColor = '#444444';
     dado.bgColor = '#e994f6';
 
-    dado.username = 'githubUser';
+    dado.username = 'kruchelski';
     dado.description = 'Repos maravilhosos do Github';
     dado.profile_url = 'https://github.com/kruchelski';
     dado.avatar_img = 'https://avatarfiles.alphacoders.com/170/170185.png';
@@ -216,20 +240,28 @@ export class AplicativoService {
     dado.repo_array = [];
 
     let repo1 = new Repo();
-    repo1.name = 'Repo 1';
-    repo1.description = 'Este é o Repo 1';
-    repo1.url = 'Url para Repo 1';
+    repo1.name = 'grades-simulator-control';
+    repo1.description = 'Simple application (to learn and practice react) that simulates a grading system for three students ';
+    repo1.url = 'https://github.com/kruchelski/grades-control-simulator';
     repo1.data = '10/10/1929';
 
     dado.repo_array.push(repo1);
     
     let repo2 = new Repo();
-    repo2.name = 'Repo 2';
-    repo2.description = 'Este é o Repo 2';
-    repo2.url = 'Url para Repo 2';
+    repo2.name = 'country-search';
+    repo2.description = 'An application made in react for learning purposes to list countries with their flags and population number ';
+    repo2.url = 'https://github.com/kruchelski/country-search';
     repo2.data = '31/12/2340';
 
     dado.repo_array.push(repo2);
+
+    let repo3 = new Repo();
+    repo3.name = 'simulated-vote-viewer';
+    repo3.description = 'Simple application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
+    repo3.url = 'https://github.com/kruchelski/simulated-vote-viewer';
+    repo3.data = '31/12/2340';
+
+    dado.repo_array.push(repo3);
     return dado;
   }
 

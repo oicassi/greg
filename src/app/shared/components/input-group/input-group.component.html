@@ -1,0 +1,42 @@
+<!-- <div class="input-group generic-input-group"> -->
+<form [formGroup]="form" class="generic-input-group">
+  <div class="form-group app-control-input">
+    <label for="generic_input" *ngIf="label">{{label}}</label>
+    <i class="material-icons icon-position" *ngIf="icon">
+      {{icon}}
+    </i>
+    <input [type]="inputType" formControlName="generic_input" class="form-control"
+      [ngClass]="{'is-invalid' : form.controls.generic_input.errors && form.controls.generic_input.touched}"
+      [ngClass]="{'input-pad' : icon}" [placeholder]="placeholder" (input)="onInput(form.get('generic_input').value)"
+      (keyup.enter)="onSubmit()" />
+    <div *ngIf="form.controls.generic_input.errors && form.controls.generic_input.touched" class="invalid-feedback">
+      <div class="generic-input-error-msg" *ngIf="form.controls.generic_input.errors.required">
+        {{campoObrigatorioMsg || 'Campo obrigatório'}}
+      </div>
+    </div>
+    <div class="input-group-append generic-input-submit-button">
+      <button class="btn {{btnClass}}" type="button" id="button-addon2" (click)="onSubmit()">
+        {{buttonLabel}}
+      </button>
+    </div>
+  </div>
+</form>
+
+
+
+
+<!-- <input 
+    #inputGeneric 
+    [type]="inputType" 
+    class="form-control"
+    [className]="icon ? 'input-pad' : ''" 
+    [placeholder]="placeholder" 
+    [value]="inputValue || ''" 
+    (input)="onInput(inputGeneric.value)"
+    (keyup.enter)="onSubmit()" />
+  <div class="input-group-append">
+    <button class="btn {{btnClass}}" type="button" id="button-addon2" (click)="onSubmit()">
+      {{buttonLabel}}
+    </button>
+  </div> -->
+<!-- </div> -->

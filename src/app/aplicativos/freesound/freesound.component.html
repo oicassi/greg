@@ -1,1 +1,103 @@
-<p>freesound works!</p>
+<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
+
+  <!-- Container do título do componente -->
+  <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '95%' : '100%' }"
+    [dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
+  </app-aplicativo-header>
+
+  <!-- Botão para abrir as configurações do componente -->
+  <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button dropdown" id="menuConfiguracoes"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    settings
+  </div>
+
+  <!-- Menu de configurações do componente -->
+  <div class="dropdown-menu" aria-labelledby="menuConfiguracoes"
+    style="width: 800px; box-shadow: 0px 1px 10px #888888; background-color:var(--color-bg-0)">
+    <div class="aplicativo-input-button-container">
+
+      <!-- Input group para colocar um novo username -->
+      <div class="aplicativo-input-username-container aplicativo-input-config-container dropdown-item"
+        *ngIf="hasCheckedApi">
+        <app-input-group [label]="'Alterar username do Freesound'" [inputType]="'text'" [inputValue]="dados.username"
+          [placeholder]="'Insira seu username do Freesound'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
+          [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+        </app-input-group>
+      </div>
+
+      <!-- Botão para abrir o modal para selecionar os áudios -->
+      <div style="margin:auto">
+        <button class="btn btn-outline-primary">
+          Selecionar áudios
+        </button>
+      </div>
+    </div>
+    <div class="dropdown-item color-picker-container">
+      <div class="color-picker-label-container">
+        <span class="color-pickr-label"> Cor de fundo</span>
+        <input class="color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
+          (input)="onColorChange($event.target)" />
+      </div>
+      <div class="color-picker-label-container">
+        <span class="color-pickr-label"> Cor de destaque</span>
+        <input class="color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
+          (input)="onColorChange($event.target)" />
+      </div>
+    </div>
+  </div>
+
+  <div class="freesound-basic-info" *ngIf="hasCheckedApi">
+
+    <!-- Container da imagem + user name -->
+    <div class="freesound-pic-name">
+
+      <!-- Container da imagem -->
+      <div class="freesound-avatar-pic">
+        <img src="{{dados.avatar_img}}" class="freesound-pic" />
+      </div>
+
+      <!-- Container do username -->
+      <div class="freesound-profile-name">
+        <span class="freesound-profile-name-text">{{dados.username}}</span>
+      </div>
+    </div>
+
+    <!-- Container da descrição -->
+    <div class="freesound-description">
+      <div class="freesound-description-header">
+        <span style="color: inherit">Descrição</span>
+      </div>
+      {{dados.description}}
+    </div>
+  </div>
+
+  <!-- Container do player + lista de reprodução -->
+  <div class="freesound-player-container" *ngIf="hasCheckedApi">
+
+    <!-- Container do player -->
+    <div class="freesound-player-controls">
+      <audio controls src={{audioEmReproducao.url}} [autoplay]="forcePlay" class="freesound-audio-player"></audio>
+      <div>
+        <span style="color: var(--color-main)">Reproduzindo: </span>
+        <span style="color: var(--color-main); font-weight: 500 !important;">{{audioEmReproducao.name}}</span>
+      </div>
+    </div>
+
+    <!-- Container da lista de reprodução -->
+    <div style="overflow-y: auto; color: inherit">
+      <app-playlist-container
+        style="color: inherit"
+        [audioArray]="dados.audio_array" 
+        (audioSelecionado)="handleTrocaAudio($event)">
+      </app-playlist-container>
+    </div>
+  </div>
+
+  <!-- Mostrar o input para inserção do username -->
+  <div class="freesound-input-username-container" *ngIf="!hasCheckedApi">
+    <app-input-group [label]="'Username do Freesound'" [inputType]="'text'"
+      [placeholder]="'Insira seu username do Freesound'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
+      [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+    </app-input-group>
+  </div>
+</div>
