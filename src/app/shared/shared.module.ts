@@ -7,6 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AplicativoHeaderComponent } from './components/aplicativo-header/aplicativo-header.component';
 import { PlaylistContainerComponent } from './components/playlist-container/playlist-container.component';
 import { PlaylistItemComponent } from './components/playlist-item/playlist-item.component';
+import { RepoContainerComponent } from './components/repo-container/repo-container.component';
+import { RepoItemComponent } from './components/repo-item/repo-item.component';
+import { PhotoContainerComponent } from './components/photo-container/photo-container.component';
+import { PhotoItemComponent } from './components/photo-item/photo-item.component';
 
 
 
@@ -17,7 +21,11 @@ import { PlaylistItemComponent } from './components/playlist-item/playlist-item.
     InputGroupComponent,
     AplicativoHeaderComponent,
     PlaylistContainerComponent,
-    PlaylistItemComponent
+    PlaylistItemComponent,
+    RepoContainerComponent,
+    RepoItemComponent,
+    PhotoContainerComponent,
+    PhotoItemComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +38,11 @@ import { PlaylistItemComponent } from './components/playlist-item/playlist-item.
     InputGroupComponent,
     AplicativoHeaderComponent,
     PlaylistContainerComponent,
-    PlaylistItemComponent
+    PlaylistItemComponent,
+    RepoContainerComponent,
+    RepoItemComponent,
+    PhotoContainerComponent,
+    PhotoItemComponent
   ]
 })
 export class SharedModule { }

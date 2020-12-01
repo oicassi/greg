@@ -82,9 +82,21 @@ html.transition *:after {
   justify-content: flex-start;
   align-items: flex-start;
   background-color: var(--color-bg-1);
-  box-shadow: 0px 1px 5px #888888;
+  box-shadow: 0px 1px 2px #888888;
   padding: 5px;
   border-radius: 6px;
+}
+
+@keyframes showConfigButton {
+  from {
+    font-size: 0rem;
+    margin: auto;
+  }
+  to {
+    font-size: 1.5rem;
+    // margin: 0;
+    margin-top: 1rem;
+  }
 }
 
 // Botão de engrenagem para mostrar configurações do componente
@@ -93,8 +105,10 @@ html.transition *:after {
   font-size: 1.5rem;
   color: var(--color-fg-1);
   cursor: pointer;
-  margin: auto;
   transition: all 0.5s;
+  animation-name: showConfigButton;
+  animation-duration: 0.5s;
+  margin-top: 1rem;
 }
 
 .aplicativo-config-button:hover {

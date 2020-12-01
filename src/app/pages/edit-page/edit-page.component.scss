@@ -15,7 +15,6 @@
   min-width: 315px;
   width: 25vw;
   padding: 0;
-  margin: auto 0;
   transition: all 0.5s;
 }
 
@@ -39,7 +38,7 @@
   left: 335px;
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1030px) {
   .edit-control-container {
     width: 0px;
     min-width: 0px;

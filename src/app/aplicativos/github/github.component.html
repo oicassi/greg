@@ -65,20 +65,27 @@
     <!-- Container da descrição -->
     <div class="github-description">
       <div class="github-description-header">
-        <span style="color: inherit">Descrição</span>
+        <span style="color: inherit; font-size: inherit;">Descrição</span>
       </div>
       {{dados.description}}
     </div>
   </div>
 
   <!-- Container dos repositórios -->
+  <div class="github-repo-container" *ngIf="hasCheckedApi">
+    <app-repo-container
+      [repoArray]="dados.repo_array"
+      [fgColor]="dados.fgColor"
+    >
+    </app-repo-container>
+  </div>
 
 
   <!-- Mostrar o input para inserção do username -->
-  <div class="freesound-input-username-container" *ngIf="!hasCheckedApi">
-    <app-input-group [label]="'Username do GitHub'" [inputType]="'text'"
-      [placeholder]="'Insira seu username do GitHub'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
-      [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+  <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
+    <app-input-group [label]="'Username do GitHub'" [inputType]="'text'" [placeholder]="'Insira seu username do GitHub'"
+      [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
+      [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
     </app-input-group>
   </div>
 </div>

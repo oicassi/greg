@@ -65,7 +65,7 @@
     <!-- Container da descrição -->
     <div class="freesound-description">
       <div class="freesound-description-header">
-        <span style="color: inherit">Descrição</span>
+        <span style="color: inherit; font-size: inherit;">Descrição</span>
       </div>
       {{dados.description}}
     </div>
@@ -78,8 +78,8 @@
     <div class="freesound-player-controls">
       <audio controls src={{audioEmReproducao.url}} [autoplay]="forcePlay" class="freesound-audio-player"></audio>
       <div>
-        <span style="color: var(--color-main)">Reproduzindo: </span>
-        <span style="color: var(--color-main); font-weight: 500 !important;">{{audioEmReproducao.name}}</span>
+        <span style="color: var(--color-fg-inv);">Reproduzindo: </span>
+        <span style="color: var(--color-fg-inv); font-weight: 500 !important;">{{audioEmReproducao.name}}</span>
       </div>
     </div>
 
@@ -94,7 +94,7 @@
   </div>
 
   <!-- Mostrar o input para inserção do username -->
-  <div class="freesound-input-username-container" *ngIf="!hasCheckedApi">
+  <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
     <app-input-group [label]="'Username do Freesound'" [inputType]="'text'"
       [placeholder]="'Insira seu username do Freesound'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
       [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">

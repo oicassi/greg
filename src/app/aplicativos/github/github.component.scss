@@ -22,6 +22,7 @@
   flex-direction: column;
   cursor: pointer;
   margin-right: 10px;
+  color: inherit;
 }
 
 .github-avatar-pic {
@@ -43,19 +44,19 @@
   padding: 10px;
   width: 100%;
   height: 60px;
+  color: inherit;
 }
 
 .github-profile-name-text {
  margin: auto;
- font-weight: 500 !important;
- font-size: 1.1rem;
- color: var(--color-main)
+ font-weight: 400 !important;
+ font-size: 1.2rem;
+ color: inherit;
 }
 
 .github-description {
   width: 50%;
   min-width: 185px;
-  max-width: 185px;
   height: 100%;
   min-height: 254px;
   cursor: pointer;  
@@ -69,7 +70,18 @@
   text-align: center;
   padding: 5px;
   border-bottom: 1px solid lightgray;
-  color: var(--color-main);
+  color: inherit;
   margin-bottom: 5px;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
+  font-size: 1.2rem;
+}
+
+.github-repo-container {
+  height:100%;
+  width: 400px;
+  min-height: 254px;
+  max-height: 254px;
+  min-width: 400px;
+  flex: 1.5;
+  margin: 5px;
 }

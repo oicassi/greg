@@ -19,7 +19,7 @@ export class AplicativoService {
   aplicativos: AplicativoBase[] = [];
   constructor() {
     this.aplicativos = [];
-    // this.aplicativos.push(this.getMockFlickr());
+    this.aplicativos.push(this.getMockFlickr());
     // this.aplicativos.push(this.getMockFotos());
     this.aplicativos.push(this.getMockFreesound());
     this.aplicativos.push(this.getMockGithub());
@@ -119,7 +119,7 @@ export class AplicativoService {
     dado.username = 'flickrUser';
     dado.description = 'Fotos maravilhosas do Flickr';
     dado.profile_url = 'urlParaProfileFlickr';
-    dado.avatar_img = 'urlAvatarFlickr';
+    dado.avatar_img = 'https://highprofileenterprises.com/wp-content/uploads/2015/02/Google-penguin.jpg';
     
     dado.full_name = 'Usuario do Flickr';
     dado.alias = 'Flickrito';
@@ -232,7 +232,7 @@ export class AplicativoService {
     dado.fgColor = '#444444';
     dado.bgColor = '#e994f6';
 
-    dado.username = 'kruchelski';
+    dado.username = 'anyUser';
     dado.description = 'Repos maravilhosos do Github';
     dado.profile_url = 'https://github.com/kruchelski';
     dado.avatar_img = 'https://avatarfiles.alphacoders.com/170/170185.png';
@@ -262,6 +262,14 @@ export class AplicativoService {
     repo3.data = '31/12/2340';
 
     dado.repo_array.push(repo3);
+
+    let repo4 = new Repo();
+    repo4.name = 'simulaasdfasfdteasdfd-vote-asdf';
+    repo4.description = 'Simplaasdfa asdf asdf asdfe application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
+    repo4.url = 'https://github.com/kruchelski/simulated-vote-viewer';
+    repo4.data = '31/12/2340';
+
+    dado.repo_array.push(repo4);
     return dado;
   }
 

@@ -22,6 +22,7 @@
   flex-direction: column;
   cursor: pointer;
   margin-right: 10px;
+  color: inherit;
 }
 
 .freesound-avatar-pic {
@@ -43,13 +44,14 @@
   padding: 10px;
   width: 100%;
   height: 60px;
+  color: inherit;
 }
 
 .freesound-profile-name-text {
  margin: auto;
- font-weight: 500 !important;
- font-size: 1.1rem;
- color: var(--color-main)
+ font-weight: 400 !important;
+ font-size: 1.2rem;
+ color: inherit;
 }
 
 .freesound-description {
@@ -68,19 +70,21 @@
   text-align: center;
   padding: 5px;
   border-bottom: 1px solid lightgray;
-  color: var(--color-main);
+  color: inherit;
   margin-bottom: 5px;
-  font-weight: 500 !important;
+  font-weight: 400 !important;
+  font-size: 1.2rem;
 }
 
 .freesound-player-container {
   height:100%;
   min-height: 254px;
   max-height: 254px;
+  width: 700px;
   min-width: 400px;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1.5;
   margin: 5px;
   color: inherit;
 }
@@ -89,6 +93,10 @@
   width: 100%;
   padding: 15px;
   margin-bottom: 10px;
+  border-radius: 6px;
+  background: linear-gradient(to right, #504688, #734b6d);
+  box-shadow: 0px 0px 15px #504688;
+  opacity: 0.8;
 }
 
 .freesound-audio-player {
