@@ -33,17 +33,16 @@ export class EditControlComponent implements OnInit {
     this._appSrv.setAplicativos(aplicativos);
   }
 
-  onAplicativoAdicionado(): void {
-    console.log('%cAplicativo adicionado com sucesso', 'color: green');
-  }
-
-  onAplicativoRemovido(): void {
-    console.log('%cAplicativo removido com sucesso', 'color: orange');
-  }
-
-  onAplicativosReordenados(event: CdkDragDrop<any>): void {
+  /**
+   * Listener para o evento de drop do cdk drag and drop
+   * @param event Evento
+   */
+  drop(event: CdkDragDrop<string[]>): void {
     console.log(this.aplicativos);
     moveItemInArray(this.aplicativos, event.previousIndex, event.currentIndex);
+    for (let i = 0; i < this.aplicativos.length; i++) {
+      this.aplicativos[i].order = i;
+    }
     console.log('%cAplicativo reordenado com sucesso', 'color: purple');
     console.log(this.aplicativos);
   }

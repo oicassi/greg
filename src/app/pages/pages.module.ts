@@ -24,6 +24,7 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { EditControlComponent } from './edit-page/edit-control/edit-control.component';
 import { EditPreviewComponent } from './edit-page/edit-preview/edit-preview.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -58,8 +59,9 @@ import { EditPreviewComponent } from './edit-page/edit-preview/edit-preview.comp
     ProgressSpinnerModule,
     RouterModule,
     TagCloudModule,
-    AplicativosModule
+    AplicativosModule,
+    DragDropModule
   ],
-  exports: [LoginRegisterComponent]
+  exports: [LoginRegisterComponent, DragDropModule,]
 })
 export class PagesModule { }
