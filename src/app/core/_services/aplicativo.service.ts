@@ -128,15 +128,21 @@ export class AplicativoService {
     let foto1 = new Foto();
     foto1.name = 'Foto 1 Flickr';
     foto1.description = 'Essa é a foto 1 do flickr';
-    foto1.url = 'Url para a foto 1 do flickr';
+    foto1.url = 'https://c.files.bbci.co.uk/CF3C/production/_111925035_penguino.jpg';
     dado.photo_array.push(foto1);
 
     let foto2 = new Foto();
     foto2.name = 'Foto 2 Flickr';
     foto2.description = 'Essa é a foto 2 do flickr'
-    foto2.url = 'Url para a foto 2 do flickr';
+    foto2.url = 'https://www.wallpaperup.com/uploads/wallpapers/2014/04/10/328993/e8afca84beb2cf9f70fb2574423d0fc8-700.jpg';
     dado.photo_array.push(foto2);
     
+    let foto3 = new Foto();
+    foto3.name = 'Foto 3 Flickr';
+    foto3.description = 'Essa é a foto 3 do flickr'
+    foto3.url = 'https://i.ytimg.com/vi/0syrKzXfKuI/hqdefault.jpg';
+    dado.photo_array.push(foto3);
+
     return dado;
   }
 

@@ -1,7 +1,7 @@
 <div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
 
   <!-- Container do título do componente -->
-  <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '95%' : '100%' }"
+  <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
     [dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
   </app-aplicativo-header>
 
@@ -73,8 +73,11 @@
 
   <!-- Container das imagens -->
   <div class="flickr-photo-container" *ngIf="hasCheckedApi">
-    <!-- <app-photo-container [photoArray]="dados.photo_array">
-    </app-photo-container> -->
+    <app-photo-container
+      [photoArray]="dados.photo_array" 
+      [fgColor]="dados.fgColor"
+      style="margin: auto; width: 100%;">
+    </app-photo-container>
   </div>
 
   <!-- Mostrar o input para inserção do username -->

@@ -9,10 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PhotoContainerComponent implements OnInit {
 
   @Input() photoArray: Foto[];
+  @Input() fgColor: string;
 
   constructor() { }
 
   ngOnInit() {
+    console.log('OPAAAAA');
+    console.log(this.photoArray);
   }
 
 }

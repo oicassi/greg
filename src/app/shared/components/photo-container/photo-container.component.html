@@ -1,13 +1,24 @@
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="display: inline-block; height: 100%;">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://c.files.bbci.co.uk/CF3C/production/_111925035_penguino.jpg" class="d-block w-100"  alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="https://www.wallpaperup.com/uploads/wallpapers/2014/04/10/328993/e8afca84beb2cf9f70fb2574423d0fc8-700.jpg" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="https://i.ytimg.com/vi/0syrKzXfKuI/hqdefault.jpg" class="d-block w-100" alt="...">
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li
+    *ngFor="let photo of photoArray; let i = index"
+      data-target="#carouselExampleIndicators" 
+      data-slide-to="{i.toString()}" 
+      [ngClass]="{'active': i == 0}"
+    >
+    </li>
+  </ol>
+  <div class="carousel-inner carousel-inner-custom">
+    <div
+      *ngFor="let photo of photoArray; let i = index" 
+      class="carousel-item carousel-item-custom"
+      [ngClass]="{'active': i == 0}"
+    >
+      <img src="{{photo.url}}" class="d-block carousel-item-img-custom"  alt="{{photo.name}}">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 [ngStyle]="{color: fgColor ? fgColor : '#eeeeee'}">{{photo.name || 'Foto do Flickr'}}</h5>
+        <p [ngStyle]="{color: fgColor ? fgColor : '#eeeeee', opacity: 0.8}">{{photo.description || ''}}</p>
+      </div>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
