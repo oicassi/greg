@@ -37,4 +37,19 @@ export class AplicativoGenericoApiComponent extends AplicativoGenericoComponent 
     }
   }
 
+  /**
+   * Quando submete um novo username para ser feita uma requisição a API
+   * @param username Username digitado
+   */
+  onUsernameSubmit(username:string) {
+    console.log('Username submited: ', username);
+    if (this.dados['username'] !== undefined && 
+    this.dados['username'] !== null &&
+    this.dados['username'] !== username) {
+      console.log('Fazendo nova requisição a API')
+      return
+    }
+    console.log('Não é tem requisição para API')
+  }
+
 }

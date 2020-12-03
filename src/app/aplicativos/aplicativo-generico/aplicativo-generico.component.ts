@@ -20,7 +20,6 @@ export class AplicativoGenericoComponent implements OnInit {
    * Cria uma cópia dos dados para ter caso o usuário cancele a edição
    */
   criaBackupDados(): void {
-    console.log('Djanho bruto')
     this.dadosBkp = Object.assign({}, this.dados);
   }
   
@@ -48,23 +47,10 @@ export class AplicativoGenericoComponent implements OnInit {
    */
   onClickCancelEditar(): void {
     console.log('Botão cancelar edição pressionado');
-    this.dados = Object.assign({}, this.dadosBkp);
+    // this.dados = Object.assign({}, this.dadosBkp);
+    this.dados = this.dadosBkp;
     this.dados.isEdit = false;
-  }
-
-  /**
-   * Quando submete um novo username para ser feita uma requisição a API
-   * @param username Username digitado
-   */
-  onUsernameSubmit(username:string) {
-    console.log('Username submited: ', username);
-    if (this.dados['username'] !== undefined && 
-    this.dados['username'] !== null &&
-    this.dados['username'] !== username) {
-      console.log('Fazendo nova requisição a API')
-      return
-    }
-    console.log('Não é tem requisição para API')
+    this.criaBackupDados();
   }
 
   /**
