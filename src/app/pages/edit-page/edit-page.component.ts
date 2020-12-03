@@ -74,7 +74,7 @@ export class EditPageComponent implements OnInit {
     if (window.innerWidth > 850) {
       this.sidebar.nativeElement.classList.remove('edit-open-sidebar');
       this.sidebarBtn.nativeElement.classList.remove('edit-open-sidebar-btn');
-
+      this.sidebarButtonIcon = 'menu';
     }
   }
 

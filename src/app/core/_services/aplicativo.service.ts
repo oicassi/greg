@@ -198,7 +198,7 @@ export class AplicativoService {
     audio2.name = 'Áudio 2';
     audio2.description = 'Este é o áudio 2';
     audio2.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio2.tags = ['tnc', 'tccdocaralho', 'cu'];
+    audio2.tags = ['tnc', 'tccdocaralho', 'tocansado'];
 
     dado.audio_array.push(audio2);
 
@@ -206,25 +206,25 @@ export class AplicativoService {
     audio3.name = 'Áudio 3';
     audio3.description = 'Este é o áudio 3';
     audio3.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio3.tags = ['tnc', 'tccdocaralho', 'cu'];
+    audio3.tags = ['tralalal', 'eletroniquinha', 'sonzera'];
 
     dado.audio_array.push(audio3);
 
     let audio4 = new Audio();
     audio4.name = 'Áudio 4';
-    audio4.description = 'Este é o áudio 2';
+    audio4.description = 'Este é o áudio 4';
     audio4.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio4.tags = ['tnc', 'tccdocaralho', 'cu'];
+    audio4.tags = ['fujaloko', 'tudoigual', ':(', 'musicapesada'];
 
-    dado.audio_array.push(audio2);
+    dado.audio_array.push(audio4);
 
     let audio5 = new Audio();
     audio5.name = 'Áudio 5';
-    audio5.description = 'Este é o áudio 2';
+    audio5.description = 'Este é o áudio 5';
     audio5.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio5.tags = ['tnc', 'tccdocaralho', 'cu'];
+    audio5.tags = ['ferias', 'cade', 'coronavirusvaitomarnocu'];
 
-    dado.audio_array.push(audio2);
+    dado.audio_array.push(audio5);
 
     return dado;
   }

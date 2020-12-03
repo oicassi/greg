@@ -27,15 +27,26 @@
 .edit-sidebar-btn {
   display: none;
   position: fixed;
-  top: 20px;
+  top: 13px;
   left: 20px;
   transition: all 0.5s;
   opacity: 0.8;
   box-shadow: 0 0 10px #444444;
+  border: none;
+  background: linear-gradient(to right, #666c7f, transparent);
+}
+
+.edit-sidebar-btn:hover {
+  background: linear-gradient(to right, #666c7f, #666c7f) ;
 }
 
 .edit-open-sidebar-btn {
   left: 335px;
+  background: linear-gradient(to right, transparent, #666c7f);
+}
+
+.edit-open-sidebar-btn:hover {
+  background: linear-gradient(to right, #666c7f, #666c7f) ;
 }
 
 @media only screen and (max-width: 1030px) {
@@ -47,6 +58,7 @@
     left: 0px;
     z-index: -100;
     box-shadow: 1px 0px 10px #bebebe;
+    
   }
 
   .edit-sidebar-btn {
