@@ -51,12 +51,12 @@ html.transition *:after {
 
 // Joga um item para para o máximo à direita dentro de um componente
 .item-push-right {
-  margin-left: auto;
+  margin-left: auto !important;
 }
 
 // Joga um item para para o máximo à esquerda dentro de um componente
 .item-push-left {
-  margin-right: auto;
+  margin-right: auto !important;
 }
 
 // Quando textos são maiores que o container, substitui parte dotexto por reticências
@@ -78,7 +78,7 @@ html.transition *:after {
   width: 100%;
   min-height: 300px;
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   background-color: var(--color-bg-1);
@@ -87,15 +87,25 @@ html.transition *:after {
   border-radius: 6px;
 }
 
+.aplicativo-header-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 @keyframes showConfigButton {
   from {
-    font-size: 0rem;
-    margin: auto;
+    font-size: 0rem !important;
+    opacity: 0;
+    // margin: auto;
   }
   to {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
+    opacity: 1;
     // margin: 0;
-    margin-top: 1rem;
+    // margin-top: 1rem;
   }
 }
 
@@ -108,11 +118,20 @@ html.transition *:after {
   transition: all 0.5s;
   animation-name: showConfigButton;
   animation-duration: 0.5s;
-  margin-top: 1rem;
+  margin-bottom: 0.3rem;
 }
 
 .aplicativo-config-button:hover {
   transform: rotate(180deg) scale(1.2);
+}
+
+.aplicativo-content-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
 }
 
 // Container com o input group e um botão para alguma ação dentro do menu de configurações

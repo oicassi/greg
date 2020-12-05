@@ -1,91 +1,95 @@
 <div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
 
-  <!-- Container do título do componente -->
-  <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
-    [dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
-  </app-aplicativo-header>
+  <div class="aplicativo-header-container">
 
-  <!-- Botão para abrir as configurações do componente -->
-  <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button dropdown" id="menuConfiguracoes"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    settings
-  </div>
+    <!-- Container do título do componente -->
+    <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
+      [dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
+    </app-aplicativo-header>
 
-  <!-- Menu de configurações do componente -->
-  <div class="dropdown-menu" aria-labelledby="menuConfiguracoes"
-    style="width: 800px; box-shadow: 0px 1px 10px #888888; background-color:var(--color-bg-0)">
-    <div class="aplicativo-input-button-container">
-
-      <!-- Input group para colocar um novo username -->
-      <div class="aplicativo-input-username-container aplicativo-input-config-container dropdown-item"
-        *ngIf="hasCheckedApi">
-        <app-input-group [label]="'Alterar username do GitHub'" [inputType]="'text'" [inputValue]="dados.username"
-          [placeholder]="'Insira seu username do Github'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
-          [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
-        </app-input-group>
-      </div>
-
-      <!-- Botão para abrir o modal para selecionar os repositórios -->
-      <div style="margin:auto">
-        <button class="btn btn-outline-primary">
-          Selecionar repositórios
-        </button>
-      </div>
-    </div>
-    <div class="dropdown-item color-picker-container">
-      <div class="color-picker-label-container">
-        <span class="color-pickr-label"> Cor de fundo</span>
-        <input class="color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
-          (input)="onColorChange($event.target)" />
-      </div>
-      <div class="color-picker-label-container">
-        <span class="color-pickr-label"> Cor de destaque</span>
-        <input class="color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
-          (input)="onColorChange($event.target)" />
-      </div>
-    </div>
-  </div>
-
-  <div class="github-basic-info" *ngIf="hasCheckedApi">
-
-    <!-- Container da imagem + user name -->
-    <div class="github-pic-name">
-
-      <!-- Container da imagem -->
-      <div class="github-avatar-pic">
-        <img src="{{dados.avatar_img}}" class="github-pic" />
-      </div>
-
-      <!-- Container do username -->
-      <div class="github-profile-name">
-        <span class="github-profile-name-text">{{dados.username}}</span>
-      </div>
+    <!-- Botão para abrir as configurações do componente -->
+    <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button dropdown" id="menuConfiguracoes"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      settings
     </div>
 
-    <!-- Container da descrição -->
-    <div class="github-description">
-      <div class="github-description-header">
-        <span style="color: inherit; font-size: inherit;">Descrição</span>
+    <!-- Menu de configurações do componente -->
+    <div class="dropdown-menu" aria-labelledby="menuConfiguracoes"
+      style="width: 800px; box-shadow: 0px 1px 10px #888888; background-color:var(--color-bg-0)">
+      <div class="aplicativo-input-button-container">
+
+        <!-- Input group para colocar um novo username -->
+        <div class="aplicativo-input-username-container aplicativo-input-config-container dropdown-item"
+          *ngIf="hasCheckedApi">
+          <app-input-group [label]="'Alterar username do GitHub'" [inputType]="'text'" [inputValue]="dados.username"
+            [placeholder]="'Insira seu username do Github'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
+            [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+          </app-input-group>
+        </div>
+
+        <!-- Botão para abrir o modal para selecionar os repositórios -->
+        <div style="margin:auto">
+          <button class="btn btn-outline-primary">
+            Selecionar repositórios
+          </button>
+        </div>
       </div>
-      {{dados.description}}
+      <div class="dropdown-item color-picker-container">
+        <div class="color-picker-label-container">
+          <span class="color-pickr-label"> Cor de fundo</span>
+          <input class="color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
+            (input)="onColorChange($event.target)" />
+        </div>
+        <div class="color-picker-label-container">
+          <span class="color-pickr-label"> Cor de destaque</span>
+          <input class="color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
+            (input)="onColorChange($event.target)" />
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Container dos repositórios -->
-  <div class="github-repo-container" *ngIf="hasCheckedApi">
-    <app-repo-container
-      [repoArray]="dados.repo_array"
-      [fgColor]="dados.fgColor"
-    >
-    </app-repo-container>
-  </div>
+  <div class="aplicativo-content-container">
 
 
-  <!-- Mostrar o input para inserção do username -->
-  <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
-    <app-input-group [label]="'Username do GitHub'" [inputType]="'text'" [placeholder]="'Insira seu username do GitHub'"
-      [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
-      [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
-    </app-input-group>
+    <div class="github-basic-info" *ngIf="hasCheckedApi">
+
+      <!-- Container da imagem + user name -->
+      <div class="github-pic-name">
+
+        <!-- Container da imagem -->
+        <div class="github-avatar-pic">
+          <img src="{{dados.avatar_img}}" class="github-pic" />
+        </div>
+
+        <!-- Container do username -->
+        <div class="github-profile-name">
+          <span class="github-profile-name-text">{{dados.username}}</span>
+        </div>
+      </div>
+
+      <!-- Container da descrição -->
+      <div class="github-description">
+        <div class="github-description-header">
+          <span style="color: inherit; font-size: inherit;">Descrição</span>
+        </div>
+        {{dados.description}}
+      </div>
+    </div>
+
+    <!-- Container dos repositórios -->
+    <div class="github-repo-container" *ngIf="hasCheckedApi">
+      <app-repo-container [repoArray]="dados.repo_array" [fgColor]="dados.fgColor">
+      </app-repo-container>
+    </div>
+
+
+    <!-- Mostrar o input para inserção do username -->
+    <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
+      <app-input-group [label]="'Username do GitHub'" [inputType]="'text'"
+        [placeholder]="'Insira seu username do GitHub'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
+        [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+      </app-input-group>
+    </div>
   </div>
 </div>

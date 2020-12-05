@@ -1,14 +1,18 @@
 <div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
 
-  <!-- Container do título do componente -->
-  <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
-    [dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
-  </app-aplicativo-header>
+  <div class="aplicativo-header-container">
 
-  <!-- Botão para abrir as configurações do componente -->
-  <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button dropdown" id="menuConfiguracoes"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    settings
+    <!-- Container do título do componente -->
+    <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
+      [dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
+    </app-aplicativo-header>
+
+    <!-- Botão para abrir as configurações do componente -->
+    <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button dropdown" id="menuConfiguracoes"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      settings
+    </div>
+
   </div>
 
   <!-- Menu de configurações do componente -->
@@ -46,58 +50,59 @@
     </div>
   </div>
 
-  <div class="freesound-basic-info" *ngIf="hasCheckedApi">
+  <div class="aplicativo-content-container">
 
-    <!-- Container da imagem + user name -->
-    <div class="freesound-pic-name">
+    <div class="freesound-basic-info" *ngIf="hasCheckedApi">
 
-      <!-- Container da imagem -->
-      <div class="freesound-avatar-pic">
-        <img src="{{dados.avatar_img}}" class="freesound-pic" />
+      <!-- Container da imagem + user name -->
+      <div class="freesound-pic-name">
+
+        <!-- Container da imagem -->
+        <div class="freesound-avatar-pic">
+          <img src="{{dados.avatar_img}}" class="freesound-pic" />
+        </div>
+
+        <!-- Container do username -->
+        <div class="freesound-profile-name">
+          <span class="freesound-profile-name-text">{{dados.username}}</span>
+        </div>
       </div>
 
-      <!-- Container do username -->
-      <div class="freesound-profile-name">
-        <span class="freesound-profile-name-text">{{dados.username}}</span>
-      </div>
-    </div>
-
-    <!-- Container da descrição -->
-    <div class="freesound-description">
-      <div class="freesound-description-header">
-        <span style="color: inherit; font-size: inherit;">Descrição</span>
-      </div>
-      {{dados.description}}
-    </div>
-  </div>
-
-  <!-- Container do player + lista de reprodução -->
-  <div class="freesound-player-container" *ngIf="hasCheckedApi">
-
-    <!-- Container do player -->
-    <div class="freesound-player-controls">
-      <audio controls src={{audioEmReproducao.url}} [autoplay]="forcePlay" class="freesound-audio-player"></audio>
-      <div>
-        <span style="color: var(--color-fg-inv);">Reproduzindo: </span>
-        <span style="color: var(--color-fg-inv); font-weight: 500 !important;">{{audioEmReproducao.name}}</span>
+      <!-- Container da descrição -->
+      <div class="freesound-description">
+        <div class="freesound-description-header">
+          <span style="color: inherit; font-size: inherit;">Descrição</span>
+        </div>
+        {{dados.description}}
       </div>
     </div>
 
-    <!-- Container da lista de reprodução -->
-    <div style="overflow-y: auto; color: inherit">
-      <app-playlist-container
-        style="color: inherit"
-        [audioArray]="dados.audio_array" 
-        (audioSelecionado)="handleTrocaAudio($event)">
-      </app-playlist-container>
-    </div>
-  </div>
+    <!-- Container do player + lista de reprodução -->
+    <div class="freesound-player-container" *ngIf="hasCheckedApi">
 
-  <!-- Mostrar o input para inserção do username -->
-  <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
-    <app-input-group [label]="'Username do Freesound'" [inputType]="'text'"
-      [placeholder]="'Insira seu username do Freesound'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
-      [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
-    </app-input-group>
+      <!-- Container do player -->
+      <div class="freesound-player-controls">
+        <audio controls src={{audioEmReproducao.url}} [autoplay]="forcePlay" class="freesound-audio-player"></audio>
+        <div>
+          <span style="color: var(--color-fg-inv);">Reproduzindo: </span>
+          <span style="color: var(--color-fg-inv); font-weight: 500 !important;">{{audioEmReproducao.name}}</span>
+        </div>
+      </div>
+
+      <!-- Container da lista de reprodução -->
+      <div style="overflow-y: auto; color: inherit">
+        <app-playlist-container style="color: inherit" [audioArray]="dados.audio_array"
+          (audioSelecionado)="handleTrocaAudio($event)">
+        </app-playlist-container>
+      </div>
+    </div>
+
+    <!-- Mostrar o input para inserção do username -->
+    <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
+      <app-input-group [label]="'Username do Freesound'" [inputType]="'text'"
+        [placeholder]="'Insira seu username do Freesound'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
+        [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+      </app-input-group>
+    </div>
   </div>
 </div>

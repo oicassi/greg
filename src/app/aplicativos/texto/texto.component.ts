@@ -112,12 +112,74 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
   /**
    * Retorna as cores customizadas para as bordas do espaço do texto
    */
-  customStyleItem(): any {
-    const fgColor = this.dados.fgColor || '#444444';
-
+  getCustomElementTitleStyle() {
+    let color = this.dados.fgColor || '#444444';
     return {
-      border: `2px solid ${fgColor}`,
-      color: fgColor
+      'border-bottom':`1px solid ${color}`
     }
+  }
+
+  /**
+   * Salvar o texto e o título editado
+   * @param indice Índice do texto e título sendo editados
+   */
+  salvarTexto(indice: number): void {
+
+    // Marcar os controles que estão sendo salvos como dirty e touched
+    let control = this.form.get(`title${indice}`);
+    control.markAsDirty({ onlySelf: true });
+    control.markAsTouched({ onlySelf: true });
+
+    control = this.form.get(`body${indice}`);
+    control.markAsDirty({ onlySelf: true });
+    control.markAsTouched({ onlySelf: true });
+
+    // Se tiver algum erro, cancela a ação
+    if (!this.form.get(`title${indice}`).valid || !this.form.get(`title${indice}`).valid) {
+      return;
+    }
+
+    // Recupera os textos sendo salvos
+    const title = this.form.get(`title${indice}`).value;
+    const body = this.form.get(`body${indice}`).value;
+
+    // Atualiza a informação
+    this.dados.texto_array[indice].title = title;
+    this.dados.texto_array[indice].body = body;
+
+    // Copia o array de texto para o dadosBkp
+    this.dadosBkp.texto_array = Array.from(this.dados.texto_array);
+
+    console.log('Dados');
+    console.log(this.dados.texto_array);
+    console.log('Backup');
+    console.log(this.dadosBkp.texto_array);
+  }
+
+  /**
+   * Cancela a edição do texto e título e retorna os dados ao estado original
+   * @param indice Índice do texto e título sendo editados
+   */
+  cancelarTexto(indice: number): void {
+    this.form.get(`title${indice}`).setValue(this.dados.texto_array[indice].title);
+    this.form.get(`body${indice}`).setValue(this.dados.texto_array[indice].body);
+
+    console.log('Dados');
+    console.log(this.dados.texto_array);
+    console.log('Backup');
+    console.log(this.dadosBkp.texto_array);
+  }
+
+  /**
+   * Limpa o texto
+   * @param indice Índice do texto sendo limpo 
+   */
+  limparTexto(indice: number): void {
+    this.form.get(`body${indice}`).setValue('');
+
+    console.log('Dados');
+    console.log(this.dados.texto_array);
+    console.log('Backup');
+    console.log(this.dadosBkp.texto_array);
   }
 }

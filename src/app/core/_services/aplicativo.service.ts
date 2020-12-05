@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { 
+import {
   AplicativoBase,
   AplicativoFlickr,
-  AplicativoFoto, 
+  AplicativoFoto,
   AplicativoFreesound,
   AplicativoGithub,
   AplicativoTags,
@@ -25,9 +25,9 @@ export class AplicativoService {
     this.aplicativos.push(this.getMockGithub());
     // this.aplicativos.push(this.getMockTags());
     this.aplicativos.push(this.getMockTexto());
-   }
+  }
 
-  
+
 
   /**
    * Retorna a lista de aplicativos adicionados à página
@@ -104,11 +104,11 @@ export class AplicativoService {
   /**
    * Retorna a lista de todos os aplicativos 
    */
-  getTiposAplicativos(): Array<{type: string, label: string}> {
+  getTiposAplicativos(): Array<{ type: string, label: string }> {
     return AplicativosModels.TODOS;
   }
 
-  private getMockFlickr(): AplicativoFlickr{
+  private getMockFlickr(): AplicativoFlickr {
     let dado = new AplicativoFlickr();
     dado.component_name = 'Fotos do flickr nome gigante tralalalalalalalalalal anskfdasdfa asdfasf';
     dado.order = 2;
@@ -120,7 +120,7 @@ export class AplicativoService {
     dado.description = 'Fotos maravilhosas do Flickr';
     dado.profile_url = 'urlParaProfileFlickr';
     dado.avatar_img = 'https://highprofileenterprises.com/wp-content/uploads/2015/02/Google-penguin.jpg';
-    
+
     dado.full_name = 'Usuario do Flickr';
     dado.alias = 'Flickrito';
     dado.photo_array = [];
@@ -136,7 +136,7 @@ export class AplicativoService {
     foto2.description = 'Essa é a foto 2 do flickr'
     foto2.url = 'https://www.wallpaperup.com/uploads/wallpapers/2014/04/10/328993/e8afca84beb2cf9f70fb2574423d0fc8-700.jpg';
     dado.photo_array.push(foto2);
-    
+
     let foto3 = new Foto();
     foto3.name = 'Foto 3 Flickr';
     foto3.description = 'Essa é a foto 3 do flickr'
@@ -154,7 +154,7 @@ export class AplicativoService {
     dado.fgColor = '#444444';
     dado.bgColor = '#fefb99';
     dado.photo_array = [];
-    
+
     let foto1 = new Foto();
     foto1.name = 'Foto 1 Simples';
     foto1.description = 'Essa é a foto 1 simples';
@@ -252,7 +252,7 @@ export class AplicativoService {
     repo1.data = '10/10/1929';
 
     dado.repo_array.push(repo1);
-    
+
     let repo2 = new Repo();
     repo2.name = 'country-search';
     repo2.description = 'An application made in react for learning purposes to list countries with their flags and population number ';
@@ -305,42 +305,16 @@ export class AplicativoService {
     dado.texto_array = [];
 
     let texto1 = new Texto();
-    texto1.title = 'Título do texto 1';
-    texto1.body = 'Este é o corpo to texto 1 tralalalala';
+    texto1.title = 'Título do tesakfjhasfas f asf as fdasfd as fd asfd as dfa sfd as dfas fa  wef as f as fd as df as f xto 1';
+    texto1.body = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?";
     dado.texto_array.push(texto1);
 
     let texto2 = new Texto();
     texto2.title = 'Título do texto 2';
-    texto2.body = 'Este é o corpo to texto 2 tralalalala';
+    texto2.body = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?";
     dado.texto_array.push(texto2);
-      
+
     return dado;
   }
-
-  // TEMP:
-  addQualquerCoisa(): void {
-    let dado = new AplicativoTexto();
-
-    dado.component_name = 'Textinhos 2';
-    dado.order = 6;
-    dado.type = 'texto';
-    dado.fgColor = '#444444';
-    dado.bgColor = '#80CBC4';
-
-    dado.texto_array = [];
-
-    let texto1 = new Texto();
-    texto1.title = 'Título do texto 10';
-    texto1.body = 'Este é o corpo to texto 1 tralalalala';
-    dado.texto_array.push(texto1);
-
-    let texto2 = new Texto();
-    texto2.title = 'Título do texto 20';
-    texto2.body = 'Este é o corpo to texto 2 tralalalala';
-    dado.texto_array.push(texto2);
-      
-    this.aplicativos.push(dado);
-  }
-
 
 }
