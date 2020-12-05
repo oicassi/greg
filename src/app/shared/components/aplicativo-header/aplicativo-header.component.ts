@@ -12,6 +12,7 @@ export class AplicativoHeaderComponent implements OnInit {
   @Output() editar: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() cancelar: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() salvar: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
 
 
   constructor() { }
@@ -29,6 +30,12 @@ export class AplicativoHeaderComponent implements OnInit {
 
   clickSalvar(): void {
     this.salvar.emit(true);
+  }
+
+  getTitleColor() {
+    return {
+      color: this.dados.fgColor
+    }
   }
 
 }

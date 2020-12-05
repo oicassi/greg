@@ -27,10 +27,8 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
   }
 
   ngOnInit() {
-    this.criaBackupDados
-    console.log(`-- [Aplicativo Texto] ${this.dados.component_name}`);
-    console.log(this.dados);
-    console.log('+----------------------------------------------------+');
+    this.criaBackupDados();
+    this.initForms();
   }
 
   /**
@@ -74,15 +72,18 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
     novoTexto.title = '';
     novoTexto.body = '';
 
+    // Recupera o índice que será adicionado o elemento de texto
+    const indice = this.dados.texto_array.length;
+
     this.dados.texto_array.push(novoTexto);
 
     // Adiciona o controle no form
-    this.form.addControl(`title${this.dados.texto_array.length}`, new FormControl(
-      (this.dados.texto_array[this.dados.texto_array.length].title || ''),
+    this.form.addControl(`title${indice}`, new FormControl(
+      (this.dados.texto_array[indice].title || ''),
       [Validators.required]
     ))
-    this.form.addControl(`body${this.dados.texto_array.length}`, new FormControl(
-      (this.dados.texto_array[this.dados.texto_array.length].body || ''),
+    this.form.addControl(`body${indice}`, new FormControl(
+      (this.dados.texto_array[indice].body || ''),
       [Validators.required]
     ))
 
@@ -92,7 +93,31 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
    * Remove o último texto adicionado
    */
   removeTexto(): void {
+    // Se tiver apenas 1 texto não remove
+    if (this.dados.texto_array.length === 1) {
+      return;
+    }
+    
+    // Recupera o índice do elemento que está sendo removido
+    const indice = this.dados.texto_array.length - 1;
 
+    // Remove o controle do formulário
+    this.form.removeControl(`title${indice}`);
+    this.form.removeControl(`body${indice}`);
+
+    // Remove o último elemento do array de textos
+    this.dados.texto_array.pop();
   }
 
+  /**
+   * Retorna as cores customizadas para as bordas do espaço do texto
+   */
+  customStyleItem(): any {
+    const fgColor = this.dados.fgColor || '#444444';
+
+    return {
+      border: `2px solid ${fgColor}`,
+      color: fgColor
+    }
+  }
 }

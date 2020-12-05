@@ -1,14 +1,16 @@
 <!-- Container do título do componente -->
-<div class="freesound-header">
-  <div class="freesound-header-title-text">
+<div class="app-generico-header">
+  <div class="app-generico-header-title-text" [ngStyle]="getTitleColor()">
     {{dados.component_name}}
   </div>
 
-  <!-- Botão para entrar no modo de edição do componente -->
-  <app-circle-button 
+  <div class="item-push-right">
+
+    <!-- Botão para entrar no modo de edição do componente -->
+    <app-circle-button 
     *ngIf="dados.isEditable && !dados.isEdit"
     [title]="'Editar componente'" 
-    class="item-push-right freesound-header-button" 
+    class=" app-generico-header-button" 
     [icon]="'create'"
     [color]="'warning'" 
     (click)="clickEditar()">
@@ -16,22 +18,23 @@
   
   <!-- Botão para confirmar as edições -->
   <app-circle-button 
-    *ngIf="dados.isEdit" 
-    [title]="'Salvar edição'"
-    class="item-push-right freesound-header-button" 
-    [icon]="'check'"
-    [color]="'success'" 
-    (click)="clickSalvar()">
-  </app-circle-button>
+  *ngIf="dados.isEdit" 
+  [title]="'Salvar edição'"
+  class=" app-generico-header-button" 
+  [icon]="'check'"
+  [color]="'success'" 
+  (click)="clickSalvar()">
+</app-circle-button>
 
-  <!-- Botão para cancelar a edição -->
-  <app-circle-button 
-    *ngIf="dados.isEdit" 
-    [title]="'Cancelar edição'"
-    class="item-push-right freesound-header-button" 
-    [icon]="'close'"
-    [color]="'danger'" 
-    (click)="clickCancelar()">
-  </app-circle-button>
+<!-- Botão para cancelar a edição -->
+<app-circle-button 
+*ngIf="dados.isEdit" 
+[title]="'Cancelar edição'"
+class=" app-generico-header-button" 
+[icon]="'close'"
+[color]="'danger'" 
+(click)="clickCancelar()">
+</app-circle-button>
+</div>
 
 </div>

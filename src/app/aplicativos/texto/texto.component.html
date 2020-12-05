@@ -1,1 +1,73 @@
-<p>texto works!</p>
+<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
+
+	<!-- Container do título do componente -->
+	<app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
+		[dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
+	</app-aplicativo-header>
+
+	<!-- Botão para abrir as configurações do componente -->
+	<div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button dropdown" id="menuConfiguracoes"
+		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		settings
+	</div>
+
+	<!-- Menu de configurações do componente -->
+	<div class="dropdown-menu" aria-labelledby="menuConfiguracoes"
+		style="width: 800px; box-shadow: 0px 1px 10px #888888; background-color:var(--color-bg-0)">
+		<div class="texto-botão-info-container">
+			<div class="texto-botao-container">
+				<button type="button" class="btn btn-outline-primary" (click)="removeTexto()">
+					<span class="material-icons texto-button-icon-correction">
+						remove
+					</span>
+				</button>
+				<button type="button" class="btn btn-outline-primary" (click)="addTexto()">
+					<span class="material-icons texto-button-icon-correction">
+						add
+					</span>
+				</button>
+			</div>
+			<div class="texto-info-container">
+				<span style="display: inline-block;">{{dados.texto_array.length}} textos</span>
+			</div>
+		</div>
+		<div class="dropdown-item color-picker-container">
+			<div class="color-picker-label-container">
+				<span class="color-pickr-label"> Cor de fundo</span>
+				<input class="color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
+					(input)="onColorChange($event.target)" />
+			</div>
+			<div class="color-picker-label-container">
+				<span class="color-pickr-label"> Cor de destaque</span>
+				<input class="color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
+					(input)="onColorChange($event.target)" />
+			</div>
+		</div>
+	</div>
+
+	<div class="texto-grid-container">
+		<div class="texto-element-container" [ngStyle]="customStyleItem()">
+			<!-- <form [formGroup]="form">
+				<div class="form-group texto-title-input" *ngFor="let texto of dados.texto_array; let i = index">
+					<input type="text" [formControlName]="`title${i}`" class="form-control form-control-sm"
+						[ngClass]="{'is-invalid': form.controls[`title${i}`].errors && form.controls[`title${i}`].touched}"
+						placeholder="Título do texto" />
+					<div *ngIf="form.controls[`title${i}`].errors && form.controls[`title${i}`].touched"
+						class="invalid-feedback">
+						<div class="texto-input-error-msg" *ngIf="form.controls[`title${i}`].errors.required">
+							Campo obrigatório
+						</div>
+					</div>
+				</div>
+			</form> -->
+			Ahh
+		</div>
+		<div class="texto-element-container" [ngStyle]="customStyleItem()">
+			Opa
+		</div>
+		<div class="texto-element-container" [ngStyle]="customStyleItem()">
+			Miau
+		</div>
+	</div>
+
+</div>
