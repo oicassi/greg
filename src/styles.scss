@@ -93,6 +93,7 @@ html.transition *:after {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  color: inherit;
 }
 
 @keyframes showConfigButton {
@@ -132,6 +133,7 @@ html.transition *:after {
   justify-content: flex-start;
   align-items: center;
   flex: 1;
+  color: inherit;
 }
 
 .aplicativo-config-collapse-container {

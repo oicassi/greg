@@ -1,6 +1,6 @@
 <div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
 
-  <div class="aplicativo-header-container" *ngIf="false">
+  <div class="aplicativo-header-container">
 
     <!-- Container do título do componente -->
     <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
@@ -8,19 +8,29 @@
     </app-aplicativo-header>
 
     <!-- Botão para abrir as configurações do componente -->
-    <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button dropdown" id="menuConfiguracoes"
-      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" (click)="toggleConfigMenu()">
       settings
     </div>
 
   </div>
+  <div class="aplicativo-config-collapse-container" id="githubConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
+		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
+		<div class="aplicativo-config-container">
+			<app-config-menu-comp
+				[dados]="dados"
+				[hasCheckedApi]="hasCheckedApi"
+				(colorChange)="onColorChange($event)"
+        (apiSubmit)="onUsernameSubmit($event)"
+			>
+			</app-config-menu-comp>
+		</div>
+	</div>
 
   <!-- Menu de configurações do componente -->
-  <div class="dropdown-menu" aria-labelledby="menuConfiguracoes"
+  <!-- <div class="dropdown-menu" aria-labelledby="menuConfiguracoes"
     style="width: 800px; box-shadow: 0px 1px 10px #888888; background-color:var(--color-bg-0)">
     <div class="aplicativo-input-button-container">
 
-      <!-- Input group para colocar um novo username -->
       <div class="aplicativo-input-username-container aplicativo-input-config-container dropdown-item"
         *ngIf="hasCheckedApi">
         <app-input-group [label]="'Alterar username do Flickr'" [inputType]="'text'" [inputValue]="dados.username"
@@ -29,7 +39,6 @@
         </app-input-group>
       </div>
 
-      <!-- Botão para abrir o modal para selecionar os repositórios -->
       <div style="margin:auto">
         <button class="btn btn-outline-primary">
           Selecionar imagens
@@ -48,7 +57,7 @@
           (input)="onColorChange($event.target)" />
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="aplicativo-content-container">
 

@@ -6,7 +6,7 @@
     *ngIf="checkComponenteApi() || checkComponenteModal()">
 
     <!-- Input group para colocar um novo username -->
-    <div class="config-input-username-container aplicativo-input-config-container"
+    <div class="config-input-username-container"
       *ngIf="hasCheckedApi && checkComponenteApi()">
       <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']"
         [placeholder]="textosInputApi.placeholder" [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
@@ -14,12 +14,13 @@
       </app-input-group>
     </div>
 
-    <!-- Botão para abrir o modal para selecionar os repositórios -->
-    <div *ngIf="checkComponenteModal()">
-      <button class="btn btn-outline-primary" (click)="onModalButtonClick()">
-        {{textosInputApi.modalLabel}}
-      </button>
-    </div>
+  </div>
+
+  <!-- Botão para abrir o modal para selecionar os repositórios -->
+  <div *ngIf="checkComponenteModal()" class="config-generic-container">
+    <button class="btn btn-outline-primary" (click)="onModalButtonClick()">
+      {{textosInputApi.modalLabel}}
+    </button>
   </div>
 
   <!-- Container para acrescentar ou reduzir textos -->
@@ -44,12 +45,12 @@
   <!-- Container para color pickers de cor do fundo e da frente -->
   <div class="config-color-picker-container config-generic-container" *ngIf="checkComponenteCorEditavel()">
     <div class="config-color-picker-label-container">
-      <span class="config-color-pickr-label"> Cor de fundo</span>
+      <span> Cor de fundo</span>
       <input class="config-color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
         (input)="onColorChange($event.target)" />
     </div>
     <div class="color-picker-label-container">
-      <span class="color-pickr-label"> Cor de destaque</span>
+      <span> Cor de destaque</span>
       <input class="config-color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
         (input)="onColorChange($event.target)" />
     </div>

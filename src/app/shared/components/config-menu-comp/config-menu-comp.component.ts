@@ -25,6 +25,7 @@ export class ConfigMenuCompComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.gerarTextosApi();
   }
 
   /**
@@ -81,16 +82,16 @@ export class ConfigMenuCompComponent implements OnInit {
     this.textosInputApi.placeholder = `Insira um username para o ${apiLabel}`;
     switch(this.dados.type) {
       case 'flickr':
-        this.textosInputApi.modalLabel = 'Selecionar fotos do Flickr';
+        this.textosInputApi.modalLabel = 'Fotos';
         break;
       case 'fotos':
-        this.textosInputApi.modalLabel = 'Selecionar fotos';
+        this.textosInputApi.modalLabel = 'Fotos';
         break;
       case 'freesound':
-        this.textosInputApi.modalLabel = 'Selecionar áudios do Freesound';
+        this.textosInputApi.modalLabel = 'Áudios';
         break;
       case 'github':
-        this.textosInputApi.modalLabel = 'Selecionar repositórios do GitHub';
+        this.textosInputApi.modalLabel = 'Repositórios';
         break;
       default:
         this.textosInputApi.modalLabel = 'Selecionar itens';

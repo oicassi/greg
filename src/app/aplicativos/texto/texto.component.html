@@ -7,17 +7,16 @@
 			[dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
 		</app-aplicativo-header>
 
-		<!-- Botão para abrir as configurações do componente -->
-		<div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" data-toggle="collapse"
-			data-target="#configExample" aria-expanded="false" aria-controls="collapseExample">
-			settings
-		</div>
+    <!-- Botão para abrir as configurações do componente -->
+    <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" (click)="toggleConfigMenu()">
+      settings
+    </div>
 
 
 	</div>
 
 	<!-- Menu de configurações do aplicativo -->
-	<div class="collapse aplicativo-config-collapse-container" id="configExample" *ngIf="dados.isEdit">
+	<div class="aplicativo-config-collapse-container" id="githubConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
 		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
 		<div class="aplicativo-config-container">
 			<app-config-menu-comp

@@ -10,6 +10,7 @@ export class AplicativoGenericoComponent implements OnInit {
 
   @Input() dados: AplicativoBase;
   dadosBkp: AplicativoBase;
+  isConfigMenuOpen: boolean = false;
 
   constructor(protected _appServ: AplicativoService) { }
 
@@ -40,6 +41,9 @@ export class AplicativoGenericoComponent implements OnInit {
     this.dados.isEdit = false;
     this.criaBackupDados();
     this._appServ.replaceAplicativo(this.dados);
+    if (this.isConfigMenuOpen) {
+      this.isConfigMenuOpen = false;
+    }
   }
 
   /**
@@ -51,6 +55,9 @@ export class AplicativoGenericoComponent implements OnInit {
     this.dados = this.dadosBkp;
     this.dados.isEdit = false;
     this.criaBackupDados();
+    if (this.isConfigMenuOpen) {
+      this.isConfigMenuOpen = false;
+    }
   }
 
   /**
@@ -72,5 +79,9 @@ export class AplicativoGenericoComponent implements OnInit {
    */
   onColorChange(event: any): void {
     this.dados[event.name] = event.value;
+  }
+
+  toggleConfigMenu() {
+    this.isConfigMenuOpen = !this.isConfigMenuOpen;
   }
 }

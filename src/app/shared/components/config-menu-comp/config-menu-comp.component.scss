@@ -4,34 +4,27 @@
   width: 100%;
   display: flex;
   flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.config-generic-container {
-  margin: 0 10px;
-  border-right: 1px solid var(--color-main);
-}
-
-.config-generic-container:first-of-type {
-  margin: 0 10px 0 0;
-}
-
-.config-generic-container:last-of-type {
-  margin: 0 0 0 10px;
-  border: none;
-}
-
-.config-input-button-container {
-  display: flex;
-  flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
 }
 
+.config-generic-container {
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+
+
+.config-input-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 40%;
+}
+
 // Input group genérico usado para inserir dados de um username, por exemplo
 .config-input-username-container {
-  width: 50%;
+  width: 100%;
   min-width: 300px;
   margin: auto;
   margin-top: 0;
@@ -82,10 +75,6 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-
-.config-color-pickr-label {
-
 }
 
 // Color picker genérico
