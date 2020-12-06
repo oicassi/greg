@@ -59,6 +59,23 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
   }
 
   /**
+   * Handler para o evento de adicionar ou remover texto
+   * @param acao Ação (remover ou adicionar)
+   */
+  onChangeTextCount(acao: string): void {
+    switch(acao) {
+      case 'remove':
+        this.removeTexto();
+        break;
+      case 'add':
+        this.addTexto();
+        break;
+      default:
+        console.log('Change text count - opção inválida');
+    }
+  }
+
+  /**
    * Adiciona um texto no fim do texto_array
    */
   addTexto(): void {
@@ -135,7 +152,7 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
     control.markAsTouched({ onlySelf: true });
 
     // Se tiver algum erro, cancela a ação
-    if (!this.form.get(`title${indice}`).valid || !this.form.get(`title${indice}`).valid) {
+    if (this.form.get(`title${indice}`).errors || this.form.get(`body${indice}`).errors) {
       return;
     }
 

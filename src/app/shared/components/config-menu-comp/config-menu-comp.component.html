@@ -1,0 +1,57 @@
+<div class="config-main-container">
+
+  <!-- Container para interação com API e modal -->
+  <div 
+    class="config-input-button-container config-generic-container" 
+    *ngIf="checkComponenteApi() || checkComponenteModal()">
+
+    <!-- Input group para colocar um novo username -->
+    <div class="config-input-username-container aplicativo-input-config-container"
+      *ngIf="hasCheckedApi && checkComponenteApi()">
+      <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']"
+        [placeholder]="textosInputApi.placeholder" [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
+        [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+      </app-input-group>
+    </div>
+
+    <!-- Botão para abrir o modal para selecionar os repositórios -->
+    <div *ngIf="checkComponenteModal()">
+      <button class="btn btn-outline-primary" (click)="onModalButtonClick()">
+        {{textosInputApi.modalLabel}}
+      </button>
+    </div>
+  </div>
+
+  <!-- Container para acrescentar ou reduzir textos -->
+  <div class="config-texto-container config-generic-container" *ngIf="checkComponenteTexto()">
+    <div class="config-texto-botao-container">
+      <button type="button" class="btn btn-outline-primary config-texto-button" (click)="countTexto('remove')">
+        <span class="material-icons config-button-icon-correction">
+          remove
+        </span>
+      </button>
+      <button type="button" class="btn btn-outline-primary config-texto-button" (click)="countTexto('add')">
+        <span class="material-icons config-button-icon-correction">
+          add
+        </span>
+      </button>
+    </div>
+    <div class="config-texto-info-container">
+      <span style="display: inline-block;">{{dados['texto_array'].length}} textos</span>
+    </div>
+  </div>
+
+  <!-- Container para color pickers de cor do fundo e da frente -->
+  <div class="config-color-picker-container config-generic-container" *ngIf="checkComponenteCorEditavel()">
+    <div class="config-color-picker-label-container">
+      <span class="config-color-pickr-label"> Cor de fundo</span>
+      <input class="config-color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
+        (input)="onColorChange($event.target)" />
+    </div>
+    <div class="color-picker-label-container">
+      <span class="color-pickr-label"> Cor de destaque</span>
+      <input class="config-color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
+        (input)="onColorChange($event.target)" />
+    </div>
+  </div>
+</div>

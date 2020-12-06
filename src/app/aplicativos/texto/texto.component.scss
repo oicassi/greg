@@ -41,6 +41,8 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex: 1;
+    position: relative;
+    color: inherit !important;          
 }
 
 .texto-element-container {
@@ -53,6 +55,7 @@
     margin: 0 5px 10px;
     background-color: transparent;
     padding-top: 0;
+    color: inherit !important;
 }
 
 .texto-title-input {
@@ -70,6 +73,7 @@
     font-size: 1.1rem !important;
     word-break: break-word;
     margin-bottom: 10px;
+    color: inherit !important;
 }
 
 .texto-element-body-container {
@@ -78,6 +82,7 @@
     word-break: break-word;
     max-height: 250px;
     overflow-y: auto;
+    color: inherit !important;
 }
 
 .texto-element-body-control {
@@ -103,4 +108,8 @@
 
 .texto-element-control-single-button:last-of-type {
     margin-right: 0;
+}
+
+.texto-title-input {
+
 }

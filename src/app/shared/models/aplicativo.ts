@@ -11,6 +11,7 @@ export class AplicativoBase {
   fgColor: string = '#444444';
   isEdit: boolean = false;
   isEditable: boolean = false;
+  showAppTitle: boolean = true;
 }
 
 /**

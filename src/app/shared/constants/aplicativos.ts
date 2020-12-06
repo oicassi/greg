@@ -34,11 +34,34 @@ export class AplicativosModels {
     },
     {
       type: 'github',
-      label: 'Github'
+      label: 'GitHub'
     },
     {
       type: 'tags',
       label: 'Tags'
+    },
+    {
+      type: 'texto',
+      label: 'Texto'
+    },
+  ]
+
+  static SELECIONAVEIS = [
+    {
+      type: 'flickr',
+      label: 'Flickr'
+    },
+    {
+      type: 'fotos',
+      label: 'Fotos'
+    },
+    {
+      type: 'freesound',
+      label: 'Freesound'
+    },
+    {
+      type: 'github',
+      label: 'Github'
     },
     {
       type: 'texto',
@@ -50,6 +73,25 @@ export class AplicativosModels {
     'flickr',
     'freesound',
     'github'
+  ]
+
+  static COR_EDITAVEL = [
+    'flickr',
+    'fotos',
+    'freesound',
+    'github',
+    'texto',
+  ]
+
+  static TEXTOS = [
+    'texto'
+  ]
+
+  static MODAL = [
+    'flickr',
+    'fotos',
+    'freesound',
+    'github',
   ]
 }
 

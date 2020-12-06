@@ -134,6 +134,31 @@ html.transition *:after {
   flex: 1;
 }
 
+.aplicativo-config-collapse-container {
+  padding: 10px 20px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.aplicativo-config-container {
+  width: 100%;
+  display: block;
+  // display: flex;
+  // flex-flow: row wrap;
+  // justify-content: flex-start;
+  // align-items: center;
+  background-color: var(--color-bg-0);  
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  padding: 10px;
+  
+}
+
+.aplicativo-config-label {
+  font-size: 0.8rem;
+  color: inherit;
+}
+
 // Container com o input group e um botão para alguma ação dentro do menu de configurações
 .aplicativo-input-button-container {
   display: flex;

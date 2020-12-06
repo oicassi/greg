@@ -105,7 +105,7 @@ export class AplicativoService {
    * Retorna a lista de todos os aplicativos 
    */
   getTiposAplicativos(): Array<{ type: string, label: string }> {
-    return AplicativosModels.TODOS;
+    return AplicativosModels.SELECIONAVEIS;
   }
 
   private getMockFlickr(): AplicativoFlickr {
