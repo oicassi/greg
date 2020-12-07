@@ -1,18 +1,16 @@
 <div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
 
 	<!-- Container do título do componente -->
-	<div class="aplicativo-header-container">
+	<div class="aplicativo-header-container" *ngIf="dados.isEditable || dados.showAppTitle">
 
 		<app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
 			[dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
 		</app-aplicativo-header>
 
-    <!-- Botão para abrir as configurações do componente -->
-    <div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" (click)="toggleConfigMenu()">
-      settings
-    </div>
-
-
+    	<!-- Botão para abrir as configurações do componente -->
+    	<div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" (click)="toggleConfigMenu()">
+      		settings
+    	</div>
 	</div>
 
 	<!-- Menu de configurações do aplicativo -->
@@ -74,14 +72,14 @@
 				<div class="texto-element-control-buttons">
 					<!-- Botão para salvar -->
 					<div class="texto-element-control-single-button">
-						<button type="button" class="btn btn-primary" (click)="salvarTexto(i)">
+						<button type="button" class="btn btn-primary" (click)="salvarTexto(i)" [disabled]="checkAcoesDisabled(i)">
 							Salvar
 						</button>
 					</div>
 
 					<!-- Botão para cancelar -->
 					<div class="texto-element-control-single-button">
-						<button type="button" class="btn btn-secondary" (click)="cancelarTexto(i)">
+						<button type="button" class="btn btn-secondary" (click)="cancelarTexto(i)" [disabled]="checkAcoesDisabled(i)">
 							Cancelar
 						</button>
 					</div>

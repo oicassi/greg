@@ -12,6 +12,7 @@ import { AplicativoControlComponent } from './aplicativo-control/aplicativo-cont
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AplicativoGenericoComponent } from './aplicativo-generico/aplicativo-generico.component';
 import { AplicativoGenericoApiComponent } from './aplicativo-generico-api/aplicativo-generico-api.component';
+import { BioComponent } from './bio/bio.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AplicativoGenericoApiComponent } from './aplicativo-generico-api/aplica
     AplicativoControlComponent,
     AplicativoGenericoComponent,
     AplicativoGenericoApiComponent,
+    BioComponent,
   ],
   imports: [
     CommonModule,

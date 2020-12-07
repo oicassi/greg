@@ -1,3 +1,4 @@
+import { BioComponent } from '@aplicativos/bio/bio.component';
 import { FlickrComponent } from '@aplicativos/flickr/flickr.component';
 import { FotosComponent } from '@aplicativos/fotos/fotos.component';
 import { FreesoundComponent } from '@aplicativos/freesound/freesound.component';
@@ -16,6 +17,7 @@ export class AplicativosConstants {
   static GITHUB = GithubComponent;
   static TAGS = TagsComponent;
   static TEXTO = TextoComponent;
+  static BIO = BioComponent;
 }
 
 export class AplicativosModels {
@@ -92,6 +94,11 @@ export class AplicativosModels {
     'fotos',
     'freesound',
     'github',
+  ]
+
+  static FIXOS = [
+    'tags',
+    'bio'
   ]
 }
 

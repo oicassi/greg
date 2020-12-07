@@ -21,15 +21,56 @@ export class AplicativoGenericoComponent implements OnInit {
    * Cria uma cópia dos dados para ter caso o usuário cancele a edição
    */
   criaBackupDados(): void {
+    this.antesCriarBackupDados();
     this.dadosBkp = Object.assign({}, this.dados);
+
+    // Faz o deep copy
+    for (let key in this.dados) {
+      if (Array.isArray(this.dados[key])) {
+        this.dadosBkp[key] = Array.from(this.dados[key]);
+
+        // Faz o deep copy dos arrays
+        this.deepCopyArray(this.dados[key], this.dadosBkp[key]);
+
+      } else if (typeof this.dados[key] === 'object') {
+        this.dadosBkp[key] = Object.assign({}, this.dados[key])
+      }
+    }
+
+    this.aposCriarBackupDados();
   }
-  
+
+  /**
+   * Faz o deep copy dos arrays
+   * @param array1 Array origem
+   * @param array2 Array destino
+   */
+  deepCopyArray(array1: Array<any>, array2: Array<any>): void {
+    // Checar se o conteúdo do array é do tipo objeto
+    if (typeof array1[0] !== 'object') {
+      return;
+    } 
+
+    // Inicia a cópia dos objetos
+    for (let i = 0; i < array1.length; i++) {
+      array2[i] = Object.assign({}, array1[i]);
+    }
+  }
+  /**
+   * Hook par ser executado antes de criar o backup dos dados (para ser reimplementado)
+   */
+  antesCriarBackupDados(): void { }
+
+  /**
+   * Hook para ser executado após criar o backup dos dados (para ser reimplementado)
+   */
+  aposCriarBackupDados(): void { }
+
 
   /**
    * Colocar o componente em modo de edição
    */
   onClickEditar(): void {
-    console.log('Botão editar pressionado');
     this.dados.isEdit = true;
   }
 
@@ -37,28 +78,49 @@ export class AplicativoGenericoComponent implements OnInit {
    * Salvar edições realizadas
    */
   onClickConfirmarEdicao(): void {
-    console.log('Botão confirmar edições pressionado');
+    this.antesConfirmarEdicao();
     this.dados.isEdit = false;
     this.criaBackupDados();
     this._appServ.replaceAplicativo(this.dados);
     if (this.isConfigMenuOpen) {
       this.isConfigMenuOpen = false;
     }
+    this.aposConfirmarEdicao();
   }
+
+  /**
+   * Hook para ser executado antes de confirmar a edição (para ser reimplementado)
+   */
+  antesConfirmarEdicao(): void { }
+
+  /**
+   * Hook para ser executado após confirmar a edição (para ser reimplementado)
+   */
+  aposConfirmarEdicao(): void { }
 
   /**
    * Sair do modo de edição de componente
    */
   onClickCancelEditar(): void {
-    console.log('Botão cancelar edição pressionado');
-    // this.dados = Object.assign({}, this.dadosBkp);
+    this.antesCancelarEdicao();
     this.dados = this.dadosBkp;
     this.dados.isEdit = false;
     this.criaBackupDados();
     if (this.isConfigMenuOpen) {
       this.isConfigMenuOpen = false;
     }
+    this.aposCancelarEdicao();
   }
+
+  /**
+   * Hook para ser executado antes de cancelar a edição (para ser reimplementado)
+   */
+  antesCancelarEdicao(): void { }
+
+  /**
+   * Hook para ser executado após cancelar a edição (para ser reimplementado)
+   */
+  aposCancelarEdicao(): void { }
 
   /**
    * Retorna as cores de background e foreground do componente
@@ -81,6 +143,9 @@ export class AplicativoGenericoComponent implements OnInit {
     this.dados[event.name] = event.value;
   }
 
+  /**
+   * Toggler para abertura e fechamento do menu de configuração
+   */
   toggleConfigMenu() {
     this.isConfigMenuOpen = !this.isConfigMenuOpen;
   }

@@ -301,6 +301,7 @@ export class AplicativoService {
     dado.type = 'texto';
     dado.fgColor = '#444444';
     dado.bgColor = '#80CBC4';
+    dado.showAppTitle = false;
 
     dado.texto_array = [];
 

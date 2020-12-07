@@ -1,13 +1,11 @@
 <div class="config-main-container">
 
   <!-- Container para interação com API e modal -->
-  <div 
-    class="config-input-button-container config-generic-container" 
+  <div class="config-input-button-container config-generic-container"
     *ngIf="checkComponenteApi() || checkComponenteModal()">
 
     <!-- Input group para colocar um novo username -->
-    <div class="config-input-username-container"
-      *ngIf="hasCheckedApi && checkComponenteApi()">
+    <div class="config-input-username-container" *ngIf="hasCheckedApi && checkComponenteApi()">
       <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']"
         [placeholder]="textosInputApi.placeholder" [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
         [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
@@ -54,5 +52,17 @@
       <input class="config-color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
         (input)="onColorChange($event.target)" />
     </div>
+  </div>
+
+  <!-- Container com switch para desa -->
+  <div class="config-generic-container">
+
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="showTitleToggler" [(ngModel)]="dados.showAppTitle">
+      <label class="form-check-label" for="showTitleToggler">
+        Mostrar título do componente
+      </label>
+    </div>
+
   </div>
 </div>

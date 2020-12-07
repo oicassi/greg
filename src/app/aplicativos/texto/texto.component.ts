@@ -16,6 +16,9 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
   @Input() dados: AplicativoTexto;
   dadosBkp: AplicativoTexto;
 
+  // Estado
+  textoTemp: Texto = new Texto(); 
+
   // Formulário;
   form: FormGroup;
   
@@ -80,17 +83,24 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
    */
   addTexto(): void {
     // Se já tiver 3 textos não adiciona
-    if (this.dados.texto_array.length === 3) {
+    if (this.dados.texto_array.length === 2) {
       return;
     }
 
+    
     // Cria um novo objeto de texto e adiciona ao texto_array
     let novoTexto = new Texto();
     novoTexto.title = '';
     novoTexto.body = '';
-
+    
     // Recupera o índice que será adicionado o elemento de texto
     const indice = this.dados.texto_array.length;
+
+    // Verificar se existe um texto salvo no backup
+    if (this.textoTemp.title || this.textoTemp.body) {
+      novoTexto.title = this.textoTemp.title;
+      novoTexto.body = this.textoTemp.body;
+    }
 
     this.dados.texto_array.push(novoTexto);
 
@@ -123,7 +133,7 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
     this.form.removeControl(`body${indice}`);
 
     // Remove o último elemento do array de textos
-    this.dados.texto_array.pop();
+    this.textoTemp = this.dados.texto_array.pop();
   }
 
   /**
@@ -163,14 +173,6 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
     // Atualiza a informação
     this.dados.texto_array[indice].title = title;
     this.dados.texto_array[indice].body = body;
-
-    // Copia o array de texto para o dadosBkp
-    this.dadosBkp.texto_array = Array.from(this.dados.texto_array);
-
-    console.log('Dados');
-    console.log(this.dados.texto_array);
-    console.log('Backup');
-    console.log(this.dadosBkp.texto_array);
   }
 
   /**
@@ -180,11 +182,6 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
   cancelarTexto(indice: number): void {
     this.form.get(`title${indice}`).setValue(this.dados.texto_array[indice].title);
     this.form.get(`body${indice}`).setValue(this.dados.texto_array[indice].body);
-
-    console.log('Dados');
-    console.log(this.dados.texto_array);
-    console.log('Backup');
-    console.log(this.dadosBkp.texto_array);
   }
 
   /**
@@ -193,10 +190,33 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
    */
   limparTexto(indice: number): void {
     this.form.get(`body${indice}`).setValue('');
+  }
 
-    console.log('Dados');
-    console.log(this.dados.texto_array);
-    console.log('Backup');
-    console.log(this.dadosBkp.texto_array);
+  aposCancelarEdicao(): void {
+    this.textoTemp.body = '';
+    this.textoTemp.title = '';
+    this.initForms();
+  }
+
+  aposConfirmarEdicao(): void {
+    this.textoTemp.body = '';
+    this.textoTemp.title = '';
+    this.initForms();
+  }
+
+  /**
+   * Verifica se houve alterações no texto e se habilita ou não os botões de salvar e cancelar
+   * @param indice Índice do texto que está sendo editado
+   */
+  checkAcoesDisabled(indice: number): boolean{
+    let title = this.form.get(`title${indice}`).value;
+    let body = this.form.get(`body${indice}`).value;
+
+    if (this.dados.texto_array[indice].title !== title ||
+        this.dados.texto_array[indice].body !== body
+      ) {
+        return false;
+      }
+    return true;
   }
 }

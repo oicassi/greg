@@ -1,9 +1,10 @@
 <div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
 
-  <div class="aplicativo-header-container">
+  <!-- Header -->
+  <div class="aplicativo-header-container" *ngIf="dados.isEditable || dados.showAppTitle">
 
     <!-- Container do título do componente -->
-    <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
+    <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' } "
       [dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
     </app-aplicativo-header>
 
@@ -27,39 +28,7 @@
     </div>
   </div>
 
-  <!-- Menu de configurações do componente -->
-  <!-- <div class="dropdown-menu" aria-labelledby="menuConfiguracoes"
-    style="width: 800px; box-shadow: 0px 1px 10px #888888; background-color:var(--color-bg-0)">
-    <div class="aplicativo-input-button-container">
-
-      <div class="aplicativo-input-username-container aplicativo-input-config-container dropdown-item"
-        *ngIf="hasCheckedApi">
-        <app-input-group [label]="'Alterar username do Freesound'" [inputType]="'text'" [inputValue]="dados.username"
-          [placeholder]="'Insira seu username do Freesound'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
-          [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
-        </app-input-group>
-      </div>
-
-      <div style="margin:auto">
-        <button class="btn btn-outline-primary">
-          Selecionar áudios
-        </button>
-      </div>
-    </div>
-    <div class="dropdown-item color-picker-container">
-      <div class="color-picker-label-container">
-        <span class="color-pickr-label"> Cor de fundo</span>
-        <input class="color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
-          (input)="onColorChange($event.target)" />
-      </div>
-      <div class="color-picker-label-container">
-        <span class="color-pickr-label"> Cor de destaque</span>
-        <input class="color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
-          (input)="onColorChange($event.target)" />
-      </div>
-    </div>
-  </div> -->
-
+  <!-- Conteúdo do componente -->
   <div class="aplicativo-content-container">
 
     <div class="freesound-basic-info" *ngIf="hasCheckedApi">
