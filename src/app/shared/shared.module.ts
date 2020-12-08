@@ -12,6 +12,7 @@ import { RepoItemComponent } from './components/repo-item/repo-item.component';
 import { PhotoContainerComponent } from './components/photo-container/photo-container.component';
 import { PhotoItemComponent } from './components/photo-item/photo-item.component';
 import { ConfigMenuCompComponent } from './components/config-menu-comp/config-menu-comp.component';
+import { AplicativoBasicInfoComponent } from './components/aplicativo-basic-info/aplicativo-basic-info.component';
 
 
 
@@ -27,7 +28,8 @@ import { ConfigMenuCompComponent } from './components/config-menu-comp/config-me
     RepoItemComponent,
     PhotoContainerComponent,
     PhotoItemComponent,
-    ConfigMenuCompComponent
+    ConfigMenuCompComponent,
+    AplicativoBasicInfoComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { ConfigMenuCompComponent } from './components/config-menu-comp/config-me
     RepoItemComponent,
     PhotoContainerComponent,
     PhotoItemComponent,
-    ConfigMenuCompComponent
+    ConfigMenuCompComponent,
+    AplicativoBasicInfoComponent,
   ]
 })
 export class SharedModule { }

@@ -32,29 +32,15 @@
   <!-- Conteúdo -->
   <div class="aplicativo-content-container">
 
-    <div class="flickr-basic-info" *ngIf="hasCheckedApi">
-      
-      <!-- Container da imagem + user name -->
-      <div class="flickr-pic-name">
-        
-        <!-- Container da imagem -->
-        <div class="flickr-avatar-pic">
-          <img src="{{dados.avatar_img}}" class="flickr-pic" />
-        </div>
-        
-        <!-- Container do username -->
-        <div class="flickr-profile-name">
-          <span class="flickr-profile-name-text">{{dados.full_name}} ({{dados.alias}})</span>
-        </div>
-      </div>
-      
-      <!-- Container da descrição -->
-      <div class="flickr-description">
-        <div class="flickr-description-header">
-          <span style="color: inherit; font-size: inherit;">Descrição</span>
-        </div>
-        {{dados.description}}
-      </div>
+    <!-- Container da descrição -->
+    <div class="flickr-description">
+      <app-aplicativo-basic-info
+        [username]="dados.full_name + ' (' + dados.alias + ')'"
+        [profile_url]="dados.profile_url"
+        [description]="dados.description"
+        [fgColor]="dados.fgColor"
+      >
+      </app-aplicativo-basic-info>
     </div>
     
     <!-- Container das imagens -->

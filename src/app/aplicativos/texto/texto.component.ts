@@ -30,8 +30,22 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
   }
 
   ngOnInit() {
+    this.initArrayTexto();
     this.criaBackupDados();
     this.initForms();
+  }
+
+  /**
+   * Inicializa o array de texto caso seja um componente novo sem textos
+   */
+  initArrayTexto(): void {
+    if (this.dados.texto_array.length || !this.dados.isEditable) {
+      return;
+    }
+    let textoInicial = new Texto();
+    textoInicial.title = '';
+    textoInicial.body = '';
+    this.dados.texto_array.push(textoInicial);
   }
 
   /**

@@ -28,30 +28,33 @@
   <!-- Conteúdo -->
   <div class="aplicativo-content-container">
 
-    <div class="github-basic-info" *ngIf="hasCheckedApi">
+    <!-- <div class="github-basic-info" *ngIf="hasCheckedApi"> -->
 
       <!-- Container da imagem + user name -->
-      <div class="github-pic-name">
+      <!-- <div class="github-pic-name"> -->
 
         <!-- Container da imagem -->
-        <div class="github-avatar-pic">
+        <!-- <div class="github-avatar-pic">
           <img src="{{dados.avatar_img}}" class="github-pic" />
-        </div>
+        </div> -->
 
         <!-- Container do username -->
-        <div class="github-profile-name">
+        <!-- <div class="github-profile-name">
           <span class="github-profile-name-text">{{dados.username}}</span>
         </div>
-      </div>
+      </div> -->
 
       <!-- Container da descrição -->
       <div class="github-description">
-        <div class="github-description-header">
-          <span style="color: inherit; font-size: inherit;">Descrição</span>
-        </div>
-        {{dados.description}}
+        <app-aplicativo-basic-info
+        [username]="dados.username"
+        [profile_url]="dados.profile_url"
+        [description]="dados.description"
+        [fgColor]="dados.fgColor"
+      >
+      </app-aplicativo-basic-info>
       </div>
-    </div>
+    <!-- </div> -->
 
     <!-- Container dos repositórios -->
     <div class="github-repo-container" *ngIf="hasCheckedApi">

@@ -21,7 +21,5 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
   ngOnInit() {
     this.setEstadoAplicativo();
     this.criaBackupDados();
-    console.log(this.dados);
-
   }
 }

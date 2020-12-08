@@ -19,10 +19,7 @@
   <div class="aplicativo-config-collapse-container" id="githubConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
     <span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
     <div class="aplicativo-config-container">
-      <app-config-menu-comp 
-        [dados]="dados" 
-        [hasCheckedApi]="hasCheckedApi" 
-        (colorChange)="onColorChange($event)" 
+      <app-config-menu-comp [dados]="dados" [hasCheckedApi]="hasCheckedApi" (colorChange)="onColorChange($event)"
         (apiSubmit)="onUsernameSubmit($event)">
       </app-config-menu-comp>
     </div>
@@ -31,29 +28,15 @@
   <!-- Conteúdo do componente -->
   <div class="aplicativo-content-container">
 
-    <div class="freesound-basic-info" *ngIf="hasCheckedApi">
+    <div class="freesound-description">
 
-      <!-- Container da imagem + user name -->
-      <div class="freesound-pic-name">
-
-        <!-- Container da imagem -->
-        <div class="freesound-avatar-pic">
-          <img src="{{dados.avatar_img}}" class="freesound-pic" />
-        </div>
-
-        <!-- Container do username -->
-        <div class="freesound-profile-name">
-          <span class="freesound-profile-name-text">{{dados.username}}</span>
-        </div>
-      </div>
-
-      <!-- Container da descrição -->
-      <div class="freesound-description">
-        <div class="freesound-description-header">
-          <span style="color: inherit; font-size: inherit;">Descrição</span>
-        </div>
-        {{dados.description}}
-      </div>
+      <app-aplicativo-basic-info
+        [username]="dados.username"
+        [profile_url]="dados.profile_url"
+        [description]="dados.description"
+        [fgColor]="dados.fgColor"
+      >
+      </app-aplicativo-basic-info>
     </div>
 
     <!-- Container do player + lista de reprodução -->
@@ -63,8 +46,10 @@
       <div class="freesound-player-controls">
         <audio controls src={{audioEmReproducao.url}} [autoplay]="forcePlay" class="freesound-audio-player"></audio>
         <div>
-          <span style="color: var(--color-fg-inv);">Reproduzindo: </span>
-          <span style="color: var(--color-fg-inv); font-weight: 500 !important;">{{audioEmReproducao.name}}</span>
+          <span [ngStyle]="{'color': dados.fgColor}">Reproduzindo: </span>
+          <span [ngStyle]="{'color': dados.fgColor, 'font-weight': '500 !important'}">
+            {{audioEmReproducao.name}}
+          </span>
         </div>
       </div>
 
