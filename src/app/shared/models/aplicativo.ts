@@ -21,7 +21,6 @@ export class AplicativoApi extends AplicativoBase {
   username: string = '';
   description: string = '';
   profile_url: string = '';
-  avatar_img: string = '';
 }
 
 /**

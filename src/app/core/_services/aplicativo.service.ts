@@ -119,7 +119,6 @@ export class AplicativoService {
     dado.username = 'flickrUser';
     dado.description = 'Fotos maravilhosas do Flickr';
     dado.profile_url = 'urlParaProfileFlickr';
-    dado.avatar_img = 'https://highprofileenterprises.com/wp-content/uploads/2015/02/Google-penguin.jpg';
 
     dado.full_name = 'Usuario do Flickr';
     dado.alias = 'Flickrito';
@@ -182,7 +181,6 @@ export class AplicativoService {
     dado.username = 'freesoundUser';
     dado.description = 'Áudios maravilhosos do Freesound';
     dado.profile_url = 'https://freesound.org/people/casstway/';
-    dado.avatar_img = 'https://i.pinimg.com/originals/fa/cf/10/facf10980b28a60c9f755c59aba40d39.jpg';
 
     dado.audio_array = [];
 
@@ -241,7 +239,6 @@ export class AplicativoService {
     dado.username = 'anyUser';
     dado.description = 'Repos maravilhosos do Github';
     dado.profile_url = 'https://github.com/kruchelski';
-    dado.avatar_img = 'https://avatarfiles.alphacoders.com/170/170185.png';
 
     dado.repo_array = [];
 
