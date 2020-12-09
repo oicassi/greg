@@ -206,6 +206,13 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
     this.form.get(`body${indice}`).setValue('');
   }
 
+  antesConfirmarEdicao(): void {
+    this.verificarCamposFormularios(this.form);
+    if (this.form.status === 'INVALID') {
+      throw new Error('Preenchimento incorreto');
+    }
+  }
+
   aposCancelarEdicao(): void {
     this.textoTemp.body = '';
     this.textoTemp.title = '';

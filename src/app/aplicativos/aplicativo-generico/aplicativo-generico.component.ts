@@ -1,6 +1,7 @@
 import { AplicativoService } from '@services/aplicativo.service';
 import { AplicativoBase } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-aplicativo-generico',
@@ -49,7 +50,7 @@ export class AplicativoGenericoComponent implements OnInit {
     // Checar se o conteúdo do array é do tipo objeto
     if (typeof array1[0] !== 'object') {
       return;
-    } 
+    }
 
     // Inicia a cópia dos objetos
     for (let i = 0; i < array1.length; i++) {
@@ -78,14 +79,19 @@ export class AplicativoGenericoComponent implements OnInit {
    * Salvar edições realizadas
    */
   onClickConfirmarEdicao(): void {
-    this.antesConfirmarEdicao();
-    this.dados.isEdit = false;
-    this.criaBackupDados();
-    this._appServ.replaceAplicativo(this.dados);
-    if (this.isConfigMenuOpen) {
-      this.isConfigMenuOpen = false;
+    try {
+      this.antesConfirmarEdicao();
+      this.dados.isEdit = false;
+      this.criaBackupDados();
+      this._appServ.replaceAplicativo(this.dados);
+      if (this.isConfigMenuOpen) {
+        this.isConfigMenuOpen = false;
+      }
+      this.aposConfirmarEdicao();
+    } catch (err) {
+      this.tratarErros(err, 'Salvar');
     }
-    this.aposConfirmarEdicao();
+
   }
 
   /**
@@ -102,14 +108,18 @@ export class AplicativoGenericoComponent implements OnInit {
    * Sair do modo de edição de componente
    */
   onClickCancelEditar(): void {
-    this.antesCancelarEdicao();
-    this.dados = this.dadosBkp;
-    this.dados.isEdit = false;
-    this.criaBackupDados();
-    if (this.isConfigMenuOpen) {
-      this.isConfigMenuOpen = false;
+    try {
+      this.antesCancelarEdicao();
+      this.dados = this.dadosBkp;
+      this.dados.isEdit = false;
+      this.criaBackupDados();
+      if (this.isConfigMenuOpen) {
+        this.isConfigMenuOpen = false;
+      }
+      this.aposCancelarEdicao();
+    } catch (err) {
+      this.tratarErros(err, 'Cancelar edição');
     }
-    this.aposCancelarEdicao();
   }
 
   /**
@@ -130,7 +140,7 @@ export class AplicativoGenericoComponent implements OnInit {
     const fgColor = this.dados.fgColor || '#444444';
 
     return {
-      'background-color':bgColor,
+      'background-color': bgColor,
       color: fgColor
     }
   }
@@ -148,5 +158,30 @@ export class AplicativoGenericoComponent implements OnInit {
    */
   toggleConfigMenu() {
     this.isConfigMenuOpen = !this.isConfigMenuOpen;
+  }
+
+  /**
+   * Marcar os campos de um formulário como dirty e touched
+   * @param form Formulário para ser processado
+   */
+  verificarCamposFormularios(form: FormGroup) {
+    Object.keys(form.controls).forEach((field) => {
+      const control = form.get(field);
+      control.markAsDirty({ onlySelf: true });
+      control.markAsTouched({ onlySelf: true });
+    });
+  }
+
+  /**
+   * Método genérico para tratar erros
+   * @param err Objeto de erros
+   */
+  tratarErros(err: Error, acao: string = null) {
+    let msg = '%cOcorreu um erro';
+    if (acao) {
+      msg += ` na ação ${acao}`;
+    }
+    msg += ` no componente ${this.dados.component_name}`
+    console.log(msg, 'color: tomato');
   }
 }
