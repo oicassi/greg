@@ -45,12 +45,13 @@ import { BioComponent } from './bio/bio.component';
     AplicativoControlComponent,
   ],
   entryComponents: [
-    GithubComponent, 
+    BioComponent,
     FlickrComponent, 
-    FreesoundComponent, 
-    TextoComponent, 
     FotosComponent, 
-    TagsComponent
+    FreesoundComponent, 
+    GithubComponent, 
+    TagsComponent,
+    TextoComponent, 
   ]
 })
 export class AplicativosModule { }

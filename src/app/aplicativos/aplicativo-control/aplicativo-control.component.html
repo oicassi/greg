@@ -9,7 +9,7 @@
   <div *ngIf="isSelecionado" class="app-control-form-dropdown fade-in-geral">
 
     <!-- Dropdown -->
-    <div class="dropdown app-control-dropdown" *ngIf="!isExistente">
+    <div class="dropdown app-control-dropdown" *ngIf="!isExistente && type !== 'bio'">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false" [disabled]="isExistente"
         [ngClass]="isTypeInvalid ? 'btn-outline-danger': 'btn-outline-primary'">
@@ -52,7 +52,7 @@
     </div>
   </div>
 
-  <!-- Botões gerais de adição -->
+  <!-- Botões gerais de edição -->
   <div class="app-control-botoes fade-in-geral" *ngIf="!isExistente">
 
     <!-- Botão para salvar -->
@@ -84,7 +84,7 @@
       </div>
 
       <!-- Botão para excluir o aplicativo -->
-      <div class="app-control-container-btn-delete">
+      <div class="app-control-container-btn-delete" *ngIf="type !== 'bio'">
         <app-circle-button [icon]="'delete'" [color]="'danger'" (click)="onClickRemove()"></app-circle-button>
       </div>
     </div>

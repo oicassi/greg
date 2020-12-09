@@ -29,7 +29,8 @@ export class EditPreviewComponent implements OnInit {
    * Getter dos aplicativos
    */
   get aplicativos(): AplicativoBase[] {
-    const apps = this._appSrv.getAplicativos();
+    let apps = this._appSrv.getAplicativos();
+    apps.forEach((app, i) => app.order = i);
     this.setAplicativosEditable(apps);
     return apps;
   }

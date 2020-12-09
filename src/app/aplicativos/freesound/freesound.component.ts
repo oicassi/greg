@@ -27,6 +27,7 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
   ngOnInit() {
     this.setEstadoAplicativo();
     this.setAudioInicial();
+    this.printBagulhets();
     this.criaBackupDados();
   }
 

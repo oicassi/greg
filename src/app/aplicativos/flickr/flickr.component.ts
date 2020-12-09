@@ -20,6 +20,7 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
 
   ngOnInit() {
     this.setEstadoAplicativo();
+    this.printBagulhets();
     this.criaBackupDados();
   }
 }

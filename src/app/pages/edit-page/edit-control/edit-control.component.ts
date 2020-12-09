@@ -1,6 +1,6 @@
 import { AplicativoBase } from '@models/aplicativo';
 import { AplicativoService } from '@services/aplicativo.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -11,12 +11,13 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class EditControlComponent implements OnInit {
 
   constructor(
-    private _appSrv: AplicativoService
+    private _appSrv: AplicativoService,
+    private _cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     // Ordena os aplicativos com base no order
-    this.aplicativos = this.aplicativos.sort((a, b) => a.order - b.order);
+    this.ordenarAplicativos();
   }
 
   /**
@@ -34,16 +35,23 @@ export class EditControlComponent implements OnInit {
   }
 
   /**
+   * Realiza a ordenação dos aplicativos
+   */
+  ordenarAplicativos(): void {
+    this.aplicativos = this.aplicativos.sort((a, b) => a.order - b.order);
+    this.aplicativos.forEach((app, i) => app.order = i);
+  }
+
+  /**
    * Listener para o evento de drop do cdk drag and drop
    * @param event Evento
    */
   drop(event: CdkDragDrop<string[]>): void {
     console.log(this.aplicativos);
     moveItemInArray(this.aplicativos, event.previousIndex, event.currentIndex);
-    for (let i = 0; i < this.aplicativos.length; i++) {
-      this.aplicativos[i].order = i;
-    }
+    this.aplicativos.forEach((app, i) => app.order = i);
     console.log('%cAplicativo reordenado com sucesso', 'color: purple');
     console.log(this.aplicativos);
+    this._cdr.detectChanges();
   }
 }

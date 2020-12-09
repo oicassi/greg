@@ -1,13 +1,13 @@
 import { AplicativoService } from '@services/aplicativo.service';
 import { AplicativoBase } from '@models/aplicativo';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-aplicativo-generico',
   template: `<ng-template></ng-template>`
 })
-export class AplicativoGenericoComponent implements OnInit {
+export class AplicativoGenericoComponent implements OnInit, DoCheck {
 
   @Input() dados: AplicativoBase;
   dadosBkp: AplicativoBase;
@@ -16,6 +16,16 @@ export class AplicativoGenericoComponent implements OnInit {
   constructor(protected _appServ: AplicativoService) { }
 
   ngOnInit() {
+    
+  }
+
+  ngDoCheck() {
+    this.dadosBkp.order = this.dados.order;
+  }
+
+  printBagulhets(){
+    console.log(`%c[${this.dados.component_name} dados iniciais]`, 'color: green');
+    console.log(this.dados);
   }
 
   /**

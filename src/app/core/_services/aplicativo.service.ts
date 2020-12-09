@@ -7,6 +7,7 @@ import {
   AplicativoGithub,
   AplicativoTags,
   AplicativoTexto,
+  AplicativoBio
 } from '@models/aplicativo';
 import { Foto, Audio, Repo, Texto } from '@models/aplicativo-item';
 import { AplicativosModels } from '@shared/constants/aplicativos';
@@ -19,6 +20,7 @@ export class AplicativoService {
   aplicativos: AplicativoBase[] = [];
   constructor() {
     this.aplicativos = [];
+    this.aplicativos.push(this.getMockBio());
     this.aplicativos.push(this.getMockFlickr());
     // this.aplicativos.push(this.getMockFotos());
     this.aplicativos.push(this.getMockFreesound());
@@ -106,6 +108,25 @@ export class AplicativoService {
    */
   getTiposAplicativos(): Array<{ type: string, label: string }> {
     return AplicativosModels.SELECIONAVEIS;
+  }
+
+  getTodosTiposAplicativos(): Array<{ type: string, label: string }> {
+    return AplicativosModels.TODOS;
+  }
+
+  private getMockBio(): AplicativoBio {
+    let dado = new AplicativoBio();
+    dado.component_name = 'Bio';
+    dado.bgColor = '#bebebe';
+    dado.fgColor = '#444444';
+    dado.imagem = new Foto();
+    dado.imagem.url = 'https://i.pinimg.com/originals/8f/24/86/8f248672f797fe7d2080039232fc7605.jpg';
+    dado.imagem.name = 'Profile Pic';
+    dado.imagem.description = 'Imagem do perfil';
+    dado.order = -1;
+    dado.type = 'bio';
+    dado.texto = "Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine";
+    return dado;
   }
 
   private getMockFlickr(): AplicativoFlickr {

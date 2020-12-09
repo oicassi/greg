@@ -31,6 +31,7 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
 
   ngOnInit() {
     this.initArrayTexto();
+    this.printBagulhets();
     this.criaBackupDados();
     this.initForms();
   }

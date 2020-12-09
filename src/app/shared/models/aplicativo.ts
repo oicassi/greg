@@ -67,3 +67,10 @@ export class AplicativoTags extends AplicativoBase {
   tag_array: string[] = []
 }
 
+/**
+ * Classe com os dados da bio do usuário
+ */
+export class AplicativoBio extends AplicativoBase {
+  texto: string = '';
+  imagem: Foto = null;
+}

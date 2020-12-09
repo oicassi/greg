@@ -6,6 +6,7 @@ import {
   AplicativoGithub,
   AplicativoTags,
   AplicativoTexto,
+  AplicativoBio
 } from '@models/aplicativo';
 import { AplicativosConstants } from '@constants/aplicativos';
 import { Injectable, Component } from '@angular/core';
@@ -33,6 +34,8 @@ export class FactoryService {
    */
   getModel(tipo: string): AplicativoBase {
     switch (tipo) {
+      case 'bio':
+        return new AplicativoBio();
       case 'flickr':
         return new AplicativoFlickr();
       case 'fotos':

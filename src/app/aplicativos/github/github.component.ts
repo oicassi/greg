@@ -21,6 +21,7 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
 
   ngOnInit() {
     this.setEstadoAplicativo();
+    this.printBagulhets();
     this.criaBackupDados();
     console.log(this.dados);
   }

@@ -23,6 +23,10 @@ export class AplicativosConstants {
 export class AplicativosModels {
   static TODOS = [
     {
+      type: 'bio',
+      label: 'Bio'
+    },
+    {
       type: 'flickr',
       label: 'Flickr'
     },

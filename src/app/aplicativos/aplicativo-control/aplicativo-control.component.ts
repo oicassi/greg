@@ -41,18 +41,25 @@ export class AplicativoControlComponent implements OnInit {
   }
 
   /**
-   * Retorna uma lista com os tipos de aplicativos possíveis
+   * Retorna uma lista com os tipos de aplicativos selecionáveis
    */
   get tiposAplicativos(): Array<{ type: string, label: string }> {
     return this._appSrv.getTiposAplicativos();
   }
 
   /**
+   * Retorna uma lista com todos os tipos de aplicativos existentes
+   */
+  get todosTiposAplicativos(): Array<{ type: string, label: string }> {
+    return this._appSrv.getTodosTiposAplicativos();
+  }
+
+  /**
    * Retorna um label do aplicativo
    */
   get tipoAplicativo(): string {
-    const aplicativo =  this.tiposAplicativos.find((app) => app.type === this.type);
-    return aplicativo.label;
+    const aplicativo =  this.todosTiposAplicativos.find((app) => app.type === this.type);
+    return aplicativo.label || '';
   }
 
   /**
@@ -230,7 +237,7 @@ export class AplicativoControlComponent implements OnInit {
    * Altera o label do botão dropdown;
    */
   alteraLabelSeletor(): void {
-    this._appSrv.getTiposAplicativos().forEach((app) => {
+    this.todosTiposAplicativos.forEach((app) => {
       if (app.type === this.type) {
         this.seletorLabel = app.label;
       }
