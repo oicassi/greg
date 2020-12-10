@@ -10,6 +10,12 @@
   width: 100%;
 }
 
+.edit-control-buttons-config {
+  display: flex;
+  flex-wrap: row wrap;
+  margin-left: auto;
+}
+
 .control-drag-drop-container {
   // display: flex;
   // flex-direction: column;

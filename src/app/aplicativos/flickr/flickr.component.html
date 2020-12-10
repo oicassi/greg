@@ -16,45 +16,38 @@
   </div>
 
   <!-- Menu de configurações do componente -->
-  <div class="aplicativo-config-collapse-container" id="githubConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
-		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
-		<div class="aplicativo-config-container">
-			<app-config-menu-comp
-				[dados]="dados"
-				[hasCheckedApi]="hasCheckedApi"
-				(colorChange)="onColorChange($event)"
-        (apiSubmit)="onUsernameSubmit($event)"
-			>
-			</app-config-menu-comp>
-		</div>
-	</div>
+  <div class="aplicativo-config-collapse-container" *ngIf="dados.isEdit && isConfigMenuOpen">
+    <span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
+    <div class="aplicativo-config-container">
+      <app-config-menu-comp [dados]="dados" [hasCheckedApi]="hasCheckedApi" (colorChange)="onColorChange($event)"
+        (apiSubmit)="onUsernameSubmit($event)" (modalOpen)="onOpenModal()">
+      </app-config-menu-comp>
+    </div>
+  </div>
 
   <!-- Conteúdo -->
   <div class="aplicativo-content-container">
 
     <!-- Container da descrição -->
-    <div class="flickr-description">
-      <app-aplicativo-basic-info
-        [username]="dados.full_name + ' (' + dados.alias + ')'"
-        [profile_url]="dados.profile_url"
-        [description]="dados.description"
-        [fgColor]="dados.fgColor"
-      >
+    <div class="flickr-description" *ngIf="hasCheckedApi">
+      <app-aplicativo-basic-info [username]="dados.full_name + ' (' + dados.alias + ')'"
+        [profile_url]="dados.profile_url" [description]="dados.description" [fgColor]="dados.fgColor">
       </app-aplicativo-basic-info>
     </div>
-    
+
     <!-- Container das imagens -->
     <div class="flickr-photo-container" *ngIf="hasCheckedApi">
-      <app-photo-container [photoArray]="dados.photo_array" [fgColor]="dados.fgColor" style="margin: auto; width: 100%;">
+      <app-photo-container [photoArray]="dados.photo_array" [fgColor]="dados.fgColor"
+        style="margin: auto; width: 100%;">
       </app-photo-container>
     </div>
-    
+
     <!-- Mostrar o input para inserção do username -->
     <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
-      <app-input-group [label]="'Username do Flickr'" [inputType]="'text'" [placeholder]="'Insira seu username do Flickr'"
-      [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
-      [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
-    </app-input-group>
+      <app-input-group [label]="'Username do Flickr'" [inputType]="'text'"
+        [placeholder]="'Insira seu username do Flickr'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
+        [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+      </app-input-group>
+    </div>
   </div>
-</div>
 </div>

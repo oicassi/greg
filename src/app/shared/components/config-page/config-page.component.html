@@ -1,0 +1,11 @@
+<div class="config-main-container">
+  
+    <!-- Container para color pickers de cor do fundo e da frente -->
+    <div class="config-color-picker-container config-generic-container">
+      <div class="config-color-picker-label-container">
+        <span> Cor de fundo da página</span>
+        <input class="config-color-picker" id="picker1" type="color" name="bgColor" value="{{dados.pageBgColor || '#FFFFFF'}}"
+          (input)="onColorChange($event.target)" />
+      </div>
+    </div>
+  </div>

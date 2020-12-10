@@ -82,6 +82,7 @@ export class AplicativosModels {
   ]
 
   static COR_EDITAVEL = [
+    'bio',
     'flickr',
     'fotos',
     'freesound',
@@ -103,6 +104,11 @@ export class AplicativosModels {
   static FIXOS = [
     'tags',
     'bio'
+  ]
+
+  static INPUT_ARQUIVO = [
+    'bio',
+    'fotos'
   ]
 }
 

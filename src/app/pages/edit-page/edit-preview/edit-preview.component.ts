@@ -2,6 +2,8 @@ import { FactoryService } from '@services/factory.service';
 import { AplicativoService } from '@services/aplicativo.service';
 import { Component, OnInit } from '@angular/core';
 import { AplicativoBase } from '@models/aplicativo';
+import { PagesService } from '@services/pages.service';
+import { UserPageGlobal } from '@models/user';
 
 @Component({
   selector: 'app-edit-preview',
@@ -12,6 +14,7 @@ export class EditPreviewComponent implements OnInit {
 
   constructor(
     private _appSrv: AplicativoService,
+    private _pagesSrv: PagesService,
     public factorySrv: FactoryService
   ) { }
 
@@ -33,6 +36,27 @@ export class EditPreviewComponent implements OnInit {
     apps.forEach((app, i) => app.order = i);
     this.setAplicativosEditable(apps);
     return apps;
+  }
+
+  /**
+   * Setter dos dados da página
+   */
+  set dadosUsuario(dados: UserPageGlobal) {
+    this._pagesSrv.setPageGlobalInfo(dados);
+  }
+
+  /**
+   * Getter dos dados da página
+   */
+  get dadosUsuario(): UserPageGlobal {
+    return this._pagesSrv.getPageGlobalInfo();
+  }
+
+  /**
+  * Retorna o estilo da cor de fundo
+  */
+  customPageBgColor(): Object {
+    return { 'background-color': this.dadosUsuario.pageBgColor }
   }
 
   /**

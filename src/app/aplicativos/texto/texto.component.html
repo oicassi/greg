@@ -14,7 +14,7 @@
 	</div>
 
 	<!-- Menu de configurações do aplicativo -->
-	<div class="aplicativo-config-collapse-container" id="githubConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
+	<div class="aplicativo-config-collapse-container" *ngIf="dados.isEdit && isConfigMenuOpen">
 		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
 		<div class="aplicativo-config-container">
 			<app-config-menu-comp
@@ -45,7 +45,7 @@
 		<div class="texto-element-container" *ngFor="let texto of dados.texto_array; let i = index">
 			<form [formGroup]="form">
 				<div class="texto-element-title-container" style="margin-bottom: -15px;">
-					<div class="form-group texto-title-input">
+					<div class="form-group">
 						<input type="text" formControlName="{{'title'+ i}}" class="form-control form-control-sm"
 							[ngClass]="{'is-invalid': form.controls['title' + i].errors && form.controls['title' + i].touched}"
 							placeholder="Título do texto" />
@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				<div class="texto-element-body-control">
-					<div class="form-group texto-title-input">
+					<div class="form-group">
 						<textarea formControlName="{{'body'+ i}}" class="form-control form-control-sm"
 							[ngClass]="{'is-invalid': form.controls['body' + i].errors && form.controls['body' + i].touched}" rows="8"
 							style="height:100%;" id="textBody" placeholder="Insira o texto aqui"></textarea>

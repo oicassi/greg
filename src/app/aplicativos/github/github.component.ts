@@ -25,4 +25,11 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
     this.criaBackupDados();
     console.log(this.dados);
   }
+
+  /**
+   * Handler ao clicar no botão de abrir o modal
+   */
+  onOpenModal():void {
+    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+  }
 }

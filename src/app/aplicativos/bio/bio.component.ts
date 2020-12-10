@@ -25,9 +25,8 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   }
 
   ngOnInit() {
-    this.printBagulhets();
     this.criaBackupDados();
-    this.initForms
+    this.initForms();
   }
 
   /**
@@ -39,5 +38,72 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
       'texto': [(this.dados.texto || ''),
       [Validators.required]],
     })
+  }
+
+  /**
+   * Salvar o texto e o título editado
+   */
+  salvarTexto(): void {
+
+    // Marcar o controle que que está sendo salvo como touched e dirty
+    let control = this.form.get('texto');
+    control.markAsDirty({ onlySelf: true });
+    control.markAsTouched({ onlySelf: true });
+
+    // Se tiver algum erro, cancela a ação
+    if (this.form.get('texto').errors ) {
+      return;
+    }
+
+    // Recupera o texto sendo salvo
+    const texto = this.form.get('texto').value;
+
+    // Atualiza a informação
+    this.dados.texto = texto;
+  }
+
+  /**
+   * Cancela a edição do texto e título e retorna os dados ao estado original
+   * @param indice Índice do texto e título sendo editados
+   */
+  cancelarTexto(): void {
+    this.form.get('texto').setValue(this.dados.texto);
+  }
+
+  /**
+   * Limpa o texto
+   * @param indice Índice do texto sendo limpo 
+   */
+  limparTexto(): void {
+    this.form.get('texto').setValue('');
+  }
+
+  /**
+   * Handler ao clicar no botão de input arquivo
+   */
+  onInputTrocarFoto():void {
+    console.log(`[${this.dados.component_name}] clicado no botão de input de arquivos`);
+  }
+
+  /**
+   * Hoook antes de terminar a edição do componente
+   */
+  antesConfirmarEdicao(): void {
+    this.verificarCamposFormularios(this.form);
+    if (this.form.status === 'INVALID') {
+      throw new Error('Preenchimento incorreto');
+    }
+  }
+
+  /**
+   * Verifica se houve alterações no texto e se habilita ou não os botões de salvar e cancelar
+   */
+  checkAcoesDisabled(): boolean{
+    let texto = this.form.get('texto').value;
+
+    if (this.dados.texto !== texto) {
+        return false;
+      }
+    return true;
   }
 }

@@ -14,3 +14,7 @@
     // nome
     sub: string;
 }
+
+export class UserPageGlobal {
+    pageBgColor: string = '#ffffff';
+}

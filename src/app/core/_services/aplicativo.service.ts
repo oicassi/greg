@@ -22,7 +22,7 @@ export class AplicativoService {
     this.aplicativos = [];
     this.aplicativos.push(this.getMockBio());
     this.aplicativos.push(this.getMockFlickr());
-    // this.aplicativos.push(this.getMockFotos());
+    this.aplicativos.push(this.getMockFotos());
     this.aplicativos.push(this.getMockFreesound());
     this.aplicativos.push(this.getMockGithub());
     // this.aplicativos.push(this.getMockTags());
@@ -125,7 +125,7 @@ export class AplicativoService {
     dado.imagem.description = 'Imagem do perfil';
     dado.order = -1;
     dado.type = 'bio';
-    dado.texto = "Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine";
+    dado.texto = "Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine";
     return dado;
   }
 
@@ -178,13 +178,13 @@ export class AplicativoService {
     let foto1 = new Foto();
     foto1.name = 'Foto 1 Simples';
     foto1.description = 'Essa é a foto 1 simples';
-    foto1.url = 'Url para a foto 1 simples';
+    foto1.url = 'https://www.eqgroup.com/wp-content/uploads/2016/11/Hybrid-Studios-Control-Room-sm-1024x683.jpg';
     dado.photo_array.push(foto1);
 
     let foto2 = new Foto();
     foto2.name = 'Foto 2 Simples';
     foto2.description = 'Essa é a foto 2 simples'
-    foto2.url = 'Url para a foto 2 simples';
+    foto2.url = 'https://redhouselive.com/wp-content/uploads/2020/03/Audio-Studio.jpg';
     dado.photo_array.push(foto2);
 
     return dado;

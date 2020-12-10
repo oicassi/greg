@@ -1,36 +1,5 @@
 @import "../../../assets/scss/_basics/colors.scss";
 
-.texto-botão-info-container {
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    margin-top: 20px;
-    padding: 25px;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.texto-botao-container {
-    width: 50%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.texto-info-container {
-    width: 50%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.texto-button-icon-correction {
-    position: relative;
-    top: 3px;
-}
-
 .texto-grid-container {
     height: auto;
     min-height: 254px;
@@ -108,8 +77,4 @@
 
 .texto-element-control-single-button:last-of-type {
     margin-right: 0;
-}
-
-.texto-title-input {
-
 }

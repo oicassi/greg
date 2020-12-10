@@ -1,0 +1,103 @@
+@import '../../../assets/scss/_basics/colors.scss';
+
+.bio-profile-pic-container {
+    width: 230px;
+    min-width: 200px;
+    max-width: 300px;
+    min-height: 254px;
+    max-height: 300px;
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bio-profile-pic {
+    width: auto !important;
+    max-width: 100%;
+    max-height: 100%;
+    float: left;
+    clear: both;
+    border-radius: 6px;
+    box-shadow: 0px 1px 3px #888888;
+}
+
+.bio-grid-container {
+    height: auto;
+    min-height: 254px;
+    width: 100%;
+    max-width: 97vw;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 3;
+    position: relative;
+    color: inherit !important;
+}
+
+.bio-element-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    // min-height: 250px;
+    min-width: 400px;
+    flex: 1;
+    margin: 0 5px 10px;
+    background-color: transparent;
+    padding-top: 0;
+    color: inherit !important;
+}
+
+.bio-title-input {
+    width: 100%;
+}
+
+.bio-input-error-msg {
+    color: inherit;
+    font-size: inherit;
+}
+
+.bio-element-title-container {
+    width: 100%;
+    padding: 5px;
+    font-size: 1.1rem !important;
+    word-break: break-word;
+    margin-bottom: 10px;
+    color: inherit !important;
+}
+
+.bio-element-body-container {
+    width: 100%;
+    padding: 5px;
+    word-break: break-word;
+    max-height: 300px;
+    overflow-y: auto;
+    color: inherit !important;
+}
+
+.bio-element-body-control {
+    width: 100%;
+    padding: 5px;
+    height: auto;
+}
+
+.bio-element-control-buttons {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 5px;
+}
+
+.bio-element-control-single-button {
+    margin: 0 5px;
+}
+
+.bio-element-control-single-button:first-of-type {
+    margin-left: 0;
+}
+
+.bio-element-control-single-button:last-of-type {
+    margin-right: 0;
+}

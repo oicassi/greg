@@ -126,18 +126,31 @@ html.transition *:after {
   transform: rotate(180deg) scale(1.2);
 }
 
+.aplicativo-config-button-no-spin {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  color: var(--color-fg-1);
+  cursor: pointer;
+  transition: all 0.5s;
+  animation-name: showConfigButton;
+  animation-duration: 0.5s;
+  margin-bottom: 0.3rem;
+}
+
+.aplicativo-config-button-no-spin:hover {
+  transform: scale(1.2);
+}
+
 .aplicativo-content-container {
   width: 100%;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  align-items: center;
   flex: 1;
   color: inherit;
 }
 
-.aplicativo-config-collapse-container {
-  padding: 10px 20px;
+.aplicativo-config-page-collapse-container {
   margin-bottom: 5px;
   width: 100%;
 }

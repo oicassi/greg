@@ -13,6 +13,7 @@ export class ConfigMenuCompComponent implements OnInit {
     label: 'Alterar username',
     placeholder: 'Insira seu username',
     modalLabel: 'Selecionar itens',
+    botaoInputLabel: 'Selecionar arquivo'
   }
   @Input() dados: AplicativoBase;
   @Input() hasCheckedApi: boolean;
@@ -20,7 +21,7 @@ export class ConfigMenuCompComponent implements OnInit {
   @Output() colorChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() textCount: EventEmitter<string> = new EventEmitter<string>();
   @Output() modalOpen: EventEmitter<string> = new EventEmitter<string>();
-
+  @Output() inputArquivo: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
 
@@ -59,6 +60,16 @@ export class ConfigMenuCompComponent implements OnInit {
   }
 
   /**
+   * Verifica se o menu de configurações deve exibir controles para input de arquivo
+   */
+  checkComponenteInputArquivo(): boolean {
+    if (AplicativosModels.INPUT_ARQUIVO.includes(this.dados.type)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Verifica se o menu de configuração deve exibir controles para controle de cor
    */
   checkComponenteCorEditavel(): boolean {
@@ -83,15 +94,21 @@ export class ConfigMenuCompComponent implements OnInit {
     switch(this.dados.type) {
       case 'flickr':
         this.textosInputApi.modalLabel = 'Fotos';
+        this.textosInputApi.botaoInputLabel = 'Carregar foto';
         break;
       case 'fotos':
         this.textosInputApi.modalLabel = 'Fotos';
+        this.textosInputApi.botaoInputLabel = 'Carregar foto';
         break;
       case 'freesound':
         this.textosInputApi.modalLabel = 'Áudios';
+        this.textosInputApi.botaoInputLabel = 'Carregar áudio'
         break;
       case 'github':
         this.textosInputApi.modalLabel = 'Repositórios';
+        break;
+      case 'bio':
+        this.textosInputApi.botaoInputLabel = 'Alterar imagem';
         break;
       default:
         this.textosInputApi.modalLabel = 'Selecionar itens';
@@ -111,6 +128,13 @@ export class ConfigMenuCompComponent implements OnInit {
    */
   onModalButtonClick(): void {
     this.modalOpen.emit(this.dados.type);
+  }
+
+  /**
+   * Hanlder para evento de clicar no botão de input de arquivo
+   */
+  onInputArquivoButtonClick(): void {
+    this.inputArquivo.emit(this.dados.type);
   }
 
   /**

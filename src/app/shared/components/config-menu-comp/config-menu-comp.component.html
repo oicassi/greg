@@ -2,7 +2,7 @@
 
   <!-- Container para interação com API e modal -->
   <div class="config-input-button-container config-generic-container"
-    *ngIf="checkComponenteApi() || checkComponenteModal()">
+    *ngIf="checkComponenteApi()">
 
     <!-- Input group para colocar um novo username -->
     <div class="config-input-username-container" *ngIf="hasCheckedApi && checkComponenteApi()">
@@ -14,10 +14,17 @@
 
   </div>
 
-  <!-- Botão para abrir o modal para selecionar os repositórios -->
+  <!-- Botão para abrir o modal para selecionar itens -->
   <div *ngIf="checkComponenteModal()" class="config-generic-container">
     <button class="btn btn-outline-primary" (click)="onModalButtonClick()">
       {{textosInputApi.modalLabel}}
+    </button>
+  </div>
+
+   <!-- Botão para input de arquivo -->
+   <div *ngIf="checkComponenteInputArquivo()" class="config-generic-container">
+    <button class="btn btn-outline-primary" (click)="onInputArquivoButtonClick()">
+      {{textosInputApi.botaoInputLabel}}
     </button>
   </div>
 

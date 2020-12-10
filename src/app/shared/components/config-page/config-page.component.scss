@@ -1,0 +1,57 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+.config-main-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.config-generic-container {
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+
+// Container com os color pickers do menu de configurações
+.config-color-picker-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
+
+// Container do color picker + label
+.config-color-picker-label-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+// Color picker genérico
+.config-color-picker {
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: 1px solid #888888;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 0px 20px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.config-color-picker:hover {
+  transform: scale(1.2);
+}
+
+// Color picker a esquerda
+#picker1 {
+  box-shadow: -2px 2px 3px #888888;
+  transition: all 0.5s;
+}
+
+#picker1:hover {
+  box-shadow: -3px 3px 12px #888888;
+}

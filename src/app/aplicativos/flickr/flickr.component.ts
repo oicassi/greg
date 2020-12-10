@@ -1,6 +1,6 @@
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
 import { AplicativoFlickr } from '@models/aplicativo';
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { AplicativoService } from '@services/aplicativo.service';
 export class FlickrComponent extends AplicativoGenericoApiComponent implements OnInit {
 
   @Input() dados: AplicativoFlickr;
+  dadosBkp: AplicativoFlickr;
 
   constructor(
     _appServ: AplicativoService,
@@ -20,7 +21,13 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
 
   ngOnInit() {
     this.setEstadoAplicativo();
-    this.printBagulhets();
     this.criaBackupDados();
+  }
+
+  /**
+   * Handler ao clicar no botão de abrir o modal
+   */
+  onOpenModal():void {
+    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
   }
 }

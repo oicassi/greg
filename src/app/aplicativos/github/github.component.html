@@ -16,11 +16,11 @@
   </div>
 
   <!-- Menu de configuração do componente -->
-  <div class="aplicativo-config-collapse-container" id="githubConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
+  <div class="aplicativo-config-collapse-container" *ngIf="dados.isEdit && isConfigMenuOpen">
     <span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
     <div class="aplicativo-config-container">
       <app-config-menu-comp [dados]="dados" [hasCheckedApi]="hasCheckedApi" (colorChange)="onColorChange($event)"
-        (apiSubmit)="onUsernameSubmit($event)">
+        (apiSubmit)="onUsernameSubmit($event)" (modalOpen)="onOpenModal()">
       </app-config-menu-comp>
     </div>
   </div>
@@ -28,33 +28,16 @@
   <!-- Conteúdo -->
   <div class="aplicativo-content-container">
 
-    <!-- <div class="github-basic-info" *ngIf="hasCheckedApi"> -->
-
-      <!-- Container da imagem + user name -->
-      <!-- <div class="github-pic-name"> -->
-
-        <!-- Container da imagem -->
-        <!-- <div class="github-avatar-pic">
-          <img src="{{dados.avatar_img}}" class="github-pic" />
-        </div> -->
-
-        <!-- Container do username -->
-        <!-- <div class="github-profile-name">
-          <span class="github-profile-name-text">{{dados.username}}</span>
-        </div>
-      </div> -->
-
       <!-- Container da descrição -->
-      <div class="github-description">
+      <div class="github-description" *ngIf="hasCheckedApi">
         <app-aplicativo-basic-info
         [username]="dados.username"
         [profile_url]="dados.profile_url"
         [description]="dados.description"
         [fgColor]="dados.fgColor"
-      >
-      </app-aplicativo-basic-info>
+        >
+        </app-aplicativo-basic-info>
       </div>
-    <!-- </div> -->
 
     <!-- Container dos repositórios -->
     <div class="github-repo-container" *ngIf="hasCheckedApi">

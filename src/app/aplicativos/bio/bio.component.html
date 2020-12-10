@@ -1,1 +1,90 @@
-<p>bio works!</p>
+<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
+
+	<!-- Container do título do componente -->
+	<div class="aplicativo-header-container" *ngIf="dados.isEditable || dados.showAppTitle">
+
+		<app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
+			[dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
+		</app-aplicativo-header>
+
+		<!-- Botão para abrir as configurações do componente -->
+		<div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" (click)="toggleConfigMenu()">
+			settings
+		</div>
+	</div>
+
+	<!-- Menu de configurações do aplicativo -->
+	<div class="aplicativo-config-collapse-container" id="bioConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
+		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
+		<div class="aplicativo-config-container">
+			<app-config-menu-comp
+				[dados]="dados" 
+				(colorChange)="onColorChange($event)" 
+				(inputArquivo)="onInputTrocarFoto()"
+			>
+			</app-config-menu-comp>
+		</div>
+	</div>
+
+	<!-- Conteúdo -->
+	<div class="aplicativo-content-container">
+
+
+		<!-- Container da imagem -->
+		<div class="bio-profile-pic-container">
+			<img src="{{dados.imagem.url}}" class="bio-profile-pic">
+		</div>
+
+		<!-- Container apenas para exibição -->
+		<div class="bio-grid-container" *ngIf="!dados.isEdit">
+			<div class="bio-element-container">
+				<div class="bio-element-body-container">
+					{{dados.texto}}
+				</div>
+			</div>
+		</div>
+
+		<!-- Container para edição -->
+		<div class="bio-grid-container" *ngIf="dados.isEdit">
+			<div class="bio-element-container">
+				<form [formGroup]="form">
+					<div class="bio-element-body-control">
+						<div class="form-group bio-title-input">
+							<textarea [formControlName]="'texto'" class="form-control form-control-sm"
+								[ngClass]="{'is-invalid': form.controls.texto.errors && form.controls.texto.touched}" rows="10"
+								style="height:100%;" id="textBody" placeholder="Insira a bio aqui"></textarea>
+							<div *ngIf="form.controls.texto.errors && form.controls.texto.touched" class="invalid-feedback">
+								<div class="bio-input-error-msg" *ngIf="form.controls.texto.errors.required">
+									Campo obrigatório
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bio-element-control-buttons">
+						<!-- Botão para salvar -->
+						<div class="bio-element-control-single-button">
+							<button type="button" class="btn btn-primary" (click)="salvarTexto()" [disabled]="checkAcoesDisabled()">
+								Salvar
+							</button>
+						</div>
+
+						<!-- Botão para cancelar -->
+						<div class="bio-element-control-single-button">
+							<button type="button" class="btn btn-secondary" (click)="cancelarTexto()"
+								[disabled]="checkAcoesDisabled()">
+								Cancelar
+							</button>
+						</div>
+
+						<!-- Botão para limpar o texto -->
+						<div class="bio-element-control-single-button item-push-right">
+							<button type="button" class="btn btn-outline-secondary" (click)="limparTexto()">
+								Limpar texto
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

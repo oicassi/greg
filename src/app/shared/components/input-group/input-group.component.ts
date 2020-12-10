@@ -154,10 +154,10 @@ export class InputGroupComponent implements OnInit {
    */
   onSubmit(): void {
     // Marcar os campos do formulário como dirty
-    this.verificarCamposFormularios(this.form);
+    this.verificarCamposFormularios();
 
     // Verifica se tem erro no preenchimento
-    if (!this.form.get('generic_input').valid) {
+    if (!this.verificarValidadeForm()) {
       return;
     }
 
@@ -169,12 +169,23 @@ export class InputGroupComponent implements OnInit {
  * Marcar os campos de um formulário como dirty e touched
  * @param form Formulário para ser processado
  */
-  verificarCamposFormularios(form: FormGroup) {
+  verificarCamposFormularios() {
+    let form = this.form;
     Object.keys(form.controls).forEach((field) => {
       const control = form.get(field);
       control.markAsDirty({ onlySelf: true });
       control.markAsTouched({ onlySelf: true });
     });
+  }
+
+  /**
+   * Verificar se o formulário é válido
+   */
+  verificarValidadeForm(): boolean {
+    if (!this.form.get('generic_input').valid) {
+      return false;
+    }
+    return true;
   }
 
 }

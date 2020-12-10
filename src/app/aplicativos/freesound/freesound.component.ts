@@ -49,4 +49,11 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
     this.forcePlay = true;
     console.log(this.audioEmReproducao);
   }
+
+  /**
+   * Handler ao clicar no botão de abrir o modal
+   */
+  onOpenModal():void {
+    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+  }
 }
