@@ -32,8 +32,8 @@ export class InputGroupComponent implements OnInit {
   @Input() bounceTime: number;                          // Tempo de espera para emissão do evento termOnInput
   @Input() required: boolean;                           // Se desejar adicionar a validação de campo obrigatório
   @Input() campoObrigatorioMsg: string;                 // Mensagem personalizada para o campo obrigatório
-  @Output() termOnInput = new EventEmitter<string>()    // Emissor de evento para enviar o texto que está sendo digitado
-  @Output() submit = new EventEmitter<string>()         // Emissor de evento para enviar o texto quando o formulário é submetido
+  @Output() termOnInput: EventEmitter<string> = new EventEmitter<string>()    // Emissor de evento para enviar o texto que está sendo digitado
+  @Output() submit: EventEmitter<string> = new EventEmitter<string>()         // Emissor de evento para enviar o texto quando o formulário é submetido
 
   private term = new Subject<string>();                 // Para acionar o termOnInput passando para componente pai o input enquanto digita
   private finalTerm = '';                               // Quando submete o formulário, esse é o termo passado para o componente pai
@@ -153,6 +153,7 @@ export class InputGroupComponent implements OnInit {
    * Submit do termo digitado no input
    */
   onSubmit(): void {
+ 
     // Marcar os campos do formulário como dirty
     this.verificarCamposFormularios();
 
@@ -162,7 +163,7 @@ export class InputGroupComponent implements OnInit {
     }
 
     // Emite o termo 
-    this.submit.emit(this.finalTerm);
+    this.submit.emit(this.form.get('generic_input').value);
   }
 
   /**

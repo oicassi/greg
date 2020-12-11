@@ -42,7 +42,7 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
         console.log('TUdo certo');
         console.log(novosDados);
         this.dados = novosDados;
-        this.setEstadoAplicativo();
+        this.setVariaveisIniciais();
         this.loading = false;
       }),
       ((err) => {

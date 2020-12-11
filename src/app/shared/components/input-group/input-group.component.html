@@ -8,7 +8,7 @@
     <input [type]="inputType" formControlName="generic_input" class="form-control"
       [ngClass]="{'is-invalid' : form.controls.generic_input.errors && form.controls.generic_input.touched}"
       [ngClass]="{'input-pad' : icon}" [placeholder]="placeholder" (input)="onInput(form.get('generic_input').value)"
-      (keyup.enter)="onSubmit()" />
+      (keydown.enter)="onSubmit()" />
     <div *ngIf="form.controls.generic_input.errors && form.controls.generic_input.touched" class="invalid-feedback">
       <div class="generic-input-error-msg" *ngIf="form.controls.generic_input.errors.required">
         {{campoObrigatorioMsg || 'Campo obrigatório'}}
@@ -21,22 +21,3 @@
     </div>
   </div>
 </form>
-
-
-
-
-<!-- <input 
-    #inputGeneric 
-    [type]="inputType" 
-    class="form-control"
-    [className]="icon ? 'input-pad' : ''" 
-    [placeholder]="placeholder" 
-    [value]="inputValue || ''" 
-    (input)="onInput(inputGeneric.value)"
-    (keyup.enter)="onSubmit()" />
-  <div class="input-group-append">
-    <button class="btn {{btnClass}}" type="button" id="button-addon2" (click)="onSubmit()">
-      {{buttonLabel}}
-    </button>
-  </div> -->
-<!-- </div> -->
