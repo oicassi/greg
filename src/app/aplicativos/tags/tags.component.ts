@@ -12,9 +12,6 @@ export class TagsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(`-- [Aplicativo Tags] ${this.dados.component_name}`);
-    console.log(this.dados);
-    console.log('+----------------------------------------------------+');
   }
 
 }

@@ -369,3 +369,11 @@ button[disabled] {
 .show > .btn-outline-primary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
 }
+
+// LOADING GROW =======================
+
+// ==== Override bootstrap ============
+
+.text-primary.spinner-grow {
+  color: var(--color-main) !important;
+}

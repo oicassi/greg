@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
 import { AplicativoApi } from '@models/aplicativo';
 import { InputGroupComponent } from '@shared-components/input-group/input-group.component';
+import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-aplicativo-generico-api',
@@ -26,6 +27,7 @@ export class AplicativoGenericoApiComponent extends AplicativoGenericoComponent 
 
   constructor(
     _appServ: AplicativoService,
+    protected _apiServ: ApiService,
   ) {
     super(_appServ);
   }
@@ -37,12 +39,14 @@ export class AplicativoGenericoApiComponent extends AplicativoGenericoComponent 
    * Verifica o estado inicial do aplicativo
    */
   setEstadoAplicativo(): void {
+    let checked = false;
     if (this.dados.username &&
       this.dados.order !== undefined &&
       this.dados.order !== null
     ) {
-      this.hasCheckedApi = true;
+      checked = true;
     }
+    this.hasCheckedApi = checked;
   }
 
   /**
@@ -50,14 +54,11 @@ export class AplicativoGenericoApiComponent extends AplicativoGenericoComponent 
    * @param username Username digitado
    */
   onUsernameSubmit(username: string) {
-    console.log('Username submited: ', username);
     if (this.dados['username'] !== undefined &&
       this.dados['username'] !== null &&
       this.dados['username'] !== username) {
-      console.log('Fazendo nova requisição a API')
       return
     }
-    console.log('Não é tem requisição para API')
   }
 
 

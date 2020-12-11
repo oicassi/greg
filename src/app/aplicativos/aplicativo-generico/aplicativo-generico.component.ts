@@ -2,6 +2,7 @@ import { AplicativoService } from '@services/aplicativo.service';
 import { AplicativoBase } from '@models/aplicativo';
 import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-aplicativo-generico',
@@ -11,9 +12,14 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
 
   @Input() dados: AplicativoBase;
   dadosBkp: AplicativoBase;
+  
+  // Estado e visual
   isConfigMenuOpen: boolean = false;
+  loading = false;
 
-  constructor(protected _appServ: AplicativoService) { }
+  constructor(
+    protected _appServ: AplicativoService,
+  ) { }
 
   ngOnInit() {
     
@@ -21,11 +27,6 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     this.dadosBkp.order = this.dados.order;
-  }
-
-  printBagulhets(){
-    console.log(`%c[${this.dados.component_name} dados iniciais]`, 'color: green');
-    console.log(this.dados);
   }
 
   /**

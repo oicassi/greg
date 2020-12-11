@@ -14,8 +14,6 @@ export class PhotoContainerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('OPAAAAA');
-    console.log(this.photoArray);
   }
 
 }

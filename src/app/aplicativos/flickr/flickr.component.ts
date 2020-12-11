@@ -2,6 +2,7 @@ import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico
 import { AplicativoFlickr } from '@models/aplicativo';
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
+import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-flickr',
@@ -15,8 +16,9 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
 
   constructor(
     _appServ: AplicativoService,
+    _apiServ: ApiService,
   ) {
-    super(_appServ);
+    super(_appServ, _apiServ);
   }
 
   ngOnInit() {

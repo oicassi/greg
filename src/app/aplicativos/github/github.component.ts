@@ -2,6 +2,7 @@ import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico
 import { AplicativoGithub } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
+import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-github',
@@ -15,15 +16,14 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
   
   constructor(
     _appServ: AplicativoService,
+    _apiServ: ApiService
   ) {
-    super(_appServ);
+    super(_appServ, _apiServ);
   }
 
   ngOnInit() {
     this.setEstadoAplicativo();
-    this.printBagulhets();
     this.criaBackupDados();
-    console.log(this.dados);
   }
 
   /**

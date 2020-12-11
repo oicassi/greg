@@ -3,6 +3,7 @@ import { Audio } from '@models/aplicativo-item';
 import { AplicativoFreesound } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
+import { ApiService } from '@services/api.service';
 
 @Component({
   selector: 'app-freesound',
@@ -10,7 +11,7 @@ import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico
   styleUrls: ['./freesound.component.scss']
 })
 export class FreesoundComponent extends AplicativoGenericoApiComponent implements OnInit {
-  
+
   @Input() dados: AplicativoFreesound;
   dadosBkp: AplicativoFreesound;
 
@@ -20,15 +21,52 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
 
   constructor(
     _appServ: AplicativoService,
+    _apiServ: ApiService
   ) {
-    super(_appServ);
+    super(_appServ, _apiServ);
   }
 
   ngOnInit() {
+    this.loading = true;
+    this.criaBackupDados();
+    this.loadAll();
+  }
+
+  /**
+   * Carrega todos os dados
+   */
+  loadAll(): void {
+    this.loading = true;
+    this._appServ.requestFreesoundData(this.dados).subscribe(
+      (novosDados => {
+        console.log('TUdo certo');
+        console.log(novosDados);
+        this.dados = novosDados;
+        this.setEstadoAplicativo();
+        this.loading = false;
+      }),
+      ((err) => {
+        console.log('%cOcorreu um erro na busca de dados do freesound', 'color: red');
+        console.log(err);
+        if (this.dados.username != this.dadosBkp.username) {
+          this.dados = this.dadosBkp;
+          this.criaBackupDados();
+          this.loadAll();
+        } else {
+          this.setVariaveisIniciais();
+          this.loading = false;
+        }
+      })
+    )
+  }
+
+  /**
+   * Seta variáveis adicionais
+   */
+  setVariaveisIniciais(): void {
+    this.criaBackupDados();
     this.setEstadoAplicativo();
     this.setAudioInicial();
-    this.printBagulhets();
-    this.criaBackupDados();
   }
 
   /**
@@ -47,13 +85,17 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
   handleTrocaAudio(audio: Audio): void {
     this.audioEmReproducao = audio;
     this.forcePlay = true;
-    console.log(this.audioEmReproducao);
   }
 
   /**
    * Handler ao clicar no botão de abrir o modal
    */
-  onOpenModal():void {
+  onOpenModal(): void {
     console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+  }
+
+  onUsernameSubmit(username: string) {
+    this.dados.username = username;
+    this.loadAll()
   }
 }

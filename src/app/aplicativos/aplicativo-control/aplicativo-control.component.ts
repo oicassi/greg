@@ -123,11 +123,9 @@ export class AplicativoControlComponent implements OnInit {
 
     // Verifica se o campo de component_name é válido
     if (!this.form.get('component_name').valid) {
-      console.log('Falta preencher o nome do componente');
       return;
     }
 
-    console.log('Ordem desse filhodaputa - ', this.order);
     let app;
 
     // Verificar se adiciona o aplicativo ou substitui
@@ -153,16 +151,13 @@ export class AplicativoControlComponent implements OnInit {
 
     // Salva um novo ou substitui um existente
     if (this.order !== null && this.order !== undefined) {
-      console.log('replacing')
       this._appSrv.replaceAplicativo(app);
     } else {
-      console.log('adding')
       this._appSrv.addAplicativo(app);
     }
     // Reseta o status do controlador
     this.resetControlador(this.order);
 
-    console.log(this._appSrv.getAplicativos());
   }
 
   /**
@@ -208,7 +203,6 @@ export class AplicativoControlComponent implements OnInit {
    * @param order Order do aplciativo (opcional)
    */
   resetControlador(order = null): void {
-    console.log('reset ', order);
     if (this.order !== null && this.order !== undefined) {
       this.setEstadoInicial();
       return;

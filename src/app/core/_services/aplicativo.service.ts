@@ -1,3 +1,4 @@
+import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import {
   AplicativoBase,
@@ -7,10 +8,13 @@ import {
   AplicativoGithub,
   AplicativoTags,
   AplicativoTexto,
-  AplicativoBio
+  AplicativoBio,
+  AplicativoApi
 } from '@models/aplicativo';
 import { Foto, Audio, Repo, Texto } from '@models/aplicativo-item';
 import { AplicativosModels } from '@shared/constants/aplicativos';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +22,9 @@ import { AplicativosModels } from '@shared/constants/aplicativos';
 export class AplicativoService {
 
   aplicativos: AplicativoBase[] = [];
-  constructor() {
+  constructor(
+    private _apiSrv: ApiService
+  ) {
     this.aplicativos = [];
     this.aplicativos.push(this.getMockBio());
     this.aplicativos.push(this.getMockFlickr());
@@ -36,6 +42,15 @@ export class AplicativoService {
    */
   getAplicativos(): AplicativoBase[] {
     return this.aplicativos;
+  }
+
+  /**
+   * Retorna um aplicativo a partir da sua ordem
+   * @param order Ordem do aplicativo
+   */
+  getAplicativoByOrder(order: number): AplicativoBase {
+    let app = this.aplicativos.find((app) => app.order === order);
+    return app;
   }
 
   /**
@@ -78,15 +93,6 @@ export class AplicativoService {
   }
 
   /**
-   * Retorna um aplicativo a partir da sua ordem
-   * @param order Ordem do aplicativo
-   */
-  getAplicativoByOrder(order: number): AplicativoBase {
-    let app = this.aplicativos.find((app) => app.order === order);
-    return app;
-  }
-
-  /**
    * Substitui um aplicativo da lista
    * @param app Aplicativo novo que irá substituir
    */
@@ -104,15 +110,80 @@ export class AplicativoService {
   }
 
   /**
-   * Retorna a lista de todos os aplicativos 
+   * Retorna a lista dos aplicativos possíveis de serem selecioinados
    */
   getTiposAplicativos(): Array<{ type: string, label: string }> {
     return AplicativosModels.SELECIONAVEIS;
   }
 
+  /**
+   * Retorna a lista de todos os aplicativos disponíveis
+   */
   getTodosTiposAplicativos(): Array<{ type: string, label: string }> {
     return AplicativosModels.TODOS;
   }
+
+  /**
+   * Realiza uma request para buscar os dados do Freesound
+   * @param user Nome do usuário do freesound
+   */
+  requestFreesoundData(appFreesound: AplicativoFreesound): Observable<AplicativoFreesound> {
+    return this._apiSrv.getFreeSoundData(appFreesound.username).pipe(
+      map(([profile, audios]) => this.handleFreesoundData(profile, audios)),
+      map((appGerado) => {
+        appFreesound.audio_array = appGerado.audio_array;
+        appFreesound.description = appGerado.description;
+        appFreesound.profile_url = appGerado.profile_url;
+        return (appFreesound);
+      })
+    )
+  }
+
+  /**
+   * Trata as informações gerais vindas das requests ao freesound;
+   * @param profile 
+   * @param audios 
+   */
+  handleFreesoundData(profile: any, audios: any): AplicativoFreesound {
+
+    let freeSound = new AplicativoFreesound();
+    freeSound.audio_array = this.handleFreesoundAudios(audios);
+    freeSound.description = profile.about || 'Descrição não informada';
+    freeSound.profile_url = profile.url;
+
+    return freeSound;
+
+  }
+
+  /**
+   * Trata as informações de áudios vindas do freesound e monta um array
+   * @param audios Dados de áudios vindos da requisição
+   */
+  handleFreesoundAudios(audios: any): Audio[] {
+    let audioArray: Audio[] = [];
+    const {results} = audios;
+    results.forEach((res, i) => {
+      // Temporário, para limitar a quantidade de áudios
+      if (i > 50) {
+        return
+      }
+      let novoAudio = new Audio();
+      novoAudio.name = res.name;
+      novoAudio.description = res.description;
+      
+      // Pegar a url do mp3 de alta qualidade
+      for (let key in res.previews) {
+        if (key.includes('hq-mp3')) {
+          novoAudio.url = res.previews[key];
+          break;
+        }
+      }
+      novoAudio.tags = Array.from(res.tags);
+      audioArray.push(novoAudio);
+    })
+    return audioArray;
+  }
+
 
   private getMockBio(): AplicativoBio {
     let dado = new AplicativoBio();
@@ -199,7 +270,7 @@ export class AplicativoService {
     dado.fgColor = '#AA4477';
     dado.bgColor = '#94a1f6';
 
-    dado.username = 'freesoundUser';
+    dado.username = 'freesounderzinhoss';
     dado.description = 'Áudios maravilhosos do Freesound';
     dado.profile_url = 'https://freesound.org/people/casstway/';
 

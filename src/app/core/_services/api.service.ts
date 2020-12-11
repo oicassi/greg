@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { AplicativoFreesound } from '@models/aplicativo';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -113,13 +116,48 @@ export class ApiService {
     }
   }
 
+
+
+
+
+  /**
+   * Busca os dados do freesound
+   * @param user 
+   */
+  getFreeSoundData(user: string): Observable<any> {
+    // Dados da request do perfil
+    const urlProfile = `${this.freesoundUrl}${this.freesoundProfile}${user}`;
+    let profileParams = new HttpParams();
+    profileParams = profileParams.append('token', this.freesoundApiKey);        
+  
+    const profileOptions = { params: profileParams };
+
+    // Dados da request dos áudios
+    const urlAudios = `${this.freesoundUrl}${this.freesoundAudios}${user}/sounds`;
+    let audioParams = new HttpParams();
+    audioParams = audioParams.append('token', this.freesoundApiKey)
+    audioParams = audioParams.append('fields', this.freesoundBaseParams);
+
+    const audioOptions = { params: audioParams };
+    this._http.get(urlProfile, audioOptions)
+
+    // Array de requisições
+    let reqProfile = this._http.get(urlProfile, profileOptions)
+    let reqAudio = this._http.get(urlAudios, audioOptions);
+
+    // Execução das requisições em paralelo
+    return forkJoin([reqProfile, reqAudio]);
+  }
+
+
+
   /**
   * Método para buscar informações do pefil no Freesound com base em um email
-  * @param email nome do usuário para busca de perfil
+  * @param user nome do usuário para busca de perfil
   */
-  getFreesoundProfile(email: string) {
+  getFreesoundProfile(user: string) {
     try {
-      let url = `${this.freesoundUrl}${this.freesoundProfile}${email}`;
+      let url = `${this.freesoundUrl}${this.freesoundProfile}${user}`;
       let profileParams = new HttpParams();
       profileParams = profileParams.append('token', this.freesoundApiKey);        
       
