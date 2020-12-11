@@ -35,8 +35,6 @@ export class AplicativoService {
     this.aplicativos.push(this.getMockTexto());
   }
 
-
-
   /**
    * Retorna a lista de aplicativos adicionados à página
    */
@@ -125,7 +123,7 @@ export class AplicativoService {
 
   /**
    * Realiza uma request para buscar os dados do Freesound
-   * @param user Nome do usuário do freesound
+   * @param appFreesound Dados do Freesound que serão atualizados
    */
   requestFreesoundData(appFreesound: AplicativoFreesound): Observable<AplicativoFreesound> {
     return this._apiSrv.getFreeSoundData(appFreesound.username).pipe(
@@ -134,15 +132,15 @@ export class AplicativoService {
         appFreesound.audio_array = appGerado.audio_array;
         appFreesound.description = appGerado.description;
         appFreesound.profile_url = appGerado.profile_url;
-        return (appFreesound);
+        return appFreesound;
       })
     )
   }
 
   /**
    * Trata as informações gerais vindas das requests ao freesound;
-   * @param profile 
-   * @param audios 
+   * @param profile Informações sobre o perfil
+   * @param audios Informações sobre os áudios
    */
   handleFreesoundData(profile: any, audios: any): AplicativoFreesound {
 
@@ -152,7 +150,6 @@ export class AplicativoService {
     freeSound.profile_url = profile.url;
 
     return freeSound;
-
   }
 
   /**
@@ -182,6 +179,73 @@ export class AplicativoService {
       audioArray.push(novoAudio);
     })
     return audioArray;
+  }
+
+  /**
+   * Realiza uma request para buscar os dados do Github
+   * @param appGithub Dados do Github que serão atualiados
+   */
+  requestGithubData(appGithub: AplicativoGithub): Observable<AplicativoGithub> {
+    return this._apiSrv.getGithubData(appGithub.username).pipe(
+      map(([profile, repos]) => this.handleGitHubData(profile, repos)),
+      map((appGerado) => {
+        appGithub.repo_array = appGerado.repo_array;
+        appGithub.description = appGerado.description;
+        appGithub.profile_url = appGerado.profile_url;
+        return appGithub;
+      })
+    )
+  }
+
+  /**
+   * Trata as informações gerais vindas das requests ao github;
+   * @param profile Informações sobre o perfil
+   * @param audios Informações sobre os repositórios
+   */
+  handleGitHubData(profile: any, repos: any): AplicativoGithub {
+    if (profile && profile.message && profile.message === 'Not Found') {
+      throw new Error('Usuário do Github não encontrado');
+    }
+
+    let novoGithub = new AplicativoGithub();
+    if (!profile) {
+      return novoGithub;
+    }
+
+    // Monta o objeto com os dados pertinentes da requisição
+    novoGithub.repo_array = this.handleGitHubRepos(repos);
+    novoGithub.description = profile.bio;
+    novoGithub.profile_url = profile.html_url;
+
+    return novoGithub;
+  }
+
+  /**
+   * Trata os dados dos repositórios do GitHub
+   * @param repos Dados da request com os repositórios
+   */
+  handleGitHubRepos(repos: any): Repo[] {
+    if (!repos || !repos.length) {
+      return [];
+    }
+
+    // Ordena do mais recente atualizado para o mais antigo
+    repos.sort((a, b) => new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf());
+
+
+    // Mapeia os dados para o vetor de repositórios
+    let novosRepos: Repo[] = repos.map((repo) => {
+      return (
+        {
+          name: repo.name,
+          description: repo.description,
+          url: repo.html_url,
+          data: new Date(repo.updated_at).toLocaleDateString()
+        }
+      )
+    })
+
+    return novosRepos;
   }
 
 
@@ -270,51 +334,51 @@ export class AplicativoService {
     dado.fgColor = '#AA4477';
     dado.bgColor = '#94a1f6';
 
-    dado.username = 'freesounderzinhoss';
-    dado.description = 'Áudios maravilhosos do Freesound';
-    dado.profile_url = 'https://freesound.org/people/casstway/';
+    dado.username = 'casstway';
+    dado.description = '';
+    dado.profile_url = '';
 
     dado.audio_array = [];
 
-    let audio1 = new Audio();
-    audio1.name = 'Áudio 1';
-    audio1.description = 'Este é o áudio 1';
-    audio1.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3';
-    audio1.tags = ['opa', 'ahh', 'papapapa'];
+    // let audio1 = new Audio();
+    // audio1.name = 'Áudio 1';
+    // audio1.description = 'Este é o áudio 1';
+    // audio1.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3';
+    // audio1.tags = ['opa', 'ahh', 'papapapa'];
 
-    dado.audio_array.push(audio1);
+    // dado.audio_array.push(audio1);
 
-    let audio2 = new Audio();
-    audio2.name = 'Áudio 2';
-    audio2.description = 'Este é o áudio 2';
-    audio2.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio2.tags = ['tnc', 'tccdocaralho', 'tocansado'];
+    // let audio2 = new Audio();
+    // audio2.name = 'Áudio 2';
+    // audio2.description = 'Este é o áudio 2';
+    // audio2.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+    // audio2.tags = ['tnc', 'tccdocaralho', 'tocansado'];
 
-    dado.audio_array.push(audio2);
+    // dado.audio_array.push(audio2);
 
-    let audio3 = new Audio();
-    audio3.name = 'Áudio 3';
-    audio3.description = 'Este é o áudio 3';
-    audio3.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio3.tags = ['tralalal', 'eletroniquinha', 'sonzera'];
+    // let audio3 = new Audio();
+    // audio3.name = 'Áudio 3';
+    // audio3.description = 'Este é o áudio 3';
+    // audio3.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+    // audio3.tags = ['tralalal', 'eletroniquinha', 'sonzera'];
 
-    dado.audio_array.push(audio3);
+    // dado.audio_array.push(audio3);
 
-    let audio4 = new Audio();
-    audio4.name = 'Áudio 4';
-    audio4.description = 'Este é o áudio 4';
-    audio4.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio4.tags = ['fujaloko', 'tudoigual', ':(', 'musicapesada'];
+    // let audio4 = new Audio();
+    // audio4.name = 'Áudio 4';
+    // audio4.description = 'Este é o áudio 4';
+    // audio4.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+    // audio4.tags = ['fujaloko', 'tudoigual', ':(', 'musicapesada'];
 
-    dado.audio_array.push(audio4);
+    // dado.audio_array.push(audio4);
 
-    let audio5 = new Audio();
-    audio5.name = 'Áudio 5';
-    audio5.description = 'Este é o áudio 5';
-    audio5.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    audio5.tags = ['ferias', 'cade', 'coronavirusvaitomarnocu'];
+    // let audio5 = new Audio();
+    // audio5.name = 'Áudio 5';
+    // audio5.description = 'Este é o áudio 5';
+    // audio5.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+    // audio5.tags = ['ferias', 'cade', 'coronavirusvaitomarnocu'];
 
-    dado.audio_array.push(audio5);
+    // dado.audio_array.push(audio5);
 
     return dado;
   }
@@ -328,43 +392,43 @@ export class AplicativoService {
     dado.fgColor = '#444444';
     dado.bgColor = '#e994f6';
 
-    dado.username = 'anyUser';
-    dado.description = 'Repos maravilhosos do Github';
-    dado.profile_url = 'https://github.com/kruchelski';
+    dado.username = 'kruchelski';
+    dado.description = '';
+    dado.profile_url = '';
 
     dado.repo_array = [];
 
-    let repo1 = new Repo();
-    repo1.name = 'grades-simulator-control';
-    repo1.description = 'Simple application (to learn and practice react) that simulates a grading system for three students ';
-    repo1.url = 'https://github.com/kruchelski/grades-control-simulator';
-    repo1.data = '10/10/1929';
+    // let repo1 = new Repo();
+    // repo1.name = 'grades-simulator-control';
+    // repo1.description = 'Simple application (to learn and practice react) that simulates a grading system for three students ';
+    // repo1.url = 'https://github.com/kruchelski/grades-control-simulator';
+    // repo1.data = '10/10/1929';
 
-    dado.repo_array.push(repo1);
+    // dado.repo_array.push(repo1);
 
-    let repo2 = new Repo();
-    repo2.name = 'country-search';
-    repo2.description = 'An application made in react for learning purposes to list countries with their flags and population number ';
-    repo2.url = 'https://github.com/kruchelski/country-search';
-    repo2.data = '31/12/2340';
+    // let repo2 = new Repo();
+    // repo2.name = 'country-search';
+    // repo2.description = 'An application made in react for learning purposes to list countries with their flags and population number ';
+    // repo2.url = 'https://github.com/kruchelski/country-search';
+    // repo2.data = '31/12/2340';
 
-    dado.repo_array.push(repo2);
+    // dado.repo_array.push(repo2);
 
-    let repo3 = new Repo();
-    repo3.name = 'simulated-vote-viewer';
-    repo3.description = 'Simple application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
-    repo3.url = 'https://github.com/kruchelski/simulated-vote-viewer';
-    repo3.data = '31/12/2340';
+    // let repo3 = new Repo();
+    // repo3.name = 'simulated-vote-viewer';
+    // repo3.description = 'Simple application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
+    // repo3.url = 'https://github.com/kruchelski/simulated-vote-viewer';
+    // repo3.data = '31/12/2340';
 
-    dado.repo_array.push(repo3);
+    // dado.repo_array.push(repo3);
 
-    let repo4 = new Repo();
-    repo4.name = 'simulaasdfasfdteasdfd-vote-asdf';
-    repo4.description = 'Simplaasdfa asdf asdf asdfe application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
-    repo4.url = 'https://github.com/kruchelski/simulated-vote-viewer';
-    repo4.data = '31/12/2340';
+    // let repo4 = new Repo();
+    // repo4.name = 'simulaasdfasfdteasdfd-vote-asdf';
+    // repo4.description = 'Simplaasdfa asdf asdf asdfe application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
+    // repo4.url = 'https://github.com/kruchelski/simulated-vote-viewer';
+    // repo4.data = '31/12/2340';
 
-    dado.repo_array.push(repo4);
+    // dado.repo_array.push(repo4);
     return dado;
   }
 

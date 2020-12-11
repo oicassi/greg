@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { AplicativoFreesound } from '@models/aplicativo';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { UrlHandlingStrategy } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -29,15 +30,7 @@ export class ApiService {
   freesoundBaseParams = 'name,previews,tags,description';
   constructor(private _http: HttpClient) { }
 
-  /**
-   * Método para buscar os repositórios de um usuário no Github
-   * @param user Nome do usuáiro dono do repositório
-   */
-  getRepos(user: string) {
-    user = user.trim();
-    let endPoint: string = `/users/${user}/repos`;
-    return this._http.get(this.gitHubUrl + endPoint)
-  }
+
 
   /**
    * Busca o NSID do usuário baseado no nome do usuário ou email
@@ -125,6 +118,9 @@ export class ApiService {
    * @param user 
    */
   getFreeSoundData(user: string): Observable<any> {
+    
+    user = user.trim();
+
     // Dados da request do perfil
     const urlProfile = `${this.freesoundUrl}${this.freesoundProfile}${user}`;
     let profileParams = new HttpParams();
@@ -142,13 +138,41 @@ export class ApiService {
     this._http.get(urlProfile, audioOptions)
 
     // Array de requisições
-    let reqProfile = this._http.get(urlProfile, profileOptions)
-    let reqAudio = this._http.get(urlAudios, audioOptions);
+    const reqProfile = this._http.get(urlProfile, profileOptions)
+    const reqAudio = this._http.get(urlAudios, audioOptions);
 
     // Execução das requisições em paralelo
     return forkJoin([reqProfile, reqAudio]);
   }
 
+  /**
+   * Buscar os dados de repositórios do GitHub
+   * @param user Nome do usuário no GitHub
+   */
+  getGithubData(user: string): Observable<any> {
+    user = user.trim();
+
+    // Dados para request do perfil
+    const urlProfile = `${this.gitHubUrl}/users/${user}`;
+
+    // Dados para request do
+    const urlRepos = `${this.gitHubUrl}/users/${user}/repos`;
+    
+    // Array das requisições
+    const reqProfile = this._http.get(urlProfile);
+    const reqRepos = this._http.get(urlRepos);
+
+    // Execução das requisições em paralelo
+    return forkJoin([reqProfile, reqRepos]);
+  }
+
+
+
+
+
+
+
+  // DEPRECATED ============================================================
 
 
   /**
@@ -187,5 +211,15 @@ export class ApiService {
     } catch (err) {
       return err;
     }
+  }
+
+  /**
+   * Método para buscar os repositórios de um usuário no Github
+   * @param user Nome do usuáiro dono do repositório
+   */
+  getRepos(user: string) {
+    user = user.trim();
+    let endPoint: string = `/users/${user}/repos`;
+    return this._http.get(this.gitHubUrl + endPoint)
   }
 }

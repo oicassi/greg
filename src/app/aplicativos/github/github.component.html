@@ -1,7 +1,7 @@
 <div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
 
   <!-- Header -->
-  <div class="aplicativo-header-container" *ngIf="dados.isEditable || dados.showAppTitle">
+  <div class="aplicativo-header-container" *ngIf="(dados.isEditable || dados.showAppTitle) && !loading">
 
     <!-- Container do título do componente -->
     <app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' } "
@@ -16,7 +16,7 @@
   </div>
 
   <!-- Menu de configuração do componente -->
-  <div class="aplicativo-config-collapse-container" *ngIf="dados.isEdit && isConfigMenuOpen">
+  <div class="aplicativo-config-collapse-container" *ngIf="(dados.isEdit && isConfigMenuOpen) && !loading">
     <span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
     <div class="aplicativo-config-container">
       <app-config-menu-comp [dados]="dados" [hasCheckedApi]="hasCheckedApi" (colorChange)="onColorChange($event)"
@@ -26,7 +26,7 @@
   </div>
 
   <!-- Conteúdo -->
-  <div class="aplicativo-content-container">
+  <div class="aplicativo-content-container" *ngIf="!loading">
 
       <!-- Container da descrição -->
       <div class="github-description" *ngIf="hasCheckedApi">
@@ -52,6 +52,13 @@
         [placeholder]="'Insira seu username do GitHub'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
         [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
       </app-input-group>
+    </div>
+  </div>
+
+  <!-- Loading indicator -->
+  <div style="display: flex; width: 100%; height: 250px; justify-content: center; align-items: center;" *ngIf="loading">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 </div>

@@ -13,7 +13,7 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
 
   @Input() dados: AplicativoGithub;
   dadosBkp: AplicativoGithub;
-  
+
   constructor(
     _appServ: AplicativoService,
     _apiServ: ApiService
@@ -22,14 +22,58 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
   }
 
   ngOnInit() {
-    this.setEstadoAplicativo();
+    this.loading = true;
     this.criaBackupDados();
+    this.loadAll();
+  }
+
+  /**
+   * Carrega todos os dados
+   */
+  loadAll(): void {
+    this.loading = true;
+    this._appServ.requestGithubData(this.dados).subscribe(
+      (novosDados => {
+        this.dados = novosDados;
+        this.setVariaveisIniciais();
+        this.loading = false;
+      }),
+      ((err) => {
+        console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
+        console.log(err);
+        if (this.dados.username != this.dadosBkp.username) {
+          this.dados = this.dadosBkp;
+          this.criaBackupDados();
+          this.loadAll();
+        } else {
+          this.setVariaveisIniciais();
+          this.loading = false;
+        }
+      })
+    )
+  }
+
+  /**
+   * Seta variáveis adicionais
+   */
+  setVariaveisIniciais(): void {
+    this.criaBackupDados();
+    this.setEstadoAplicativo();
   }
 
   /**
    * Handler ao clicar no botão de abrir o modal
    */
-  onOpenModal():void {
+  onOpenModal(): void {
     console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+  }
+
+  /**
+   * Handler para submit de nome de usuário do github
+   * @param username 
+   */
+  onUsernameSubmit(username: string) {
+    this.dados.username = username;
+    this.loadAll()
   }
 }
