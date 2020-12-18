@@ -95,13 +95,9 @@ export class AplicativoService {
    * @param app Aplicativo novo que irá substituir
    */
   replaceAplicativo(app: AplicativoBase): void {
-    console.log(app);
     let i = this.aplicativos.findIndex((aplicativo) => aplicativo.order === app.order);
     if (i >= 0) {
-      console.log(i)
-      console.log(this.aplicativos);
       this.aplicativos.splice(i, 1, app);
-      console.log(this.aplicativos);
     } else {
       this.addAplicativo(app);
     }
@@ -248,6 +244,75 @@ export class AplicativoService {
     return novosRepos;
   }
 
+  /**
+   * Realiza uma request para buscar os dados do Flickr
+   * @param appFlickr Dados do Flickr que serão atualizado
+   */
+  requestFlickrData(appFlickr: AplicativoFlickr): Observable<AplicativoFlickr> {
+    return this._apiSrv.getFlickrData('Cassiano Kruchelski').pipe(
+      map(([profile, fotos]) => this.handleFlickrData(profile, fotos)),
+      map((appGerado) => {
+        appFlickr.photo_array = appGerado.photo_array;
+        appFlickr.description = appGerado.description;
+        appFlickr.profile_url = appGerado.profile_url;
+        appFlickr.full_name = appGerado.full_name;
+        appFlickr.alias = appGerado.alias;
+        return appFlickr
+      })
+    )
+  }
+
+  /**
+   * Trata as informações gerais vindas das requests ao flickr
+   * @param profile Informações sobre o perfil
+   * @param fotos Informações sobre as fotos
+   */
+  handleFlickrData(profile: any, fotos: any): AplicativoFlickr{
+    if (profile && profile.stat === 'fail') {
+      throw new Error('Erro ao buscar informações do perfil');
+    }
+    if (fotos && fotos.stat === 'fail') {
+      throw new Error('Erro ao buscar fotos do perfil');
+    }
+
+    let novoFlickr = new AplicativoFlickr();
+
+    // Monta o objeto com os dados pertinentes da requisição
+    novoFlickr.photo_array = this.handleFlickrFotos(fotos);
+    novoFlickr.description = profile.person.description._content;
+    novoFlickr.profile_url = profile.person.profileurl._content;
+    novoFlickr.full_name = profile.person.realname._content;
+    novoFlickr.alias = profile.person.path_alias;
+
+    return novoFlickr;
+  }
+
+  /**
+   * Trata os dados dos das fotos do Flickr
+   * @param repos Dados da request com as fotos
+   */
+  handleFlickrFotos(fotos: any): Foto[] {
+    if (!fotos.photos || !fotos.photos.photo || !fotos.photos.photo.length) {
+      return [];
+    }
+
+    let novasFotos: Foto[] =[];
+    fotos.photos.photo.forEach((foto) => {
+      const {farm, server, id, secret, title} = foto;
+      let novaFoto = new Foto();
+      novaFoto.name = title;
+      novaFoto.url = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
+      novasFotos.push(novaFoto);
+    })
+
+    return novasFotos;
+  }
+
+  // REQUEST FLICKR
+
+
+  //================
+
 
   private getMockBio(): AplicativoBio {
     let dado = new AplicativoBio();
@@ -257,7 +322,6 @@ export class AplicativoService {
     dado.imagem = new Foto();
     dado.imagem.url = 'https://i.pinimg.com/originals/8f/24/86/8f248672f797fe7d2080039232fc7605.jpg';
     dado.imagem.name = 'Profile Pic';
-    dado.imagem.description = 'Imagem do perfil';
     dado.order = -1;
     dado.type = 'bio';
     dado.texto = "Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine";
@@ -272,31 +336,28 @@ export class AplicativoService {
     dado.fgColor = '#444444';
     dado.bgColor = '#b894f6';
 
-    dado.username = 'flickrUser';
-    dado.description = 'Fotos maravilhosas do Flickr';
-    dado.profile_url = 'urlParaProfileFlickr';
+    dado.username = 'Cassiano Kruchelski';
+    dado.description = '';
+    dado.profile_url = '';
 
-    dado.full_name = 'Usuario do Flickr';
-    dado.alias = 'Flickrito';
+    dado.full_name = '';
+    dado.alias = '';
     dado.photo_array = [];
 
-    let foto1 = new Foto();
-    foto1.name = 'Foto 1 Flickr';
-    foto1.description = 'Essa é a foto 1 do flickr';
-    foto1.url = 'https://c.files.bbci.co.uk/CF3C/production/_111925035_penguino.jpg';
-    dado.photo_array.push(foto1);
+    // let foto1 = new Foto();
+    // foto1.name = 'Foto 1 Flickr';
+    // foto1.url = 'https://c.files.bbci.co.uk/CF3C/production/_111925035_penguino.jpg';
+    // dado.photo_array.push(foto1);
 
-    let foto2 = new Foto();
-    foto2.name = 'Foto 2 Flickr';
-    foto2.description = 'Essa é a foto 2 do flickr'
-    foto2.url = 'https://www.wallpaperup.com/uploads/wallpapers/2014/04/10/328993/e8afca84beb2cf9f70fb2574423d0fc8-700.jpg';
-    dado.photo_array.push(foto2);
+    // let foto2 = new Foto();
+    // foto2.name = 'Foto 2 Flickr';
+    // foto2.url = 'https://www.wallpaperup.com/uploads/wallpapers/2014/04/10/328993/e8afca84beb2cf9f70fb2574423d0fc8-700.jpg';
+    // dado.photo_array.push(foto2);
 
-    let foto3 = new Foto();
-    foto3.name = 'Foto 3 Flickr';
-    foto3.description = 'Essa é a foto 3 do flickr'
-    foto3.url = 'https://i.ytimg.com/vi/0syrKzXfKuI/hqdefault.jpg';
-    dado.photo_array.push(foto3);
+    // let foto3 = new Foto();
+    // foto3.name = 'Foto 3 Flickr';
+    // foto3.url = 'https://i.ytimg.com/vi/0syrKzXfKuI/hqdefault.jpg';
+    // dado.photo_array.push(foto3);
 
     return dado;
   }
@@ -312,13 +373,11 @@ export class AplicativoService {
 
     let foto1 = new Foto();
     foto1.name = 'Foto 1 Simples';
-    foto1.description = 'Essa é a foto 1 simples';
     foto1.url = 'https://www.eqgroup.com/wp-content/uploads/2016/11/Hybrid-Studios-Control-Room-sm-1024x683.jpg';
     dado.photo_array.push(foto1);
 
     let foto2 = new Foto();
     foto2.name = 'Foto 2 Simples';
-    foto2.description = 'Essa é a foto 2 simples'
     foto2.url = 'https://redhouselive.com/wp-content/uploads/2020/03/Audio-Studio.jpg';
     dado.photo_array.push(foto2);
 

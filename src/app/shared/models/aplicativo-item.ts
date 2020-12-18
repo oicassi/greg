@@ -3,7 +3,6 @@
  */
 export class Foto {
   name: string = '';
-  description: string = '';
   url: string = '';
 }
 
