@@ -66,4 +66,9 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
   onOpenModal(): void {
     console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
   }
+
+  onUsernameSubmit(username: string) {
+    this.dados.username = username;
+    this.loadAll()
+  }
 }
