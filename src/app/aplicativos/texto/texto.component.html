@@ -1,1 +1,100 @@
-<p>texto works!</p>
+<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
+
+	<!-- Container do título do componente -->
+	<div class="aplicativo-header-container" *ngIf="dados.isEditable || dados.showAppTitle">
+
+		<app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
+			[dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
+		</app-aplicativo-header>
+
+    	<!-- Botão para abrir as configurações do componente -->
+    	<div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" (click)="toggleConfigMenu()">
+      		settings
+    	</div>
+	</div>
+
+	<!-- Menu de configurações do aplicativo -->
+	<div class="aplicativo-config-collapse-container" *ngIf="dados.isEdit && isConfigMenuOpen">
+		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
+		<div class="aplicativo-config-container">
+			<app-config-menu-comp
+				[dados]="dados"
+				[hasCheckedApi]="false"
+				(colorChange)="onColorChange($event)"
+				(textCount)="onChangeTextCount($event)"
+			>
+			</app-config-menu-comp>
+		</div>
+	</div>
+
+	<!-- Container apenas para exibição -->
+	<div class="texto-grid-container" *ngIf="!dados.isEdit">
+		<div class="texto-element-container" *ngFor="let texto of dados.texto_array">
+			<div class="texto-element-title-container text-limiter" [ngStyle]="getCustomElementTitleStyle()"
+				[title]="texto.title">
+				{{texto.title}}
+			</div>
+			<div class="texto-element-body-container">
+				{{texto.body}}
+			</div>
+		</div>
+	</div>
+
+	<!-- Container para edição -->
+	<div class="texto-grid-container" *ngIf="dados.isEdit">
+		<div class="texto-element-container" *ngFor="let texto of dados.texto_array; let i = index">
+			<form [formGroup]="form">
+				<div class="texto-element-title-container" style="margin-bottom: -15px;">
+					<div class="form-group">
+						<input type="text" formControlName="{{'title'+ i}}" class="form-control form-control-sm"
+							[ngClass]="{'is-invalid': form.controls['title' + i].errors && form.controls['title' + i].touched}"
+							placeholder="Título do texto" />
+						<div *ngIf="form.controls['title' + i].errors && form.controls['title' + i].touched"
+							class="invalid-feedback">
+							<div class="texto-input-error-msg" *ngIf="form.controls['title' + i].errors.required">
+								Campo obrigatório
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="texto-element-body-control">
+					<div class="form-group">
+						<textarea formControlName="{{'body'+ i}}" class="form-control form-control-sm"
+							[ngClass]="{'is-invalid': form.controls['body' + i].errors && form.controls['body' + i].touched}" rows="8"
+							style="height:100%;" id="textBody" placeholder="Insira o texto aqui"></textarea>
+						<div *ngIf="form.controls['body' + i].errors && form.controls['body' + i].touched" class="invalid-feedback">
+							<div class="texto-input-error-msg" *ngIf="form.controls['body' + i].errors.required">
+								Campo obrigatório
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="texto-element-control-buttons">
+					<!-- Botão para salvar -->
+					<div class="texto-element-control-single-button">
+						<button type="button" class="btn btn-primary" (click)="salvarTexto(i)" [disabled]="checkAcoesDisabled(i)">
+							Salvar
+						</button>
+					</div>
+
+					<!-- Botão para cancelar -->
+					<div class="texto-element-control-single-button">
+						<button type="button" class="btn btn-secondary" (click)="cancelarTexto(i)" [disabled]="checkAcoesDisabled(i)">
+							Cancelar
+						</button>
+					</div>
+
+					<!-- Botão para limpar o texto -->
+					<div class="texto-element-control-single-button item-push-right">
+						<button type="button" class="btn btn-outline-secondary" (click)="limparTexto(i)">
+							Limpar texto
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+
+</div>

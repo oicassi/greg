@@ -1,0 +1,26 @@
+@import '../../../assets/scss/_basics/colors.scss';
+
+.github-description {
+  width: 230px;
+  min-width: 200px;
+  height: 100%;
+  min-height: 254px;
+  max-height: 300px;
+  padding: 10px;
+  text-align: justify;
+  flex: 1;
+  color: inherit !important;
+  overflow-y: auto;
+}
+
+.github-repo-container {
+  height:100%;
+  width: 600px;
+  min-height: 254px;
+  max-height: 254px;
+  min-width: 410px;
+  flex: 2.5;
+  margin: 5px;
+  display: flex;
+  overflow-x: auto;
+}

@@ -29,7 +29,6 @@ export class AplicativoBaseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(`[AplicativoBase] ${this.dados.component_name}`);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
       this.aplicativo
     );

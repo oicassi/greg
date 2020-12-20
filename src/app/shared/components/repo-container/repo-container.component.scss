@@ -1,0 +1,12 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+.repo-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: inherit;
+  padding: 5px;
+  overflow-x: auto;
+}

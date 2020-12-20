@@ -1,0 +1,49 @@
+<div class="control-main-container">
+
+  <!-- Título -->
+  <div class="edit-control-title-container">
+    <h2 class="edit-control-title">Componentes</h2>
+    <div class="edit-control-buttons-config">
+      <div
+        [title]="'Visualizar preview da página'" 
+        class="material-icons aplicativo-config-button-no-spin" 
+        (click)="visualizarPagina()" 
+        style="color: var(--color-main); margin-right: 5px;">
+        launch
+      </div>
+      <div
+        [title]="'Abrir configurações da página'" 
+        class="material-icons aplicativo-config-button" 
+        (click)="toggleConfigMenu()" 
+        style="color: var(--color-main); margin-left: 5px;">
+        settings
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu de configurações da página -->
+  <div class="aplicativo-config-page-collapse-container" *ngIf="isConfigMenuOpen">
+    <span class="aplicativo-config-label" style="color:inherit !important">Configurações da página</span>
+    <div class="aplicativo-config-container">
+      <app-config-page [dados]="dadosUsuario" (colorChange)="onColorChange($event)">
+      </app-config-page>
+    </div>
+  </div>
+
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="control-drag-drop-container">
+    <!-- Lista de aplicativos já adicionados -->
+    <div class="djanho" cdkDrag cdkDragHandle *ngFor=" let app of aplicativos">
+      <app-aplicativo-control [type]="app.type" [component_name]="app.component_name" [order]="app.order">
+      </app-aplicativo-control>
+    </div>
+  </div>
+
+
+  <!-- Novo aplicativo -->
+  <app-aplicativo-control [type]="" [component_name]="" [order]="">
+  </app-aplicativo-control>
+
+  <button class="btn btn-primary" style="position: fixed; bottom: 0; left: 0" (click)="checkState()">
+    Estado
+  </button>
+</div>

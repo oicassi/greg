@@ -1,0 +1,48 @@
+@import '../../../assets/scss/_basics/colors.scss';
+
+.freesound-description {
+  width: 230px;
+  min-width: 200px;
+  height: 100%;
+  min-height: 254px;
+  max-height: 300px;
+  padding: 10px;
+  text-align: justify;
+  flex: 1;
+  color: inherit !important;
+  overflow-y: auto;
+}
+
+.freesound-description-header {
+  text-align: center;
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+  color: inherit;
+  margin-bottom: 5px;
+  font-weight: 400 !important;
+  font-size: 1.2rem;
+}
+
+.freesound-player-container {
+  height:100%;
+  width: 600px;
+  min-height: 254px;
+  max-height: 254px;
+  min-width: 410px;
+  display: flex;
+  flex-direction: row;
+  flex: 2.5;
+  margin: 5px;
+  color: inherit !important;
+}
+
+.freesound-player-controls {
+  width: 75%;
+  min-width: 190px;
+  margin: 0 5px;
+}
+
+.freesound-audio-player {
+  width: 100%;
+  border-radius: 6px;
+}

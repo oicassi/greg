@@ -1,0 +1,5 @@
+<div class="playlist-item">
+  <span class="playlist-item-name text-limiter">{{audio.name}}</span>
+  <span class="playlist-item-desc">{{audio.description}}</span><br />
+  <span *ngFor="let tag of audio.tags" class="playlist-item-tag">#{{tag}}</span>
+</div>

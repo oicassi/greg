@@ -1,18 +1,27 @@
-.box-preview-component {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@import '../../../assets/scss/_basics/colors.scss';
+
+.preview-full-page-container {
   width: 100%;
 }
 
-.componenteBox {
+.preview-main-container {
   width: 90%;
-  margin: 15px 0;
-  box-shadow: 0 2px 3px #555588;
-  transition: all 500ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  background-color: transparent;
+  margin: auto;
 }
 
-.componenteBox:hover {
-  box-shadow: 0 2px 7px #555588;
+.preview-app-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.fullpreview-floating-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
 }

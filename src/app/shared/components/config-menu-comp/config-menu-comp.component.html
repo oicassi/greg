@@ -1,0 +1,75 @@
+<div class="config-main-container">
+
+  <!-- Container para interação com API e modal -->
+  <div class="config-input-button-container config-generic-container"
+    *ngIf="checkComponenteApi()">
+
+    <!-- Input group para colocar um novo username -->
+    <div class="config-input-username-container" *ngIf="hasCheckedApi && checkComponenteApi()">
+      <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']"
+        [placeholder]="textosInputApi.placeholder" [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
+        [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+      </app-input-group>
+    </div>
+
+  </div>
+
+  <!-- Botão para abrir o modal para selecionar itens -->
+  <div *ngIf="checkComponenteModal()" class="config-generic-container">
+    <button class="btn btn-outline-primary" (click)="onModalButtonClick()">
+      {{textosInputApi.modalLabel}}
+    </button>
+  </div>
+
+   <!-- Botão para input de arquivo -->
+   <div *ngIf="checkComponenteInputArquivo()" class="config-generic-container">
+    <button class="btn btn-outline-primary" (click)="onInputArquivoButtonClick()">
+      {{textosInputApi.botaoInputLabel}}
+    </button>
+  </div>
+
+  <!-- Container para acrescentar ou reduzir textos -->
+  <div class="config-texto-container config-generic-container" *ngIf="checkComponenteTexto()">
+    <div class="config-texto-botao-container">
+      <button type="button" class="btn btn-outline-primary config-texto-button" (click)="countTexto('remove')">
+        <span class="material-icons config-button-icon-correction">
+          remove
+        </span>
+      </button>
+      <button type="button" class="btn btn-outline-primary config-texto-button" (click)="countTexto('add')">
+        <span class="material-icons config-button-icon-correction">
+          add
+        </span>
+      </button>
+    </div>
+    <div class="config-texto-info-container">
+      <span style="display: inline-block;">{{dados['texto_array'].length}} textos</span>
+    </div>
+  </div>
+
+  <!-- Container para color pickers de cor do fundo e da frente -->
+  <div class="config-color-picker-container config-generic-container" *ngIf="checkComponenteCorEditavel()">
+    <div class="config-color-picker-label-container">
+      <span> Cor de fundo</span>
+      <input class="config-color-picker" id="picker1" type="color" name="bgColor" value="{{dados.bgColor || '#FFFFFF'}}"
+        (input)="onColorChange($event.target)" />
+    </div>
+    <div class="color-picker-label-container">
+      <span> Cor de destaque</span>
+      <input class="config-color-picker" id="picker2" type="color" name="fgColor" value="{{dados.fgColor || '#444444'}}"
+        (input)="onColorChange($event.target)" />
+    </div>
+  </div>
+
+  <!-- Container com switch para desa -->
+  <div class="config-generic-container">
+
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="showTitleToggler" [(ngModel)]="dados.showAppTitle">
+      <label class="form-check-label" for="showTitleToggler">
+        Mostrar título do componente
+      </label>
+    </div>
+
+  </div>
+</div>

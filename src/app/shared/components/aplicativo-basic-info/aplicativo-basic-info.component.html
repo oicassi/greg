@@ -1,0 +1,18 @@
+<div class="basic-info-description-header" [ngStyle]="{'border-bottom': '1px solid ' + (fgColor || 'lightgray')}">
+    <a href="{{profile_url}}" target="_blank" *ngIf="profile_url && profile_url !== ''">
+        <span 
+            class="basic-info-description-header-text"
+            [ngStyle]="{color: fgColor}"
+        >
+            {{username || 'Usuário'}}
+        </span>
+    </a>
+    <span
+        class="basic-info-description-header-text"
+        [ngStyle]="{color: fgColor}"
+        *ngIf="!profile_url || profile_url === ''"
+    >
+        {{username || 'Usuário'}}
+    </span>
+</div>
+<span [ngStyle]="{color: fgColor}">{{description || 'Sem descrição'}}</span>

@@ -1,1 +1,38 @@
-<p>fotos works!</p>
+<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
+
+	<!-- Header -->
+	<div class="aplicativo-header-container" *ngIf="dados.isEditable || dados.showAppTitle">
+
+		<!-- Container do título do componente -->
+		<app-aplicativo-header style="transition: all 0.3s" [ngStyle]="{ 'width': dados.isEdit ? '92%' : '100%' }"
+			[dados]="dados" (editar)="onClickEditar()" (cancelar)="onClickCancelEditar()" (salvar)="onClickConfirmarEdicao()">
+		</app-aplicativo-header>
+
+		<!-- Botão para abrir as configurações do componente -->
+		<div *ngIf="dados.isEdit" class="material-icons aplicativo-config-button" (click)="toggleConfigMenu()">
+			settings
+		</div>
+
+	</div>
+
+	<!-- Menu de configurações do componente -->
+	<div class="aplicativo-config-collapse-container" *ngIf="dados.isEdit && isConfigMenuOpen">
+		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
+		<div class="aplicativo-config-container">
+			<app-config-menu-comp [dados]="dados" (colorChange)="onColorChange($event)"
+				(modalOpen)="onOpenModal()" (inputArquivo)="onInputCarregarFoto()">
+			</app-config-menu-comp>
+		</div>
+	</div>
+
+	<!-- Conteúdo -->
+	<div class="aplicativo-content-container">
+
+		<!-- Container das imagens -->
+		<div class="fotos-photo-container">
+			<app-photo-container [photoArray]="dados.photo_array" [fgColor]="dados.fgColor"
+				style="margin: auto; width: 100%;">
+			</app-photo-container>
+		</div>
+	</div>
+</div>

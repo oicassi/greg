@@ -1,0 +1,31 @@
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li
+    *ngFor="let photo of photoArray; let i = index"
+      data-target="#carouselExampleIndicators" 
+      data-slide-to="{i.toString()}" 
+      [ngClass]="{'active': i == 0}"
+    >
+    </li>
+  </ol>
+  <div class="carousel-inner carousel-inner-custom">
+    <div
+      *ngFor="let photo of photoArray; let i = index" 
+      class="carousel-item carousel-item-custom"
+      [ngClass]="{'active': i == 0}"
+    >
+      <img src="{{photo.url}}" class="d-block carousel-item-img-custom"  alt="{{photo.name}}">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 [ngStyle]="{color: fgColor ? fgColor : '#eeeeee'}">{{photo.name || 'Foto do Flickr'}}</h5>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

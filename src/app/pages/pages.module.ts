@@ -22,6 +22,9 @@ import { InputSearchComponent } from './search/input-search/input-search.compone
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TagCloudModule } from 'angular-tag-cloud-module';
 import { EditPageComponent } from './edit-page/edit-page.component';
+import { EditControlComponent } from './edit-page/edit-control/edit-control.component';
+import { EditPreviewComponent } from './edit-page/edit-preview/edit-preview.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -41,6 +44,8 @@ import { EditPageComponent } from './edit-page/edit-page.component';
     CardComponent,
     InputSearchComponent,
     EditPageComponent,
+    EditControlComponent,
+    EditPreviewComponent,
   ],
   imports: [
     ButtonModule,
@@ -54,8 +59,9 @@ import { EditPageComponent } from './edit-page/edit-page.component';
     ProgressSpinnerModule,
     RouterModule,
     TagCloudModule,
-    AplicativosModule
+    AplicativosModule,
+    DragDropModule
   ],
-  exports: [LoginRegisterComponent]
+  exports: [LoginRegisterComponent, DragDropModule,]
 })
 export class PagesModule { }

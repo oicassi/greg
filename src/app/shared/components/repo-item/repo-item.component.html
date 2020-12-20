@@ -1,0 +1,16 @@
+<div class="repo-card text-center" [ngStyle]="customStyle().mainCard">
+  <a href="{{repo.url}}" target="_blank" class="repo-card-anchor">
+    <div class="repo-card-header" [ngStyle]="customStyle().headerBorder">
+      {{repo.name}}
+    </div>
+    <div class="repo-card-body" style="overflow-y: auto;">
+      {{repo.description}}
+    </div>
+    <div class="repo-card-footer" [ngStyle]="customStyle().footerBorder">
+      <span class="material-icons repo-card-footer-icon">
+        event
+      </span>
+      {{repo.data}}
+    </div>
+  </a>
+</div>

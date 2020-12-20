@@ -1,0 +1,80 @@
+@import "../../../assets/scss/_basics/colors.scss";
+
+.texto-grid-container {
+    height: auto;
+    min-height: 254px;
+    width: 100%;
+    max-width: 97vw;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1;
+    position: relative;
+    color: inherit !important;          
+}
+
+.texto-element-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    // min-height: 250px;
+    min-width: 400px;
+    flex: 1;
+    margin: 0 5px 10px;
+    background-color: transparent;
+    padding-top: 0;
+    color: inherit !important;
+}
+
+.texto-title-input {
+    width: 100%;
+}
+
+.texto-input-error-msg {
+    color: inherit;
+    font-size: inherit;
+}
+
+.texto-element-title-container {
+    width: 100%;
+    padding: 5px;
+    font-size: 1.1rem !important;
+    word-break: break-word;
+    margin-bottom: 10px;
+    color: inherit !important;
+}
+
+.texto-element-body-container {
+    width: 100%;
+    padding: 5px;
+    word-break: break-word;
+    max-height: 250px;
+    overflow-y: auto;
+    color: inherit !important;
+}
+
+.texto-element-body-control {
+    width: 100%;
+    padding: 5px;
+    height: auto;
+}   
+
+.texto-element-control-buttons {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 5px;
+}
+
+.texto-element-control-single-button {
+    margin: 0 5px;
+}
+
+.texto-element-control-single-button:first-of-type {
+    margin-left: 0;
+}
+
+.texto-element-control-single-button:last-of-type {
+    margin-right: 0;
+}

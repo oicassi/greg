@@ -1,0 +1,42 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+//Override bootstrap
+.carousel-caption {
+    right: 2%;
+    left: 2%;
+    bottom: 0px;
+}
+
+.carousel-indicators {
+    margin-bottom: 5px;
+    bottom: 0px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+h5 {
+    font-size: 1rem;
+    font-weight: 600 !important;
+}
+
+p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.carousel-inner-custom {
+    max-height: 250px !important;
+}
+
+.carousel-item-custom {
+    height: 100% !important; 
+    max-height: 250px !important;
+}
+
+.carousel-item-img-custom {
+    height: 100% !important; 
+    max-height: 250px !important; 
+    margin: auto;
+    border-radius: 6px; 
+    box-shadow: 0 0 2px #888888;
+}

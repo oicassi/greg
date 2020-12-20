@@ -1,20 +1,39 @@
 import { AplicativoFoto } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
+import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
+import { AplicativoService } from '@services/aplicativo.service';
 
 @Component({
   selector: 'app-fotos',
   templateUrl: './fotos.component.html',
   styleUrls: ['./fotos.component.scss']
 })
-export class FotosComponent implements OnInit {
+export class FotosComponent extends AplicativoGenericoComponent implements OnInit {
 
   @Input() dados: AplicativoFoto;
-  constructor() { }
+  dadosBkp: AplicativoFoto;
 
-  ngOnInit() {
-    console.log(`-- [Aplicativo Fotos] ${this.dados.component_name}`);
-    console.log(this.dados);
-    console.log('+----------------------------------------------------+');
+  constructor(
+    _appServ: AplicativoService,
+  ) {
+    super(_appServ);
   }
 
+  ngOnInit() {
+    this.criaBackupDados();
+  }
+
+  /**
+   * Handler ao clicar no botão de abrir o modal
+   */
+  onOpenModal():void {
+    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+  }
+
+  /**
+   * Handler ao clicar no botão de input arquivo
+   */
+  onInputCarregarFoto():void {
+    console.log(`[${this.dados.component_name}] clicado no botão de input de arquivos`);
+  }
 }

@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AplicativoBaseComponent } from './aplicativo-base/aplicativo-base.component';
@@ -7,8 +8,11 @@ import { FreesoundComponent } from './freesound/freesound.component';
 import { TextoComponent } from './texto/texto.component';
 import { FotosComponent } from './fotos/fotos.component';
 import { TagsComponent } from './tags/tags.component';
-
-
+import { AplicativoControlComponent } from './aplicativo-control/aplicativo-control.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AplicativoGenericoComponent } from './aplicativo-generico/aplicativo-generico.component';
+import { AplicativoGenericoApiComponent } from './aplicativo-generico-api/aplicativo-generico-api.component';
+import { BioComponent } from './bio/bio.component';
 
 @NgModule({
   declarations: [
@@ -18,10 +22,17 @@ import { TagsComponent } from './tags/tags.component';
     FreesoundComponent, 
     TextoComponent, 
     FotosComponent, 
-    TagsComponent
+    TagsComponent,
+    AplicativoControlComponent,
+    AplicativoGenericoComponent,
+    AplicativoGenericoApiComponent,
+    BioComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
   exports: [
     AplicativoBaseComponent, 
@@ -30,15 +41,17 @@ import { TagsComponent } from './tags/tags.component';
     FreesoundComponent, 
     TextoComponent, 
     FotosComponent, 
-    TagsComponent
+    TagsComponent,
+    AplicativoControlComponent,
   ],
   entryComponents: [
-    GithubComponent, 
+    BioComponent,
     FlickrComponent, 
-    FreesoundComponent, 
-    TextoComponent, 
     FotosComponent, 
-    TagsComponent
+    FreesoundComponent, 
+    GithubComponent, 
+    TagsComponent,
+    TextoComponent, 
   ]
 })
 export class AplicativosModule { }

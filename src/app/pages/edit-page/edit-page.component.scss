@@ -1,0 +1,77 @@
+@import "../../../assets/scss/_basics/colors.scss";
+
+.edit-main-container {
+  display: grid;
+  // grid-template-columns: minmax(315px, 1fr) 3fr;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  transition: all 0.5s;
+}
+
+.edit-control-container {
+  background-color: var(--color-control-bg-0);
+  min-height: 100vh;
+  min-width: 200px;
+  width: 25vw;
+  padding: 0;
+  transition: all 0.5s;
+}
+
+.edit-preview-container {
+  background-color: var(--color-bg-1);
+  min-height: 100vh;
+  flex: 1;
+}
+
+.edit-sidebar-btn {
+  display: none;
+  position: fixed;
+  top: 13px;
+  left: 20px;
+  z-index: 99;
+  transition: all 0.5s;
+  opacity: 0.8;
+  box-shadow: 0 0 10px #444444;
+  border: none;
+  background: linear-gradient(to right, #666c7f, transparent);
+}
+
+.edit-sidebar-btn:hover {
+  background: linear-gradient(to right, #666c7f, #666c7f) ;
+}
+
+.edit-open-sidebar-btn {
+  left: 335px;
+  background: linear-gradient(to right, transparent, #666c7f);
+}
+
+.edit-open-sidebar-btn:hover {
+  background: linear-gradient(to right, #666c7f, #666c7f) ;
+}
+
+@media only screen and (max-width: 1040px) {
+  .edit-control-container {
+    width: 0px;
+    min-width: 0px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -100;
+    box-shadow: 1px 0px 5px #666666;
+    
+  }
+
+  .edit-sidebar-btn {
+    display: block;
+  }
+}
+
+.edit-open-sidebar {
+  position: fixed;
+  min-width: 315px;
+  width: 25vw;
+  z-index: 100;
+  height: 100vh;
+  overflow-y: auto;
+}

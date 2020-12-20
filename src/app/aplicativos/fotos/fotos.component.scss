@@ -1,0 +1,12 @@
+@import '../../../assets/scss/_basics/colors.scss';
+
+.fotos-photo-container {
+  height:100%;
+  width: 600px;
+  min-height: 254px;
+  max-height: 254px;
+  min-width: 410px;
+  flex: 2.5;
+  margin: 5px;
+  display: flex;
+}

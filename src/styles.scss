@@ -1,20 +1,20 @@
 @import "assets/scss/main.scss";
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 * {
-    margin : 0;
-    padding : 0;
-    color: var(--color-fg-0);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400 !important;
-    font-size: 16px;
-    text-decoration: none;
-    --cor-padrao: #504688;
-
+  // margin : 0;
+  // padding : 0;
+  color: var(--color-fg-0);
+  font-family: "Roboto", sans-serif;
+  font-weight: 400 !important;
+  font-size: 16px;
+  text-decoration: none;
+  --cor-padrao: #504688;
 }
 
 body {
-    overflow-x: hidden;
-    background-color: var(--color-bg-0);
+  margin: auto 0;
+  overflow-x: hidden;
+  background-color: var(--color-bg-0);
 }
 
 // Classe para transição de temas
@@ -22,70 +22,358 @@ html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
-    transition: all 450ms !important;
-    transition-delay: 0 !important;
+  transition: all 450ms !important;
+  transition-delay: 0 !important;
 }
 
 // tratamento de login e pagina de registro
 
-  .register-page {
-    padding: 6rem 2rem;
+.register-page {
+  padding: 6rem 2rem;
+}
+
+.login-page {
+  padding: 10rem 2rem;
+}
+
+// Classe para adicionar fade-in nos componentes
+@keyframes fadein {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
+.fade-in-geral {
+  animation: fadein 0.5s;
+}
+
+// Joga um item para para o máximo à direita dentro de um componente
+.item-push-right {
+  margin-left: auto !important;
+}
+
+// Joga um item para para o máximo à esquerda dentro de um componente
+.item-push-left {
+  margin-right: auto !important;
+}
+
+// Quando textos são maiores que o container, substitui parte dotexto por reticências
+.text-limiter {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.aplicativo-editing {
+  // border: 2px solid var(--color-warning);
+  box-shadow: 0px 0px 10px var(--color-warning) !important;
+}
+
+// APLICATIVOS GERAL =================================================================
+
+// Container principal dos aplicativos
+.aplicativo-main-container {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: var(--color-bg-1);
+  box-shadow: 0px 1px 2px #888888;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.aplicativo-header-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: inherit;
+}
+
+@keyframes showConfigButton {
+  from {
+    font-size: 0rem !important;
+    opacity: 0;
+    // margin: auto;
+  }
+  to {
+    font-size: 1.5rem !important;
+    opacity: 1;
+    // margin: 0;
+    // margin-top: 1rem;
+  }
+}
+
+// Botão de engrenagem para mostrar configurações do componente
+.aplicativo-config-button {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  color: var(--color-fg-1);
+  cursor: pointer;
+  transition: all 0.5s;
+  animation-name: showConfigButton;
+  animation-duration: 0.5s;
+  margin-bottom: 0.3rem;
+}
+
+.aplicativo-config-button:hover {
+  transform: rotate(180deg) scale(1.2);
+}
+
+.aplicativo-config-button-no-spin {
+  margin: 0 10px;
+  font-size: 1.5rem;
+  color: var(--color-fg-1);
+  cursor: pointer;
+  transition: all 0.5s;
+  animation-name: showConfigButton;
+  animation-duration: 0.5s;
+  margin-bottom: 0.3rem;
+}
+
+.aplicativo-config-button-no-spin:hover {
+  transform: scale(1.2);
+}
+
+.aplicativo-content-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  flex: 1;
+  color: inherit;
+}
+
+.aplicativo-config-page-collapse-container {
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.aplicativo-config-container {
+  width: 100%;
+  display: block;
+  // display: flex;
+  // flex-flow: row wrap;
+  // justify-content: flex-start;
+  // align-items: center;
+  background-color: var(--color-bg-0);  
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  padding: 10px;
   
-  .login-page {
-    padding: 10rem 2rem;
-  }
-  
-  // BOTÕES ============================
+}
 
-  // ==== Override bootstrap ===========
+.aplicativo-config-label {
+  font-size: 0.8rem;
+  color: inherit;
+}
 
-  .btn-primary {
-    background-color: var(--color-main);
-    color: var(--color-light);
-    border-color: var(--color-main);
-  }
-  
-  .btn-primary:hover {
-    background-color: var(--color-main-dark);
-    border-color: var(--color-main-darker);
-  }
+// Container com o input group e um botão para alguma ação dentro do menu de configurações
+.aplicativo-input-button-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
 
-  .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
-    background-color: var(--color-main-darker);
-    border-color: var(--color-main-darkest);
-  }
+// Input group genérico usado para inserir dados de um username, por exemplo
+.aplicativo-input-username-container {
+  width: 50%;
+  min-width: 300px;
+  margin: auto;
+  margin-top: 0;
+}
 
-  .btn-link {
-    background-color: transparent;
-    color: var(--color-main);
-  }
+// Input group genérico dentro do menu de configurações do componente
+.aplicativo-input-config-container {
+  width: 55%;
+  margin: 0;
+  padding-right: 20px;
+}
 
-  .btn-link:hover {
-    color: var(--color-main-dark);
-  }
+// Container com os color pickers do menu de configurações
+.color-picker-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
 
-  // ==== Próprios ======================
-  
-  .btn-padrao{
-    background-color: #504688 ;
-    color: white;
-  }
+// Container do color picker + label
+.color-picker-label-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 
+// Color picker genérico
+.color-picker {
+  height: 50px;
+  width: 50px;
+  background-color: transparent;
+  border: 1px solid #888888;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 0px 20px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
 
-  // ANCHORS ============================
+.color-picker:hover {
+  transform: scale(1.2);
+}
 
-  // ==== Próprios ======================
-  .anchor-padrao {
-    color: #504688 !important;
-  }
+// Color picker a esquerda
+#picker1 {
+  box-shadow: -2px 2px 3px #888888;
+  transition: all 0.5s;
+}
 
+#picker1:hover {
+  box-shadow: -3px 3px 12px #888888;
+}
 
-  // INPUTS =============================
+// Color picker a direita
+#picker2 {
+  box-shadow: 2px 2px 3px #888888;
+  transition: all 0.5s;
+}
 
-  // ==== Override bootstrap ============
+#picker2:hover {
+  box-shadow: 3px 3px 12px #888888;
+}
 
-  .form-control:focus {
-    border-color: var(--color-main-ligth);
-    box-shadow: 0 0 0 .2rem rgba(109, 97, 173, 0.5)
-  }
+// BOTÕES ============================
+
+// ==== Override bootstrap ===========
+
+.btn-primary {
+  background-color: var(--color-main);
+  color: var(--color-light);
+  border-color: var(--color-main);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-main-dark);
+  border-color: var(--color-main-darker);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: var(--color-main-darker);
+  border-color: var(--color-main-darkest);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: var(--color-main-dark);
+  border-color: var(--color-main-dark);
+}
+
+.btn-link {
+  background-color: transparent;
+  color: var(--color-main);
+}
+
+.btn-link:hover {
+  color: var(--color-main-dark);
+}
+
+.btn-outline-primary {
+  color: var(--color-main);
+  border-color: var(--color-main);
+}
+
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
+  color: var(--color-main);
+}
+
+.btn-outline-primary:hover {
+  border-color: var(--color-main);
+  background-color: var(--color-main);
+  color: #fff;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-primary.dropdown-toggle {
+  border-color: var(--color-main);
+  background-color: var(--color-main);
+  color: #fff;
+}
+
+// ==== Próprios ======================
+
+.btn-padrao {
+  background-color: #504688;
+  color: white;
+}
+
+// ANCHORS ============================
+
+// ==== Próprios ======================
+.anchor-padrao {
+  color: #504688 !important;
+}
+
+button[disabled] {
+  opacity: 0.7;
+}
+// INPUTS =============================
+
+// ==== Override bootstrap ============
+
+.form-control:focus {
+  border-color: var(--color-main-ligth);
+  box-shadow: 0 0 0 0.2rem rgba(109, 97, 173, 0.5);
+}
+
+// BOTÃO DROPDOWN =====================
+
+// ==== Override bootstrap ============
+.btn-primary.focus,
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.show > .btn-outline-primary.dropdown-toggle {
+  border-color: var(--color-main);
+  background-color: var(--color-main);
+  color: #fff;
+}
+
+.btn-outline-primary.focus,
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+.btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-outline-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem var(--color-main-lighter);
+}
+
+// LOADING GROW =======================
+
+// ==== Override bootstrap ============
+
+.text-primary.spinner-grow {
+  color: var(--color-main) !important;
+}

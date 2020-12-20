@@ -21,3 +21,7 @@ export interface Usuario {
     // nome
     sub: string;
 }
+
+export class UserPageGlobal {
+    pageBgColor: string = '#ffffff';
+}

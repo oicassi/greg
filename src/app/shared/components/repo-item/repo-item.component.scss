@@ -1,0 +1,60 @@
+@import '../../../../assets/scss/_basics/colors.scss';
+
+.repo-card {
+  width: 250px;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  word-wrap: break-word;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0px 5px;
+}
+
+.repo-card-header {
+  padding: 5px;
+  margin-bottom: 0px;
+  font-size: 1.1rem;
+  font-weight: 400 !important;
+  height: 65px;
+  max-height: 65px;
+  overflow-y: auto;
+  color: inherit;
+}
+
+.repo-card-body {
+  padding: 5px 10px;
+  height: 140px;
+  max-height: 140px;
+  overflow-y: auto;
+  word-break: break-word;
+  text-align: center;
+  font-weight: 200 !important;
+  color: inherit;
+}
+
+.repo-card-footer {
+  padding: 5px 10px;
+  height: 30px;
+  max-height: 30px;
+  text-align: center;
+  font-weight: 200 !important;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  color: inherit;
+}
+
+.repo-card-footer-icon {
+  color: inherit;
+  font-size: inherit;
+  position: relative;
+  top: 2px;
+  margin-right: 3px;
+}
+
+.repo-card-anchor {
+  text-decoration: none;
+  color: inherit;
+}

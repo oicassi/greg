@@ -1,15 +1,14 @@
-<div *ngIf="loading">
-  Carregando o caralho todo
-</div>
-<div *ngIf="!loading">
-  <h3>Componentes de bosta</h3>
-  <div *ngFor="let app of appList">
-    
-    <app-aplicativo-base
-      [dados]="app"
-      [aplicativo]="factoryService.getAplicativo(app.type)"
-    ></app-aplicativo-base>
-    
-    <br/>
+<div class="edit-main-container">
+  <div class="edit-control-container" #sidebar>
+    <app-edit-control></app-edit-control>
   </div>
+  <button class="btn btn-secondary edit-sidebar-btn" (click)="toggleClass()" #sidebarButton>
+    <span class="material-icons" style="color: var(--color-light); position: relative; top: 3px">
+      {{sidebarButtonIcon}}  
+    </span>
+  </button>
+  <div class="edit-preview-container">
+    <app-edit-preview></app-edit-preview>
+  </div>
+
 </div>

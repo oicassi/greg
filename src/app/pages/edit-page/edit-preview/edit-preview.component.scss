@@ -1,0 +1,16 @@
+@import "../../../../assets/scss/_basics/colors.scss";
+
+.preview-main-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  background-color: var(--color-bg-1);
+}
+
+.preview-app-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
