@@ -9,9 +9,7 @@ import {MessageModule} from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
 // used to create fake backend
 import {fakeBackendProvider} from "src/app/core/_helpers";
-import {AppComponent} from './app.component';
 import {routing} from "./app.routing";
-import {ComponentesModule} from './componentes/componentes.module';
 import {ComponentsModule} from '@components/components.module';
 import {ApiService} from '@services/api.service';
 import {LoaderService} from '@services/loader.service';
@@ -21,6 +19,7 @@ import {PreviewModule} from './preview/preview.module';
 import {DirectivesModule} from '@shared/directives/directives.module';
 import {SharedModule} from '@shared/shared.module';
 import {BnNgIdleService} from 'bn-ng-idle';
+import {AppComponent} from "./app.component";
 
 
 @NgModule({
@@ -30,7 +29,6 @@ import {BnNgIdleService} from 'bn-ng-idle';
   ],
   imports: [
     ComponentsModule,
-    ComponentesModule,
     PagesModule,
     PreviewModule,
     SharedModule,

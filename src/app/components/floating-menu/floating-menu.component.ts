@@ -27,15 +27,15 @@ export class FloatingMenuComponent implements OnInit {
   }
 
   editarPagina(){
-    this.router.navigate(['home']);
+    this.router.navigate(['editPage']);
   }
 
   get imagemUsuario(){
     let strImagemPadrao = 'https://www.w3schools.com/howto/img_avatar.png';
     let strImagem = 'data:image/jpeg;base64,'
     let user = this.authenticationService.currentUserValue;
-    
-    
+
+
     return user.imagemUsuario.base64Img ? (strImagem + user.imagemUsuario.base64Img) : strImagemPadrao;
   }
 
