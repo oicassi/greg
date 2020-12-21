@@ -23,8 +23,6 @@ export class JwtInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     let token = this.tokenService.getToken();
-    console.log(request);
-    console.log(next);
     
     if (request.url.includes('localhost')){
       if(token){

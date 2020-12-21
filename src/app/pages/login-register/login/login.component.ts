@@ -11,7 +11,7 @@ import HttpStatusCode from 'src/app/shared/enums/http-status';
 
 @Component({
   selector: 'app-login',
-  templateUrl: "login.component.html" 
+  templateUrl: "login.component.html"
 })
 
 export class LoginComponent implements OnInit {
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
-  @Output() onRegister= new EventEmitter(); 
+  @Output() onRegister = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(["/"]);
+      this.router.navigate([""]);
     }
   }
 
@@ -50,12 +50,12 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
-  changeValor(){
+  changeValor() {
     this.onRegister.emit(false);
   }
-  
-  onMudouValor(evento){
-    console.log(evento);
+
+  onMudouValor(evento) {
+
   }
 
   onSubmit() {
@@ -72,10 +72,10 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.router.navigate([this.returnUrl]);
+          this.router.navigate(['']);
         },
         (error: HttpError) => {
-          if(error.status == HttpStatusCode.UNAUTHORIZED){
+          if (error.status == HttpStatusCode.UNAUTHORIZED) {
             this.alertService.danger("Login ou senha inválidos");
             this.loading = false;
           } else {
@@ -84,14 +84,5 @@ export class LoginComponent implements OnInit {
           }
         }
       );
-
-    // var user = <User>({
-    //   email : this.f.email.value,
-    //   password : this.f.password.value,
-    //   token: 'some_bullshit_token'
-    // })
-
-    // localStorage.setItem('authToken', JSON.stringify(user));
-    // this.router.navigate([this.returnUrl]);
   }
 }

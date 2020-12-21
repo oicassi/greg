@@ -1,3 +1,6 @@
+import { GenericResponse } from './../../shared/models/responses/generic-response';
+import { TagService } from './../../core/_services/tags.service';
+import { OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CloudData, CloudOptions } from 'angular-tag-cloud-module/lib/tag-cloud.interfaces';
@@ -36,9 +39,10 @@ export class SearchComponent implements OnInit {
     private _pagesSrv: PagesService,
     public _loaderSrv: LoaderService,
     private tokenService: TokenService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private tagService: TagService
   ) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.route.queryParams.subscribe(params => {
       if (params && params['q']) {
         this.searchParam = params['q'];
@@ -47,16 +51,20 @@ export class SearchComponent implements OnInit {
           this.classe = true;
           this.showContainer = false;
           this.showResultado = true;
-        } else {
-          this.router.navigate(['/']);
         }
       }
     });
   }
 
+  getParametrosRota(){
+  }
+
+
   ngOnInit() {
     this.buscaUsuario();
   }
+
+  
 
   buscaUsuario() {
     this.authenticationService.currentUser.subscribe(user => {
@@ -66,7 +74,9 @@ export class SearchComponent implements OnInit {
   }
 
   buscarTags() {
-    this._pagesSrv.getAllTags().subscribe((tags) => this.setTagCloud(tags));
+    this.tagService.getAll().subscribe((tags: GenericResponse<string[]>) => this.setTagCloud(tags.data))
+
+    // this._pagesSrv.getAllTags().subscribe((tags) => this.setTagCloud(tags));
     if (this.showResultado) {
       this.mostrarResultadoBusca(this.searchParam);
     }
@@ -107,6 +117,7 @@ export class SearchComponent implements OnInit {
       this.router.navigate(['/search'], { queryParams: { q: term } });
       return;
     }
+
     this.classe = true;
     setTimeout(() => {
       this.showContainer = false;

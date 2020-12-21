@@ -4,135 +4,122 @@
   </h2>
   <form [formGroup]="userForm">
     <div class="row">
-      <div class="col-sm-3">
-        <p class="anchor-padrao">Informações pessoais</p>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <p class="anchor-padrao">Imagem principal</p>
+          <input 
+          formControlName="imagemUsuario" 
+          type="file" 
+          accept="image/*"
+          (change)="handleFileInput($event.target.files[0])"
+        >
+        </div>
+        <div *ngIf="preview">
+          <div class="text-center">
+            <img class="img-thumbnail" [src]="preview">
+          </div>
+        </div>
       </div>
-      <div class="col-sm-5">
-        <div class="form-group row">
-          <label for="nome" class="col-sm-2 col-form-label">Nome</label>
-          <div class="col-sm-10">
-            <input placeholder="nome" formControlName="nome" type="text" class="form-control" id="nome">
-            <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="alert alert-danger">
+      <div class="col-sm-8">
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="anchor-padrao">Informações de conta</p>
+          </div>
+          <div class="col-sm-5">
+            <div class="form-group row">
+              <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+              <div class="col-sm-10">
+                <input placeholder="nome" formControlName="nome" type="text" class="form-control" id="nome">
+                <div *ngIf="nome?.invalid && (nome?.dirty || nome?.touched)" class="alert alert-danger">
 
-              <div *ngIf="nome.errors.required">
-                Nome não pode ficar em branco
+                  <div *ngIf="nome.errors.required">
+                    Nome não pode ficar em branco
+                  </div>
+                  <div *ngIf="nome.errors.minlength">
+                    Deve ter pelo menos 3 char
+                  </div>
+                </div>
               </div>
-              <div *ngIf="nome.errors.minlength">
-                Deve ter pelo menos 3 char
+            </div>
+            <div class="form-group row">
+              <label for="sobrenome" class="col-sm-2 col-form-label">Sobrenome</label>
+              <div class="col-sm-10">
+                <input placeholder="sobrenome" formControlName="sobrenome" type="text" class="form-control"
+                  id="sobrenome">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input placeholder="email" formControlName="email" type="text" class="form-control" id="email" readonly>
               </div>
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="sobrenome" class="col-sm-2 col-form-label">Sobrenome</label>
-          <div class="col-sm-10">
-            <input placeholder="sobrenome" formControlName="sobrenome" type="text" class="form-control" id="sobrenome">
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="anchor-padrao">Informações da pagina</p>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="email" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input placeholder="email" formControlName="email" type="text" class="form-control" id="email">
-            <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
-              Digite um email valido
+          <div class="col-sm-5">
+            <div class="form-group row">
+              <label for="url" class="col-sm-2 col-form-label">URL da página</label>
+              <div class="col-sm-10">
+                <input placeholder="/seuDominio" formControlName="url" type="text" class="form-control"
+                  id="url">
+                <div *ngIf="url?.invalid && (url?.dirty || url?.touched)" class="alert alert-danger">
+                  URL não pode ficar em branco
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label for="localizacao" class="col-sm-2 col-form-label">Localizacao</label>
-          <div class="col-sm-10">
-            <input placeholder="Rua bla bla" formControlName="localizacao" type="text" class="form-control"
-              id="localizacao">
+        <hr>
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="anchor-padrao">Mudar senha</p>
           </div>
-        </div>
-        <div formGroupName="telefone" class="form-group row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Celular</label>
-          <div class="col-sm-2">
-            <input maxlength="3" placeholder="+55" formControlName="area" class="form-control" id="area">
-          </div>
-          <div class="col-sm-2">
-            <input maxlength="3" placeholder="041" formControlName="ddd" class="form-control" id="ddd">
+          <div class="col-sm-5">
+            <div class="form-group row">
+              <label for="senhaAntiga" class="col-sm-2 col-form-label">Senha antiga</label>
+              <div class="col-sm-10">
+                <input formControlName="senhaAntiga" type="password" class="form-control" id="senhaAntiga">
 
-          </div>
-          <div class="col-sm-4">
-            <input maxlength="10" placeholder="9999-9999" formControlName="numero" class="form-control" id="numero">
+                <div *ngIf="senhaAntiga?.invalid && (senhaNova?.dirty || senhaNova?.touched)" class="alert alert-danger">
+                  <div *ngIf="senhaAntiga?.errors?.required">
+                    Digite sua senha antiga!
+                  </div>
+                  <div *ngIf="senhaAntiga?.errors.minlength">
+                    Deve ter pelo menos 6 caracteres
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="senhaNova" class="col-sm-2 col-form-label">Nova senha</label>
+              <div class="col-sm-10">
+                <input formControlName="senhaNova" type="password" class="form-control" id="senhaNova">
+                <div *ngIf="senhaNova?.invalid && (senhaNova?.dirty || senhaNova?.touched)" class="alert alert-danger">
 
-          </div>
-
-          <div *ngIf="area.invalid && (area.dirty || area.touched)" class="col-sm-12 alert alert-danger">
-            Cód. de pais invalido
-          </div>
-
-          <div *ngIf="ddd.invalid && (ddd.dirty || ddd.touched)" class="col-sm-12 alert alert-danger">
-            Digite um ddd valido
-          </div>
-
-          <div *ngIf="numero.invalid && (numero.dirty || numero.touched)" class="col-sm-12 alert alert-danger">
-            Digite um email valido
+                  <div *ngIf="senhaNova?.errors.required">
+                    Nome não pode ficar em branco
+                  </div>
+                  <div *ngIf="senhaNova?.errors.minlength">
+                    Deve ter pelo menos 6 caracteres
+                  </div>
+                  <div *ngIf="senhaNova?.errors.equivalent">
+                    Senha  antiga e nova devem ser diferentes
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
     <hr>
-    <div class="row">
-      <div class="col-sm-3">
-        <p class="anchor-padrao">Informações da pagina</p>
-      </div>
-      <div class="col-sm-5">
-        <div class="form-group row">
-          <label for="urlPagina" class="col-sm-2 col-form-label">URL da página</label>
-          <div class="col-sm-10">
-            <input placeholder="/seuDominio" formControlName="urlPagina" type="text" class="form-control"
-              id="urlPagina">
-            <div *ngIf="urlPagina.invalid && (urlPagina.dirty || urlPagina.touched)" class="alert alert-danger">
-              URL não pode ficar em branco
-            </div>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="visibilidade" class="col-sm-2 col-form-label">Visibilidade</label>
-          <div class="col-sm-10">
-            <div class="form-check">
-              <input formControlName="visibilidade" class="form-check-input" type="radio" value="publico" checked>
-              <label class="form-check-label">
-                Público
-              </label>
-            </div>
-            <div class="form-check">
-              <input formControlName="visibilidade" class="form-check-input" type="radio" value="privado">
-              <label class="form-check-label">
-                Privato
-              </label>
-            </div>
-            <div class="form-check">
-              <input formControlName="visibilidade" class="form-check-input" type="radio" value="secreto">
-              <label class="form-check-label">
-                Secreto
-              </label>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
-      <div class="col-sm-3">
-        <p class="anchor-padrao">Configurações da conta</p>
-      </div>
-      <div class="col-5">
-        <div class="form-group row">
-          <label for="nomeUsuario" class="col-sm-2 col-form-label">Nome de usuário</label>
-          <div class="col-sm-10">
-            <input placeholder="nomeUsuario" formControlName="nomeUsuario" type="text" class="form-control"
-              id="nomeUsuario">
-            <div *ngIf="nomeUsuario.invalid && (nomeUsuario.dirty || nomeUsuario.touched)" class="alert alert-danger">
-              Nome de usuário não pode ficar em branco
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-padrao" type="submit" (click)="atualizarDados()" [disabled]="!userForm.valid">Submit</button>
+    <button class="btn btn-padrao" type="submit" (click)="atualizarDados()" [disabled]="!userForm.valid || !userForm.errors === null">Submit</button>
   </form>
+  {{userForm.errors | json}}
 </div>

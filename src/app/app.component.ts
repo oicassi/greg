@@ -1,7 +1,13 @@
-import { Usuario } from './shared/models/user';
+import { GenericResponse } from './shared/models/responses/generic-response';
+import { UserService } from 'src/app/core/_services';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/core/_services';
+import { AlertService } from './shared/components/alert/alert.service';
+import { Usuario } from './shared/models/user';
 
 @Component({
   selector: 'app',
@@ -13,10 +19,51 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private bnIdle: BnNgIdleService,
+    private alertService: AlertService,
+    private titleService: Title,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService
   ) {
-    this.authenticationService.currentUser.subscribe(
-      (x) => (this.currentUser = x)
-    );
+    this.authenticationService.currentUser
+    .subscribe(user => {
+      this.currentUser = user;
+    })};
+
+  ngOnInit(): void {
+    this.mudaTitle();
+    this.idleKiller();
+  }
+
+  mudaTitle() {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(map(() => this.activatedRoute))
+      .pipe(map(route => {
+        while (route.firstChild) {
+          route = route.firstChild;
+          return route;
+        }
+      }))
+      .pipe(switchMap(route => route.data))
+      .subscribe(event => {
+        this.titleService.setTitle('GREGS - ' + event.title)
+      });
+  }
+
+  idleKiller() {
+    this.bnIdle.startWatching(1200).subscribe((isTimedOut: boolean) => {
+      if (isTimedOut && this.currentUser) {
+        this.alertService.warning('Sessão expirada, logue novamente');
+        this.logout();
+      }
+    });
+  }
+
+  logout() {
+    this.currentUser = null; 
+    this.authenticationService.logout();
+    this.router.navigate([""]);
   }
 }

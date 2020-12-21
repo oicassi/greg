@@ -1,3 +1,4 @@
+import { Router, RouterModule } from '@angular/router';
 import { CardComponent } from './card/card.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { MatMenuModule } from '@angular/material/menu';
@@ -18,6 +19,7 @@ import { MatIcon, MatIconModule } from '@angular/material';
     CommonModule,
     MatIconModule,
     DropdownModule,
+    RouterModule,
     MatMenuModule,
   ],
   exports:[
