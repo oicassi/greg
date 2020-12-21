@@ -1,12 +1,9 @@
 import {AplicativosModule} from '@aplicativos/aplicativos.module';
 import {JwtInterceptor} from './core/_helpers';
-import {ButtonModule} from 'primeng/button';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MessageModule} from 'primeng/message';
-import {MessagesModule} from 'primeng/messages';
 // used to create fake backend
 import {fakeBackendProvider} from "src/app/core/_helpers";
 import {routing} from "./app.routing";
@@ -15,7 +12,6 @@ import {ApiService} from '@services/api.service';
 import {LoaderService} from '@services/loader.service';
 import {FullpreviewComponent} from '@pages/fullpreview/fullpreview.component';
 import {PagesModule} from '@pages/pages.module';
-import {PreviewModule} from './preview/preview.module';
 import {DirectivesModule} from '@shared/directives/directives.module';
 import {SharedModule} from '@shared/shared.module';
 import {BnNgIdleService} from 'bn-ng-idle';
@@ -30,15 +26,11 @@ import {AppComponent} from "./app.component";
   imports: [
     ComponentsModule,
     PagesModule,
-    PreviewModule,
     SharedModule,
-    ButtonModule,
     BrowserModule,
     HttpClientModule,
     DirectivesModule,
     BrowserAnimationsModule,
-    MessageModule,
-    MessagesModule,
     PagesModule,
     AplicativosModule,
     routing,

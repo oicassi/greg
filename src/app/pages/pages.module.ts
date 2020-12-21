@@ -1,7 +1,5 @@
 import {AplicativosModule} from '@aplicativos/aplicativos.module';
 import {CardComponent} from '@components/card/card.component';
-import {ButtonModule} from 'primeng/button';
-import {PreviewModule} from '../preview/preview.module';
 import {HomeAdminComponent} from './home-admin/home-admin.component';
 import {DirectivesModule} from '@shared/directives/directives.module';
 import {RouterModule} from '@angular/router';
@@ -17,7 +15,6 @@ import {UserConfigComponent} from './user-config/user-config.component';
 import {SearchComponent} from './search/search.component';
 import {LandingButtonsComponent} from './search/landing-buttons/landing-buttons.component';
 import {InputSearchComponent} from './search/input-search/input-search.component';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {TagCloudModule} from 'angular-tag-cloud-module';
 import {EditPageComponent} from './edit-page/edit-page.component';
 import {EditControlComponent} from './edit-page/edit-control/edit-control.component';
@@ -45,14 +42,10 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     EditPreviewComponent,
   ],
   imports: [
-    ButtonModule,
     SharedModule,
-    PreviewModule,
     ReactiveFormsModule,
     CommonModule,
-    ProgressSpinnerModule,
     DirectivesModule,
-    ProgressSpinnerModule,
     RouterModule,
     TagCloudModule,
     AplicativosModule,
