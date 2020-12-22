@@ -1,6 +1,5 @@
 import { Router, RouterModule } from '@angular/router';
 import { CardComponent } from './card/card.component';
-import { DropdownModule } from 'primeng/dropdown';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FloatingMenuComponent } from './floating-menu/floating-menu.component';
@@ -18,7 +17,6 @@ import { MatIcon, MatIconModule } from '@angular/material';
   imports: [
     CommonModule,
     MatIconModule,
-    DropdownModule,
     RouterModule,
     MatMenuModule,
   ],

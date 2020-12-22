@@ -1,9 +1,9 @@
 <div *ngIf="!currentUser" class="signinbtnClass">
  <app-landing-buttons></app-landing-buttons>
-</div> 
+</div>
 <div class="container-fluid search-page">
   <!-- Botões no canto superior direito -->
-  
+
   <!-- Navbar que aparece no resultado da pesquisa -->
   <div class="input-cmp mx-auto" *ngIf="!showContainer">
       <div>
@@ -38,8 +38,8 @@
   </div>
 
   <!-- Tag cloud -->
-  <div 
-    class="tag-cloud-container" 
+  <div
+    class="tag-cloud-container"
     *ngIf="!showResultado && tagCloud.length"
     [ngClass]="classe ? 'tag-cloud-container-result' : ''">
     <angular-tag-cloud
@@ -75,7 +75,9 @@
   <!-- Exibição de Spinner durante o carregamento de informações -->
   <div class="spinner-container" *ngIf="_loaderSrv.getLoader()">
     <div>
+      <!--
       <p-progressSpinner></p-progressSpinner>
+      -->
     </div>
   </div>
 
