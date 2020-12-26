@@ -2,6 +2,7 @@ import { Usuario } from 'src/app/shared/models';
 import { AuthenticationService } from 'src/app/core/_services';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {NavbarService} from "@services/navbar.service";
 
 @Component({
   selector: 'app-floating-menu',
@@ -12,7 +13,8 @@ export class FloatingMenuComponent implements OnInit {
 
   @Input() currentUser: Usuario;
 
-  constructor(private authenticationService: AuthenticationService, private router:Router) { }
+  constructor(private nav:NavbarService,
+              private authenticationService: AuthenticationService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -20,6 +22,7 @@ export class FloatingMenuComponent implements OnInit {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(["login"]);
+    this.nav.hide();
   }
 
   configuracoes(){

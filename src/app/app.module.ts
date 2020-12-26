@@ -16,6 +16,8 @@ import {DirectivesModule} from '@shared/directives/directives.module';
 import {SharedModule} from '@shared/shared.module';
 import {BnNgIdleService} from 'bn-ng-idle';
 import {AppComponent} from "./app.component";
+import {MatDialogModule} from "@angular/material/dialog";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import {AppComponent} from "./app.component";
     ComponentsModule,
     PagesModule,
     SharedModule,
+    MatDialogModule,
+    DragDropModule,
     BrowserModule,
     HttpClientModule,
     DirectivesModule,

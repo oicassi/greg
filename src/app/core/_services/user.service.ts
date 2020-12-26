@@ -1,14 +1,14 @@
-﻿import { UserConfigs } from './../../shared/models/user-configs';
-import { HttpParams } from '@angular/common/http';
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
-import { Usuario } from './../../shared/models/user';
+﻿import {UserConfigs} from './../../shared/models/user-configs';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from "@angular/core";
+import {environment} from "src/environments/environment";
+import {Usuario} from './../../shared/models/user';
 
 
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: "root"})
 export class UserService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAll() {
     return this.http.get<Usuario[]>(`${environment.apiUrl}/users`);
@@ -16,7 +16,7 @@ export class UserService {
 
   getByEmail(email: string) {
     let params = new HttpParams().set("email", email)
-    return this.http.get(`${environment.apiUrl}/usuarios/`, { params: params });
+    return this.http.get(`${environment.apiUrl}/usuarios/`, {params: params});
   }
 
   register(user: Usuario) {
@@ -32,7 +32,7 @@ export class UserService {
   }
 
   login(email, password) {
-    return this.http.put(`${environment.apiUrl}/login`, { email, password });
+    return this.http.put(`${environment.apiUrl}/login`, {email, password});
   }
 
   postForm(userConfigs: UserConfigs) {

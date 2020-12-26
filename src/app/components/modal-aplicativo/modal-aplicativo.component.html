@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>DESGRAÇA</h1>
+<p>Arraste para <b>Escolhidos</b> os que deseja que apareça em seu portfólio</p>
+<mat-dialog-content>
+  <div>
+    <h2>Escolhidos</h2>
+    <div
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      #todoList="cdkDropList"
+      [cdkDropListData]="chosen"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="example-list2"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of chosen" cdkDrag>
+
+        <div *ngIf="item?.description; else elseBlock">{{item.name}}</div>
+
+        <ng-template #elseBlock>
+          <img [src]="item.url" alt="Fotografia"
+               style="height: 100px; width: auto">
+        </ng-template>
+      </div>
+    </div>
+  </div>
+<br>
+  <div>
+    <h2>Disponiveis</h2>
+    <div
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      #doneList="cdkDropList"
+      [cdkDropListData]="received"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of received" cdkDrag>
+
+        <div *ngIf="item?.description; else elseBlock">
+          {{item.name}}
+          <hr/>
+          {{item.description}}
+        </div>
+
+        <ng-template #elseBlock>
+          <img [src]="item.url" alt="Fotografia"
+               style="height: 100px; width: auto">
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<hr/>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="chosen" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

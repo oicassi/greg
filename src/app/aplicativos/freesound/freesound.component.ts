@@ -39,6 +39,7 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
     this.loading = true;
     this._appServ.requestFreesoundData(this.dados).subscribe(
       (novosDados => {
+        console.log(novosDados)
         this.dados = novosDados;
         this.setVariaveisIniciais();
         this.loading = false;

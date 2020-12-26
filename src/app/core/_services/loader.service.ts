@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ export class LoaderService {
 
   isLoading: boolean;
 
-  constructor() { 
+  constructor() {
     this.isLoading = false;
   }
 
@@ -17,7 +17,7 @@ export class LoaderService {
   showLoader() {
     this.isLoading = true;
   }
-  
+
   /**
    * Seta isLoading para false visando esconder o loader da tela
    */

@@ -3,6 +3,10 @@ import { AplicativoGithub } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
 import { ApiService } from '@services/api.service';
+import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplicativo.component";
+import {MatDialog} from "@angular/material/dialog";
+import {Repo} from "@models/aplicativo-item";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-github',
@@ -16,7 +20,8 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
 
   constructor(
     _appServ: AplicativoService,
-    _apiServ: ApiService
+    _apiServ: ApiService,
+    public dialog: MatDialog
   ) {
     super(_appServ, _apiServ);
   }
@@ -34,6 +39,7 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
     this.loading = true;
     this._appServ.requestGithubData(this.dados).subscribe(
       (novosDados => {
+        console.log(novosDados)
         this.dados = novosDados;
         this.setVariaveisIniciais();
         this.loading = false;
@@ -65,12 +71,32 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    * Handler ao clicar no botão de abrir o modal
    */
   onOpenModal(): void {
-    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+    this.openDialog(this._appServ.requestGithubData(this.dados));
   }
 
+  /*
+    Abre modal passando repositorios
+   */
+  openDialog(request : Observable<AplicativoGithub>): void {
+    request.subscribe(repos => {
+      const dialogRef = this.dialog.open(ModalAplicativoComponent, {
+        width: '1000px',
+        height:'700px',
+        data: repos.repo_array
+      });
+
+      dialogRef.afterClosed().subscribe((result: Repo[]) => {
+        console.log('Coisas escolhidas');
+        this.dados.repo_array = result;
+      });
+    }, error => {
+      console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
+      console.log(error);
+    })
+  }
   /**
    * Handler para submit de nome de usuário do github
-   * @param username 
+   * @param username
    */
   onUsernameSubmit(username: string) {
     this.dados.username = username;

@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { AplicativoFreesound } from '@models/aplicativo';
-import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { UrlHandlingStrategy } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {forkJoin, Observable} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +26,14 @@ export class ApiService {
   freesoundProfile = 'users/';                                  // URL para buscar as informações de perfil de um usuário
   freesoundAudios = 'users/' //<email>/sounds                // URL para buscar lista de músicas de um usuário. OBS: tem que completar a URL conforme o comentário
   freesoundBaseParams = 'name,previews,tags,description';
-  constructor(private _http: HttpClient) { }
 
+  constructor(private _http: HttpClient) {
+  }
 
 
   /**
    * Busca os dados do freesound
-   * @param user 
+   * @param user
    */
   getFreeSoundData(user: string): Observable<any> {
 
@@ -45,7 +44,7 @@ export class ApiService {
     let profileParams = new HttpParams();
     profileParams = profileParams.append('token', this.freesoundApiKey);
 
-    const profileOptions = { params: profileParams };
+    const profileOptions = {params: profileParams};
 
     // Dados da request dos áudios
     const urlAudios = `${this.freesoundUrl}${this.freesoundAudios}${user}/sounds`;
@@ -53,7 +52,7 @@ export class ApiService {
     audioParams = audioParams.append('token', this.freesoundApiKey)
     audioParams = audioParams.append('fields', this.freesoundBaseParams);
 
-    const audioOptions = { params: audioParams };
+    const audioOptions = {params: audioParams};
     this._http.get(urlProfile, audioOptions)
 
     // Array de requisições
@@ -101,7 +100,7 @@ export class ApiService {
     params = params.append('method', this.flickrBuscaUsername);
     params = params.append('username', user);
 
-    const userOptions = { params };
+    const userOptions = {params};
 
     // Faz a chamada e a concatena com outras requisições necessárias para o flickr
     return this._http.get(this.flickrUrl, userOptions).pipe(
@@ -127,7 +126,7 @@ export class ApiService {
     profileParams = profileParams.append('method', this.flickrProfile);
     profileParams = profileParams.append('user_id', nsid);
 
-    const profileOptions = { params: profileParams };
+    const profileOptions = {params: profileParams};
 
 
     // Dados para requisição de informações de fotos
@@ -138,7 +137,7 @@ export class ApiService {
     photoParams = photoParams.append('method', this.flickrFotosPublicas);
     photoParams = photoParams.append('user_id', nsid);
 
-    const photoOptions = { params: photoParams };
+    const photoOptions = {params: photoParams};
 
     // Monta e retorna o array das requisições
     const reqProfile = this._http.get(this.flickrUrl, profileOptions);
@@ -150,9 +149,9 @@ export class ApiService {
 
   // Flickr deprecated ==================
   /**
-     * Busca o NSID do usuário baseado no nome do usuário ou email
-     * @param user email ou email do usuário
-     */
+   * Busca o NSID do usuário baseado no nome do usuário ou email
+   * @param user email ou email do usuário
+   */
   getFlickrNsid(user: string) {
     let userArray = user.split(';;');
     let userParams = new HttpParams();
@@ -171,9 +170,9 @@ export class ApiService {
           userParams = userParams.append('email', userArray[1]);
           break;
         default:
-          return { status: 'erro', detail: 'Ocorreu algo errado com o nome' };
+          return {status: 'erro', detail: 'Ocorreu algo errado com o nome'};
       }
-      const userOptions = { params: userParams };
+      const userOptions = {params: userParams};
 
       return this._http.get(this.flickrUrl, userOptions);
     } catch (err) {
@@ -195,7 +194,7 @@ export class ApiService {
       profileParams = profileParams.append('method', this.flickrProfile);
       profileParams = profileParams.append('user_id', nsid);
 
-      const profileOptions = { params: profileParams };
+      const profileOptions = {params: profileParams};
 
       return this._http.get(this.flickrUrl, profileOptions);
 
@@ -205,9 +204,9 @@ export class ApiService {
   }
 
   /**
- * Método para busca das informações de fotos públicas de um usuário
- * @param nsid NSID do usuário do flickr
- */
+   * Método para busca das informações de fotos públicas de um usuário
+   * @param nsid NSID do usuário do flickr
+   */
   getFlickrPhotos(nsid: string) {
 
     try {
@@ -218,7 +217,7 @@ export class ApiService {
       photoParams = photoParams.append('method', this.flickrFotosPublicas);
       photoParams = photoParams.append('user_id', nsid);
 
-      const photoOptions = { params: photoParams };
+      const photoOptions = {params: photoParams};
 
       return this._http.get(this.flickrUrl, photoOptions);
     } catch (err) {
@@ -230,23 +229,20 @@ export class ApiService {
   // =================
 
 
-
-
-
   // DEPRECATED ============================================================
 
 
   /**
-  * Método para buscar informações do pefil no Freesound com base em um email
-  * @param user nome do usuário para busca de perfil
-  */
+   * Método para buscar informações do pefil no Freesound com base em um email
+   * @param user nome do usuário para busca de perfil
+   */
   getFreesoundProfile(user: string) {
     try {
       let url = `${this.freesoundUrl}${this.freesoundProfile}${user}`;
       let profileParams = new HttpParams();
       profileParams = profileParams.append('token', this.freesoundApiKey);
 
-      const profileOptions = { params: profileParams };
+      const profileOptions = {params: profileParams};
 
       return this._http.get(url, profileOptions);
 
@@ -266,7 +262,7 @@ export class ApiService {
       audioParams = audioParams.append('token', this.freesoundApiKey)
       audioParams = audioParams.append('fields', this.freesoundBaseParams);
 
-      const audioOptions = { params: audioParams };
+      const audioOptions = {params: audioParams};
       return this._http.get(url, audioOptions);
 
     } catch (err) {
