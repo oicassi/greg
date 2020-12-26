@@ -5,7 +5,7 @@
     <app-alert class="alerta"></app-alert>
   </div>
 
-  <app-navbar [currentUser]='currentUser' *ngIf='currentUser'></app-navbar>
+  <app-navbar [currentUser]='currentUser' *ngIf='nav.visible'></app-navbar>
   <router-outlet></router-outlet>
 </div>
 

@@ -1,25 +1,23 @@
-﻿import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+﻿import {HttpClient} from "@angular/common/http";
+import {Injectable} from "@angular/core";
 import * as jwt_decode from 'jwt-decode';
-import { BehaviorSubject, Observable } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
-import { UserService } from 'src/app/core/_services';
-import { environment } from "src/environments/environment";
-import { GenericResponse } from './../../shared/models/responses/generic-response';
-import { Usuario } from './../../shared/models/user';
-import { TokenService } from './token.service';
+import {BehaviorSubject, Observable} from "rxjs";
+import {map, switchMap} from "rxjs/operators";
+import {UserService} from 'src/app/core/_services';
+import {environment} from "src/environments/environment";
+import {GenericResponse} from './../../shared/models/responses/generic-response';
+import {Usuario} from './../../shared/models/user';
+import {TokenService} from './token.service';
 
 
-
-
-@Injectable({ providedIn: "root" })
+@Injectable({providedIn: "root"})
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<Usuario>;
   public currentUser: Observable<Usuario>;
 
   constructor(private http: HttpClient,
-    private tokenService: TokenService,
-    private userService: UserService
+              private tokenService: TokenService,
+              private userService: UserService
   ) {
     this.currentUserSubject = new BehaviorSubject<Usuario>(
       null
@@ -60,7 +58,9 @@ export class AuthenticationService {
         })
       )
       .pipe(
-        switchMap((user) => { return this.userService.getByEmail(user.data.sub) })
+        switchMap((user) => {
+          return this.userService.getByEmail(user.data.sub)
+        })
       )
       .pipe(
         map((socorro: GenericResponse<Usuario>) => {

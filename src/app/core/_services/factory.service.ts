@@ -1,15 +1,15 @@
-import { 
+import {
   AplicativoBase,
+  AplicativoBio,
   AplicativoFlickr,
-  AplicativoFoto, 
+  AplicativoFoto,
   AplicativoFreesound,
   AplicativoGithub,
   AplicativoTags,
-  AplicativoTexto,
-  AplicativoBio
+  AplicativoTexto
 } from '@models/aplicativo';
-import { AplicativosConstants } from '@constants/aplicativos';
-import { Injectable, Component } from '@angular/core';
+import {AplicativosConstants} from '@constants/aplicativos';
+import {Component, Injectable} from '@angular/core';
 
 
 @Injectable({
@@ -17,11 +17,12 @@ import { Injectable, Component } from '@angular/core';
 })
 export class FactoryService {
 
-  constructor() { }
+  constructor() {
+  }
 
   /**
    * Retorna um componente conforme o tipo passado
-   * @param tipo 
+   * @param tipo
    */
   getAplicativo(tipo: string): Component {
     tipo = tipo.toUpperCase();
