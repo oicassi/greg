@@ -1,11 +1,11 @@
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
-import { AplicativoGithub } from '@models/aplicativo';
+import {AplicativoFlickr, AplicativoGithub} from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
 import { ApiService } from '@services/api.service';
 import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplicativo.component";
 import {MatDialog} from "@angular/material/dialog";
-import {Repo} from "@models/aplicativo-item";
+import {Foto, Repo} from "@models/aplicativo-item";
 import {Observable} from "rxjs";
 
 @Component({
@@ -27,9 +27,9 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
   }
 
   ngOnInit() {
-    this.loading = true;
-    this.criaBackupDados();
-    this.loadAll();
+    console.log(this.dados)
+      this.criaBackupDados();
+      this.loadAll();
   }
 
   /**
@@ -37,26 +37,30 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    */
   loadAll(): void {
     this.loading = true;
-    this._appServ.requestGithubData(this.dados).subscribe(
-      (novosDados => {
-        console.log(novosDados)
-        this.dados = novosDados;
-        this.setVariaveisIniciais();
-        this.loading = false;
-      }),
-      ((err) => {
-        console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
-        console.log(err);
-        if (this.dados.username != this.dadosBkp.username) {
-          this.dados = this.dadosBkp;
-          this.criaBackupDados();
-          this.loadAll();
-        } else {
+    if(this.dados.username != ""){
+      this._appServ.requestGithubData(this.dados).subscribe(
+        (novosDados => {
+          this.dados = novosDados;
           this.setVariaveisIniciais();
           this.loading = false;
-        }
-      })
-    )
+        }),
+        ((err) => {
+          console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
+          console.log(err);
+          if (this.dados.username != this.dadosBkp.username) {
+            this.dados = this.dadosBkp;
+            this.criaBackupDados();
+            this.loadAll();
+          } else {
+            this.setVariaveisIniciais();
+            this.loading = false;
+          }
+        })
+      )
+    } else {
+      this.loading = false;
+    }
+
   }
 
   /**
@@ -79,20 +83,27 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    */
   openDialog(request : Observable<AplicativoGithub>): void {
     request.subscribe(repos => {
-      const dialogRef = this.dialog.open(ModalAplicativoComponent, {
+      let dialogRef = this.dialog.open(ModalAplicativoComponent, {
+
         width: '1000px',
         height:'700px',
         data: repos.repo_array
       });
 
       dialogRef.afterClosed().subscribe((result: Repo[]) => {
-        console.log('Coisas escolhidas');
-        this.dados.repo_array = result;
+        if (!result) {
+          this.dados.repo_array = [...this.dadosBkp.repo_array];
+        } else {
+          this.dados.repo_array = result;
+          this.setVariaveisIniciais();
+        }
       });
+    dialogRef = null;
     }, error => {
       console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
       console.log(error);
     })
+
   }
   /**
    * Handler para submit de nome de usuário do github
@@ -100,6 +111,6 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    */
   onUsernameSubmit(username: string) {
     this.dados.username = username;
-    this.loadAll()
+    this.onOpenModal();
   }
 }
