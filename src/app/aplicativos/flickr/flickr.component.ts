@@ -81,16 +81,22 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
    */
   openDialog(request : Observable<AplicativoFlickr>): void {
     request.subscribe(repos => {
-      const dialogRef = this.dialog.open(ModalAplicativoComponent, {
+      let dialogRef = this.dialog.open(ModalAplicativoComponent, {
+
         width: '1000px',
         height:'700px',
         data: repos.photo_array
       });
 
       dialogRef.afterClosed().subscribe((result: Foto[]) => {
-        console.log('Coisas escolhidas');
-        this.dados.photo_array = result;
+        if (!result) {
+          this.dados.photo_array = [...this.dadosBkp.photo_array];
+        } else {
+          this.dados.photo_array = result;
+          this.setVariaveisIniciais();
+        }
       });
+      dialogRef = null;
     }, error => {
       console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
       console.log(error);
@@ -99,6 +105,6 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
 
   onUsernameSubmit(username: string) {
     this.dados.username = username;
-    this.loadAll()
+    this.onOpenModal();
   }
 }
