@@ -10,15 +10,19 @@
       [cdkDropListData]="chosen"
       [cdkDropListConnectedTo]="[doneList]"
       class="example-list2"
+      id="id1"
       (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let item of chosen" cdkDrag>
 
-        <div *ngIf="item?.description; else elseBlock">{{item.name}}</div>
 
-        <ng-template #elseBlock>
-          <img [src]="item.url" alt="Fotografia"
-               style="height: 100px; width: auto">
-        </ng-template>
+        <div>
+          {{item.name}}
+          <hr/>
+ESAOIESAEOHSAOUIESIUSEHESUI
+        </div>
+
+
+
       </div>
     </div>
   </div>
@@ -31,20 +35,17 @@
       #doneList="cdkDropList"
       [cdkDropListData]="received"
       [cdkDropListConnectedTo]="[todoList]"
+      id="id2"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let item of received" cdkDrag>
 
-        <div *ngIf="item?.description; else elseBlock">
+        <div>
           {{item.name}}
           <hr/>
-          {{item.description}}
+          ESAOIESAEOHSAOUIESIUSEHESUI
         </div>
 
-        <ng-template #elseBlock>
-          <img [src]="item.url" alt="Fotografia"
-               style="height: 100px; width: auto">
-        </ng-template>
       </div>
     </div>
   </div>
