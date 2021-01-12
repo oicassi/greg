@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>DESGRAÇA</h1>
+<p>Arraste para <b>Escolhidos</b> os que deseja que apareça em seu portfólio</p>
+<mat-dialog-content>
+<app-drag-drop-component (onChosenChange)="chosen=$event" [received]="received"> </app-drag-drop-component>
+</mat-dialog-content>
+<hr/>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="chosen" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
