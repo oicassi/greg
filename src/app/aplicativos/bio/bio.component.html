@@ -32,7 +32,7 @@
 
 		<!-- Container da imagem -->
 		<div class="bio-profile-pic-container">
-			<img src="{{dados.imagem.url}}" class="bio-profile-pic">
+			<img src="{{dados.imagem ? dados.imagem.url : null}}" alt="Imagem da Bio" class="bio-profile-pic">
 		</div>
 
 		<!-- Container apenas para exibição -->

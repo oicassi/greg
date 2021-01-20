@@ -10,5 +10,11 @@
   <div class="edit-preview-container">
     <app-edit-preview></app-edit-preview>
   </div>
-
+  <button 
+    class="btn btn-primary edit-floating-fixed-button" 
+    (click)="salvarComponentes()"
+    [disabled]="botaoSalvarDisabled"
+  >
+    Salvar componentes
+  </button>
 </div>

@@ -75,3 +75,9 @@
   height: 100vh;
   overflow-y: auto;
 }
+
+.edit-floating-fixed-button {
+  position: fixed; 
+  bottom: 30px; 
+  right: 30px;
+}

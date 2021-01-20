@@ -67,7 +67,7 @@ export class FullpreviewComponent implements OnInit {
 
   voltarParaEdicao(): void {
     this._pagesSrv.visualizarPreview = false;
-    this._router.navigate(['/teste']);
+    this._router.navigate(['/editPage']);
   }
 
   /**

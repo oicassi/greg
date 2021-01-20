@@ -8,6 +8,8 @@
   align-items: center;
   padding: 5px;
   background-color: var(--color-bg-1);
+  height: auto; 
+  min-height: 100vh;
 }
 
 .preview-app-container {

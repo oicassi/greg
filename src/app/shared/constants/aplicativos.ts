@@ -54,6 +54,10 @@ export class AplicativosModels {
 
   static SELECIONAVEIS = [
     {
+      type: 'bio',
+      label: 'Bio'
+    },
+    {
       type: 'flickr',
       label: 'Flickr'
     },

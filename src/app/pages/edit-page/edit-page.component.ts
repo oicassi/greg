@@ -20,6 +20,7 @@ export class EditPageComponent implements OnInit {
   @ViewChild('sidebarButton', {static: false}) sidebarBtn: ElementRef;
   resizeObs: Observable<Event>;
   resizeSubs: Subscription;
+  botaoSalvarDisabled = false;
 
   constructor(
     private _appService: AplicativoService,
@@ -75,6 +76,23 @@ export class EditPageComponent implements OnInit {
       this.sidebar.nativeElement.classList.remove('edit-open-sidebar');
       this.sidebarBtn.nativeElement.classList.remove('edit-open-sidebar-btn');
       this.sidebarButtonIcon = 'menu';
+    }
+  }
+
+  /**
+   * Salvar o estado atual dos componentes
+   */
+  async salvarComponentes():Promise<void> {
+    try {
+      this.botaoSalvarDisabled = true;
+      const response = await this._appService.salvarAplicativos();
+      console.log('Acho que deu boa');
+      console.log(response);
+    } catch (err) {
+      console.log('Ocorreu um erro ao salvar os componentes')
+      console.log(err)
+    } finally {
+      this.botaoSalvarDisabled = false;
     }
   }
 

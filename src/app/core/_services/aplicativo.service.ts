@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import {
@@ -15,6 +16,7 @@ import { Foto, Audio, Repo, Texto } from '@models/aplicativo-item';
 import { AplicativosModels } from '@shared/constants/aplicativos';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ComponenteBackBase, ConversorBackEnd } from '@helpers/conversorBackEnd';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +24,20 @@ import { map } from 'rxjs/operators';
 export class AplicativoService {
 
   aplicativos: AplicativoBase[] = [];
+  baseURL = 'http://localhost:8080'
   constructor(
-    private _apiSrv: ApiService
+    private _apiSrv: ApiService,
+    private _http: HttpClient,
   ) {
     this.aplicativos = [];
-    this.aplicativos.push(this.getMockBio());
-    this.aplicativos.push(this.getMockFlickr());
-    this.aplicativos.push(this.getMockFotos());
-    this.aplicativos.push(this.getMockFreesound());
-    this.aplicativos.push(this.getMockGithub());
+    // this.aplicativos.push(this.getMockBio());
+    // this.aplicativos.push(this.getMockFlickr());
+    // this.aplicativos.push(this.getMockFotos());
+    // this.aplicativos.push(this.getMockFreesound());
+    // this.aplicativos.push(this.getMockGithub());
     // this.aplicativos.push(this.getMockTags());
-    this.aplicativos.push(this.getMockTexto());
+    // this.aplicativos.push(this.getMockTexto());
+    ConversorBackEnd
   }
 
   /**
@@ -66,7 +71,11 @@ export class AplicativoService {
   addAplicativo(aplicativo: AplicativoBase): void {
     // Pegar o order do último aplicativo
     let apps = this.aplicativos.sort((a, b) => a.order - b.order);
-    aplicativo.order = apps[apps.length - 1].order + 1;
+    if (apps && apps.length) {
+      aplicativo.order = apps[apps.length - 1].order + 1;
+    } else {
+      aplicativo.order = 0;
+    }
 
     // Adicionar o aplicativo
     this.aplicativos.push(aplicativo);
@@ -103,6 +112,30 @@ export class AplicativoService {
     }
   }
 
+  async salvarAplicativos(): Promise<void | any> {
+    if (!this.aplicativos || !this.aplicativos.length) {
+      console.log('Sem dados para salvar');
+      return;
+    }
+    console.log('Salvando componentes');
+    let componentesParaSalvar : Array<ComponenteBackBase> = [];
+    componentesParaSalvar = this.aplicativos.map((app) => {
+      return ConversorBackEnd.montarPayload(app);
+    })
+    console.log(componentesParaSalvar[0]);
+    const headers = new HttpHeaders();
+   headers.append('Content-Type', 'application/json');
+
+    const url = `${this.baseURL}/componente/`;
+    console.log(url);
+    return await this._http.post(url, componentesParaSalvar[0], {
+      headers
+    }).toPromise();
+
+  }
+
+
+
   /**
    * Retorna a lista dos aplicativos possíveis de serem selecioinados
    */
@@ -122,6 +155,9 @@ export class AplicativoService {
    * @param appFreesound Dados do Freesound que serão atualizados
    */
   requestFreesoundData(appFreesound: AplicativoFreesound): Observable<AplicativoFreesound> {
+    if (!appFreesound || !appFreesound.username || appFreesound.username === '') {
+      return of(appFreesound);
+    }
     return this._apiSrv.getFreeSoundData(appFreesound.username).pipe(
       map(([profile, audios]) => this.handleFreesoundData(profile, audios)),
       map((appGerado) => {
@@ -182,6 +218,9 @@ export class AplicativoService {
    * @param appGithub Dados do Github que serão atualiados
    */
   requestGithubData(appGithub: AplicativoGithub): Observable<AplicativoGithub> {
+    if (!appGithub || !appGithub.username || appGithub.username === '') {
+      return of(appGithub);
+    }
     return this._apiSrv.getGithubData(appGithub.username).pipe(
       map(([profile, repos]) => this.handleGitHubData(profile, repos)),
       map((appGerado) => {
@@ -249,7 +288,10 @@ export class AplicativoService {
    * @param appFlickr Dados do Flickr que serão atualizado
    */
   requestFlickrData(appFlickr: AplicativoFlickr): Observable<AplicativoFlickr> {
-    return this._apiSrv.getFlickrData('Cassiano Kruchelski').pipe(
+    if (!appFlickr || !appFlickr.username || appFlickr.username === '') {
+      return of(appFlickr);
+    }
+    return this._apiSrv.getFlickrData(appFlickr.username).pipe(
       map(([profile, fotos]) => this.handleFlickrData(profile, fotos)),
       map((appGerado) => {
         appFlickr.photo_array = appGerado.photo_array;
@@ -308,11 +350,6 @@ export class AplicativoService {
     return novasFotos;
   }
 
-  // REQUEST FLICKR
-
-
-  //================
-
 
   private getMockBio(): AplicativoBio {
     let dado = new AplicativoBio();
@@ -343,21 +380,6 @@ export class AplicativoService {
     dado.full_name = '';
     dado.alias = '';
     dado.photo_array = [];
-
-    // let foto1 = new Foto();
-    // foto1.name = 'Foto 1 Flickr';
-    // foto1.url = 'https://c.files.bbci.co.uk/CF3C/production/_111925035_penguino.jpg';
-    // dado.photo_array.push(foto1);
-
-    // let foto2 = new Foto();
-    // foto2.name = 'Foto 2 Flickr';
-    // foto2.url = 'https://www.wallpaperup.com/uploads/wallpapers/2014/04/10/328993/e8afca84beb2cf9f70fb2574423d0fc8-700.jpg';
-    // dado.photo_array.push(foto2);
-
-    // let foto3 = new Foto();
-    // foto3.name = 'Foto 3 Flickr';
-    // foto3.url = 'https://i.ytimg.com/vi/0syrKzXfKuI/hqdefault.jpg';
-    // dado.photo_array.push(foto3);
 
     return dado;
   }
@@ -399,46 +421,6 @@ export class AplicativoService {
 
     dado.audio_array = [];
 
-    // let audio1 = new Audio();
-    // audio1.name = 'Áudio 1';
-    // audio1.description = 'Este é o áudio 1';
-    // audio1.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3';
-    // audio1.tags = ['opa', 'ahh', 'papapapa'];
-
-    // dado.audio_array.push(audio1);
-
-    // let audio2 = new Audio();
-    // audio2.name = 'Áudio 2';
-    // audio2.description = 'Este é o áudio 2';
-    // audio2.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    // audio2.tags = ['tnc', 'tccdocaralho', 'tocansado'];
-
-    // dado.audio_array.push(audio2);
-
-    // let audio3 = new Audio();
-    // audio3.name = 'Áudio 3';
-    // audio3.description = 'Este é o áudio 3';
-    // audio3.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    // audio3.tags = ['tralalal', 'eletroniquinha', 'sonzera'];
-
-    // dado.audio_array.push(audio3);
-
-    // let audio4 = new Audio();
-    // audio4.name = 'Áudio 4';
-    // audio4.description = 'Este é o áudio 4';
-    // audio4.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    // audio4.tags = ['fujaloko', 'tudoigual', ':(', 'musicapesada'];
-
-    // dado.audio_array.push(audio4);
-
-    // let audio5 = new Audio();
-    // audio5.name = 'Áudio 5';
-    // audio5.description = 'Este é o áudio 5';
-    // audio5.url = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
-    // audio5.tags = ['ferias', 'cade', 'coronavirusvaitomarnocu'];
-
-    // dado.audio_array.push(audio5);
-
     return dado;
   }
 
@@ -457,37 +439,6 @@ export class AplicativoService {
 
     dado.repo_array = [];
 
-    // let repo1 = new Repo();
-    // repo1.name = 'grades-simulator-control';
-    // repo1.description = 'Simple application (to learn and practice react) that simulates a grading system for three students ';
-    // repo1.url = 'https://github.com/kruchelski/grades-control-simulator';
-    // repo1.data = '10/10/1929';
-
-    // dado.repo_array.push(repo1);
-
-    // let repo2 = new Repo();
-    // repo2.name = 'country-search';
-    // repo2.description = 'An application made in react for learning purposes to list countries with their flags and population number ';
-    // repo2.url = 'https://github.com/kruchelski/country-search';
-    // repo2.data = '31/12/2340';
-
-    // dado.repo_array.push(repo2);
-
-    // let repo3 = new Repo();
-    // repo3.name = 'simulated-vote-viewer';
-    // repo3.description = 'Simple application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
-    // repo3.url = 'https://github.com/kruchelski/simulated-vote-viewer';
-    // repo3.data = '31/12/2340';
-
-    // dado.repo_array.push(repo3);
-
-    // let repo4 = new Repo();
-    // repo4.name = 'simulaasdfasfdteasdfd-vote-asdf';
-    // repo4.description = 'Simplaasdfa asdf asdf asdfe application (to learn and practice react and express js) that simulates a votes in the back-end and visualizes it in the front-end ';
-    // repo4.url = 'https://github.com/kruchelski/simulated-vote-viewer';
-    // repo4.data = '31/12/2340';
-
-    // dado.repo_array.push(repo4);
     return dado;
   }
 

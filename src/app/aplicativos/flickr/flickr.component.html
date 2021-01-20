@@ -46,7 +46,7 @@
     <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
       <app-input-group [label]="'Username do Flickr'" [inputType]="'text'"
         [placeholder]="'Insira seu username do Flickr'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
-        [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+        [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submitInput)="onUsernameSubmit($event)">
       </app-input-group>
     </div>
   </div>

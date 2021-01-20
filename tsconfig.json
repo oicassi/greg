@@ -24,7 +24,8 @@
       "@pages/*": ["src/app/pages/*"],
       "@shared/*": ["src/app/shared/*"],
       "@constants/*": ["src/app/shared/constants/*"],
-      "@cssbasic/*": ["src/app/assets/scss/_basics/*"]
+      "@cssbasic/*": ["src/app/assets/scss/_basics/*"],
+      "@helpers/*": ["src/app/core/_helpers/*"]
       
     }
   },

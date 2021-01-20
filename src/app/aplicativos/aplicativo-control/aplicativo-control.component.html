@@ -9,7 +9,7 @@
   <div *ngIf="isSelecionado" class="app-control-form-dropdown fade-in-geral">
 
     <!-- Dropdown -->
-    <div class="dropdown app-control-dropdown" *ngIf="!isExistente && type !== 'bio'">
+    <div class="dropdown app-control-dropdown" *ngIf="!isExistente">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false" [disabled]="isExistente"
         [ngClass]="isTypeInvalid ? 'btn-outline-danger': 'btn-outline-primary'">

@@ -8,7 +8,7 @@
     <div class="config-input-username-container" *ngIf="hasCheckedApi && checkComponenteApi()">
       <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']"
         [placeholder]="textosInputApi.placeholder" [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
-        [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+        [campoObrigatorioMsg]="'O username é obrigatório'" (submitInput)="onUsernameSubmit($event)">
       </app-input-group>
     </div>
 

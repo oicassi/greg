@@ -73,6 +73,8 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    * @param username 
    */
   onUsernameSubmit(username: string) {
+    console.log('bagulho dentro do github')
+    console.log(username);
     this.dados.username = username;
     this.loadAll()
   }
