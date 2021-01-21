@@ -1,4 +1,6 @@
+import { AplicativoBio } from './../../shared/models/aplicativo';
 import { AplicativoBase, AplicativoTexto } from '@models/aplicativo';
+import { FileGregs } from '@models/file-greg';
 export class ConversorBackEnd {
 
   /**
@@ -11,7 +13,10 @@ export class ConversorBackEnd {
     }
     switch (app.type) {
       case 'texto':
-        return this.montarTextoPayload(app as AplicativoTexto)
+        return this.montarTextoPayload(app as AplicativoTexto);
+      case 'bio':
+        return this.montarBioPayload(app as AplicativoBio);
+
     }
   }
 
@@ -34,23 +39,45 @@ export class ConversorBackEnd {
 
     return componente;
   }
+
+  /**
+   * Constrói o payload para salvar um componente do tipo bio
+   * @param app AplicativoBio base
+   */
+  static montarBioPayload(app: AplicativoBio): ComponenteBio {
+    let componente = new ComponenteBio();
+    componente.titulo = app.component_name;
+    componente.mostrarTitulo = app.showAppTitle;
+    componente.backgroundColor = app.bgColor;
+    componente.foregroundColor = app.fgColor;
+    componente.texto = new TextoBack();
+    componente.texto.titulo = app.component_name;
+    componente.texto.id = null;
+    componente.texto.descricao = app.texto;
+    componente.id = null;
+    componente.imagem = app.imagem;
+    componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+
+    return componente;
+  }
 }
 
 export class ComponenteBackBase {
   id: number = null;
   titulo: string = '';
-}
-
-export class ComponenteTexto extends ComponenteBackBase {
-
-  tipo: string = 'ComponenteTexto';
-  mostrarTitulo: boolean = true;
   backgroundColor: string = '';
   foregroundColor: string = '';
-  textos: Array<TextoBack> = []
-
+  mostrarTitulo: boolean = true;
 }
-
+export class ComponenteTexto extends ComponenteBackBase {
+  tipo: string = 'ComponenteTexto';
+  textos: Array<TextoBack> = [];
+}
+export class ComponenteBio extends ComponenteBackBase {
+  tipo: string = 'ComponenteBio';
+  imagem: FileGregs = null;
+  texto: TextoBack = null;
+}
 export class TextoBack {
   id: number = null;
   titulo: string = '';

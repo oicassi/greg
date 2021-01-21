@@ -123,16 +123,23 @@ export class AplicativoService {
     componentesParaSalvar = this.aplicativos.map((app) => {
       return ConversorBackEnd.montarPayload(app);
     })
-    console.log(componentesParaSalvar[0]);
+    console.log(componentesParaSalvar);
     const headers = new HttpHeaders();
    headers.append('Content-Type', 'application/json');
 
     const url = `${this.baseURL}/componente/`;
     console.log(url);
-    return await this._http.post(url, componentesParaSalvar[0], {
-      headers
-    }).toPromise();
 
+    // Coloca as requests no array de promises
+    let promises = []
+
+    componentesParaSalvar.forEach((comp) => {
+      promises.push(this._http.post(url, comp, {
+        headers
+      }).toPromise())
+    })
+    console.log('AHHHHH');
+    return await Promise.all(promises);
   }
 
 
