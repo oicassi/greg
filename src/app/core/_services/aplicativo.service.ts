@@ -17,6 +17,7 @@ import { AplicativosModels } from '@shared/constants/aplicativos';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ComponenteBackBase, ConversorBackEnd } from '@helpers/conversorBackEnd';
+import { FileGregs } from '@models/file-greg';
 
 @Injectable({
   providedIn: 'root'
@@ -356,9 +357,7 @@ export class AplicativoService {
     dado.component_name = 'Bio';
     dado.bgColor = '#bebebe';
     dado.fgColor = '#444444';
-    dado.imagem = new Foto();
-    dado.imagem.url = 'https://i.pinimg.com/originals/8f/24/86/8f248672f797fe7d2080039232fc7605.jpg';
-    dado.imagem.name = 'Profile Pic';
+    dado.imagem = null;
     dado.order = -1;
     dado.type = 'bio';
     dado.texto = "Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine Surveillance audio recorder in a dried-up creek And we're headed to the temporary shelter at the roller rink Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Airplane station is a pretty great place to hide Live old-time music and it's warm inside Every woman and child and man in the canyon land In a trance and wandering around in the canyon land Antique photos of celebrities Samsung black-and-white fade-away qualities Every woman and child and man in the canyon land In a trance and wandering about in the canyon land Surveillance video recorder hidden in a tree You and I are on the lawn and it's focusing in on me Every woman and child and man In a trance and wandering around in the canyon land Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a forgotten dream Everything about us is a lost machine Everything about us is a lost machine Everything about us is a lost machine Everything about we is a final dream Everything about us is a lost machine";

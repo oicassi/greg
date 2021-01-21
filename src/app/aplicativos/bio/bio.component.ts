@@ -1,3 +1,4 @@
+import { FileGregs } from './../../shared/models/file-greg';
 import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
@@ -81,8 +82,11 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   /**
    * Handler ao clicar no botão de input arquivo
    */
-  onInputTrocarFoto():void {
-    console.log(`[${this.dados.component_name}] clicado no botão de input de arquivos`);
+  onInputTrocarFoto(event: FileGregs):void {
+    console.log('Olha o que chegou no input trocar foto');
+    console.log(event);
+    this.dados.imagem = event;
+    this.dadosBkp.imagem = event;
   }
 
   /**

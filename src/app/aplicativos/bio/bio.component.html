@@ -20,7 +20,7 @@
 			<app-config-menu-comp
 				[dados]="dados" 
 				(colorChange)="onColorChange($event)" 
-				(inputArquivo)="onInputTrocarFoto()"
+				(inputArquivo)="onInputTrocarFoto($event)"
 			>
 			</app-config-menu-comp>
 		</div>
@@ -31,8 +31,8 @@
 
 
 		<!-- Container da imagem -->
-		<div class="bio-profile-pic-container">
-			<img src="{{dados.imagem ? dados.imagem.url : null}}" alt="Imagem da Bio" class="bio-profile-pic">
+		<div class="bio-profile-pic-container" *ngIf="dados.imagem && dados.imagem.base64Img">
+			<img [src]="dados.imagem && dados.imagem.base64Img ? dados.imagem.base64Img : null" alt="Imagem da Bio" class="bio-profile-pic">
 		</div>
 
 		<!-- Container apenas para exibição -->

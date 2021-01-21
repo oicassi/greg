@@ -1,4 +1,5 @@
 import { Foto, Repo, Audio, Texto } from '@models/aplicativo-item';
+import { FileGregs } from './file-greg';
 
 /**
  * Comum para todos os aplicativos
@@ -72,5 +73,5 @@ export class AplicativoTags extends AplicativoBase {
  */
 export class AplicativoBio extends AplicativoBase {
   texto: string = '';
-  imagem: Foto = null;
+  imagem: FileGregs = null;
 }
