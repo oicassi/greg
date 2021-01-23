@@ -100,7 +100,6 @@ export class AplicativosModels {
 
   static MODAL = [
     'flickr',
-    'fotos',
     'freesound',
     'github',
   ]

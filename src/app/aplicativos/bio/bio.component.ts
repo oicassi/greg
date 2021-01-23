@@ -36,9 +36,22 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   initForms(): void {
     // Inicializa ao menos um formulário de texto
     this.form = this._fb.group({
-      'texto': [(this.dados.texto || ''),
+      'texto': [(this.dados.texto.body || ''),
       [Validators.required]],
-    })
+      'title': [(this.dados.texto.title || ''),
+      [Validators.required]],
+    });
+    
+  }
+
+  /**
+   * Retorna as cores customizadas para as bordas do espaço do texto
+   */
+  getCustomElementTitleStyle() {
+    let color = this.dados.fgColor || '#444444';
+    return {
+      'border-bottom':`1px solid ${color}`
+    }
   }
 
   /**
@@ -47,20 +60,26 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   salvarTexto(): void {
 
     // Marcar o controle que que está sendo salvo como touched e dirty
-    let control = this.form.get('texto');
-    control.markAsDirty({ onlySelf: true });
-    control.markAsTouched({ onlySelf: true });
+    let controlTexto = this.form.get('texto');
+    controlTexto.markAsDirty({ onlySelf: true });
+    controlTexto.markAsTouched({ onlySelf: true });
+    let controlTitle = this.form.get('title');
+    controlTitle.markAsDirty({ onlySelf: true });
+    controlTitle.markAsTouched({ onlySelf: true });
 
     // Se tiver algum erro, cancela a ação
-    if (this.form.get('texto').errors ) {
+    if (this.form.get('texto').errors || this.form.get('title').errors) {
       return;
     }
 
     // Recupera o texto sendo salvo
     const texto = this.form.get('texto').value;
+    const title = this.form.get('title').value;
 
     // Atualiza a informação
-    this.dados.texto = texto;
+    this.dados.texto.body = texto;
+    this.dados.texto.title = title;
+
   }
 
   /**
@@ -68,7 +87,8 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
    * @param indice Índice do texto e título sendo editados
    */
   cancelarTexto(): void {
-    this.form.get('texto').setValue(this.dados.texto);
+    this.form.get('texto').setValue(this.dados.texto.body);
+    this.form.get('title').setValue(this.dados.texto.title)
   }
 
   /**
@@ -77,14 +97,13 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
    */
   limparTexto(): void {
     this.form.get('texto').setValue('');
+    this.form.get('title').setValue('');
   }
 
   /**
    * Handler ao clicar no botão de input arquivo
    */
   onInputTrocarFoto(event: FileGregs):void {
-    console.log('Olha o que chegou no input trocar foto');
-    console.log(event);
     this.dados.imagem = event;
     this.dadosBkp.imagem = event;
   }
@@ -104,8 +123,9 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
    */
   checkAcoesDisabled(): boolean{
     let texto = this.form.get('texto').value;
+    let title = this.form.get('title').value;
 
-    if (this.dados.texto !== texto) {
+    if (this.dados.texto.body !== texto || this.dados.texto.title !== title) {
         return false;
       }
     return true;

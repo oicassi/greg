@@ -1,5 +1,4 @@
-import { AplicativoBio } from './../../shared/models/aplicativo';
-import { AplicativoBase, AplicativoTexto } from '@models/aplicativo';
+import { AplicativoBase, AplicativoTexto, AplicativoBio, AplicativoFoto } from '@models/aplicativo';
 import { FileGregs } from '@models/file-greg';
 export class ConversorBackEnd {
 
@@ -16,7 +15,8 @@ export class ConversorBackEnd {
         return this.montarTextoPayload(app as AplicativoTexto);
       case 'bio':
         return this.montarBioPayload(app as AplicativoBio);
-
+      case 'fotos':
+        return this.montarFotoPayload(app as AplicativoFoto);
     }
   }
 
@@ -51,16 +51,102 @@ export class ConversorBackEnd {
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
     componente.texto = new TextoBack();
-    componente.texto.titulo = app.component_name;
+    componente.texto.titulo = app.texto.title;
     componente.texto.id = null;
-    componente.texto.descricao = app.texto;
+    componente.texto.descricao = app.texto.body;
     componente.id = null;
-    componente.imagem = app.imagem;
-    componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
-
+    componente.imagem = app.imagem ? Object.assign({}, app.imagem) : null;
+    if (componente.imagem && componente.imagem.base64Img) {
+      componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+    }
+    
     return componente;
   }
+  
+  /**
+   * Constrói o payload para salvar um componente do tipo foto
+   * @param app AplicativoFoto base
+   */
+  static montarFotoPayload(app: AplicativoFoto): ComponenteFoto {
+    let componente = new ComponenteFoto();
+    componente.titulo = app.component_name;
+    componente.mostrarTitulo = app.showAppTitle;
+    componente.backgroundColor = app.bgColor;
+    componente.foregroundColor = app.fgColor;
+    componente.id = null;
+    componente.imagem = app.imagem ? Object.assign({}, app.imagem) : null;
+    if (componente.imagem && componente.imagem.base64Img) {
+      componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+    }
+    
+    return componente;
+  }
+
+  /**
+   * Seletor de tipo de componente para fazer atribuição de id e id dos objetos internos
+   * @param response Resposta do server
+   * @param app Aplicativo que será feita atribuição dos ids
+   */
+  static atribuirId(response: any, app: AplicativoBase): void {
+    if (!response || !app) {
+      return;
+    }
+
+    switch(app.type) {
+      case 'bio':
+        return this.atribuirIdComponenteBio(response, app as AplicativoBio);
+      case 'texto':
+        return this.atribuirIdComponenteTexto(response, app as AplicativoTexto);
+      case 'fotos':
+        return this.atribuirIdComponenteFoto(response, app as AplicativoFoto);
+    }
+  }
+
+  /**
+   * Atribui os ids retornados do backend para um componente do tipo Bio
+   * @param response Resposta do servidor
+   * @param app Aplicativo que será feita a atribuição dos IDs
+   */
+  static atribuirIdComponenteBio(response: any, app: AplicativoBio): void {
+    app.id = response.id;
+    if (response.imagem) {
+      app.imagem.id = response.imagem.id
+    }
+
+    if (response.texto) {
+      app.texto.id = response.texto.id;
+    }
+    console.log('DJANHO')
+    console.log(app);
+    console.log(app.id);
+    console.log(app.imagem);
+    console.log(app.imagem.id);
+  }
+
+  /**
+   * Atribui os ids retornados do backend para um componente do tipo Texto
+   * @param response Resposta do servidor
+   * @param app Aplicativo que será feita a atribuição dos IDs
+   */
+  static atribuirIdComponenteTexto(response: any, app: AplicativoTexto): void {
+    app.id = response.id;
+    for (let i = 0; i < app.texto_array.length; i++) {
+      app.texto_array[i].id = response.textos[i].id;
+    }
+  }
+
+  /**
+   * Atribui os ids retornados do backend para um componente do tipo Foto
+   * @param response Resposta do servidor
+   * @param app Aplicativo que será feita a atribuição dos IDs
+   */
+  static atribuirIdComponenteFoto(response: any, app: AplicativoFoto): void {
+    app.id = response.id;
+    app.imagem.id = response.imagem.id;
+  }
+
 }
+
 
 export class ComponenteBackBase {
   id: number = null;
@@ -77,6 +163,11 @@ export class ComponenteBio extends ComponenteBackBase {
   tipo: string = 'ComponenteBio';
   imagem: FileGregs = null;
   texto: TextoBack = null;
+}
+
+export class ComponenteFoto extends ComponenteBackBase {
+  tipo: string = 'ComponenteImagem'
+  imagem: FileGregs = null;
 }
 export class TextoBack {
   id: number = null;

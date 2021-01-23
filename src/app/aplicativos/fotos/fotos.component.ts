@@ -1,3 +1,4 @@
+import { FileGregs } from './../../shared/models/file-greg';
 import { AplicativoFoto } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
@@ -33,7 +34,8 @@ export class FotosComponent extends AplicativoGenericoComponent implements OnIni
   /**
    * Handler ao clicar no botão de input arquivo
    */
-  onInputCarregarFoto():void {
-    console.log(`[${this.dados.component_name}] clicado no botão de input de arquivos`);
+  onInputTrocarFoto(event: FileGregs):void {
+    this.dados.imagem = event;
+    this.dadosBkp.imagem = event;
   }
 }

@@ -39,6 +39,7 @@ export class EditPageComponent implements OnInit {
       .subscribe((event) => {
       this.handleResize();
     })
+    this.loading = false;
   }
 
   ordenarAppList(list: AplicativoBase[]): void {
@@ -83,16 +84,24 @@ export class EditPageComponent implements OnInit {
    * Salvar o estado atual dos componentes
    */
   async salvarComponentes():Promise<void> {
+    this.loading = true;
     try {
       this.botaoSalvarDisabled = true;
       const response = await this._appService.salvarAplicativos();
       console.log('Acho que deu boa');
-      console.log(response);
+      if (response) {
+        console.log(response);
+        this._appService.atribuirIdsAposSalvar(response);
+        console.log('Será que deu certo????');
+        console.log(this.appList);
+      }
+
     } catch (err) {
       console.log('Ocorreu um erro ao salvar os componentes')
       console.log(err)
     } finally {
       this.botaoSalvarDisabled = false;
+      this.loading = false;
     }
   }
 

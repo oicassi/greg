@@ -13,6 +13,7 @@ export class AplicativoBase {
   isEdit: boolean = false;
   isEditable: boolean = false;
   showAppTitle: boolean = true;
+  id: number = null;
 }
 
 /**
@@ -51,7 +52,7 @@ export class AplicativoFreesound extends AplicativoApi {
  * Classe com os dados do componente fotos
  */
 export class AplicativoFoto extends AplicativoBase {
-  photo_array: Foto[] = [];
+  imagem: FileGregs = null;
 }
 
 /**
@@ -72,6 +73,6 @@ export class AplicativoTags extends AplicativoBase {
  * Classe com os dados da bio do usuário
  */
 export class AplicativoBio extends AplicativoBase {
-  texto: string = '';
+  texto: Texto = new Texto();
   imagem: FileGregs = null;
 }

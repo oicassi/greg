@@ -30,6 +30,7 @@ export class Audio {
  * Classe de objetos tipo texto
  */
 export class Texto {
+  id: number = null;
   title: string = '';
   body: string = '';
 }
