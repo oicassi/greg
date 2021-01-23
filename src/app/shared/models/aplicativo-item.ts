@@ -2,6 +2,7 @@
  * Class de objetos do tipo Foto (Flickr ou fotos locais)
  */
 export class Foto {
+  id: number = null;
   name: string = '';
   url: string = '';
 }
@@ -10,6 +11,7 @@ export class Foto {
  * Classe de objetos tipo Repositório (Github)
  */
 export class Repo {
+  id: number = null;
   name: string = '';
   description: string = '';
   url: string = '';
@@ -20,6 +22,7 @@ export class Repo {
  * Class de objetos tipo Audio (Freesound)
  */
 export class Audio {
+  id: number = null;
   name: string = '';
   description: string = '';
   url: string = '';
