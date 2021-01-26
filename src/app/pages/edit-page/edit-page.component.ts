@@ -31,6 +31,7 @@ export class EditPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.carregarComponentes()
     this.resizeSubs = this.resizeObs
       .pipe(
         debounceTime(100),
@@ -41,6 +42,17 @@ export class EditPageComponent implements OnInit {
     })
     this.loading = false;
   }
+
+  carregarComponentes() {
+    this._appService.carregarAplicativos().subscribe(resposta => {
+      console.log('Olha so que coisa');
+      console.log(resposta);
+    }, (err => {
+      console.log('Mas ocorreu um erro bem chato');
+      console.log(err)
+    }))
+  }
+
 
   ordenarAppList(list: AplicativoBase[]): void {
     list.sort((a, b) => a.order - b.order);

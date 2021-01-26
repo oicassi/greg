@@ -1,3 +1,5 @@
+import { AuthenticationService } from 'src/app/core/_services';
+import { UserService } from './user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
@@ -14,10 +16,13 @@ import {
 } from '@models/aplicativo';
 import { Foto, Audio, Repo, Texto } from '@models/aplicativo-item';
 import { AplicativosModels } from '@shared/constants/aplicativos';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ComponenteBackBase, ConversorBackEnd } from '@helpers/conversorBackEnd';
 import { FileGregs } from '@models/file-greg';
+import { GenericResponse } from '@models/responses/generic-response';
+import { UserConfigs } from '@models/user-configs';
+import { Pagina } from '@models/pagina';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +34,8 @@ export class AplicativoService {
   constructor(
     private _apiSrv: ApiService,
     private _http: HttpClient,
+    private _userSrv: UserService,
+    private _authSrv: AuthenticationService
   ) {
     this.aplicativos = [];
     // this.aplicativos.push(this.getMockBio());
@@ -113,6 +120,49 @@ export class AplicativoService {
     }
   }
 
+  carregarAplicativos() {
+    // Recupera a URL da página
+    return this._userSrv.getUser().pipe(
+      mergeMap((respostaUser: GenericResponse<UserConfigs>) => {
+        if (!respostaUser || !respostaUser.data || !respostaUser.data.urlPagina) {
+          throw new Error('Não foi encontada a URL da página');
+        }
+        console.log('GET USER');
+        console.log(respostaUser);
+        return this._http.get(`${this.baseURL}/pagina/${respostaUser.data.urlPagina}`).pipe(
+          mergeMap((respostaPagina: GenericResponse<any>) => {
+            if (!respostaPagina || !respostaPagina.data) {
+              throw new Error('Não foi encontrada a página');
+            }
+            console.log('GET PAGE');
+            console.log(respostaPagina)
+            if (!respostaPagina.data.pagina.componentes || !respostaPagina.data.pagina.componentes.length) {
+              console.log('Entao nao achou nada nos componentes')
+              return of([])
+            }
+            const { componentes } = respostaPagina.data.pagina;
+            console.log('COMPONENTES');
+            console.log(componentes);
+            let requisicoes = componentes.map(comp => {
+              return this._http.get(`${this.baseURL}/componente/${comp.id}`)
+            })
+            console.log('REQUISICOES');
+            console.log(requisicoes)
+            return forkJoin(requisicoes);
+          })
+        )
+      }),
+      catchError(err => {
+        console.log('Erro no catchError');
+        console.log(err);
+        throw err;
+      })
+    )
+  }
+
+  /**
+   * Salva novos componentes ou altera os existentes
+   */
   async salvarAplicativos(): Promise<void | any> {
     if (!this.aplicativos || !this.aplicativos.length) {
       console.log('Sem dados para salvar');
@@ -162,8 +212,6 @@ export class AplicativoService {
     }
     return await Promise.all(promises);
   }
-
-
 
   /**
    * Retorna a lista dos aplicativos possíveis de serem selecioinados
