@@ -26,6 +26,7 @@ export class ConversorBackEnd {
    */
   static montarTextoPayload(app: AplicativoTexto): ComponenteTexto {
     let componente = new ComponenteTexto();
+    componente.id = app.id || null;
     componente.titulo = app.component_name;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
@@ -34,6 +35,7 @@ export class ConversorBackEnd {
       let novoTexto = new TextoBack();
       novoTexto.titulo = texto.title;
       novoTexto.descricao = texto.body
+      novoTexto.id = texto.id || null;
       return novoTexto;
     })
 
@@ -46,15 +48,15 @@ export class ConversorBackEnd {
    */
   static montarBioPayload(app: AplicativoBio): ComponenteBio {
     let componente = new ComponenteBio();
+    componente.id = app.id || null;
     componente.titulo = app.component_name;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
     componente.texto = new TextoBack();
     componente.texto.titulo = app.texto.title;
-    componente.texto.id = null;
+    componente.texto.id = app.texto.id || null;
     componente.texto.descricao = app.texto.body;
-    componente.id = null;
     componente.imagem = app.imagem ? Object.assign({}, app.imagem) : null;
     if (componente.imagem && componente.imagem.base64Img) {
       componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
@@ -69,6 +71,7 @@ export class ConversorBackEnd {
    */
   static montarFotoPayload(app: AplicativoFoto): ComponenteFoto {
     let componente = new ComponenteFoto();
+    componente.id = app.id || null;
     componente.titulo = app.component_name;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
@@ -150,6 +153,7 @@ export class ConversorBackEnd {
 
 export class ComponenteBackBase {
   id: number = null;
+  tipo: string = null;
   titulo: string = '';
   backgroundColor: string = '';
   foregroundColor: string = '';

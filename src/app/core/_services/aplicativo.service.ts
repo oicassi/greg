@@ -120,25 +120,46 @@ export class AplicativoService {
     }
     console.log('Salvando componentes');
     let componentesParaSalvar : Array<ComponenteBackBase> = [];
-    componentesParaSalvar = this.aplicativos.map((app) => {
-      return ConversorBackEnd.montarPayload(app);
+    let componentesParaAlterar = {
+      id: null,
+      url: null,
+      componentes: []
+    }
+
+    this.aplicativos.forEach((app) => {
+      let comp = ConversorBackEnd.montarPayload(app);
+      if (app.id !== null && app.id !== undefined) {
+        comp.tipo = null;
+        componentesParaAlterar.componentes.push(comp);
+      } else {
+        componentesParaSalvar.push(comp);
+      }
     })
+    // componentesParaSalvar = this.aplicativos.map((app) => {
+    //   return ConversorBackEnd.montarPayload(app);
+    // })
     console.log(componentesParaSalvar);
+    console.log('Alterando componentes');
+    console.log(componentesParaAlterar);
     const headers = new HttpHeaders();
    headers.append('Content-Type', 'application/json');
 
-    const url = `${this.baseURL}/componente/`;
-    console.log(url);
+    const urlSalvar = `${this.baseURL}/componente/`;
+    const urlAlterar = `${this.baseURL}/pagina/`;
 
     // Coloca as requests no array de promises
     let promises = []
 
     componentesParaSalvar.forEach((comp) => {
-      promises.push(this._http.post(url, comp, {
+      promises.push(this._http.post(urlSalvar, comp, {
         headers
       }).toPromise())
     })
-    console.log('AHHHHH');
+    if (componentesParaAlterar && componentesParaAlterar.componentes && componentesParaAlterar.componentes.length) {
+      promises.push(this._http.put(urlAlterar, componentesParaAlterar, {
+        headers
+      }).toPromise())
+    }
     return await Promise.all(promises);
   }
 
@@ -183,6 +204,9 @@ export class AplicativoService {
    * @param audios Informações sobre os áudios
    */
   handleFreesoundData(profile: any, audios: any): AplicativoFreesound {
+
+    console.log('%cFREESOUND AUDIOS', 'color:blue');
+    console.log(audios);
 
     let freeSound = new AplicativoFreesound();
     freeSound.audio_array = this.handleFreesoundAudios(audios);
@@ -249,6 +273,9 @@ export class AplicativoService {
     if (profile && profile.message && profile.message === 'Not Found') {
       throw new Error('Usuário do Github não encontrado');
     }
+
+    console.log('%cGITHUB REPOOS', 'color: red');
+    console.log(repos);
 
     let novoGithub = new AplicativoGithub();
     if (!profile) {
@@ -324,6 +351,9 @@ export class AplicativoService {
     if (fotos && fotos.stat === 'fail') {
       throw new Error('Erro ao buscar fotos do perfil');
     }
+
+    console.log('%cFLICKR FOTOS', 'color: green');
+    console.log(fotos);
 
     let novoFlickr = new AplicativoFlickr();
 
@@ -484,8 +514,14 @@ export class AplicativoService {
    * @param response Resposta dos componentes salvos
    */
   atribuirIdsAposSalvar(response: any[]): void {
-    for (let i = 0; i < this.aplicativos.length; i++) {
-      ConversorBackEnd.atribuirId(response[i].data, this.aplicativos[i]);
+    let appsParaAtribuir = []
+    this.aplicativos.forEach((app) => {
+      if (app.id === null || app.id === undefined) {
+        appsParaAtribuir.push(app);
+      }
+    })
+    for (let i = 0; i < appsParaAtribuir.length; i++) {
+      ConversorBackEnd.atribuirId(response[i].data, appsParaAtribuir[i]);
     }
   }
 
