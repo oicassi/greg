@@ -5,6 +5,7 @@ import { FactoryService } from '@services/factory.service';
 import { AplicativoService } from '@services/aplicativo.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AplicativoBase } from '@models/aplicativo';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -24,6 +25,7 @@ export class EditPageComponent implements OnInit {
 
   constructor(
     private _appService: AplicativoService,
+    private _userSrv: UserService,
     public factoryService: FactoryService
   ) {
     this.loading = true;
@@ -43,10 +45,24 @@ export class EditPageComponent implements OnInit {
     this.loading = false;
   }
 
-  carregarComponentes() {
-    this._appService.carregarAplicativos().subscribe(resposta => {
+  async carregarComponentes() {
+    let urlUser;
+    try {
+      const resposta = await this._userSrv.getUser();
+      if (resposta && resposta['data'] && resposta['data'].urlPagina) {
+        urlUser = resposta['data']['urlPagina'];
+      } else {
+        throw new Error('Não foi possível recuperar a URL da página');
+      }
+    } catch (err) {
+      console.log('Ocorreu um erro ao tentar buscar URL da página');
+      console.log(err);
+      return;
+    }
+    this._appService.carregarAplicativos(urlUser).subscribe(resposta => {
       console.log('Olha so que coisa');
       console.log(resposta);
+      this.appList = resposta as AplicativoBase[]
     }, (err => {
       console.log('Mas ocorreu um erro bem chato');
       console.log(err)
@@ -64,6 +80,10 @@ export class EditPageComponent implements OnInit {
     this.ordenarAppList(lista);
     return lista;
 
+  }
+
+  set appList(apps: AplicativoBase[]) {
+    this._appService.setAplicativos(apps);
   }
 
   toggleClass(): void {

@@ -1,3 +1,4 @@
+import { Texto } from '@models/aplicativo-item';
 import { AplicativoBase, AplicativoTexto, AplicativoBio, AplicativoFoto } from '@models/aplicativo';
 import { FileGregs } from '@models/file-greg';
 export class ConversorBackEnd {
@@ -146,6 +147,92 @@ export class ConversorBackEnd {
   static atribuirIdComponenteFoto(response: any, app: AplicativoFoto): void {
     app.id = response.id;
     app.imagem.id = response.imagem.id;
+  }
+
+
+  static montarDadosAplicativos(dadosRaw: any[]): AplicativoBase[] {
+    let appsBackEnd: AplicativoBase[] = [];
+
+    dadosRaw.forEach((dado, index) => {
+      switch (dado.data.tipo) {
+        case 'ComponenteBio':
+          appsBackEnd.push(this.montarDadosAplicativoBio(dado.data, index));
+          break;
+        case 'ComponenteTexto':
+          appsBackEnd.push(this.montarDadosAplicativoTexto(dado.data, index));
+          break;
+        case 'ComponenteImagem':
+          appsBackEnd.push(this.montarDadosAplicativoImagem(dado.data, index));
+          break;
+        default:
+          console.log('Component de tipo desconhecido');
+      }
+    })
+
+
+    return appsBackEnd;
+  }
+
+  static montarDadosAplicativoTexto(dado: any, i: number): AplicativoTexto {
+    let novoApp = new AplicativoTexto();
+    novoApp.id = dado.id;
+    novoApp.component_name = dado.titulo || '';
+    novoApp.bgColor = dado.backgroundColor || '#DADADA';
+    novoApp.fgColor = dado.foregroundColor || '#333333';
+    novoApp.order = i;
+    novoApp.showAppTitle = dado.mostrarTitulo;
+    novoApp.type = 'texto';
+    novoApp.isEditable = false;
+    novoApp.isEdit = false;
+    novoApp.texto_array = dado.textos.map(texto => {
+      let novoTexto = new Texto()
+      novoTexto.id = texto.id;
+      novoTexto.body = texto.descricao;
+      novoTexto.title = texto.titulo;
+      return novoTexto;
+    })
+    return novoApp
+  }
+
+  static montarDadosAplicativoImagem(dado: any, i: number): AplicativoFoto {
+    let novoApp = new AplicativoFoto();
+    novoApp.id = dado.id;
+    novoApp.component_name = dado.titulo || '';
+    novoApp.bgColor = dado.backgroundColor || '#DADADA';
+    novoApp.fgColor = dado.foregroundColor || '#333333';
+    novoApp.order = i;
+    novoApp.showAppTitle = dado.mostrarTitulo;
+    novoApp.type = 'fotos';
+    novoApp.isEditable = false;
+    novoApp.isEdit = false;
+    novoApp.imagem = dado.imagem ? Object.assign({}, dado.imagem) : null;
+    if (novoApp.imagem) {
+      novoApp.imagem.base64Img = `data:image/jpeg;base64,${novoApp.imagem.base64Img}`;
+    }
+    return novoApp;
+  }
+
+  static montarDadosAplicativoBio(dado: any, i: number): AplicativoBio {
+    let novoApp = new AplicativoBio();
+    novoApp.id = dado.id;
+    novoApp.component_name = dado.titulo || '';
+    novoApp.bgColor = dado.backgroundColor || '#DADADA';
+    novoApp.fgColor = dado.foregroundColor || '#333333';
+    novoApp.order = i;
+    novoApp.showAppTitle = dado.mostrarTitulo;
+    novoApp.type = 'bio';
+    novoApp.isEditable = false;
+    novoApp.isEdit = false;
+    novoApp.imagem = dado.imagem ? Object.assign({}, dado.imagem) : null;
+    if (novoApp.imagem) {
+      novoApp.imagem.base64Img = `data:image/jpeg;base64,${novoApp.imagem.base64Img}`;
+    }
+    novoApp.texto = new Texto();
+    novoApp.texto.id = dado.texto.id;
+    novoApp.texto.title = dado.texto.titulo;
+    novoApp.texto.body = dado.texto.descricao;
+
+    return novoApp;
   }
 
 }

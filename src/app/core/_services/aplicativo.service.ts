@@ -120,44 +120,41 @@ export class AplicativoService {
     }
   }
 
-  carregarAplicativos() {
-    // Recupera a URL da página
-    return this._userSrv.getUser().pipe(
-      mergeMap((respostaUser: GenericResponse<UserConfigs>) => {
-        if (!respostaUser || !respostaUser.data || !respostaUser.data.urlPagina) {
-          throw new Error('Não foi encontada a URL da página');
+  carregarAplicativos(urlUser: string) {
+    if (!urlUser) {
+      throw new Error('Nenhuma URL informada');
+    }
+
+    return this._http.get(`${this.baseURL}/pagina/${urlUser}`).pipe(
+      mergeMap((respostaPagina: GenericResponse<any>) => {
+        if (!respostaPagina || !respostaPagina.data) {
+          throw new Error('Não foi encontrada a página');
         }
-        console.log('GET USER');
-        console.log(respostaUser);
-        return this._http.get(`${this.baseURL}/pagina/${respostaUser.data.urlPagina}`).pipe(
-          mergeMap((respostaPagina: GenericResponse<any>) => {
-            if (!respostaPagina || !respostaPagina.data) {
-              throw new Error('Não foi encontrada a página');
-            }
-            console.log('GET PAGE');
-            console.log(respostaPagina)
-            if (!respostaPagina.data.pagina.componentes || !respostaPagina.data.pagina.componentes.length) {
-              console.log('Entao nao achou nada nos componentes')
-              return of([])
-            }
-            const { componentes } = respostaPagina.data.pagina;
-            console.log('COMPONENTES');
-            console.log(componentes);
-            let requisicoes = componentes.map(comp => {
-              return this._http.get(`${this.baseURL}/componente/${comp.id}`)
-            })
-            console.log('REQUISICOES');
-            console.log(requisicoes)
-            return forkJoin(requisicoes);
-          })
+        console.log('GET PAGE');
+        console.log(respostaPagina)
+        if (!respostaPagina.data.pagina.componentes || !respostaPagina.data.pagina.componentes.length) {
+          console.log('Entao nao achou nada nos componentes')
+          return of([])
+        }
+        const { componentes } = respostaPagina.data.pagina;
+        console.log('COMPONENTES');
+        console.log(componentes);
+        let requisicoes = componentes.map(comp => {
+          return this._http.get(`${this.baseURL}/componente/${comp.id}`)
+        })
+        console.log('REQUISICOES');
+        console.log(requisicoes)
+        return forkJoin(requisicoes).pipe(
+          map(dados => ConversorBackEnd.montarDadosAplicativos(dados)),
         )
-      }),
-      catchError(err => {
+      }), catchError(err => {
         console.log('Erro no catchError');
         console.log(err);
         throw err;
       })
     )
+
+
   }
 
   /**
@@ -169,7 +166,7 @@ export class AplicativoService {
       return;
     }
     console.log('Salvando componentes');
-    let componentesParaSalvar : Array<ComponenteBackBase> = [];
+    let componentesParaSalvar: Array<ComponenteBackBase> = [];
     let componentesParaAlterar = {
       id: null,
       url: null,
@@ -192,7 +189,7 @@ export class AplicativoService {
     console.log('Alterando componentes');
     console.log(componentesParaAlterar);
     const headers = new HttpHeaders();
-   headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'application/json');
 
     const urlSalvar = `${this.baseURL}/componente/`;
     const urlAlterar = `${this.baseURL}/pagina/`;
@@ -270,7 +267,7 @@ export class AplicativoService {
    */
   handleFreesoundAudios(audios: any): Audio[] {
     let audioArray: Audio[] = [];
-    const {results} = audios;
+    const { results } = audios;
     results.forEach((res, i) => {
       // Temporário, para limitar a quantidade de áudios
       if (i > 50) {
@@ -279,7 +276,7 @@ export class AplicativoService {
       let novoAudio = new Audio();
       novoAudio.name = res.name;
       novoAudio.description = res.description;
-      
+
       // Pegar a url do mp3 de alta qualidade
       for (let key in res.previews) {
         if (key.includes('hq-mp3')) {
@@ -392,7 +389,7 @@ export class AplicativoService {
    * @param profile Informações sobre o perfil
    * @param fotos Informações sobre as fotos
    */
-  handleFlickrData(profile: any, fotos: any): AplicativoFlickr{
+  handleFlickrData(profile: any, fotos: any): AplicativoFlickr {
     if (profile && profile.stat === 'fail') {
       throw new Error('Erro ao buscar informações do perfil');
     }
@@ -424,9 +421,9 @@ export class AplicativoService {
       return [];
     }
 
-    let novasFotos: Foto[] =[];
+    let novasFotos: Foto[] = [];
     fotos.photos.photo.forEach((foto) => {
-      const {farm, server, id, secret, title} = foto;
+      const { farm, server, id, secret, title } = foto;
       let novaFoto = new Foto();
       novaFoto.name = title;
       novaFoto.url = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;

@@ -20,6 +20,7 @@ import {EditPageComponent} from './edit-page/edit-page.component';
 import {EditControlComponent} from './edit-page/edit-control/edit-control.component';
 import {EditPreviewComponent} from './edit-page/edit-preview/edit-preview.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { VisualizacaoComponent } from './visualizacao/visualizacao.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     EditPageComponent,
     EditControlComponent,
     EditPreviewComponent,
+    VisualizacaoComponent,
   ],
   imports: [
     SharedModule,
