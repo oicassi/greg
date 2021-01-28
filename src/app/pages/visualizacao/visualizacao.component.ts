@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AplicativoBase } from '@models/aplicativo';
@@ -5,6 +6,7 @@ import { UserPageGlobal } from '@models/user';
 import { AplicativoService } from '@services/aplicativo.service';
 import { FactoryService } from '@services/factory.service';
 import { PagesService } from '@services/pages.service';
+import { AlertService } from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-visualizacao',
@@ -14,20 +16,25 @@ import { PagesService } from '@services/pages.service';
 export class VisualizacaoComponent implements OnInit {
 
   urlUser: string = null;
+  loadingState = false;
 
   constructor(
     private _appSrv: AplicativoService,
     private _pagesSrv: PagesService,
     private route: ActivatedRoute,
+    private _router: Router,
+    private alertService: AlertService,
     public factorySrv: FactoryService
   ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params && params['user']) {
-        this.urlUser = params['user'];
-      }
-    });
+    this.loadingState = true;
+    this.urlUser = this.route.snapshot.paramMap.get("user")
+    // this.route.queryParams.subscribe(params => {
+    //   if (params && params['user']) {
+    //     this.urlUser = params['user'];
+    //   }
+    // });
     this.carregarComponentes(this.urlUser);
   }
 
@@ -63,6 +70,13 @@ export class VisualizacaoComponent implements OnInit {
   }
 
   /**
+   * Getter do loading
+   */
+  get loading(): boolean {
+    return this.loadingState;
+  }
+
+  /**
    * Carrega os componentes salvos do banco de dados
    */
   carregarComponentes(url: string) {
@@ -70,9 +84,13 @@ export class VisualizacaoComponent implements OnInit {
       console.log('Olha so que coisa');
       console.log(resposta);
       this.aplicativos = resposta as AplicativoBase[]
+      this.loadingState = false;
     }, (err => {
+      this.alertService.danger('Página não foi encontrada');
+      this._router.navigate(['**'])
       console.log('Mas ocorreu um erro bem chato');
       console.log(err)
+      this.loadingState = false;
     }))
   }
 

@@ -17,7 +17,7 @@ const appRoutes: Routes = [
   {path: "fullpreview", component: FullpreviewComponent, data: {title: 'Preview'}, canActivate: [AuthGuard]},
   {path: "config", component: UserConfigComponent, data: {title: 'Configurações'}, canActivate: [AuthGuard]},
   {path: 'editPage', component: EditPageComponent},
-  {path: 'pagina', component: VisualizacaoComponent, data: {title: 'Visualizar página'}},
+  {path: 'pagina/:user', component: VisualizacaoComponent, data: {title: 'Visualizar página'}},
 
   // otherwise redirect to home
   {path: "**", component: NotFoundComponent, data: {Title: 'Not found'}},

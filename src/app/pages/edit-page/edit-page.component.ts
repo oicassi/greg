@@ -1,3 +1,4 @@
+import { PagesService } from '@services/pages.service';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { fromEvent, Subscription } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -6,6 +7,7 @@ import { AplicativoService } from '@services/aplicativo.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { AplicativoBase } from '@models/aplicativo';
 import { UserService } from '@services/user.service';
+import { AlertService } from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -14,7 +16,7 @@ import { UserService } from '@services/user.service';
 })
 export class EditPageComponent implements OnInit {
 
-  loading: boolean = false;
+  loadingState: boolean = false;
   sidebarButtonIcon = 'menu';
 
   @ViewChild('sidebar', {static: false}) sidebar: ElementRef;
@@ -26,13 +28,15 @@ export class EditPageComponent implements OnInit {
   constructor(
     private _appService: AplicativoService,
     private _userSrv: UserService,
+    private _pagesSrv: PagesService,
+    private alertService: AlertService,
     public factoryService: FactoryService
   ) {
-    this.loading = true;
     this.resizeObs = fromEvent(window, 'resize')
   }
 
   ngOnInit() {
+    this.loadingState = true;
     this.carregarComponentes()
     this.resizeSubs = this.resizeObs
       .pipe(
@@ -42,30 +46,39 @@ export class EditPageComponent implements OnInit {
       .subscribe((event) => {
       this.handleResize();
     })
-    this.loading = false;
   }
 
   async carregarComponentes() {
+    if (!this._pagesSrv.carregarDados) {
+      this.loadingState = false;
+      return;
+    }
+    this.loadingState = true;
     let urlUser;
     try {
-      const resposta = await this._userSrv.getUser();
+      const resposta = await this._userSrv.getUser().toPromise();
       if (resposta && resposta['data'] && resposta['data'].urlPagina) {
         urlUser = resposta['data']['urlPagina'];
       } else {
         throw new Error('Não foi possível recuperar a URL da página');
       }
     } catch (err) {
+      this.alertService.danger('Não foi encontrada a URL da página do usuário :(')
       console.log('Ocorreu um erro ao tentar buscar URL da página');
       console.log(err);
+      this.loadingState = false;
       return;
     }
     this._appService.carregarAplicativos(urlUser).subscribe(resposta => {
       console.log('Olha so que coisa');
       console.log(resposta);
       this.appList = resposta as AplicativoBase[]
+      this.loadingState = false;
     }, (err => {
+      this.alertService.danger('Ocorreu um erro ao buscar os componentes')
       console.log('Mas ocorreu um erro bem chato');
       console.log(err)
+      this.loadingState = false;
     }))
   }
 
@@ -84,6 +97,10 @@ export class EditPageComponent implements OnInit {
 
   set appList(apps: AplicativoBase[]) {
     this._appService.setAplicativos(apps);
+  }
+
+  get loading(): boolean {
+    return this.loadingState;
   }
 
   toggleClass(): void {
@@ -116,7 +133,7 @@ export class EditPageComponent implements OnInit {
    * Salvar o estado atual dos componentes
    */
   async salvarComponentes():Promise<void> {
-    this.loading = true;
+    this.loadingState = true;
     try {
       this.botaoSalvarDisabled = true;
       const response = await this._appService.salvarAplicativos();
@@ -124,16 +141,18 @@ export class EditPageComponent implements OnInit {
       if (response) {
         console.log(response);
         this._appService.atribuirIdsAposSalvar(response);
+        this.alertService.success('Componentes salvos/alterados com sucesso!')
         console.log('Será que deu certo????');
         console.log(this.appList);
       }
 
     } catch (err) {
+      this.alertService.danger('Ocorreu um erro ao salvar/alterar os componentes')
       console.log('Ocorreu um erro ao salvar os componentes')
       console.log(err)
     } finally {
       this.botaoSalvarDisabled = false;
-      this.loading = false;
+      this.loadingState = false;
     }
   }
 

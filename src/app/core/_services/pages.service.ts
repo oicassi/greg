@@ -12,6 +12,7 @@ export class PagesService {
 
   dadosUserPage: UserPageGlobal;
   visualizarPreview = false;
+  carregarDados = true;
 
   constructor(private _http: HttpClient) {
     if (!this.dadosUserPage || !this.dadosUserPage.pageBgColor) {

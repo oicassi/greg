@@ -77,7 +77,6 @@ export class ConversorBackEnd {
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
-    componente.id = null;
     componente.imagem = app.imagem ? Object.assign({}, app.imagem) : null;
     if (componente.imagem && componente.imagem.base64Img) {
       componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
