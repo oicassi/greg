@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Md5 } from 'ts-md5/dist/md5';
 import { AlertService } from './../../shared/components/alert/alert.service';
-import { FileGregs } from './../../shared/models/file-greg';
-import { UserConfigs } from './../../shared/models/user-configs';
+import { FileGregs } from '@models/file-greg';
+import { UserConfigs } from '@models/user-configs';
 import { Usuario } from 'src/app/shared/models';
 
 
@@ -144,7 +144,7 @@ export class UserConfigComponent implements OnInit {
 
     this.userForm = this.formBuilder.group({
 
-      // Informações pessoais 
+      // Informações pessoais
       nome: ['', [
         Validators.required,
         Validators.minLength(3),
@@ -169,7 +169,7 @@ export class UserConfigComponent implements OnInit {
 
     this.userForm = this.formBuilder.group({
 
-      // Informações pessoais 
+      // Informações pessoais
       nome: [this.retornaAtributo(user.nome), [
         Validators.required,
         Validators.minLength(3),

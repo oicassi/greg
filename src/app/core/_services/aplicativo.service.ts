@@ -1,20 +1,19 @@
-import { ApiService } from './api.service';
-import { Injectable } from '@angular/core';
+import {ApiService} from './api.service';
+import {Injectable} from '@angular/core';
 import {
   AplicativoBase,
+  AplicativoBio,
   AplicativoFlickr,
   AplicativoFoto,
   AplicativoFreesound,
   AplicativoGithub,
   AplicativoTags,
-  AplicativoTexto,
-  AplicativoBio,
-  AplicativoApi
+  AplicativoTexto
 } from '@models/aplicativo';
-import { Foto, Audio, Repo, Texto } from '@models/aplicativo-item';
-import { AplicativosModels } from '@shared/constants/aplicativos';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Audio, Foto, Repo, Texto} from '@models/aplicativo-item';
+import {AplicativosModels} from '@shared/constants/aplicativos';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +21,18 @@ import { map } from 'rxjs/operators';
 export class AplicativoService {
 
   aplicativos: AplicativoBase[] = [];
+
   constructor(
     private _apiSrv: ApiService
   ) {
     this.aplicativos = [];
-    this.aplicativos.push(this.getMockBio());
-    this.aplicativos.push(this.getMockFlickr());
-    this.aplicativos.push(this.getMockFotos());
-    this.aplicativos.push(this.getMockFreesound());
-    this.aplicativos.push(this.getMockGithub());
+     this.aplicativos.push(this.getMockBio());
+    // this.aplicativos.push(this.getMockFlickr());
+    // this.aplicativos.push(this.getMockFotos());
+    // this.aplicativos.push(this.getMockFreesound());
+    // this.aplicativos.push(this.getMockGithub());
     // this.aplicativos.push(this.getMockTags());
-    this.aplicativos.push(this.getMockTexto());
+    // this.aplicativos.push(this.getMockTexto());
   }
 
   /**
@@ -163,7 +163,7 @@ export class AplicativoService {
       let novoAudio = new Audio();
       novoAudio.name = res.name;
       novoAudio.description = res.description;
-      
+
       // Pegar a url do mp3 de alta qualidade
       for (let key in res.previews) {
         if (key.includes('hq-mp3')) {
@@ -267,7 +267,7 @@ export class AplicativoService {
    * @param profile Informações sobre o perfil
    * @param fotos Informações sobre as fotos
    */
-  handleFlickrData(profile: any, fotos: any): AplicativoFlickr{
+  handleFlickrData(profile: any, fotos: any): AplicativoFlickr {
     if (profile && profile.stat === 'fail') {
       throw new Error('Erro ao buscar informações do perfil');
     }
@@ -296,7 +296,7 @@ export class AplicativoService {
       return [];
     }
 
-    let novasFotos: Foto[] =[];
+    let novasFotos: Foto[] = [];
     fotos.photos.photo.forEach((foto) => {
       const {farm, server, id, secret, title} = foto;
       let novaFoto = new Foto();

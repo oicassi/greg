@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/_services';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
+import {NavbarService} from "@services/navbar.service";
 
 @Component({
   selector: 'app-navbar',
@@ -12,9 +13,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   @Input() currentUser: Usuario;
-   
 
-  constructor(private authenticationService: AuthenticationService, 
+
+  constructor(private authenticationService: AuthenticationService,
               private router:Router) {}
 
 

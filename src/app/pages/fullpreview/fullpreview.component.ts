@@ -5,6 +5,7 @@ import { FactoryService } from '@services/factory.service';
 import { AplicativoBase } from '@models/aplicativo';
 import { UserPageGlobal } from '@models/user';
 import { PagesService } from '@services/pages.service';
+import {NavbarService} from "@services/navbar.service";
 
 @Component({
   selector: 'app-fullpreview',
@@ -12,19 +13,21 @@ import { PagesService } from '@services/pages.service';
   styleUrls: ['./fullpreview.component.scss']
 })
 export class FullpreviewComponent implements OnInit {
-  
+
   isPreview = false;
 
   constructor(
     private _appSrv: AplicativoService,
     private _pagesSrv: PagesService,
     private _router: Router,
-    public factorySrv: FactoryService
-  ) { 
+    public factorySrv: FactoryService,
+    private nav: NavbarService
+  ) {
     this.isPreview = this._pagesSrv.visualizarPreview;
   }
 
   ngOnInit() {
+    this.nav.hide()
   }
 
   /**
@@ -67,7 +70,8 @@ export class FullpreviewComponent implements OnInit {
 
   voltarParaEdicao(): void {
     this._pagesSrv.visualizarPreview = false;
-    this._router.navigate(['/teste']);
+    this._router.navigate(['/editPage']);
+    this.nav.show();
   }
 
   /**

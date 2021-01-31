@@ -1,8 +1,12 @@
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
-import { AplicativoFlickr } from '@models/aplicativo';
+import {AplicativoFlickr, AplicativoGithub} from '@models/aplicativo';
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
 import { ApiService } from '@services/api.service';
+import {MatDialog} from "@angular/material/dialog";
+import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplicativo.component";
+import {Observable} from "rxjs";
+import {Foto, Repo} from "@models/aplicativo-item";
 
 @Component({
   selector: 'app-flickr',
@@ -17,6 +21,7 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
   constructor(
     _appServ: AplicativoService,
     _apiServ: ApiService,
+    public dialog: MatDialog
   ) {
     super(_appServ, _apiServ);
   }
@@ -32,7 +37,9 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
    */
   loadAll(): void {
     this.loading = true;
+
     this._appServ.requestFlickrData(this.dados).subscribe((novosDados) => {
+      console.log(novosDados)
       this.dados = novosDados;
       this.setVariaveisIniciais();
       this.loading = false;
@@ -52,6 +59,8 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
     )
   }
 
+
+
   /**
    * Seta variáveis adicionais
    */
@@ -64,11 +73,38 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
    * Handler ao clicar no botão de abrir o modal
    */
   onOpenModal(): void {
-    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+    this.openDialog(this._appServ.requestFlickrData(this.dados));
+  }
+
+  /*
+    Abre modal passando repositorios
+   */
+  openDialog(request : Observable<AplicativoFlickr>): void {
+    request.subscribe(repos => {
+      let dialogRef = this.dialog.open(ModalAplicativoComponent, {
+
+        width: '1000px',
+        height:'700px',
+        data: repos.photo_array
+      });
+
+      dialogRef.afterClosed().subscribe((result: Foto[]) => {
+        if (!result) {
+          this.dados.photo_array = [...this.dadosBkp.photo_array];
+        } else {
+          this.dados.photo_array = result;
+          this.setVariaveisIniciais();
+        }
+      });
+      dialogRef = null;
+    }, error => {
+      console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
+      console.log(error);
+    })
   }
 
   onUsernameSubmit(username: string) {
     this.dados.username = username;
-    this.loadAll()
+    this.onOpenModal();
   }
 }

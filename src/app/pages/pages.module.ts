@@ -20,6 +20,8 @@ import {EditPageComponent} from './edit-page/edit-page.component';
 import {EditControlComponent} from './edit-page/edit-control/edit-control.component';
 import {EditPreviewComponent} from './edit-page/edit-preview/edit-preview.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatButtonModule} from "@angular/material/button";
+import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplicativo.component";
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     RouterModule,
     TagCloudModule,
     AplicativosModule,
-    DragDropModule
+    DragDropModule,
+    MatButtonModule
   ],
   exports: [LoginRegisterComponent, DragDropModule,]
 })

@@ -1,13 +1,14 @@
-import { GenericResponse } from './shared/models/responses/generic-response';
-import { UserService } from 'src/app/core/_services';
-import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { BnNgIdleService } from 'bn-ng-idle';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/core/_services';
-import { AlertService } from './shared/components/alert/alert.service';
-import { Usuario } from './shared/models/user';
+import {AuthenticationService, UserService} from 'src/app/core/_services';
+import {Component} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {BnNgIdleService} from 'bn-ng-idle';
+import {filter, map, switchMap} from 'rxjs/operators';
+import {AlertService} from '@shared-components/alert/alert.service';
+import {Usuario} from '@models/user';
+import {NavbarService} from "@services/navbar.service";
+
+
 
 @Component({
   selector: 'app',
@@ -16,6 +17,7 @@ import { Usuario } from './shared/models/user';
 })
 export class AppComponent {
   currentUser: Usuario;
+  mostraBarra: boolean;
 
   constructor(
     private router: Router,
@@ -24,14 +26,18 @@ export class AppComponent {
     private alertService: AlertService,
     private titleService: Title,
     private activatedRoute: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    public nav: NavbarService
   ) {
     this.authenticationService.currentUser
-    .subscribe(user => {
-      this.currentUser = user;
-    })};
+      .subscribe(user => {
+        this.currentUser = user;
+        this.nav.show();
+      })
+  };
 
   ngOnInit(): void {
+    this.nav.hide();
     this.mudaTitle();
     this.idleKiller();
   }
@@ -62,7 +68,8 @@ export class AppComponent {
   }
 
   logout() {
-    this.currentUser = null; 
+    this.currentUser = null;
+    this.nav.hide()
     this.authenticationService.logout();
     this.router.navigate([""]);
   }
