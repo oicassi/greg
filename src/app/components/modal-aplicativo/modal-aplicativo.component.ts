@@ -34,16 +34,25 @@ export class ModalAplicativoComponent implements OnInit {
     console.log(this.data)
   }
 
-  drop(event: CdkDragDrop<Repo[] | Foto[]>) {
-    console.log(event);
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.chosen, event.previousIndex, event.currentIndex);
+  }
+
+  addElement(item: Repo | Foto) {
+    // @ts-ignore
+    this.chosen.push(item);
+    this.received = this.received.filter(elemento => elemento.name != item.name);
+  }
+
+  removeElement(item: Repo | Foto){
+    // @ts-ignore
+    this.received.unshift(item);
+    this.chosen = this.chosen.filter(elemento => elemento.name != item.name);
+  }
+
+  lookAtThisPhotograph(str : string): boolean {
+    //console.log(str.includes("www.github"))
+    return str.includes("github.com");
   }
 
 }

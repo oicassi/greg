@@ -26,13 +26,13 @@ export class AplicativoService {
     private _apiSrv: ApiService
   ) {
     this.aplicativos = [];
-    this.aplicativos.push(this.getMockBio());
-    //this.aplicativos.push(this.getMockFlickr());
-    //this.aplicativos.push(this.getMockFotos());
-    //this.aplicativos.push(this.getMockFreesound());
-    //this.aplicativos.push(this.getMockGithub());
+     this.aplicativos.push(this.getMockBio());
+    // this.aplicativos.push(this.getMockFlickr());
+    // this.aplicativos.push(this.getMockFotos());
+    // this.aplicativos.push(this.getMockFreesound());
+    // this.aplicativos.push(this.getMockGithub());
     // this.aplicativos.push(this.getMockTags());
-    //this.aplicativos.push(this.getMockTexto());
+    // this.aplicativos.push(this.getMockTexto());
   }
 
   /**

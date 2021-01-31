@@ -35,16 +35,17 @@
 }
 
 .example-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow-y: hidden;
   flex-shrink: 0;
   padding: 20px 10px;
   max-width: 130px;
-  max-height: 250px;
-  text-overflow: ellipsis;
-  word-break: break-all;
+  height: 300px;
+
   border-right: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
-  cursor: move;
   background: white;
   font-size: 14px;
   overflow-x: hidden;
@@ -72,4 +73,19 @@
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-list .action-button {
+  justify-content: flex-end;
+  display: flex;
+  margin:0
+}
+
+.texto-card{
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
