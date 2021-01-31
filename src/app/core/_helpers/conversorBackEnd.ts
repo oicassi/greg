@@ -27,7 +27,7 @@ export class ConversorBackEnd {
    */
   static montarTextoPayload(app: AplicativoTexto): ComponenteTexto {
     let componente = new ComponenteTexto();
-    componente.id = app.id || null;
+    componente.id = null;
     componente.titulo = app.component_name;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
@@ -36,7 +36,7 @@ export class ConversorBackEnd {
       let novoTexto = new TextoBack();
       novoTexto.titulo = texto.title;
       novoTexto.descricao = texto.body
-      novoTexto.id = texto.id || null;
+      novoTexto.id = null;
       return novoTexto;
     })
 
@@ -49,18 +49,21 @@ export class ConversorBackEnd {
    */
   static montarBioPayload(app: AplicativoBio): ComponenteBio {
     let componente = new ComponenteBio();
-    componente.id = app.id || null;
+    componente.id = null;
     componente.titulo = app.component_name;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
     componente.texto = new TextoBack();
     componente.texto.titulo = app.texto.title;
-    componente.texto.id = app.texto.id || null;
+    componente.texto.id = null;
     componente.texto.descricao = app.texto.body;
     componente.imagem = app.imagem ? Object.assign({}, app.imagem) : null;
-    if (componente.imagem && componente.imagem.base64Img) {
-      componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+    if (componente.imagem) {
+      componente.imagem.id = null;
+      if (componente.imagem.base64Img) {
+        componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+      }
     }
     
     return componente;
@@ -72,14 +75,17 @@ export class ConversorBackEnd {
    */
   static montarFotoPayload(app: AplicativoFoto): ComponenteFoto {
     let componente = new ComponenteFoto();
-    componente.id = app.id || null;
+    componente.id = null;
     componente.titulo = app.component_name;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
     componente.imagem = app.imagem ? Object.assign({}, app.imagem) : null;
-    if (componente.imagem && componente.imagem.base64Img) {
-      componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+    if (componente.imagem) {
+      componente.imagem.id = null;
+      if (componente.imagem.base64Img) {
+        componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
+      }
     }
     
     return componente;
@@ -122,8 +128,6 @@ export class ConversorBackEnd {
     console.log('DJANHO')
     console.log(app);
     console.log(app.id);
-    console.log(app.imagem);
-    console.log(app.imagem.id);
   }
 
   /**
@@ -132,6 +136,8 @@ export class ConversorBackEnd {
    * @param app Aplicativo que será feita a atribuição dos IDs
    */
   static atribuirIdComponenteTexto(response: any, app: AplicativoTexto): void {
+    console.log('Atribuit ID Texto')
+    console.log(response);
     app.id = response.id;
     for (let i = 0; i < app.texto_array.length; i++) {
       app.texto_array[i].id = response.textos[i].id;
@@ -151,6 +157,8 @@ export class ConversorBackEnd {
 
   static montarDadosAplicativos(dadosRaw: any[]): AplicativoBase[] {
     let appsBackEnd: AplicativoBase[] = [];
+    console.log('Resposta da requisição dos dados');
+    console.log(dadosRaw);
 
     dadosRaw.forEach((dado, index) => {
       switch (dado.data.tipo) {
@@ -214,7 +222,7 @@ export class ConversorBackEnd {
   static montarDadosAplicativoBio(dado: any, i: number): AplicativoBio {
     let novoApp = new AplicativoBio();
     novoApp.id = dado.id;
-    novoApp.component_name = dado.titulo || '';
+    novoApp.component_name = dado.titulo || `Componente Bio [${i}]`;
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
     novoApp.order = i;
@@ -229,7 +237,7 @@ export class ConversorBackEnd {
     novoApp.texto = new Texto();
     novoApp.texto.id = dado.texto.id;
     novoApp.texto.title = dado.texto.titulo;
-    novoApp.texto.body = dado.texto.descricao;
+    novoApp.texto.body = dado.texto.descricao || 'Este é o componente para sua biografia! Edite como quiser.';
 
     return novoApp;
   }

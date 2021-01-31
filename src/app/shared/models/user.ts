@@ -23,5 +23,5 @@ export interface Usuario {
 }
 
 export class UserPageGlobal {
-    pageBgColor: string = '#ffffff';
+    pageBgColor: string = '#DADADA';
 }

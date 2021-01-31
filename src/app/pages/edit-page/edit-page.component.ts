@@ -140,7 +140,6 @@ export class EditPageComponent implements OnInit {
       console.log('Acho que deu boa');
       if (response) {
         console.log(response);
-        this._appService.atribuirIdsAposSalvar(response);
         this.alertService.success('Componentes salvos/alterados com sucesso!')
         console.log('Será que deu certo????');
         console.log(this.appList);

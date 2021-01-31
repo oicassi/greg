@@ -36,13 +36,6 @@
 		<!-- Container apenas para exibição -->
 		<div class="bio-grid-container" *ngIf="!dados.isEdit">
 			<div class="bio-element-container">
-
-				<div class="bio-element-title-container text-limiter" [ngStyle]="getCustomElementTitleStyle()"
-					[title]="dados.texto.title">
-					{{dados.texto.title}}
-				</div>
-
-
 				<div class="bio-element-body-container">
 					{{dados.texto.body}}
 				</div>
@@ -53,18 +46,6 @@
 		<div class="bio-grid-container" *ngIf="dados.isEdit">
 			<div class="bio-element-container">
 				<form [formGroup]="form">
-					<div class="bio-element-title-container" style="margin-bottom: -15px;">
-						<div class="form-group">
-							<input type="text" formControlName="title" class="form-control form-control-sm"
-								[ngClass]="{'is-invalid': form.controls.title.errors && form.controls.title.touched}"
-								placeholder="Título do texto" />
-							<div *ngIf="form.controls.title.errors && form.controls.title.touched" class="invalid-feedback">
-								<div class="bio-input-error-msg" *ngIf="form.controls.title.errors.required">
-									Campo obrigatório
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="bio-element-body-control">
 						<div class="form-group bio-title-input">
 							<textarea formControlName="texto" class="form-control form-control-sm"

@@ -1,3 +1,5 @@
+import { PagesService } from '@services/pages.service';
+import { UserPageGlobal } from '@models/user';
 import { AuthenticationService } from 'src/app/core/_services';
 import { UserService } from './user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -35,7 +37,8 @@ export class AplicativoService {
     private _apiSrv: ApiService,
     private _http: HttpClient,
     private _userSrv: UserService,
-    private _authSrv: AuthenticationService
+    private _authSrv: AuthenticationService,
+    private _pagesSrv: PagesService
   ) {
     this.aplicativos = [];
     // this.aplicativos.push(this.getMockBio());
@@ -132,6 +135,13 @@ export class AplicativoService {
         }
         console.log('GET PAGE');
         console.log(respostaPagina)
+        if (!respostaPagina || !respostaPagina.data || !respostaPagina.data.pagina) {
+          throw new Error('Ocorreu um erro ao buscar dados gerais da página');
+        }
+        let dados = new UserPageGlobal();
+        dados.pageBgColor = respostaPagina.data.pagina.backgroundColor || '#CACACA';
+        this._pagesSrv.setPageGlobalInfo(dados);
+
         if (!respostaPagina.data.pagina.componentes || !respostaPagina.data.pagina.componentes.length) {
           console.log('Entao nao achou nada nos componentes')
           return of([])
@@ -165,34 +175,25 @@ export class AplicativoService {
       console.log('Sem dados para salvar');
       return;
     }
-    console.log('Salvando componentes');
+
     let componentesParaSalvar: Array<ComponenteBackBase> = [];
-    let componentesParaAlterar = {
+    let componentesParaLinkar = {
       id: null,
       url: null,
+      backgroundColor: this._pagesSrv.getPageGlobalInfo().pageBgColor || '#CACACA',
       componentes: []
     }
 
-    this.aplicativos.forEach((app) => {
+    componentesParaSalvar = this.aplicativos.map((app) => {
       let comp = ConversorBackEnd.montarPayload(app);
-      if (app.id !== null && app.id !== undefined) {
-        comp.tipo = null;
-        componentesParaAlterar.componentes.push(comp);
-      } else {
-        componentesParaSalvar.push(comp);
-      }
+      return comp;
     })
-    // componentesParaSalvar = this.aplicativos.map((app) => {
-    //   return ConversorBackEnd.montarPayload(app);
-    // })
+
+    console.log('Salvando componentes');
     console.log(componentesParaSalvar);
-    console.log('Alterando componentes');
-    console.log(componentesParaAlterar);
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-
     const urlSalvar = `${this.baseURL}/componente/`;
-    const urlAlterar = `${this.baseURL}/pagina/`;
 
     // Coloca as requests no array de promises
     let promises = []
@@ -202,12 +203,33 @@ export class AplicativoService {
         headers
       }).toPromise())
     })
-    if (componentesParaAlterar && componentesParaAlterar.componentes && componentesParaAlterar.componentes.length) {
-      promises.push(this._http.put(urlAlterar, componentesParaAlterar, {
-        headers
-      }).toPromise())
+
+    const responseSalvar =  await Promise.all(promises);
+    
+    if (!responseSalvar) {
+      throw new Error('Ocorreu um erro ao salvar os componentes');
     }
-    return await Promise.all(promises);
+
+    console.log('[AppService] Acho que salvou de boas');
+    console.log(responseSalvar);
+
+    this.atribuirIdsAposSalvar(responseSalvar);
+
+    // Montar a resquest para fazer o link dos componentes
+    componentesParaLinkar.componentes = this.aplicativos.map(app => {
+      return ({
+        id: app.id,
+        tipo: null
+      })
+    });
+    
+    console.log('Componentes para linkar');
+    console.log(componentesParaLinkar);
+
+    const urlLinkar = `${this.baseURL}/pagina`;
+    return await this._http.put(urlLinkar, componentesParaLinkar, {
+      headers
+    }).toPromise();
   }
 
   /**
@@ -559,14 +581,10 @@ export class AplicativoService {
    * @param response Resposta dos componentes salvos
    */
   atribuirIdsAposSalvar(response: any[]): void {
-    let appsParaAtribuir = []
-    this.aplicativos.forEach((app) => {
-      if (app.id === null || app.id === undefined) {
-        appsParaAtribuir.push(app);
-      }
-    })
-    for (let i = 0; i < appsParaAtribuir.length; i++) {
-      ConversorBackEnd.atribuirId(response[i].data, appsParaAtribuir[i]);
+    console.log('Atribuir tudo');
+    console.log(response);
+    for (let i = 0; i < this.aplicativos.length; i++) {
+      ConversorBackEnd.atribuirId(response[i].data, this.aplicativos[i]);
     }
   }
 

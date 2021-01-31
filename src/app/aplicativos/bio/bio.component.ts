@@ -26,6 +26,7 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   }
 
   ngOnInit() {
+    this.dados.texto.title = '';
     this.criaBackupDados();
     this.initForms();
   }
@@ -37,8 +38,6 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
     // Inicializa ao menos um formulário de texto
     this.form = this._fb.group({
       'texto': [(this.dados.texto.body || ''),
-      [Validators.required]],
-      'title': [(this.dados.texto.title || ''),
       [Validators.required]],
     });
     
@@ -63,32 +62,25 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
     let controlTexto = this.form.get('texto');
     controlTexto.markAsDirty({ onlySelf: true });
     controlTexto.markAsTouched({ onlySelf: true });
-    let controlTitle = this.form.get('title');
-    controlTitle.markAsDirty({ onlySelf: true });
-    controlTitle.markAsTouched({ onlySelf: true });
 
     // Se tiver algum erro, cancela a ação
-    if (this.form.get('texto').errors || this.form.get('title').errors) {
+    if (this.form.get('texto').errors) {
       return;
     }
 
     // Recupera o texto sendo salvo
     const texto = this.form.get('texto').value;
-    const title = this.form.get('title').value;
 
     // Atualiza a informação
     this.dados.texto.body = texto;
-    this.dados.texto.title = title;
-
+    this.dados.texto.title = null;
   }
 
   /**
    * Cancela a edição do texto e título e retorna os dados ao estado original
-   * @param indice Índice do texto e título sendo editados
    */
   cancelarTexto(): void {
     this.form.get('texto').setValue(this.dados.texto.body);
-    this.form.get('title').setValue(this.dados.texto.title)
   }
 
   /**
@@ -97,7 +89,6 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
    */
   limparTexto(): void {
     this.form.get('texto').setValue('');
-    this.form.get('title').setValue('');
   }
 
   /**
@@ -123,9 +114,8 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
    */
   checkAcoesDisabled(): boolean{
     let texto = this.form.get('texto').value;
-    let title = this.form.get('title').value;
 
-    if (this.dados.texto.body !== texto || this.dados.texto.title !== title) {
+    if (this.dados.texto.body !== texto) {
         return false;
       }
     return true;
