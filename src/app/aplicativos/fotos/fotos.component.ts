@@ -3,6 +3,7 @@ import { AplicativoFoto } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
 import { AplicativoService } from '@services/aplicativo.service';
+import { AlertService } from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-fotos',
@@ -16,8 +17,9 @@ export class FotosComponent extends AplicativoGenericoComponent implements OnIni
 
   constructor(
     _appServ: AplicativoService,
+    protected alertService: AlertService,
   ) {
-    super(_appServ);
+    super(_appServ, alertService);
   }
 
   ngOnInit() {

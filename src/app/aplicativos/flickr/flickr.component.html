@@ -1,4 +1,4 @@
-<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()">
+<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()" *ngIf="(!dados.isEditable && dados.username) || dados.isEditable">
 
   <!-- Header -->
   <div class="aplicativo-header-container" *ngIf="(dados.isEditable || dados.showAppTitle) && !loading">

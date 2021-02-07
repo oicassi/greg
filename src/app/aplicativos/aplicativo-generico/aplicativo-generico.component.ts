@@ -3,6 +3,7 @@ import { AplicativoBase } from '@models/aplicativo';
 import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ApiService } from '@services/api.service';
+import { AlertService } from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-aplicativo-generico',
@@ -19,6 +20,7 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
 
   constructor(
     protected _appServ: AplicativoService,
+    protected alertService: AlertService,
   ) { }
 
   ngOnInit() {
@@ -100,7 +102,7 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
       }
       this.aposConfirmarEdicao();
     } catch (err) {
-      this.tratarErros(err, 'Salvar');
+      this.tratarErros(err, 'Salvar', false);
     }
 
   }
@@ -129,7 +131,7 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
       }
       this.aposCancelarEdicao();
     } catch (err) {
-      this.tratarErros(err, 'Cancelar edição');
+      this.tratarErros(err, 'Cancelar edição', false);
     }
   }
 
@@ -187,12 +189,37 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
    * Método genérico para tratar erros
    * @param err Objeto de erros
    */
-  tratarErros(err: Error, acao: string = null) {
+  tratarErros(err: Error, acao: string = null, isRequest: boolean = false) {
     let msg = '%cOcorreu um erro';
-    if (acao) {
-      msg += ` na ação ${acao}`;
+    
+    if (isRequest) {
+      console.log('Erro RAW');
+      console.log(err)
+      msg = '[Erro ?] ';
+      let status = 500;
+      if (err['status']) {
+        status = err['status']
+      }
+
+      switch (status) {
+        case 404:
+          msg += 'Dados não encontrados. Username pode estar incorreto.';
+          break
+        case 500:
+          msg += 'Ocorreu um erro inesperado ao recuperar os dados. Tente novamente mais tarde.';
+          break;
+        default:
+          msg += 'Ocorreu um erro inesperado ao recuperar os dados. Tente novamente mais tarde.';
+      }
+
+      msg = acao ? msg.replace('?', acao) : msg.replace('?', 'Geral');
+    } else {
+      if (acao) {
+        msg += ` na ação ${acao}`;
+      }
+      msg += ` no componente ${this.dados.component_name}`
+      console.log(msg, 'color: tomato');
     }
-    msg += ` no componente ${this.dados.component_name}`
-    console.log(msg, 'color: tomato');
+    this.alertService.danger(msg);
   }
 }

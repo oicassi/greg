@@ -4,6 +4,7 @@ import { AplicativoService } from '@services/aplicativo.service';
 import { AplicativoApi } from '@models/aplicativo';
 import { InputGroupComponent } from '@shared-components/input-group/input-group.component';
 import { ApiService } from '@services/api.service';
+import { AlertService } from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-aplicativo-generico-api',
@@ -27,9 +28,10 @@ export class AplicativoGenericoApiComponent extends AplicativoGenericoComponent 
 
   constructor(
     _appServ: AplicativoService,
+    alertService: AlertService,
     protected _apiServ: ApiService,
   ) {
-    super(_appServ);
+    super(_appServ, alertService);
   }
 
   ngOnInit() {

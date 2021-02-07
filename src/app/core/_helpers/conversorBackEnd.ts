@@ -1,5 +1,6 @@
+import { AplicativoFreesound, AplicativoGithub } from './../../shared/models/aplicativo';
 import { Texto } from '@models/aplicativo-item';
-import { AplicativoBase, AplicativoTexto, AplicativoBio, AplicativoFoto } from '@models/aplicativo';
+import { AplicativoBase, AplicativoTexto, AplicativoBio, AplicativoFoto, AplicativoFlickr } from '@models/aplicativo';
 import { FileGregs } from '@models/file-greg';
 export class ConversorBackEnd {
 
@@ -7,17 +8,29 @@ export class ConversorBackEnd {
    * Constrói um payload para salvar um componente conforme especificações do servidor
    * @param app Aplicativo que está sendo salvo
    */
-  static montarPayload(app: AplicativoBase): ComponenteBackBase {
+  static montarPayload(app: AplicativoBase, i:number): ComponenteBackBase {
     if (!app) {
       return null;
     }
     switch (app.type) {
       case 'texto':
-        return this.montarTextoPayload(app as AplicativoTexto);
+        return this.montarTextoPayload(app as AplicativoTexto, i);
       case 'bio':
-        return this.montarBioPayload(app as AplicativoBio);
+        return this.montarBioPayload(app as AplicativoBio, i);
       case 'fotos':
-        return this.montarFotoPayload(app as AplicativoFoto);
+        return this.montarFotoPayload(app as AplicativoFoto, i);
+      case 'flickr':
+        if ((app as AplicativoFlickr).username) {
+          return this.montarFlickrPayload(app as AplicativoFlickr, i);
+        }
+      case 'freesound':
+        if ((app as AplicativoFreesound).username) {
+          return this.montarFreesoundPayload(app as AplicativoFreesound, i);
+        }
+      case 'github':
+        if ((app as AplicativoGithub).username) {
+          return this.montarGithubPayload(app as AplicativoGithub, i);
+        }
     }
   }
 
@@ -25,10 +38,11 @@ export class ConversorBackEnd {
    * Constrói o payload para salvar um componente do tipo texto
    * @param app AplicativoTexto base
    */
-  static montarTextoPayload(app: AplicativoTexto): ComponenteTexto {
+  static montarTextoPayload(app: AplicativoTexto, i: number): ComponenteTexto {
     let componente = new ComponenteTexto();
     componente.id = null;
     componente.titulo = app.component_name;
+    componente.ordem = app.order || i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -47,10 +61,11 @@ export class ConversorBackEnd {
    * Constrói o payload para salvar um componente do tipo bio
    * @param app AplicativoBio base
    */
-  static montarBioPayload(app: AplicativoBio): ComponenteBio {
+  static montarBioPayload(app: AplicativoBio, i: number): ComponenteBio {
     let componente = new ComponenteBio();
     componente.id = null;
     componente.titulo = app.component_name;
+    componente.ordem = app.order || i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -73,10 +88,11 @@ export class ConversorBackEnd {
    * Constrói o payload para salvar um componente do tipo foto
    * @param app AplicativoFoto base
    */
-  static montarFotoPayload(app: AplicativoFoto): ComponenteFoto {
+  static montarFotoPayload(app: AplicativoFoto, i: number): ComponenteFoto {
     let componente = new ComponenteFoto();
     componente.id = null;
     componente.titulo = app.component_name;
+    componente.ordem = app.order || i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -88,6 +104,66 @@ export class ConversorBackEnd {
       }
     }
     
+    return componente;
+  }
+
+  /**
+   * Constrói o payload para salvar um componente do tipo Flickr
+   * @param app  AplicativoFlickr base
+   */
+  static montarFlickrPayload(app: AplicativoFlickr, i: number): ComponenteFlickr {
+    let componente = new ComponenteFlickr();
+    componente.id = null;
+    componente.username = app.username;
+    componente.titulo = app.component_name;
+    componente.ordem = app.order || i;
+    componente.mostrarTitulo = app.showAppTitle;
+    componente.backgroundColor = app.bgColor;
+    componente.foregroundColor = app.fgColor;
+    componente.imagensFlickr = app.imagensFlickr.map(img => {
+      return {id: null, secretId: img.secretId}
+    })
+
+    return componente;
+  }
+
+  /**
+   * Constrói o payload para salvar um componente do tipo Github
+   * @param app AplicativoGithub base
+   */
+  static montarGithubPayload(app: AplicativoGithub, i: number): ComponenteGithub {
+    let componente = new ComponenteGithub();
+    componente.id = null;
+    componente.username = app.username;
+    componente.titulo = app.component_name;
+    componente.ordem = app.order || i;
+    componente.mostrarTitulo = app.showAppTitle;
+    componente.backgroundColor = app.bgColor;
+    componente.foregroundColor = app.fgColor;
+    componente.repos = app.repos.map(repo => {
+      return {id: null, secretId: repo.secretId}
+    })
+
+    return componente;
+  }
+
+  /**
+   * Constrói o payload para salvar um componente do tipo Freesound
+   * @param app 
+   */
+  static montarFreesoundPayload(app: AplicativoFreesound, i: number): ComponenteFreesound {
+    let componente = new ComponenteFreesound();
+    componente.id = null;
+    componente.username = app.username;
+    componente.titulo = app.component_name;
+    componente.ordem = app.order || i;
+    componente.mostrarTitulo = app.showAppTitle;
+    componente.backgroundColor = app.bgColor;
+    componente.foregroundColor = app.fgColor;
+    componente.audios = app.audios.map(audio => {
+      return {id: null, name: audio.name}
+    })
+
     return componente;
   }
 
@@ -108,6 +184,12 @@ export class ConversorBackEnd {
         return this.atribuirIdComponenteTexto(response, app as AplicativoTexto);
       case 'fotos':
         return this.atribuirIdComponenteFoto(response, app as AplicativoFoto);
+      case 'flickr':
+        return this.atribuirIdComponenteFlickr(response, app as AplicativoFlickr);
+      case 'freesound':
+        return this.atribuirIdComponenteFreesound(response, app as AplicativoFreesound);
+      case 'github':
+        return this.atribuirIdComponenteGithub(response, app as AplicativoGithub);
     }
   }
 
@@ -125,9 +207,6 @@ export class ConversorBackEnd {
     if (response.texto) {
       app.texto.id = response.texto.id;
     }
-    console.log('DJANHO')
-    console.log(app);
-    console.log(app.id);
   }
 
   /**
@@ -136,8 +215,6 @@ export class ConversorBackEnd {
    * @param app Aplicativo que será feita a atribuição dos IDs
    */
   static atribuirIdComponenteTexto(response: any, app: AplicativoTexto): void {
-    console.log('Atribuit ID Texto')
-    console.log(response);
     app.id = response.id;
     for (let i = 0; i < app.texto_array.length; i++) {
       app.texto_array[i].id = response.textos[i].id;
@@ -152,6 +229,42 @@ export class ConversorBackEnd {
   static atribuirIdComponenteFoto(response: any, app: AplicativoFoto): void {
     app.id = response.id;
     app.imagem.id = response.imagem.id;
+  }
+
+  /**
+   * Atribui os ids retornados do backend para um componente do tipo Flickr
+   * @param response Resposta do servidor
+   * @param app Aplicativo que será feita a atribuiçao dos IDs
+   */
+  static atribuirIdComponenteFlickr(response: any, app: AplicativoFlickr): void {
+    app.id = response.id;
+    for (let i = 0; i < app.imagensFlickr.length; i++) {
+      app.imagensFlickr[i].id = response.imagensFlickr[i].id;
+    }
+  }
+
+  /**
+   * Atribui os ids retornados do backend para um componente do tipo Freesound
+   * @param response Resposta do servidor
+   * @param app Aplicativo que será feita a tribuição dos IDs
+   */
+  static atribuirIdComponenteFreesound(response: any, app: AplicativoFreesound): void {
+    app.id = response.id;
+    for (let i = 0; i < app.audios.length; i++) {
+      app.audios[i].id = response.audios[i].id;
+    }
+  }
+  
+  /**
+   * Atribui os ids retornados do backend para um componente do tipo Github
+   * @param response Resposta do servidor
+   * @param app Aplicativo que será feita a atribuição dos IDs
+   */
+  static atribuirIdComponenteGithub(response: any, app: AplicativoGithub): void {
+    app.id = response.id;
+    for (let i = 0; i < app.repos.length; i++) {
+      app.repos[i].id = response.repos[i].id;
+    }
   }
 
 
@@ -171,6 +284,15 @@ export class ConversorBackEnd {
         case 'ComponenteImagem':
           appsBackEnd.push(this.montarDadosAplicativoImagem(dado.data, index));
           break;
+        case 'ComponenteGithub':
+          appsBackEnd.push(this.montarDadosAplicativoGithub(dado.data, index));
+          break;
+        case 'ComponenteFlickrNeo':
+          appsBackEnd.push(this.montarDadosAplicativoFlickr(dado.data, index));
+          break;
+        case 'ComponenteFreesound':
+          appsBackEnd.push(this.montarDadosAplicativoFreesound(dado.data, index));
+          break;
         default:
           console.log('Component de tipo desconhecido');
       }
@@ -186,7 +308,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || '';
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = i;
+    novoApp.order = dado.ordem || i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'texto';
     novoApp.isEditable = false;
@@ -207,7 +329,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || '';
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = i;
+    novoApp.order = dado.ordem || i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'fotos';
     novoApp.isEditable = false;
@@ -225,7 +347,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || `Componente Bio [${i}]`;
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = i;
+    novoApp.order = dado.ordem || i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'bio';
     novoApp.isEditable = false;
@@ -242,11 +364,64 @@ export class ConversorBackEnd {
     return novoApp;
   }
 
+  static montarDadosAplicativoFlickr(dado: any, i: number): AplicativoFlickr {
+    let novoApp = new AplicativoFlickr();
+    novoApp.id = dado.id;
+    novoApp.username = dado.username;
+    novoApp.component_name = dado.titulo || '';
+    novoApp.bgColor = dado.backgroundColor || '#DADADA';
+    novoApp.fgColor = dado.foregroundColor || '#333333';
+    novoApp.order = dado.ordem || i;
+    novoApp.showAppTitle = dado.mostrarTitulo;
+    novoApp.type = 'flickr';
+    novoApp.isEditable = false;
+    novoApp.isEdit = false;
+    novoApp.imagensFlickr = dado.imagensFlickr.map(img => {
+      return {id: img.id, secretId: img.secretId}
+    })
+    return novoApp
+  }
+
+  static montarDadosAplicativoFreesound(dado: any, i: number): AplicativoFreesound {
+    let novoApp = new AplicativoFreesound();
+    novoApp.id = dado.id;
+    novoApp.username = dado.username;
+    novoApp.component_name = dado.titulo || '';
+    novoApp.bgColor = dado.backgroundColor || '#DADADA';
+    novoApp.fgColor = dado.foregroundColor || '#333333';
+    novoApp.order = dado.ordem || i;
+    novoApp.showAppTitle = dado.mostrarTitulo;
+    novoApp.type = 'freesound';
+    novoApp.isEditable = false;
+    novoApp.isEdit = false;
+    novoApp.audios = dado.audios.map(audio => {
+      return {id: audio.id, name: audio.name}
+    })
+    return novoApp
+  }
+
+  static montarDadosAplicativoGithub(dado: any, i: number): AplicativoGithub {
+    let novoApp = new AplicativoGithub();
+    novoApp.id = dado.id;
+    novoApp.username = dado.username;
+    novoApp.component_name = dado.titulo || '';
+    novoApp.bgColor = dado.backgroundColor || '#DADADA';
+    novoApp.fgColor = dado.foregroundColor || '#333333';
+    novoApp.order = dado.ordem || i;
+    novoApp.showAppTitle = dado.mostrarTitulo;
+    novoApp.type = 'github';
+    novoApp.isEditable = false;
+    novoApp.isEdit = false;
+    novoApp.repos = dado.repos.map(repo => {
+      return {id: repo.id, secretId: repo.secretId}
+    })
+    return novoApp
+  }
+
 }
-
-
 export class ComponenteBackBase {
   id: number = null;
+  ordem: number = null;
   tipo: string = null;
   titulo: string = '';
   backgroundColor: string = '';
@@ -267,8 +442,40 @@ export class ComponenteFoto extends ComponenteBackBase {
   tipo: string = 'ComponenteImagem'
   imagem: FileGregs = null;
 }
+
+export class ComponenteFlickr extends ComponenteBackBase {
+  tipo: string = 'ComponenteFlickrNeo';
+  username: string = '';
+  imagensFlickr: Array<FlickrItemBack> = [];
+}
+
+export class ComponenteGithub extends ComponenteBackBase {
+  tipo: string = 'ComponenteGithub';
+  username: string = '';
+  repos: Array<RepoBack> = [];
+}
+
+export class ComponenteFreesound extends ComponenteBackBase {
+  tipo: string = 'ComponenteFreesound';
+  username: string = '';
+  audios: Array<AudioBack> = [];
+}
 export class TextoBack {
   id: number = null;
   titulo: string = '';
   descricao: string = '';
+}
+
+export class FlickrItemBack {
+  id: number = null;
+  secretId: string = '';
+}
+
+export class RepoBack {
+  id: number = null;
+  secretId: number = null;
+}
+export class AudioBack {
+  id: number = null;
+  name: string = '';
 }

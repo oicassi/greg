@@ -1,3 +1,4 @@
+import { AlertService } from './../../shared/components/alert/alert.service';
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
 import { AplicativoGithub } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
@@ -16,9 +17,10 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
 
   constructor(
     _appServ: AplicativoService,
-    _apiServ: ApiService
+    _apiServ: ApiService,
+    alertService: AlertService
   ) {
-    super(_appServ, _apiServ);
+    super(_appServ, alertService, _apiServ,);
   }
 
   ngOnInit() {
@@ -39,14 +41,15 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
         this.loading = false;
       }),
       ((err) => {
-        console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
-        console.log(err);
+        this.tratarErros(err, 'GitHub', true);
         if (this.dados.username != this.dadosBkp.username) {
           this.dados = this.dadosBkp;
+          this._appServ.replaceAplicativo(this.dados);
           this.criaBackupDados();
           this.loadAll();
         } else {
           this.setVariaveisIniciais();
+          this._appServ.replaceAplicativo(this.dados);
           this.loading = false;
         }
       })
@@ -73,9 +76,8 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    * @param username 
    */
   onUsernameSubmit(username: string) {
-    console.log('bagulho dentro do github')
-    console.log(username);
     this.dados.username = username;
+    this.dados.repos = [];
     this.loadAll()
   }
 }

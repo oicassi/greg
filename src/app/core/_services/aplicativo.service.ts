@@ -1,3 +1,4 @@
+
 import { PagesService } from '@services/pages.service';
 import { UserPageGlobal } from '@models/user';
 import { AuthenticationService } from 'src/app/core/_services';
@@ -20,7 +21,7 @@ import { Foto, Audio, Repo, Texto } from '@models/aplicativo-item';
 import { AplicativosModels } from '@shared/constants/aplicativos';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { ComponenteBackBase, ConversorBackEnd } from '@helpers/conversorBackEnd';
+import { AudioBack, ComponenteBackBase, ConversorBackEnd, FlickrItemBack, RepoBack } from '@helpers/conversorBackEnd';
 import { FileGregs } from '@models/file-greg';
 import { GenericResponse } from '@models/responses/generic-response';
 import { UserConfigs } from '@models/user-configs';
@@ -173,7 +174,19 @@ export class AplicativoService {
   async salvarAplicativos(): Promise<void | any> {
     if (!this.aplicativos || !this.aplicativos.length) {
       console.log('Sem dados para salvar');
-      return;
+      const componentesParaLinkar = {
+        id: null,
+        url: null,
+        backgroundColor: this._pagesSrv.getPageGlobalInfo().pageBgColor || '#CACACA',
+        componentes: []
+      }
+  
+      const urlLinkar = `${this.baseURL}/pagina`;
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'application/json');
+      return await this._http.put(urlLinkar, componentesParaLinkar, {
+        headers
+      }).toPromise();
     }
 
     let componentesParaSalvar: Array<ComponenteBackBase> = [];
@@ -184,8 +197,8 @@ export class AplicativoService {
       componentes: []
     }
 
-    componentesParaSalvar = this.aplicativos.map((app) => {
-      let comp = ConversorBackEnd.montarPayload(app);
+    componentesParaSalvar = this.aplicativos.map((app, index) => {
+      let comp = ConversorBackEnd.montarPayload(app, index);
       return comp;
     })
 
@@ -204,8 +217,8 @@ export class AplicativoService {
       }).toPromise())
     })
 
-    const responseSalvar =  await Promise.all(promises);
-    
+    const responseSalvar = await Promise.all(promises);
+
     if (!responseSalvar) {
       throw new Error('Ocorreu um erro ao salvar os componentes');
     }
@@ -222,7 +235,7 @@ export class AplicativoService {
         tipo: null
       })
     });
-    
+
     console.log('Componentes para linkar');
     console.log(componentesParaLinkar);
 
@@ -255,7 +268,7 @@ export class AplicativoService {
       return of(appFreesound);
     }
     return this._apiSrv.getFreeSoundData(appFreesound.username).pipe(
-      map(([profile, audios]) => this.handleFreesoundData(profile, audios)),
+      map(([profile, audios]) => this.handleFreesoundData(profile, audios, appFreesound.audios)),
       map((appGerado) => {
         appFreesound.audio_array = appGerado.audio_array;
         appFreesound.description = appGerado.description;
@@ -270,13 +283,13 @@ export class AplicativoService {
    * @param profile Informações sobre o perfil
    * @param audios Informações sobre os áudios
    */
-  handleFreesoundData(profile: any, audios: any): AplicativoFreesound {
+  handleFreesoundData(profile: any, audios: any, audiosRef: AudioBack[] = null): AplicativoFreesound {
 
     console.log('%cFREESOUND AUDIOS', 'color:blue');
     console.log(audios);
 
     let freeSound = new AplicativoFreesound();
-    freeSound.audio_array = this.handleFreesoundAudios(audios);
+    freeSound.audio_array = this.handleFreesoundAudios(audios, audiosRef);
     freeSound.description = profile.about || 'Descrição não informada';
     freeSound.profile_url = profile.url;
 
@@ -287,9 +300,17 @@ export class AplicativoService {
    * Trata as informações de áudios vindas do freesound e monta um array
    * @param audios Dados de áudios vindos da requisição
    */
-  handleFreesoundAudios(audios: any): Audio[] {
+  handleFreesoundAudios(audios: any, audiosRef: AudioBack[] = null): Audio[] {
     let audioArray: Audio[] = [];
     const { results } = audios;
+
+    let novoComp = true;
+    let names: Array<string> = [];
+    if (audiosRef && audiosRef.length) {
+      novoComp = false;
+      names = audiosRef.map(audio => audio.name);
+    }
+
     results.forEach((res, i) => {
       // Temporário, para limitar a quantidade de áudios
       if (i > 50) {
@@ -307,7 +328,14 @@ export class AplicativoService {
         }
       }
       novoAudio.tags = Array.from(res.tags);
-      audioArray.push(novoAudio);
+
+      if (novoComp || names.includes(res.name)) {
+        audioArray.push(novoAudio);
+        if (novoComp) {
+          audiosRef.push({id: null, name: res.name});
+        }
+      }
+
     })
     return audioArray;
   }
@@ -321,7 +349,7 @@ export class AplicativoService {
       return of(appGithub);
     }
     return this._apiSrv.getGithubData(appGithub.username).pipe(
-      map(([profile, repos]) => this.handleGitHubData(profile, repos)),
+      map(([profile, repos]) => this.handleGitHubData(profile, repos, appGithub.repos)),
       map((appGerado) => {
         appGithub.repo_array = appGerado.repo_array;
         appGithub.description = appGerado.description;
@@ -336,7 +364,7 @@ export class AplicativoService {
    * @param profile Informações sobre o perfil
    * @param audios Informações sobre os repositórios
    */
-  handleGitHubData(profile: any, repos: any): AplicativoGithub {
+  handleGitHubData(profile: any, repos: any, reposRef: RepoBack[] = null): AplicativoGithub {
     if (profile && profile.message && profile.message === 'Not Found') {
       throw new Error('Usuário do Github não encontrado');
     }
@@ -350,7 +378,7 @@ export class AplicativoService {
     }
 
     // Monta o objeto com os dados pertinentes da requisição
-    novoGithub.repo_array = this.handleGitHubRepos(repos);
+    novoGithub.repo_array = this.handleGitHubRepos(repos, reposRef);
     novoGithub.description = profile.bio;
     novoGithub.profile_url = profile.html_url;
 
@@ -361,25 +389,36 @@ export class AplicativoService {
    * Trata os dados dos repositórios do GitHub
    * @param repos Dados da request com os repositórios
    */
-  handleGitHubRepos(repos: any): Repo[] {
+  handleGitHubRepos(repos: any, reposRef: RepoBack[] = null): Repo[] {
     if (!repos || !repos.length) {
       return [];
     }
 
     // Ordena do mais recente atualizado para o mais antigo
     repos.sort((a, b) => new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf());
-
+    let novoComp = true;
+    let secrets: Array<number> = [];
+    if (reposRef && reposRef.length) {
+      novoComp = false;
+      secrets = reposRef.map(repo => repo.secretId);
+    }
 
     // Mapeia os dados para o vetor de repositórios
-    let novosRepos: Repo[] = repos.map((repo) => {
-      return (
-        {
-          name: repo.name,
-          description: repo.description,
-          url: repo.html_url,
-          data: new Date(repo.updated_at).toLocaleDateString()
+    let novosRepos: Repo[] = [];
+    repos.forEach((repo) => {
+      let novoRepo = new Repo();
+
+      novoRepo.name = repo.name;
+      novoRepo.description = repo.description;
+      novoRepo.url = repo.html_url;
+      novoRepo.data = new Date(repo.updated_at).toLocaleDateString();
+
+      if (novoComp || secrets.includes(repo.id)) {
+        novosRepos.push(novoRepo);
+        if (novoComp) {
+          reposRef.push({id: null, secretId: repo.id});
         }
-      )
+      }
     })
 
     return novosRepos;
@@ -394,7 +433,7 @@ export class AplicativoService {
       return of(appFlickr);
     }
     return this._apiSrv.getFlickrData(appFlickr.username).pipe(
-      map(([profile, fotos]) => this.handleFlickrData(profile, fotos)),
+      map(([profile, fotos]) => this.handleFlickrData(profile, fotos, appFlickr.imagensFlickr)),
       map((appGerado) => {
         appFlickr.photo_array = appGerado.photo_array;
         appFlickr.description = appGerado.description;
@@ -411,7 +450,7 @@ export class AplicativoService {
    * @param profile Informações sobre o perfil
    * @param fotos Informações sobre as fotos
    */
-  handleFlickrData(profile: any, fotos: any): AplicativoFlickr {
+  handleFlickrData(profile: any, fotos: any, imagensRef: FlickrItemBack[] = null): AplicativoFlickr {
     if (profile && profile.stat === 'fail') {
       throw new Error('Erro ao buscar informações do perfil');
     }
@@ -425,7 +464,7 @@ export class AplicativoService {
     let novoFlickr = new AplicativoFlickr();
 
     // Monta o objeto com os dados pertinentes da requisição
-    novoFlickr.photo_array = this.handleFlickrFotos(fotos);
+    novoFlickr.photo_array = this.handleFlickrFotos(fotos, imagensRef);
     novoFlickr.description = profile.person.description._content;
     novoFlickr.profile_url = profile.person.profileurl._content;
     novoFlickr.full_name = profile.person.realname._content;
@@ -438,18 +477,29 @@ export class AplicativoService {
    * Trata os dados dos das fotos do Flickr
    * @param repos Dados da request com as fotos
    */
-  handleFlickrFotos(fotos: any): Foto[] {
+  handleFlickrFotos(fotos: any, imagensRef: FlickrItemBack[] = null): Foto[] {
     if (!fotos.photos || !fotos.photos.photo || !fotos.photos.photo.length) {
       return [];
     }
-
+    let novoComp = true;
+    let secrets: Array<string> = [];
+    if (imagensRef && imagensRef.length) {
+      novoComp = false;
+      secrets = imagensRef.map(img => img.secretId);
+    }
     let novasFotos: Foto[] = [];
+
     fotos.photos.photo.forEach((foto) => {
       const { farm, server, id, secret, title } = foto;
       let novaFoto = new Foto();
       novaFoto.name = title;
       novaFoto.url = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}.jpg`;
-      novasFotos.push(novaFoto);
+      if (novoComp || secrets.includes(secret)) {
+        novasFotos.push(novaFoto);
+        if (novoComp) {
+          imagensRef.push({ id: null, secretId: secret });
+        }
+      }
     })
 
     return novasFotos;

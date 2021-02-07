@@ -1,3 +1,4 @@
+import { AlertService } from '@shared-components/alert/alert.service';
 import { FileGregs } from './../../shared/models/file-greg';
 import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
 import { Component, Input, OnInit } from '@angular/core';
@@ -21,8 +22,9 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   constructor(
     _appServ: AplicativoService,
     private _fb: FormBuilder,
+    protected alertService: AlertService,
   ) {
-    super(_appServ);
+    super(_appServ, alertService);
   }
 
   ngOnInit() {

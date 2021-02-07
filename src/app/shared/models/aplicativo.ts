@@ -1,3 +1,4 @@
+import { AudioBack, FlickrItemBack, RepoBack } from '@helpers/conversorBackEnd';
 import { Foto, Repo, Audio, Texto } from '@models/aplicativo-item';
 import { FileGregs } from './file-greg';
 
@@ -32,13 +33,15 @@ export class AplicativoFlickr extends AplicativoApi {
   full_name: string = '';
   alias: string = '';
   photo_array: Foto[] = [];
+  imagensFlickr: FlickrItemBack[] = [];
 }
 
 /**
  * Classe com os dados do aplicativo Github
  */
 export class AplicativoGithub extends AplicativoApi {
-  repo_array: Repo[] = []
+  repo_array: Repo[] = [];
+  repos: RepoBack[] = [];
 }
 
 /**
@@ -46,6 +49,7 @@ export class AplicativoGithub extends AplicativoApi {
  */
 export class AplicativoFreesound extends AplicativoApi {
   audio_array: Audio[] = [];
+  audios: AudioBack[] = [];
 }
 
 /**

@@ -5,6 +5,7 @@ import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/ap
 import { AplicativoService } from '@services/aplicativo.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Texto } from '@models/aplicativo-item';
+import { AlertService } from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-texto',
@@ -25,8 +26,9 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
   constructor(
     _appServ: AplicativoService,
     private _fb: FormBuilder,
+    protected alertService: AlertService,
   ) {
-    super(_appServ);
+    super(_appServ, alertService);
   }
 
   ngOnInit() {

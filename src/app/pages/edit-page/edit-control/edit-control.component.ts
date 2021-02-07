@@ -76,6 +76,7 @@ export class EditControlComponent implements OnInit {
   visualizarPagina(): void {
     this._pagesSrv.visualizarPreview = true;
     this._pagesSrv.carregarDados = false;
+    this.aplicativos.forEach(app => app.isEdit = false);
     this._router.navigate(['/fullpreview'])
   }
 

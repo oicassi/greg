@@ -153,10 +153,6 @@ export class InputGroupComponent implements OnInit {
    * Submit do termo digitado no input
    */
   onSubmit(): void {
-    console.log('Submitinginging')
-    console.log(this.form.get('generic_input'));
-    console.log(this.form.get('generic_input').value)
-    console.log(this.form.get('generic_input').valid)
  
     // Marcar os campos do formulário como dirty
     this.verificarCamposFormularios();

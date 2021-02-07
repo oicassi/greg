@@ -25,6 +25,8 @@ export class FullpreviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('fullpreview')
+    console.log(this.aplicativos)
   }
 
   /**
