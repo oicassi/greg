@@ -5,17 +5,29 @@
     <h2 class="edit-control-title">Componentes</h2>
     <div class="edit-control-buttons-config">
       <div
+        [title]="'Abrir menu de compartilhamento'" 
+        class="material-icons aplicativo-config-button-no-spin"
+        (click)="toggleShareMenu()"
+        style="color: var(--color-main); margin-right: 5px;"
+        [ngStyle]="{color: isShareMenuOpen ? 'var(--color-main-darker)' : 'var(--color-main)'}"
+      >
+        share
+      </div>
+      <div
         [title]="'Visualizar preview da página'" 
         class="material-icons aplicativo-config-button-no-spin" 
         (click)="visualizarPagina()" 
-        style="color: var(--color-main); margin-right: 5px;">
+        style="color: var(--color-main); margin-right: 5px;"
+      >
         launch
       </div>
       <div
         [title]="'Abrir configurações da página'" 
         class="material-icons aplicativo-config-button" 
         (click)="toggleConfigMenu()" 
-        style="color: var(--color-main); margin-left: 5px;">
+        style="color: var(--color-main); margin-left: 5px;"
+        [ngStyle]="{color: isConfigMenuOpen ? 'var(--color-main-darker)' : 'var(--color-main)'}"
+      >
         settings
       </div>
     </div>
@@ -29,6 +41,30 @@
       </app-config-page>
     </div>
   </div>
+
+    <!-- Menu de compartilhamento da página -->
+    <div class="aplicativo-config-page-collapse-container" *ngIf="isShareMenuOpen">
+      <span class="aplicativo-config-label" style="color:inherit !important">Link para página</span>
+      <div class="aplicativo-config-container">
+        <div
+          class="share-menu-container"
+        >
+          <div
+            class="text-share-menu"
+          >
+            {{urlPagina}}
+          </div>
+          <div
+            [title]="'Copiar link para página'" 
+            class="material-icons icon-button-share-menu"
+            (click)="copiarLinkAreaTransferencia()"
+          >
+            content_copy
+          </div>
+
+        </div>
+      </div>
+    </div>
 
   <div cdkDropList (cdkDropListDropped)="drop($event)" class="control-drag-drop-container">
     <!-- Lista de aplicativos já adicionados -->
