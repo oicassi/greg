@@ -110,6 +110,8 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
     }, error => {
       console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
       console.log(error);
+      this.loading = false;
+      this.tratarErros(error, 'GitHub', true);
     })
 
   }
