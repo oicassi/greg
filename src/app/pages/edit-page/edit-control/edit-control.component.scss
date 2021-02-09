@@ -66,3 +66,22 @@
 .control-drag-drop-container.cdk-drop-list-dragging .djanho:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.share-menu-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-button-share-menu {
+  cursor: pointer;
+  margin: 0 10px;
+  color: var(--color-main-lighter);
+}
+
+.text-share-menu {
+  overflow-x: auto; 
+  flex: 1; 
+  white-space: nowrap;
+}

@@ -1,3 +1,4 @@
+import { AlertService } from './../../shared/components/alert/alert.service';
 import { AplicativoService } from '@services/aplicativo.service';
 import { Audio } from '@models/aplicativo-item';
 import { AplicativoFreesound } from '@models/aplicativo';
@@ -21,9 +22,10 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
 
   constructor(
     _appServ: AplicativoService,
-    _apiServ: ApiService
+    _apiServ: ApiService,
+    alertService: AlertService
   ) {
-    super(_appServ, _apiServ);
+    super(_appServ, alertService, _apiServ);
   }
 
   ngOnInit() {
@@ -45,14 +47,15 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
         this.loading = false;
       }),
       ((err) => {
-        console.log('%cOcorreu um erro na busca de dados do freesound', 'color: red');
-        console.log(err);
+        this.tratarErros(err, 'FreeSound', true);
         if (this.dados.username != this.dadosBkp.username) {
           this.dados = this.dadosBkp;
+          this._appServ.replaceAplicativo(this.dados);
           this.criaBackupDados();
           this.loadAll();
         } else {
           this.setVariaveisIniciais();
+          this._appServ.replaceAplicativo(this.dados);
           this.loading = false;
         }
       })
@@ -95,6 +98,7 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
 
   onUsernameSubmit(username: string) {
     this.dados.username = username;
+    this.dados.audios = [];
     this.loadAll()
   }
 }

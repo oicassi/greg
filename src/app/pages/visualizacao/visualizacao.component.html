@@ -1,0 +1,13 @@
+<div class="preview-full-page-container" [ngStyle]="customPageBgColor()" *ngIf="!loading">
+  <div class="preview-main-container">
+    <div class="preview-app-container fade-in-geral" *ngFor="let app of aplicativos">
+      <app-aplicativo-base [dados]="app" [aplicativo]="factorySrv.getAplicativo(app.type)"></app-aplicativo-base>
+    </div>
+  </div>
+</div>
+<!-- Loading indicator -->
+<div style="display: flex; width: 100%; height: 250px; justify-content: center; align-items: center;" *ngIf="loading">
+  <div class="spinner-grow text-primary" role="status">
+    <span class="sr-only">Carregando</span>
+  </div>
+</div>

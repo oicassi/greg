@@ -1,3 +1,4 @@
+import { AlertService } from './../../shared/components/alert/alert.service';
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
 import {AplicativoFlickr, AplicativoGithub} from '@models/aplicativo';
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
@@ -21,9 +22,10 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
   constructor(
     _appServ: AplicativoService,
     _apiServ: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    alertService: AlertService
   ) {
-    super(_appServ, _apiServ);
+    super(_appServ, alertService, _apiServ);
   }
 
   ngOnInit() {
@@ -45,14 +47,15 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
       this.loading = false;
     },
       err => {
-        console.log('Ocorreu um erro ao buscar os dados das fotos');
-        console.log(err);
+        this.tratarErros(err, 'Flickr', true);
         if (this.dados.username != this.dadosBkp.username) {
           this.dados = this.dadosBkp;
+          this._appServ.replaceAplicativo(this.dados);
           this.criaBackupDados();
           this.loadAll();
         } else {
           this.setVariaveisIniciais();
+          this._appServ.replaceAplicativo(this.dados);
           this.loading = false;
         }
       }
@@ -89,6 +92,7 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
       });
 
       dialogRef.afterClosed().subscribe((result: Foto[]) => {
+        console.log(result);
         if (!result) {
           this.dados.photo_array = [...this.dadosBkp.photo_array];
         } else {
@@ -105,6 +109,8 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
 
   onUsernameSubmit(username: string) {
     this.dados.username = username;
+    this.dados.imagensFlickr = [];
     this.onOpenModal();
+
   }
 }

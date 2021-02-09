@@ -1,7 +1,9 @@
+import { FileGregs } from './../../shared/models/file-greg';
 import { AplicativoFoto } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
 import { AplicativoService } from '@services/aplicativo.service';
+import { AlertService } from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-fotos',
@@ -15,8 +17,9 @@ export class FotosComponent extends AplicativoGenericoComponent implements OnIni
 
   constructor(
     _appServ: AplicativoService,
+    protected alertService: AlertService,
   ) {
-    super(_appServ);
+    super(_appServ, alertService);
   }
 
   ngOnInit() {
@@ -33,7 +36,8 @@ export class FotosComponent extends AplicativoGenericoComponent implements OnIni
   /**
    * Handler ao clicar no botão de input arquivo
    */
-  onInputCarregarFoto():void {
-    console.log(`[${this.dados.component_name}] clicado no botão de input de arquivos`);
+  onInputTrocarFoto(event: FileGregs):void {
+    this.dados.imagem = event;
+    this.dadosBkp.imagem = event;
   }
 }

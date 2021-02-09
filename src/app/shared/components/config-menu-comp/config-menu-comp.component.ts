@@ -1,6 +1,7 @@
 import { AplicativoBase } from '@models/aplicativo';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AplicativosModels } from '@shared/constants/aplicativos';
+import { FileGregs } from '@models/file-greg';
 
 @Component({
   selector: 'app-config-menu-comp',
@@ -21,7 +22,7 @@ export class ConfigMenuCompComponent implements OnInit {
   @Output() colorChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() textCount: EventEmitter<string> = new EventEmitter<string>();
   @Output() modalOpen: EventEmitter<string> = new EventEmitter<string>();
-  @Output() inputArquivo: EventEmitter<string> = new EventEmitter<string>();
+  @Output() inputArquivo: EventEmitter<FileGregs> = new EventEmitter<FileGregs>();
 
   constructor() { }
 
@@ -133,8 +134,17 @@ export class ConfigMenuCompComponent implements OnInit {
   /**
    * Hanlder para evento de clicar no botão de input de arquivo
    */
-  onInputArquivoButtonClick(): void {
-    this.inputArquivo.emit(this.dados.type);
+  onInputArquivoButtonClick(file: File): void {
+    
+    let fileGregs = new FileGregs();
+    const reader = new FileReader();
+    reader.onload = (event: any) => {
+      fileGregs.base64Img = event.target.result;
+    };
+    reader.readAsDataURL(file);
+    fileGregs.nome = file.name;
+
+    this.inputArquivo.emit(fileGregs);
   }
 
   /**

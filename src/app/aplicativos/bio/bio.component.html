@@ -17,11 +17,8 @@
 	<div class="aplicativo-config-collapse-container" id="bioConfig" *ngIf="dados.isEdit && isConfigMenuOpen">
 		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
 		<div class="aplicativo-config-container">
-			<app-config-menu-comp
-				[dados]="dados" 
-				(colorChange)="onColorChange($event)" 
-				(inputArquivo)="onInputTrocarFoto()"
-			>
+			<app-config-menu-comp [dados]="dados" (colorChange)="onColorChange($event)"
+				(inputArquivo)="onInputTrocarFoto($event)">
 			</app-config-menu-comp>
 		</div>
 	</div>
@@ -31,15 +28,16 @@
 
 
 		<!-- Container da imagem -->
-		<div class="bio-profile-pic-container">
-			<img src="{{dados.imagem.url}}" class="bio-profile-pic">
+		<div class="bio-profile-pic-container" *ngIf="dados.imagem && dados.imagem.base64Img">
+			<img [src]="dados.imagem && dados.imagem.base64Img ? dados.imagem.base64Img : null" alt="Imagem da Bio"
+				class="bio-profile-pic">
 		</div>
 
 		<!-- Container apenas para exibição -->
 		<div class="bio-grid-container" *ngIf="!dados.isEdit">
 			<div class="bio-element-container">
 				<div class="bio-element-body-container">
-					{{dados.texto}}
+					{{dados.texto.body}}
 				</div>
 			</div>
 		</div>
@@ -50,7 +48,7 @@
 				<form [formGroup]="form">
 					<div class="bio-element-body-control">
 						<div class="form-group bio-title-input">
-							<textarea [formControlName]="'texto'" class="form-control form-control-sm"
+							<textarea formControlName="texto" class="form-control form-control-sm"
 								[ngClass]="{'is-invalid': form.controls.texto.errors && form.controls.texto.touched}" rows="10"
 								style="height:100%;" id="textBody" placeholder="Insira a bio aqui"></textarea>
 							<div *ngIf="form.controls.texto.errors && form.controls.texto.touched" class="invalid-feedback">

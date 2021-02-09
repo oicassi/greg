@@ -1,14 +1,13 @@
 <div class="config-main-container">
 
   <!-- Container para interação com API e modal -->
-  <div class="config-input-button-container config-generic-container"
-    *ngIf="checkComponenteApi()">
+  <div class="config-input-button-container config-generic-container" *ngIf="checkComponenteApi()">
 
     <!-- Input group para colocar um novo username -->
     <div class="config-input-username-container" *ngIf="hasCheckedApi && checkComponenteApi()">
       <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']"
         [placeholder]="textosInputApi.placeholder" [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
-        [campoObrigatorioMsg]="'O username é obrigatório'" (submit)="onUsernameSubmit($event)">
+        [campoObrigatorioMsg]="'O username é obrigatório'" (submitInput)="onUsernameSubmit($event)">
       </app-input-group>
     </div>
 
@@ -21,11 +20,13 @@
     </button>
   </div>
 
-   <!-- Botão para input de arquivo -->
-   <div *ngIf="checkComponenteInputArquivo()" class="config-generic-container">
-    <button class="btn btn-outline-primary" (click)="onInputArquivoButtonClick()">
-      {{textosInputApi.botaoInputLabel}}
-    </button>
+  <!-- Botão para input de arquivo -->
+  <div *ngIf="checkComponenteInputArquivo()" class="config-generic-container">
+    <label for="file-input" style="margin-right: 20px;">{{textosInputApi.botaoInputLabel}}</label>
+    <input type="file" id="file-input" name="file-input"  class="btn btn-outline-primary" accept="image/*"
+      (change)="onInputArquivoButtonClick($event.target.files[0])"
+    />
+
   </div>
 
   <!-- Container para acrescentar ou reduzir textos -->

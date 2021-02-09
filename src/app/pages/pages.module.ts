@@ -22,6 +22,7 @@ import {EditPreviewComponent} from './edit-page/edit-preview/edit-preview.compon
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from "@angular/material/button";
 import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplicativo.component";
+import { VisualizacaoComponent } from './visualizacao/visualizacao.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplic
     EditPageComponent,
     EditControlComponent,
     EditPreviewComponent,
+    VisualizacaoComponent,
   ],
   imports: [
     SharedModule,

@@ -1,3 +1,5 @@
+import { UserService } from './../../../core/_services/user.service';
+import { AlertService } from './../../../shared/components/alert/alert.service';
 import { Router } from '@angular/router';
 import { AplicativoBase } from '@models/aplicativo';
 import { AplicativoService } from '@services/aplicativo.service';
@@ -5,6 +7,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { PagesService } from '@services/pages.service';
 import { UserPageGlobal } from '@models/user';
+import { GenericResponse } from '@models/responses/generic-response';
+import { UserConfigs } from '@models/user-configs';
 
 @Component({
   selector: 'app-edit-control',
@@ -14,17 +18,29 @@ import { UserPageGlobal } from '@models/user';
 export class EditControlComponent implements OnInit {
 
   isConfigMenuOpen = false;
-  
+  isShareMenuOpen = false;
+  urlPagina: string = '';
+
   constructor(
     private _appSrv: AplicativoService,
     private _pagesSrv: PagesService,
     private _router: Router,
-    private _cdr: ChangeDetectorRef
+    private _cdr: ChangeDetectorRef,
+    private _alertSrv: AlertService,
+    private _userSrv: UserService,
   ) { }
 
   ngOnInit() {
     // Ordena os aplicativos com base no order
     this.ordenarAplicativos();
+    this._userSrv
+      .getUser()
+      .subscribe((resposta: GenericResponse<UserConfigs>) => {
+        this.urlPagina = `http://localhost:4200/pagina/${resposta.data.urlPagina}`;
+      },
+        (err => {
+          console.log(err);
+        }))
   }
 
   /**
@@ -71,10 +87,19 @@ export class EditControlComponent implements OnInit {
   }
 
   /**
+   * Toggler para abertura e fechamento do menu de compartilhamento
+   */
+  toggleShareMenu(): void {
+    this.isShareMenuOpen = !this.isShareMenuOpen
+  }
+
+  /**
    * Visualizar a página completa
    */
   visualizarPagina(): void {
     this._pagesSrv.visualizarPreview = true;
+    this._pagesSrv.carregarDados = false;
+    this.aplicativos.forEach(app => app.isEdit = false);
     this._router.navigate(['/fullpreview'])
   }
 
@@ -97,6 +122,21 @@ export class EditControlComponent implements OnInit {
     console.log('%cAplicativo reordenado com sucesso', 'color: purple');
     console.log(this.aplicativos);
     this._cdr.detectChanges();
+  }
+
+  copiarLinkAreaTransferencia() {
+    this._alertSrv.info('Link para página copiado para área de transferência');
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.urlPagina;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 
 

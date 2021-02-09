@@ -26,15 +26,19 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="email">Usuário</label>
+      <label for="email">Email</label>
       <input
-        type="text"
+        type="email"
         formControlName="email"
         class="form-control"
         [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+        email
       />
       <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-        <div *ngIf="f.email.errors.required">Digite a senha</div>
+        <div *ngIf="f.email.errors.required">Digite o email</div>
+      </div>
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.email">Endereço de email inválido</div>
       </div>
     </div>
     <div class="form-group">

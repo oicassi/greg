@@ -54,6 +54,10 @@ export class AplicativosModels {
 
   static SELECIONAVEIS = [
     {
+      type: 'bio',
+      label: 'Bio'
+    },
+    {
       type: 'flickr',
       label: 'Flickr'
     },
@@ -96,7 +100,6 @@ export class AplicativosModels {
 
   static MODAL = [
     'flickr',
-    'fotos',
     'freesound',
     'github',
   ]

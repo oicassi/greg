@@ -1,3 +1,5 @@
+import { AlertService } from '@shared-components/alert/alert.service';
+import { FileGregs } from './../../shared/models/file-greg';
 import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
@@ -20,11 +22,13 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   constructor(
     _appServ: AplicativoService,
     private _fb: FormBuilder,
+    protected alertService: AlertService,
   ) {
-    super(_appServ);
+    super(_appServ, alertService);
   }
 
   ngOnInit() {
+    this.dados.texto.title = '';
     this.criaBackupDados();
     this.initForms();
   }
@@ -35,9 +39,20 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   initForms(): void {
     // Inicializa ao menos um formulário de texto
     this.form = this._fb.group({
-      'texto': [(this.dados.texto || ''),
+      'texto': [(this.dados.texto.body || ''),
       [Validators.required]],
-    })
+    });
+    
+  }
+
+  /**
+   * Retorna as cores customizadas para as bordas do espaço do texto
+   */
+  getCustomElementTitleStyle() {
+    let color = this.dados.fgColor || '#444444';
+    return {
+      'border-bottom':`1px solid ${color}`
+    }
   }
 
   /**
@@ -46,12 +61,12 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   salvarTexto(): void {
 
     // Marcar o controle que que está sendo salvo como touched e dirty
-    let control = this.form.get('texto');
-    control.markAsDirty({ onlySelf: true });
-    control.markAsTouched({ onlySelf: true });
+    let controlTexto = this.form.get('texto');
+    controlTexto.markAsDirty({ onlySelf: true });
+    controlTexto.markAsTouched({ onlySelf: true });
 
     // Se tiver algum erro, cancela a ação
-    if (this.form.get('texto').errors ) {
+    if (this.form.get('texto').errors) {
       return;
     }
 
@@ -59,15 +74,15 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
     const texto = this.form.get('texto').value;
 
     // Atualiza a informação
-    this.dados.texto = texto;
+    this.dados.texto.body = texto;
+    this.dados.texto.title = null;
   }
 
   /**
    * Cancela a edição do texto e título e retorna os dados ao estado original
-   * @param indice Índice do texto e título sendo editados
    */
   cancelarTexto(): void {
-    this.form.get('texto').setValue(this.dados.texto);
+    this.form.get('texto').setValue(this.dados.texto.body);
   }
 
   /**
@@ -81,8 +96,9 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   /**
    * Handler ao clicar no botão de input arquivo
    */
-  onInputTrocarFoto():void {
-    console.log(`[${this.dados.component_name}] clicado no botão de input de arquivos`);
+  onInputTrocarFoto(event: FileGregs):void {
+    this.dados.imagem = event;
+    this.dadosBkp.imagem = event;
   }
 
   /**
@@ -101,7 +117,7 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
   checkAcoesDisabled(): boolean{
     let texto = this.form.get('texto').value;
 
-    if (this.dados.texto !== texto) {
+    if (this.dados.texto.body !== texto) {
         return false;
       }
     return true;

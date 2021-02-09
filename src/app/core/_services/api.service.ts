@@ -1,7 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {forkJoin, Observable} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
+import { HttpError } from './../../shared/models/http-error';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { AplicativoFreesound } from '@models/aplicativo';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { UrlHandlingStrategy } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -105,10 +108,19 @@ export class ApiService {
     // Faz a chamada e a concatena com outras requisições necessárias para o flickr
     return this._http.get(this.flickrUrl, userOptions).pipe(
       switchMap(
-        dadosBasicos => this.getFlickrAllData(dadosBasicos['user'].nsid).pipe(
-          map(dados => dados)
+        dadosBasicos => {
+          console.log('Junto do dados basicos');
+          console.log(dadosBasicos);
+          if (dadosBasicos['stat'] === 'fail') {
+            let error = new HttpError();
+            error.message = 'Username não encontrado';
+            error.status = 404;
+            throw error;
+          }
+          return this.getFlickrAllData(dadosBasicos['user'].nsid).pipe(
+          map(dados => dados),
         )
-      )
+        })
     )
   }
 

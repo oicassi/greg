@@ -1,3 +1,4 @@
+import { AlertService } from './../../shared/components/alert/alert.service';
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
 import {AplicativoFlickr, AplicativoGithub} from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
@@ -21,9 +22,10 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
   constructor(
     _appServ: AplicativoService,
     _apiServ: ApiService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    alertService: AlertService
   ) {
-    super(_appServ, _apiServ);
+    super(_appServ, alertService, _apiServ,);
   }
 
   ngOnInit() {
@@ -38,20 +40,20 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
   loadAll(): void {
     this.loading = true;
     if(this.dados.username != ""){
-      this._appServ.requestGithubData(this.dados).subscribe(
-        (novosDados => {
-          this.dados = novosDados;
-          this.setVariaveisIniciais();
-          this.loading = false;
-        }),
-        ((err) => {
-          console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
-          console.log(err);
-          if (this.dados.username != this.dadosBkp.username) {
-            this.dados = this.dadosBkp;
-            this.criaBackupDados();
-            this.loadAll();
-          } else {
+    this._appServ.requestGithubData(this.dados).subscribe(
+      (novosDados => {
+        this.dados = novosDados;
+        this.setVariaveisIniciais();
+        this.loading = false;
+      }),
+      ((err) => {
+        this.tratarErros(err, 'GitHub', true);
+        if (this.dados.username != this.dadosBkp.username) {
+          this.dados = this.dadosBkp;
+          this._appServ.replaceAplicativo(this.dados);
+          this.criaBackupDados();
+          this.loadAll();
+        } else {
             this.setVariaveisIniciais();
             this.loading = false;
           }
@@ -111,6 +113,8 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    */
   onUsernameSubmit(username: string) {
     this.dados.username = username;
+    this.dados.repos = [];
     this.onOpenModal();
+    // this.loadAll()
   }
 }

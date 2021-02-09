@@ -20,7 +20,7 @@
 		<span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
 		<div class="aplicativo-config-container">
 			<app-config-menu-comp [dados]="dados" (colorChange)="onColorChange($event)"
-				(modalOpen)="onOpenModal()" (inputArquivo)="onInputCarregarFoto()">
+				(modalOpen)="onOpenModal()" (inputArquivo)="onInputTrocarFoto($event)">
 			</app-config-menu-comp>
 		</div>
 	</div>
@@ -29,10 +29,16 @@
 	<div class="aplicativo-content-container">
 
 		<!-- Container das imagens -->
-		<div class="fotos-photo-container">
-			<app-photo-container [photoArray]="dados.photo_array" [fgColor]="dados.fgColor"
-				style="margin: auto; width: 100%;">
-			</app-photo-container>
+		<div class="fotos-photo-container" style="color: inherit;">
+			<img 
+				[src]="dados.imagem && dados.imagem.base64Img ? dados.imagem.base64Img : null" 
+				[alt]="dados.component_name" 
+				class="fotos-pic" 
+				*ngIf="dados.imagem && dados.imagem.base64Img"
+			>
+			<div class="fotos-msg-container" *ngIf="!dados.imagem || !dados.imagem.base64Img">
+				Nenhuma imagem carregada. Selecione uma através das configurações do componente
+			</div>
 		</div>
 	</div>
 </div>
