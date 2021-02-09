@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-landing-buttons',
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing-buttons.component.scss']
 })
 export class LandingButtonsComponent implements OnInit {
-
+  titulo = environment.titulo
   constructor(
     private _router: Router
   ) { }

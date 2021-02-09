@@ -16,6 +16,7 @@ const appRoutes: Routes = [
   {path: "admin", component: HomeAdminComponent, data: {title: 'Admin'}, canActivate: [AuthGuard]},
   {path: "fullpreview", component: FullpreviewComponent, data: {title: 'Preview'}, canActivate: [AuthGuard]},
   {path: "config", component: UserConfigComponent, data: {title: 'Configurações'}, canActivate: [AuthGuard]},
+  {path: 'editPage', component: EditPageComponent, data: {title: 'Editar Pagina'},},
   {path: 'editPage', component: EditPageComponent},
   {path: 'pagina/:user', component: VisualizacaoComponent, data: {title: 'Visualizar página'}},
 

@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {UserPageGlobal} from '@models/user';
-import {Card} from 'src/app/shared/models/card.model';
+import {UserPageGlobal, Usuario} from '@models/user';
 import {environment} from 'src/environments/environment';
+import {GenericResponse} from "@models/responses/generic-response";
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,17 @@ export class PagesService {
   }
 
   getAllTags() {
-    return this._http.get<string[]>(`${environment.tagApiUrl}/alltags`);
+    return this._http.get<GenericResponse<Usuario[]>>(`${environment.apiUrl}/usuarios`);
   }
 
   searchCards(terms: string) {
-    let searchTerms = terms.split(' ');
-    return this._http.post<Card[]>(`${environment.tagApiUrl}/searchTags`, searchTerms);
+    console.log(terms);
+
+    if (terms == '' || terms == null) {
+      return this.getAllTags();
+    } else {
+      return this._http.get<GenericResponse<Usuario[]>>(`${environment.apiUrl}/usuarios?busca=${terms}&limite=10`);
+    }
   }
 
   /**

@@ -74,47 +74,6 @@
             </div>
           </div>
         </div>
-        <hr>
-        <div class="row">
-          <div class="col-sm-3">
-            <p class="anchor-padrao">Mudar senha</p>
-          </div>
-          <div class="col-sm-5">
-            <div class="form-group row">
-              <label for="senhaAntiga" class="col-sm-2 col-form-label">Senha antiga</label>
-              <div class="col-sm-10">
-                <input formControlName="senhaAntiga" type="password" class="form-control" id="senhaAntiga">
-
-                <div *ngIf="senhaAntiga?.invalid && (senhaNova?.dirty || senhaNova?.touched)" class="alert alert-danger">
-                  <div *ngIf="senhaAntiga?.errors?.required">
-                    Digite sua senha antiga!
-                  </div>
-                  <div *ngIf="senhaAntiga?.errors.minlength">
-                    Deve ter pelo menos 6 caracteres
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="senhaNova" class="col-sm-2 col-form-label">Nova senha</label>
-              <div class="col-sm-10">
-                <input formControlName="senhaNova" type="password" class="form-control" id="senhaNova">
-                <div *ngIf="senhaNova?.invalid && (senhaNova?.dirty || senhaNova?.touched)" class="alert alert-danger">
-
-                  <div *ngIf="senhaNova?.errors.required">
-                    Nome não pode ficar em branco
-                  </div>
-                  <div *ngIf="senhaNova?.errors.minlength">
-                    Deve ter pelo menos 6 caracteres
-                  </div>
-                  <div *ngIf="senhaNova?.errors.equivalent">
-                    Senha  antiga e nova devem ser diferentes
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
