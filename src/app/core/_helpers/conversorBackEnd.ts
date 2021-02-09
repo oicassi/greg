@@ -161,7 +161,7 @@ export class ConversorBackEnd {
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
     componente.audios = app.audios.map(audio => {
-      return {id: null, name: audio.name}
+      return {id: null, secretId: audio.secretId}
     })
 
     return componente;
@@ -395,7 +395,7 @@ export class ConversorBackEnd {
     novoApp.isEditable = false;
     novoApp.isEdit = false;
     novoApp.audios = dado.audios.map(audio => {
-      return {id: audio.id, name: audio.name}
+      return {id: audio.id, secretId: audio.secretId}
     })
     return novoApp
   }
@@ -477,5 +477,5 @@ export class RepoBack {
 }
 export class AudioBack {
   id: number = null;
-  name: string = '';
+  secretId: string = '';
 }

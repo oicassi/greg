@@ -302,10 +302,10 @@ export class AplicativoService {
     const { results } = audios;
 
     let novoComp = true;
-    let names: Array<string> = [];
+    let secrets: Array<string> = [];
     if (audiosRef && audiosRef.length) {
       novoComp = false;
-      names = audiosRef.map(audio => audio.name);
+      secrets = audiosRef.map(audio => audio.secretId);
     }
 
     results.forEach((res, i) => {
@@ -326,10 +326,10 @@ export class AplicativoService {
       }
       novoAudio.tags = Array.from(res.tags);
 
-      if (novoComp || names.includes(res.name)) {
+      if (novoComp || secrets.includes(res.name)) {
         audioArray.push(novoAudio);
         if (novoComp) {
-          audiosRef.push({id: null, name: res.name});
+          audiosRef.push({id: null, secretId: res.name});
         }
       }
 

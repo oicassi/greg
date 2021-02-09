@@ -6,7 +6,7 @@ import { AplicativoService } from '@services/aplicativo.service';
 import { ApiService } from '@services/api.service';
 import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplicativo.component";
 import {MatDialog} from "@angular/material/dialog";
-import {Foto, Repo} from "@models/aplicativo-item";
+import {Repo} from "@models/aplicativo-item";
 import {Observable} from "rxjs";
 
 @Component({
@@ -77,6 +77,7 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    * Handler ao clicar no botão de abrir o modal
    */
   onOpenModal(): void {
+    this.dados.repos = [];
     this.openDialog(this._appServ.requestGithubData(this.dados));
   }
 
@@ -84,20 +85,25 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
     Abre modal passando repositorios
    */
   openDialog(request : Observable<AplicativoGithub>): void {
+    this.loading = true;
     request.subscribe(repos => {
       let dialogRef = this.dialog.open(ModalAplicativoComponent, {
 
         width: '1000px',
         height:'700px',
-        data: repos.repo_array
+        data: {content: repos.repo_array, metadata: this.dados.repos }
       });
 
-      dialogRef.afterClosed().subscribe((result: Repo[]) => {
-        if (!result) {
+      dialogRef.afterClosed().subscribe((result: {chosen: Repo[], metadataChosen: any[]}) => {
+        if (!result || !result.chosen || !result.chosen.length || !result.metadataChosen || !result.metadataChosen.length) {
           this.dados.repo_array = [...this.dadosBkp.repo_array];
+          this.dados.repos = [...this.dadosBkp.repos];
+          this.loading = false;
         } else {
-          this.dados.repo_array = result;
+          this.dados.repo_array = result.chosen;
+          this.dados.repos = result.metadataChosen;
           this.setVariaveisIniciais();
+          this.loading = false;
         }
       });
     dialogRef = null;

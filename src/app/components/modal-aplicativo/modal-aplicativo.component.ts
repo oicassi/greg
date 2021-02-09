@@ -22,7 +22,7 @@ export class ModalAplicativoComponent implements OnInit {
   metadataReceived: any[] = [];
 
   constructor(public dialogRef: MatDialogRef<ModalAplicativoComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: {content: DialogData<Repo[] | Foto[]>, metadata: any[]} ) {
+              @Inject(MAT_DIALOG_DATA) public data: {content: DialogData<Repo[] | Foto[] >, metadata: any[]} ) {
     this.chosen=[];
   }
 
@@ -53,15 +53,17 @@ export class ModalAplicativoComponent implements OnInit {
     this.metadataReceived = this.metadataReceived.filter(el => el.secretId != this.metadataReceived[i].secretId);
   }
 
-  removeElement(item: Repo | Foto){
+  removeElement(item: Repo | Foto, i:number){
     // @ts-ignore
     this.received.unshift(item);
+    this.metadataReceived.unshift(this.metadataChosen[i]);
     this.chosen = this.chosen.filter(elemento => elemento.name != item.name);
+    this.metadataChosen = this.metadataChosen.filter(el => el.secretId != this.metadataChosen[i].secretId);
   }
 
-  lookAtThisPhotograph(str : string): boolean {
+  lookAtThisPhotograph(str: string): boolean {
     //console.log(str.includes("www.github"))
-    return str.includes("github.com");
+    return !str.includes("flickr");
   }
 
   getModalData() {

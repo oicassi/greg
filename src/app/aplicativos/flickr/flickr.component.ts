@@ -84,6 +84,7 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
     Abre modal passando repositorios
    */
   openDialog(request : Observable<AplicativoFlickr>): void {
+    this.loading = true;
     request.subscribe(repos => {
       let dialogRef = this.dialog.open(ModalAplicativoComponent, {
 
@@ -93,19 +94,16 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
       });
 
       dialogRef.afterClosed().subscribe((result: {chosen: Foto[], metadataChosen: any[]}) => {
-        console.log(result);
         if (!result || !result.chosen || !result.chosen.length || !result.metadataChosen || !result.metadataChosen.length) {
           this.dados.photo_array = [...this.dadosBkp.photo_array];
           this.dados.imagensFlickr = [...this.dadosBkp.imagensFlickr];
+          this.loading = false;
         } else {
-          console.log('dados');
-          console.log(result);
+
           this.dados.photo_array = result.chosen;
           this.dados.imagensFlickr = result.metadataChosen;
-          console.log('Olha como ficou');
-          console.log(this.dados.photo_array);
-          console.log(this.dados.imagensFlickr);
           this.setVariaveisIniciais();
+          this.loading = false;
         }
       });
       dialogRef = null;

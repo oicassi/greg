@@ -7,7 +7,7 @@
       cdkDropList
       class="example-list2"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of chosen" cdkDrag>
+      <div class="example-box" *ngFor="let item of chosen, let i = index" cdkDrag>
 
         <div class="texto-card" *ngIf="lookAtThisPhotograph(item?.url); else elseBlock">
           {{item.name}}
@@ -22,7 +22,7 @@
                style="height: 100px; width: auto">
         </ng-template>
         <hr>
-        <button class="btn btn-danger" (click)="removeElement(item)">Remover</button>
+        <button class="btn btn-danger" (click)="removeElement(item, i)">Remover</button>
       </div>
     </div>
   </div>

@@ -5,6 +5,9 @@ import { AplicativoFreesound } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoGenericoApiComponent } from '@aplicativos/aplicativo-generico-api/aplicativo-generico-api.component';
 import { ApiService } from '@services/api.service';
+import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalAplicativoComponent } from '@components/modal-aplicativo/modal-aplicativo.component';
 
 @Component({
   selector: 'app-freesound',
@@ -23,6 +26,7 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
   constructor(
     _appServ: AplicativoService,
     _apiServ: ApiService,
+    public dialog: MatDialog,
     alertService: AlertService
   ) {
     super(_appServ, alertService, _apiServ);
@@ -93,12 +97,46 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
    * Handler ao clicar no botão de abrir o modal
    */
   onOpenModal(): void {
-    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
+    this.dados.audios = [];
+    this.openDialog(this._appServ.requestFreesoundData(this.dados));
+  }
+
+  /*
+    Abre modal passando repositorios
+   */
+  openDialog(request : Observable<AplicativoFreesound>): void {
+    this.loading = true;
+    request.subscribe(data => {
+      let dialogRef = this.dialog.open(ModalAplicativoComponent, {
+
+        width: '1000px',
+        height:'700px',
+        data: {content: data.audio_array, metadata: this.dados.audios }
+      });
+
+      dialogRef.afterClosed().subscribe((result: {chosen: Audio[], metadataChosen: any[]}) => {
+        if (!result || !result.chosen || !result.chosen.length || !result.metadataChosen || !result.metadataChosen.length) {
+          this.dados.audio_array = [...this.dadosBkp.audio_array];
+          this.dados.audios = [...this.dadosBkp.audios];
+          this.loading = false;
+        } else {
+          this.dados.audio_array = result.chosen;
+          this.dados.audios = result.metadataChosen;
+          this.setVariaveisIniciais();
+          this.loading = false;
+        }
+      });
+    dialogRef = null;
+    }, error => {
+      console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
+      console.log(error);
+    })
   }
 
   onUsernameSubmit(username: string) {
     this.dados.username = username;
     this.dados.audios = [];
-    this.loadAll()
+    this.onOpenModal();
+    // this.loadAll()
   }
 }
