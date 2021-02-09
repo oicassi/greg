@@ -43,17 +43,17 @@ export class SearchComponent implements OnInit {
     private tagService: TagService
   ) {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.route.queryParams.subscribe(params => {
-      if (params && params['q']) {
-        this.searchParam = params['q'];
-        if (this.searchParam && this.searchParam !== '') {
-          this._loaderSrv.showLoader();
-          this.classe = true;
-          this.showContainer = false;
-          this.showResultado = true;
-        }
-      }
-    });
+    // this.route.queryParams.subscribe(params => {
+    //   if (params && params['q']) {
+    //     this.searchParam = params['q'];
+    //     if (this.searchParam && this.searchParam !== '') {
+    //       this._loaderSrv.showLoader();
+    //       this.classe = true;
+    //       this.showContainer = false;
+    //       this.showResultado = true;
+    //     }
+    //   }
+    // });
   }
 
   getParametrosRota(){
@@ -64,7 +64,7 @@ export class SearchComponent implements OnInit {
     this.buscaUsuario();
   }
 
-  
+
 
   buscaUsuario() {
     this.authenticationService.currentUser.subscribe(user => {
@@ -77,9 +77,9 @@ export class SearchComponent implements OnInit {
     this.tagService.getAll().subscribe((tags: GenericResponse<string[]>) => this.setTagCloud(tags.data))
 
     // this._pagesSrv.getAllTags().subscribe((tags) => this.setTagCloud(tags));
-    if (this.showResultado) {
+    // if (this.showResultado) {
       this.mostrarResultadoBusca(this.searchParam);
-    }
+    // }
   }
 
   previewSearch(term: string): void {
@@ -110,24 +110,22 @@ export class SearchComponent implements OnInit {
   }
 
   irParaBusca(term: string): void {
-    if (!term) {
-      return;
-    }
-    if (this.classe) {
-      this.router.navigate(['/search'], { queryParams: { q: term } });
-      return;
-    }
-
-    this.classe = true;
-    setTimeout(() => {
-      this.showContainer = false;
-      this.router.navigate(['/search'], { queryParams: { q: term } });
-    }, 500)
+    this.showContainer = false;
+    this.showResultado = true;
+    this.mostrarResultadoBusca(term);
   }
 
   mostrarResultadoBusca(term: string): void {
-    this._pagesSrv.searchCards(term).subscribe((cards) => {
-      this.dadosBusca = cards;
+    this._pagesSrv.searchCards(term).subscribe((resultado) => {
+      console.log(resultado.data);
+      let resultadoArr: Usuario[] = resultado.data;
+      this.dadosBusca = [];
+
+      resultadoArr.forEach(usuario => {
+        this.dadosBusca.push(new Card(usuario.nome, usuario.tags, usuario.imagemUsuario.url));
+      });
+
+
       this._loaderSrv.hideLoader();
     })
   }
@@ -157,4 +155,12 @@ export class SearchComponent implements OnInit {
     this.tagCloud = Array.from(this.tagCloudRaw);
   }
 
+  resetScreen() {
+
+    this.showContainer=true;
+    this.showResultado=false
+    this.searchParam = '';
+
+    this.buscarTags();
+  }
 }

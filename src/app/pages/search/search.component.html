@@ -1,15 +1,20 @@
-<div *ngIf="!currentUser" class="signinbtnClass">
- <app-landing-buttons></app-landing-buttons>
+<div *ngIf="!currentUser" class="navbarAux">
+
+  <!-- Botões no canto superior direito -->
+  <app-landing-buttons></app-landing-buttons>
 </div>
 <div class="container-fluid search-page">
-  <!-- Botões no canto superior direito -->
-
+  <div class="" *ngIf="!showContainer">
+    <div class="">
+      <a class="logo-small" (click)="resetScreen()">{{titulo}}</a>
+    </div>
+  </div>
   <!-- Navbar que aparece no resultado da pesquisa -->
   <div class="input-cmp mx-auto" *ngIf="!showContainer">
-      <div>
-        <app-input-search [preTerm]="searchParam" (term)="previewSearch($event)" (submit)="irParaBusca($event)">
-        </app-input-search>
-      </div>
+    <div>
+      <app-input-search [preTerm]="searchParam" (term)="previewSearch($event)" (submit)="irParaBusca($event)">
+      </app-input-search>
+    </div>
   </div>
 
 
@@ -43,11 +48,11 @@
     *ngIf="!showResultado && tagCloud.length"
     [ngClass]="classe ? 'tag-cloud-container-result' : ''">
     <angular-tag-cloud
-        [data]="tagCloud"
-        [width]="tagCloudOptions.width"
-        [height]="tagCloudOptions.height"
-        [overflow]="tagCloudOptions.overflow">
-      </angular-tag-cloud>
+      [data]="tagCloud"
+      [width]="tagCloudOptions.width"
+      [height]="tagCloudOptions.height"
+      [overflow]="tagCloudOptions.overflow">
+    </angular-tag-cloud>
   </div>
 
   <!-- Resultado da busca caso tenha dados -->
