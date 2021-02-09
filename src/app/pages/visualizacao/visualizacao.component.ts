@@ -50,10 +50,15 @@ export class VisualizacaoComponent implements OnInit {
    */
   get aplicativos(): AplicativoBase[] {
     let apps = this._appSrv.getAplicativos();
-    apps.forEach((app, i) => app.order = i);
     this.setAplicativosNotEditable(apps);
+    this.ordenarAppList(apps);
     return apps;
   }
+
+  ordenarAppList(list: AplicativoBase[]): void {
+    list.sort((a, b) => a.order - b.order);
+  }
+
 
   /**
    * Setter dos dados da página

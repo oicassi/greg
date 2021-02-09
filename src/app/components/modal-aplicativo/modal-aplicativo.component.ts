@@ -13,12 +13,16 @@ import {log} from "util";
 })
 export class ModalAplicativoComponent implements OnInit {
 
-  chosen: Repo[] | Foto[] = [];
+  chosen: any[] = [];
 
-  received: Repo[] | Foto[] = [];
+  received: any[] = [];
+
+  metadataChosen: any[] = [];
+
+  metadataReceived: any[] = [];
 
   constructor(public dialogRef: MatDialogRef<ModalAplicativoComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData<Repo[] | Foto[]>) {
+              @Inject(MAT_DIALOG_DATA) public data: {content: DialogData<Repo[] | Foto[]>, metadata: any[]} ) {
     this.chosen=[];
   }
 
@@ -29,19 +33,24 @@ export class ModalAplicativoComponent implements OnInit {
 
   ngOnInit() {
     // @ts-ignore
-    this.received = this.data;
+    this.received = this.data.content;
+    this.metadataReceived = this.data.metadata;
     this.chosen=[];
+    this.metadataChosen = [];
     console.log(this.data)
+
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.chosen, event.previousIndex, event.currentIndex);
   }
 
-  addElement(item: Repo | Foto) {
+  addElement(item: Repo | Foto, i: number) {
     // @ts-ignore
     this.chosen.push(item);
     this.received = this.received.filter(elemento => elemento.name != item.name);
+    this.metadataChosen.push(this.metadataReceived[i]);
+    this.metadataReceived = this.metadataReceived.filter(el => el.secretId != this.metadataReceived[i].secretId);
   }
 
   removeElement(item: Repo | Foto){
@@ -55,4 +64,7 @@ export class ModalAplicativoComponent implements OnInit {
     return str.includes("github.com");
   }
 
+  getModalData() {
+    return {chosen: this.chosen, metadataChosen: this.metadataChosen};
+  }
 }

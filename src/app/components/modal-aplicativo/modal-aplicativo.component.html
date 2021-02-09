@@ -30,7 +30,7 @@
   <div>
     <h2>Disponiveis</h2>
     <div class="example-list">
-      <div class="example-box" *ngFor="let item of received">
+      <div class="example-box" *ngFor="let item of received; let i = index">
 
         <div class="texto-card" *ngIf="lookAtThisPhotograph(item?.url); else elseBlock">
           {{item.name}}
@@ -46,7 +46,7 @@
         </ng-template>
         <hr>
         <div class="action-button">
-          <button style="bottom:0px" class="btn btn-primary" (click)="addElement(item)">Adicionar</button>
+          <button style="bottom:0px" class="btn btn-primary" (click)="addElement(item, i)">Adicionar</button>
         </div>
       </div>
     </div>
@@ -54,5 +54,5 @@
 </mat-dialog-content>
 <hr/>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="chosen" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="getModalData()" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

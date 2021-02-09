@@ -76,6 +76,7 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
    * Handler ao clicar no botão de abrir o modal
    */
   onOpenModal(): void {
+    this.dados.imagensFlickr = [];
     this.openDialog(this._appServ.requestFlickrData(this.dados));
   }
 
@@ -88,15 +89,22 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
 
         width: '1000px',
         height:'700px',
-        data: repos.photo_array
+        data: {content: repos.photo_array, metadata: this.dados.imagensFlickr }
       });
 
-      dialogRef.afterClosed().subscribe((result: Foto[]) => {
+      dialogRef.afterClosed().subscribe((result: {chosen: Foto[], metadataChosen: any[]}) => {
         console.log(result);
-        if (!result) {
+        if (!result || !result.chosen || !result.chosen.length || !result.metadataChosen || !result.metadataChosen.length) {
           this.dados.photo_array = [...this.dadosBkp.photo_array];
+          this.dados.imagensFlickr = [...this.dadosBkp.imagensFlickr];
         } else {
-          this.dados.photo_array = result;
+          console.log('dados');
+          console.log(result);
+          this.dados.photo_array = result.chosen;
+          this.dados.imagensFlickr = result.metadataChosen;
+          console.log('Olha como ficou');
+          console.log(this.dados.photo_array);
+          console.log(this.dados.imagensFlickr);
           this.setVariaveisIniciais();
         }
       });

@@ -42,7 +42,7 @@ export class ConversorBackEnd {
     let componente = new ComponenteTexto();
     componente.id = null;
     componente.titulo = app.component_name;
-    componente.ordem = app.order || i;
+    componente.ordem = app.order !== null && app.order !== undefined ? app.order : i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -65,7 +65,7 @@ export class ConversorBackEnd {
     let componente = new ComponenteBio();
     componente.id = null;
     componente.titulo = app.component_name;
-    componente.ordem = app.order || i;
+    componente.ordem = app.order !== null && app.order !== undefined ? app.order : i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -92,7 +92,7 @@ export class ConversorBackEnd {
     let componente = new ComponenteFoto();
     componente.id = null;
     componente.titulo = app.component_name;
-    componente.ordem = app.order || i;
+    componente.ordem = app.order !== null && app.order !== undefined ? app.order : i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -116,7 +116,7 @@ export class ConversorBackEnd {
     componente.id = null;
     componente.username = app.username;
     componente.titulo = app.component_name;
-    componente.ordem = app.order || i;
+    componente.ordem = app.order !== null && app.order !== undefined ? app.order : i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -136,7 +136,7 @@ export class ConversorBackEnd {
     componente.id = null;
     componente.username = app.username;
     componente.titulo = app.component_name;
-    componente.ordem = app.order || i;
+    componente.ordem = app.order !== null && app.order !== undefined ? app.order : i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -156,7 +156,7 @@ export class ConversorBackEnd {
     componente.id = null;
     componente.username = app.username;
     componente.titulo = app.component_name;
-    componente.ordem = app.order || i;
+    componente.ordem = app.order !== null && app.order !== undefined ? app.order : i;
     componente.mostrarTitulo = app.showAppTitle;
     componente.backgroundColor = app.bgColor;
     componente.foregroundColor = app.fgColor;
@@ -308,7 +308,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || '';
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = dado.ordem || i;
+    novoApp.order = dado.ordem !== null && dado.ordem !== null ?  dado.ordem : i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'texto';
     novoApp.isEditable = false;
@@ -329,7 +329,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || '';
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = dado.ordem || i;
+    novoApp.order = dado.ordem !== null && dado.ordem !== null ?  dado.ordem : i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'fotos';
     novoApp.isEditable = false;
@@ -347,7 +347,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || `Componente Bio [${i}]`;
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = dado.ordem || i;
+    novoApp.order = dado.ordem !== null && dado.ordem !== null ?  dado.ordem : i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'bio';
     novoApp.isEditable = false;
@@ -371,7 +371,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || '';
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = dado.ordem || i;
+    novoApp.order = dado.ordem !== null && dado.ordem !== null ?  dado.ordem : i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'flickr';
     novoApp.isEditable = false;
@@ -389,7 +389,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || '';
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = dado.ordem || i;
+    novoApp.order = dado.ordem !== null && dado.ordem !== null ?  dado.ordem : i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'freesound';
     novoApp.isEditable = false;
@@ -407,7 +407,7 @@ export class ConversorBackEnd {
     novoApp.component_name = dado.titulo || '';
     novoApp.bgColor = dado.backgroundColor || '#DADADA';
     novoApp.fgColor = dado.foregroundColor || '#333333';
-    novoApp.order = dado.ordem || i;
+    novoApp.order = dado.ordem !== null && dado.ordem !== null ?  dado.ordem : i;
     novoApp.showAppTitle = dado.mostrarTitulo;
     novoApp.type = 'github';
     novoApp.isEditable = false;
