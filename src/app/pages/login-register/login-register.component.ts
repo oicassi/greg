@@ -22,7 +22,6 @@ export class LoginRegisterComponent implements OnInit {
   slogan = environment.slogan;
   
   mudaAbaDireita(event) {
-    console.log(event);
     this.isLogin = event;
   }
 

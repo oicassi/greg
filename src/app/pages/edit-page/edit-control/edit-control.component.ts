@@ -116,11 +116,8 @@ export class EditControlComponent implements OnInit {
    * @param event Evento
    */
   drop(event: CdkDragDrop<string[]>): void {
-    console.log(this.aplicativos);
     moveItemInArray(this.aplicativos, event.previousIndex, event.currentIndex);
     this.aplicativos.forEach((app, i) => app.order = i);
-    console.log('%cAplicativo reordenado com sucesso', 'color: purple');
-    console.log(this.aplicativos);
     this._cdr.detectChanges();
   }
 
@@ -137,11 +134,5 @@ export class EditControlComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-  }
-
-
-  checkState() {
-    console.log('%cCHECAGEM DE ESTADO', 'font-size: 24px; color: orange');
-    console.log(this.aplicativos);
   }
 }

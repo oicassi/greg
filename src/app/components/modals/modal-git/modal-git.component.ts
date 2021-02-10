@@ -28,7 +28,6 @@ export class ModalGitComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // @ts-ignore
     this.received = this.data;
-    console.log(this.data)
   }
 
   drop(event: CdkDragDrop<Repo[]>) {
@@ -43,7 +42,6 @@ export class ModalGitComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('OnDestroy do modal do git');
     this.received=null;
     this.chosen=null;
   }

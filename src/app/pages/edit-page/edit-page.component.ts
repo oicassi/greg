@@ -64,20 +64,14 @@ export class EditPageComponent implements OnInit {
       }
     } catch (err) {
       this.alertService.danger('Não foi encontrada a URL da página do usuário :(')
-      console.log('Ocorreu um erro ao tentar buscar URL da página');
-      console.log(err);
       this.loadingState = false;
       return;
     }
     this._appService.carregarAplicativos(urlUser).subscribe(resposta => {
-      console.log('Olha so que coisa');
-      console.log(resposta);
       this.appList = resposta as AplicativoBase[]
       this.loadingState = false;
     }, (err => {
       this.alertService.danger('Ocorreu um erro ao buscar os componentes')
-      console.log('Mas ocorreu um erro bem chato');
-      console.log(err)
       this.loadingState = false;
     }))
   }
@@ -137,18 +131,12 @@ export class EditPageComponent implements OnInit {
     try {
       this.botaoSalvarDisabled = true;
       const response = await this._appService.salvarAplicativos();
-      console.log('Acho que deu boa');
       if (response) {
-        console.log(response);
         this.alertService.success('Componentes salvos/alterados com sucesso!')
-        console.log('Será que deu certo????');
-        console.log(this.appList);
       }
 
     } catch (err) {
       this.alertService.danger('Ocorreu um erro ao salvar/alterar os componentes')
-      console.log('Ocorreu um erro ao salvar os componentes')
-      console.log(err)
     } finally {
       this.botaoSalvarDisabled = false;
       this.loadingState = false;

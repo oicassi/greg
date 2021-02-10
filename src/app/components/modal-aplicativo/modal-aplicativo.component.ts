@@ -37,7 +37,6 @@ export class ModalAplicativoComponent implements OnInit {
     this.metadataReceived = this.data.metadata;
     this.chosen=[];
     this.metadataChosen = [];
-    console.log(this.data)
 
   }
 
@@ -62,7 +61,6 @@ export class ModalAplicativoComponent implements OnInit {
   }
 
   lookAtThisPhotograph(str: string): boolean {
-    //console.log(str.includes("www.github"))
     return !str.includes("flickr");
   }
 

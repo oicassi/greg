@@ -131,8 +131,6 @@ export class AplicativoService {
         if (!respostaPagina || !respostaPagina.data) {
           throw new Error('Não foi encontrada a página');
         }
-        console.log('GET PAGE');
-        console.log(respostaPagina)
         if (!respostaPagina || !respostaPagina.data || !respostaPagina.data.pagina) {
           throw new Error('Ocorreu um erro ao buscar dados gerais da página');
         }
@@ -141,23 +139,16 @@ export class AplicativoService {
         this._pagesSrv.setPageGlobalInfo(dados);
 
         if (!respostaPagina.data.pagina.componentes || !respostaPagina.data.pagina.componentes.length) {
-          console.log('Entao nao achou nada nos componentes')
           return of([])
         }
         const { componentes } = respostaPagina.data.pagina;
-        console.log('COMPONENTES');
-        console.log(componentes);
         let requisicoes = componentes.map(comp => {
           return this._http.get(`${this.baseURL}/componente/${comp.id}`)
         })
-        console.log('REQUISICOES');
-        console.log(requisicoes)
         return forkJoin(requisicoes).pipe(
           map(dados => ConversorBackEnd.montarDadosAplicativos(dados)),
         )
       }), catchError(err => {
-        console.log('Erro no catchError');
-        console.log(err);
         throw err;
       })
     )
@@ -170,7 +161,6 @@ export class AplicativoService {
    */
   async salvarAplicativos(): Promise<void | any> {
     if (!this.aplicativos || !this.aplicativos.length) {
-      console.log('Sem dados para salvar');
       const componentesParaLinkar = {
         id: null,
         url: null,
@@ -199,8 +189,6 @@ export class AplicativoService {
       return comp;
     })
 
-    console.log('Salvando componentes');
-    console.log(componentesParaSalvar);
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     const urlSalvar = `${this.baseURL}/componente/`;
@@ -220,9 +208,6 @@ export class AplicativoService {
       throw new Error('Ocorreu um erro ao salvar os componentes');
     }
 
-    console.log('[AppService] Acho que salvou de boas');
-    console.log(responseSalvar);
-
     this.atribuirIdsAposSalvar(responseSalvar);
 
     // Montar a resquest para fazer o link dos componentes
@@ -232,9 +217,6 @@ export class AplicativoService {
         tipo: null
       })
     });
-
-    console.log('Componentes para linkar');
-    console.log(componentesParaLinkar);
 
     const urlLinkar = `${this.baseURL}/pagina`;
     return await this._http.put(urlLinkar, componentesParaLinkar, {
@@ -281,9 +263,6 @@ export class AplicativoService {
    * @param audios Informações sobre os áudios
    */
   handleFreesoundData(profile: any, audios: any, audiosRef: AudioBack[] = null): AplicativoFreesound {
-
-    console.log('%cFREESOUND AUDIOS', 'color:blue');
-    console.log(audios);
 
     let freeSound = new AplicativoFreesound();
     freeSound.audio_array = this.handleFreesoundAudios(audios, audiosRef);
@@ -365,9 +344,6 @@ export class AplicativoService {
     if (profile && profile.message && profile.message === 'Not Found') {
       throw new Error('Usuário do Github não encontrado');
     }
-
-    console.log('%cGITHUB REPOOS', 'color: red');
-    console.log(repos);
 
     let novoGithub = new AplicativoGithub();
     if (!profile) {
@@ -454,9 +430,6 @@ export class AplicativoService {
     if (fotos && fotos.stat === 'fail') {
       throw new Error('Erro ao buscar fotos do perfil');
     }
-
-    console.log('%cFLICKR FOTOS', 'color: green');
-    console.log(fotos);
 
     let novoFlickr = new AplicativoFlickr();
 
@@ -628,8 +601,6 @@ export class AplicativoService {
    * @param response Resposta dos componentes salvos
    */
   atribuirIdsAposSalvar(response: any[]): void {
-    console.log('Atribuir tudo');
-    console.log(response);
     for (let i = 0; i < this.aplicativos.length; i++) {
       ConversorBackEnd.atribuirId(response[i].data, this.aplicativos[i]);
     }

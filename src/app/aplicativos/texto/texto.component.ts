@@ -90,7 +90,6 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
         this.addTexto();
         break;
       default:
-        console.log('Change text count - opção inválida');
     }
   }
 
