@@ -12,6 +12,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {SharedModule} from "@shared/shared.module";
+import { TagInputComponent } from './tag-input/tag-input.component';
 
 
 
@@ -20,6 +21,7 @@ import {SharedModule} from "@shared/shared.module";
     FloatingMenuComponent,
     NavbarComponent,
     ModalAplicativoComponent,
+    TagInputComponent,
   ],
     imports: [
         CommonModule,

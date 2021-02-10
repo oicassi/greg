@@ -42,21 +42,6 @@ export class SearchComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private tagService: TagService
   ) {
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    // this.route.queryParams.subscribe(params => {
-    //   if (params && params['q']) {
-    //     this.searchParam = params['q'];
-    //     if (this.searchParam && this.searchParam !== '') {
-    //       this._loaderSrv.showLoader();
-    //       this.classe = true;
-    //       this.showContainer = false;
-    //       this.showResultado = true;
-    //     }
-    //   }
-    // });
-  }
-
-  getParametrosRota(){
   }
 
 
@@ -75,11 +60,7 @@ export class SearchComponent implements OnInit {
 
   buscarTags() {
     this.tagService.getAll().subscribe((tags: GenericResponse<string[]>) => this.setTagCloud(tags.data))
-
-    // this._pagesSrv.getAllTags().subscribe((tags) => this.setTagCloud(tags));
-    // if (this.showResultado) {
       this.mostrarResultadoBusca(this.searchParam);
-    // }
   }
 
   previewSearch(term: string): void {
