@@ -107,8 +107,9 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
       });
       dialogRef = null;
     }, error => {
-      this.loading = false;
+      this.dados.username = this.dadosBkp.username;
       this.tratarErros(error, 'Flickr', true);
+      this.loading = false;
     })
   }
 

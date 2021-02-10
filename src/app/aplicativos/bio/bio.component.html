@@ -36,8 +36,7 @@
 		<!-- Container apenas para exibição -->
 		<div class="bio-grid-container" *ngIf="!dados.isEdit">
 			<div class="bio-element-container">
-				<div class="bio-element-body-container">
-					{{dados.texto.body}}
+				<div class="bio-element-body-container" [innerHTML]="getTextoParsed(dados.texto.body)">
 				</div>
 			</div>
 		</div>

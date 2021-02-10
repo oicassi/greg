@@ -241,4 +241,8 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
       }
     return true;
   }
+
+  getTextoParsed(texto: string) {
+    return texto.replace(new RegExp('\n', 'g'), "<br />")
+  }
 }

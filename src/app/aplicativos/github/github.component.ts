@@ -107,8 +107,9 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
       });
     dialogRef = null;
     }, error => {
-      this.loading = false;
+      this.dados.username = this.dadosBkp.username;
       this.tratarErros(error, 'GitHub', true);
+      this.loading = false;
     })
 
   }

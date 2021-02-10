@@ -127,8 +127,9 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
       });
     dialogRef = null;
     }, error => {
-      this.loading = false;
+      this.dados.username = this.dadosBkp.username;
       this.tratarErros(error, 'FreeSound', true);
+      this.loading = false;
     })
   }
 

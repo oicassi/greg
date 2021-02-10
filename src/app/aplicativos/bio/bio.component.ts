@@ -122,4 +122,8 @@ export class BioComponent extends AplicativoGenericoComponent implements OnInit 
       }
     return true;
   }
+
+  getTextoParsed(texto: string) {
+    return texto.replace(new RegExp('\n', 'g'), "<br />")
+  }
 }

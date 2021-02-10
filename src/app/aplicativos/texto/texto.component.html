@@ -34,8 +34,7 @@
 				[title]="texto.title">
 				{{texto.title}}
 			</div>
-			<div class="texto-element-body-container">
-				{{texto.body}}
+			<div class="texto-element-body-container" [innerHTML]="getTextoParsed(texto.body)">
 			</div>
 		</div>
 	</div>
