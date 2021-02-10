@@ -30,7 +30,6 @@ export class FotosComponent extends AplicativoGenericoComponent implements OnIni
    * Handler ao clicar no botão de abrir o modal
    */
   onOpenModal():void {
-    console.log(`[${this.dados.component_name}] clicado no botão de abrir modal`);
   }
 
   /**

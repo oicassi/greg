@@ -270,8 +270,6 @@ export class ConversorBackEnd {
 
   static montarDadosAplicativos(dadosRaw: any[]): AplicativoBase[] {
     let appsBackEnd: AplicativoBase[] = [];
-    console.log('Resposta da requisição dos dados');
-    console.log(dadosRaw);
 
     dadosRaw.forEach((dado, index) => {
       switch (dado.data.tipo) {
@@ -294,7 +292,6 @@ export class ConversorBackEnd {
           appsBackEnd.push(this.montarDadosAplicativoFreesound(dado.data, index));
           break;
         default:
-          console.log('Component de tipo desconhecido');
       }
     })
 

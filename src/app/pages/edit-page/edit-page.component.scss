@@ -78,6 +78,7 @@
 
 .edit-floating-fixed-button {
   position: fixed; 
-  bottom: 30px; 
-  right: 30px;
+  bottom: 20px; 
+  left: 20px;
+  z-index: 9999;
 }

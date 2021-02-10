@@ -86,15 +86,11 @@ export class VisualizacaoComponent implements OnInit {
    */
   carregarComponentes(url: string) {
     this._appSrv.carregarAplicativos(url).subscribe(resposta => {
-      console.log('Olha so que coisa');
-      console.log(resposta);
       this.aplicativos = resposta as AplicativoBase[]
       this.loadingState = false;
     }, (err => {
       this.alertService.danger('Página não foi encontrada');
       this._router.navigate(['**'])
-      console.log('Mas ocorreu um erro bem chato');
-      console.log(err)
       this.loadingState = false;
     }))
   }

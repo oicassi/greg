@@ -34,7 +34,6 @@ export class DragDropComponent implements OnInit {
   ];
 
   drop(event: CdkDragDrop<any []>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       this.onChosenChange.emit(event.container.data);

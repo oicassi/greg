@@ -193,8 +193,6 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
     let msg = '%cOcorreu um erro';
     
     if (isRequest) {
-      console.log('Erro RAW');
-      console.log(err)
       msg = '[Erro ?] ';
       let status = 500;
       if (err['status']) {
@@ -218,7 +216,6 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
         msg += ` na ação ${acao}`;
       }
       msg += ` no componente ${this.dados.component_name}`
-      console.log(msg, 'color: tomato');
     }
     this.alertService.danger(msg);
   }

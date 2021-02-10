@@ -47,7 +47,6 @@ export class UserConfigComponent implements OnInit {
       },
         (err => {
           console.log(err);
-
         }))
   }
 

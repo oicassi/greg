@@ -45,7 +45,6 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
     this.loading = true;
     this._appServ.requestFreesoundData(this.dados).subscribe(
       (novosDados => {
-        console.log(novosDados)
         this.dados = novosDados;
         this.setVariaveisIniciais();
         this.loading = false;
@@ -128,8 +127,8 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
       });
     dialogRef = null;
     }, error => {
-      console.log('%cOcorreu um erro na busca de dados do github', 'color: red');
-      console.log(error);
+      this.loading = false;
+      this.tratarErros(error, 'FreeSound', true);
     })
   }
 

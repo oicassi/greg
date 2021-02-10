@@ -109,8 +109,6 @@ export class ApiService {
     return this._http.get(this.flickrUrl, userOptions).pipe(
       switchMap(
         dadosBasicos => {
-          console.log('Junto do dados basicos');
-          console.log(dadosBasicos);
           if (dadosBasicos['stat'] === 'fail') {
             let error = new HttpError();
             error.message = 'Username não encontrado';
