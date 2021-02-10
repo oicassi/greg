@@ -14,6 +14,7 @@ import { PhotoItemComponent } from './components/photo-item/photo-item.component
 import { ConfigMenuCompComponent } from './components/config-menu-comp/config-menu-comp.component';
 import { AplicativoBasicInfoComponent } from './components/aplicativo-basic-info/aplicativo-basic-info.component';
 import { ConfigPageComponent } from './components/config-page/config-page.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 
@@ -37,6 +38,7 @@ import { ConfigPageComponent } from './components/config-page/config-page.compon
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    NgImageSliderModule
   ],
   exports: [
     AlertComponent,
