@@ -13,6 +13,7 @@ import {MatInputModule} from "@angular/material/input";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {SharedModule} from "@shared/shared.module";
 import { TagInputComponent } from './tag-input/tag-input.component';
+import {MatChipsModule} from "@angular/material/chips";
 
 
 
@@ -33,10 +34,12 @@ import { TagInputComponent } from './tag-input/tag-input.component';
         MatInputModule,
         DragDropModule,
         SharedModule,
+        MatChipsModule,
     ],
-  exports:[
+  exports: [
     ModalAplicativoComponent,
-    NavbarComponent
+    NavbarComponent,
+    TagInputComponent
   ],
   entryComponents: [ModalAplicativoComponent],
 })

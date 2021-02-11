@@ -1,11 +1,10 @@
 <div class="control-main-container">
-
   <!-- Título -->
   <div class="edit-control-title-container">
     <h2 class="edit-control-title">Componentes</h2>
     <div class="edit-control-buttons-config">
       <div
-        [title]="'Abrir menu de compartilhamento'" 
+        [title]="'Abrir menu de compartilhamento'"
         class="material-icons aplicativo-config-button-no-spin"
         (click)="toggleShareMenu()"
         style="color: var(--color-main); margin-right: 5px;"
@@ -14,17 +13,17 @@
         share
       </div>
       <div
-        [title]="'Visualizar preview da página'" 
-        class="material-icons aplicativo-config-button-no-spin" 
-        (click)="visualizarPagina()" 
+        [title]="'Visualizar preview da página'"
+        class="material-icons aplicativo-config-button-no-spin"
+        (click)="visualizarPagina()"
         style="color: var(--color-main); margin-right: 5px;"
       >
         launch
       </div>
       <div
-        [title]="'Abrir configurações da página'" 
-        class="material-icons aplicativo-config-button" 
-        (click)="toggleConfigMenu()" 
+        [title]="'Abrir configurações da página'"
+        class="material-icons aplicativo-config-button"
+        (click)="toggleConfigMenu()"
         style="color: var(--color-main); margin-left: 5px;"
         [ngStyle]="{color: isConfigMenuOpen ? 'var(--color-main-darker)' : 'var(--color-main)'}"
       >
@@ -55,7 +54,7 @@
             <a href="{{urlPagina}}" target="_blank" style="color: var(--color-main); text-decoration: none;">{{urlPagina}}</a>
           </div>
           <div
-            [title]="'Copiar link para página'" 
+            [title]="'Copiar link para página'"
             class="material-icons icon-button-share-menu"
             (click)="copiarLinkAreaTransferencia()"
           >

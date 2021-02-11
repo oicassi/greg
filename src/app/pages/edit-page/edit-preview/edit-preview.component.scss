@@ -8,11 +8,15 @@
   align-items: center;
   padding: 5px;
   background-color: var(--color-bg-1);
-  height: auto; 
+  height: auto;
   min-height: 100vh;
 }
 
 .preview-app-container {
   width: 100%;
   margin-bottom: 20px;
+}
+
+.tag-input{
+  width: 100% !important;
 }
