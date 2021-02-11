@@ -1,13 +1,12 @@
-import { PagesService } from '@services/pages.service';
-import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { fromEvent, Subscription } from 'rxjs';
-import { Observable } from 'rxjs';
-import { FactoryService } from '@services/factory.service';
-import { AplicativoService } from '@services/aplicativo.service';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { AplicativoBase } from '@models/aplicativo';
-import { UserService } from '@services/user.service';
-import { AlertService } from '@shared-components/alert/alert.service';
+import {PagesService} from '@services/pages.service';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {fromEvent, Observable, Subscription} from 'rxjs';
+import {FactoryService} from '@services/factory.service';
+import {AplicativoService} from '@services/aplicativo.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AplicativoBase} from '@models/aplicativo';
+import {UserService} from '@services/user.service';
+import {AlertService} from '@shared-components/alert/alert.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -35,6 +34,21 @@ export class EditPageComponent implements OnInit {
     this.resizeObs = fromEvent(window, 'resize')
   }
 
+  get appList() {
+    let lista = this._appService.getAplicativos();
+    this.ordenarAppList(lista);
+    return lista;
+
+  }
+
+  set appList(apps: AplicativoBase[]) {
+    this._appService.setAplicativos(apps);
+  }
+
+  get loading(): boolean {
+    return this.loadingState;
+  }
+
   ngOnInit() {
     this.loadingState = true;
     this.carregarComponentes()
@@ -44,8 +58,8 @@ export class EditPageComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe((event) => {
-      this.handleResize();
-    })
+        this.handleResize();
+      })
   }
 
   async carregarComponentes() {
@@ -57,6 +71,7 @@ export class EditPageComponent implements OnInit {
     let urlUser;
     try {
       const resposta = await this._userSrv.getUser().toPromise();
+      console.log(resposta)
       if (resposta && resposta['data'] && resposta['data'].urlPagina) {
         urlUser = resposta['data']['urlPagina'];
       } else {
@@ -76,25 +91,8 @@ export class EditPageComponent implements OnInit {
     }))
   }
 
-
   ordenarAppList(list: AplicativoBase[]): void {
     list.sort((a, b) => a.order - b.order);
-  }
-
-
-  get appList() {
-    let lista =  this._appService.getAplicativos();
-    this.ordenarAppList(lista);
-    return lista;
-
-  }
-
-  set appList(apps: AplicativoBase[]) {
-    this._appService.setAplicativos(apps);
-  }
-
-  get loading(): boolean {
-    return this.loadingState;
   }
 
   toggleClass(): void {
@@ -126,7 +124,7 @@ export class EditPageComponent implements OnInit {
   /**
    * Salvar o estado atual dos componentes
    */
-  async salvarComponentes():Promise<void> {
+  async salvarComponentes(): Promise<void> {
     this.loadingState = true;
     try {
       this.botaoSalvarDisabled = true;

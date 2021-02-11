@@ -1,0 +1,13 @@
+.example-chip-list {
+  width: 100%;
+}
+
+.input-container{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tag-input-button{
+  flex-grow: 0;
+}

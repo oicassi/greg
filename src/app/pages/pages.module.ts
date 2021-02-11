@@ -23,6 +23,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from "@angular/material/button";
 import {ModalAplicativoComponent} from "@components/modal-aplicativo/modal-aplicativo.component";
 import { VisualizacaoComponent } from './visualizacao/visualizacao.component';
+import {ComponentsModule} from "@components/components.module";
+import {TagInputComponent} from "@components/tag-input/tag-input.component";
 
 
 @NgModule({
@@ -45,17 +47,18 @@ import { VisualizacaoComponent } from './visualizacao/visualizacao.component';
     EditPreviewComponent,
     VisualizacaoComponent,
   ],
-  imports: [
-    SharedModule,
-    ReactiveFormsModule,
-    CommonModule,
-    DirectivesModule,
-    RouterModule,
-    TagCloudModule,
-    AplicativosModule,
-    DragDropModule,
-    MatButtonModule
-  ],
+    imports: [
+        SharedModule,
+        ReactiveFormsModule,
+        CommonModule,
+        DirectivesModule,
+        RouterModule,
+        TagCloudModule,
+        AplicativosModule,
+        DragDropModule,
+        MatButtonModule,
+        ComponentsModule
+    ],
   exports: [LoginRegisterComponent, DragDropModule,]
 })
 export class PagesModule {

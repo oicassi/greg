@@ -1,4 +1,5 @@
 <div class="preview-main-container" [ngStyle]="customPageBgColor()">
+  <app-tag-input class="tag-input"></app-tag-input>
   <div class="preview-app-container fade-in-geral" *ngFor="let app of aplicativos">
     <app-aplicativo-base
       [dados]="app"

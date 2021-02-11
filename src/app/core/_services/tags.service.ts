@@ -15,4 +15,13 @@ export class TagService {
     return this.http.get<any>(`${environment.apiUrl}/tags`);
   }
 
+
+  /**
+   * Adiciona tags para o usuario
+   * @param tagArray
+   */
+  addTags(tagArray: string[]) {
+    return this.http.put<string[]>(`${environment.apiUrl}/tags`, tagArray);
+  }
+
 }
