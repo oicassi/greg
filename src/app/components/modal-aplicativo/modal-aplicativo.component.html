@@ -1,8 +1,5 @@
-<h1 mat-dialog-title>DESGRAÇA</h1>
-<p>Arraste para <b>Escolhidos</b> os que deseja que apareça em seu portfólio</p>
-<mat-dialog-content>
   <div>
-    <h2>Escolhidos</h2>
+    <h2 class="modal-title">Escolhidos</h2>
     <div
       cdkDropList
       class="example-list2"
@@ -11,7 +8,7 @@
 
         <div class="texto-card" *ngIf="lookAtThisPhotograph(item?.url); else elseBlock">
           {{item.name}}
-          <div *ngIf="item?.description" style="margin-bottom: auto">
+          <div *ngIf="item?.description" style="margin-bottom: auto; font-size: 14px; overflow-y: auto;">
             <hr>
             {{item.description}}
           </div>
@@ -21,20 +18,20 @@
           <img [src]="item.url" alt="Fotografia"
                style="height: 100px; width: auto">
         </ng-template>
-        <hr>
+        
         <button class="btn btn-danger" (click)="removeElement(item, i)">Remover</button>
       </div>
     </div>
   </div>
   <br>
   <div>
-    <h2>Disponiveis</h2>
+    <h2 class="modal-title">Disponiveis</h2>
     <div class="example-list">
       <div class="example-box" *ngFor="let item of received; let i = index">
 
         <div class="texto-card" *ngIf="lookAtThisPhotograph(item?.url); else elseBlock">
           {{item.name}}
-          <div *ngIf="item?.description" style="margin-bottom: auto">
+          <div *ngIf="item?.description" style="margin-bottom: auto; font-size: 14px; overflow-y: auto;">
             <hr>
             {{item.description}}
           </div>
@@ -44,15 +41,14 @@
           <img [src]="item.url" alt="Fotografia"
                style="height: 100px; width: auto">
         </ng-template>
-        <hr>
+        
         <div class="action-button">
           <button style="bottom:0px" class="btn btn-primary" (click)="addElement(item, i)">Adicionar</button>
         </div>
       </div>
     </div>
   </div>
-</mat-dialog-content>
 <hr/>
 <mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="getModalData()" cdkFocusInitial>Ok</button>
+  <button class="btn btn-outline-primary" [mat-dialog-close]="getModalData()" cdkFocusInitial>OK</button>
 </mat-dialog-actions>

@@ -130,7 +130,7 @@ export class EditPageComponent implements OnInit {
       this.botaoSalvarDisabled = true;
       const response = await this._appService.salvarAplicativos();
       if (response) {
-        this.alertService.success('Componentes salvos/alterados com sucesso!')
+        this.alertService.success('Página salva com sucesso!')
       }
 
     } catch (err) {

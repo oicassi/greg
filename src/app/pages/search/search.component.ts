@@ -103,11 +103,18 @@ export class SearchComponent implements OnInit {
       this.dadosBusca = [];
 
       resultadoArr.forEach(usuario => {
-        this.dadosBusca.push(new Card(usuario.nome, usuario.tags, usuario.imagemUsuario.url, usuario.pagina.url));
+        this.dadosBusca.push(new Card(`${usuario.pessoa.nome} ${usuario.pessoa.sobrenome}`, usuario.tags, this.getImagemUsuario(usuario), usuario.pagina.url));
       });
 
       this._loaderSrv.hideLoader();
     })
+  }
+
+  getImagemUsuario(usuario: Usuario){
+    let strImagemPadrao = 'https://www.w3schools.com/howto/img_avatar.png';
+    let strImagem = 'data:image/jpeg;base64,'
+
+    return usuario.imagemUsuario.base64Img ? (strImagem + usuario.imagemUsuario.base64Img) : strImagemPadrao;
   }
 
   setTagCloud(tags: string[]): void {
