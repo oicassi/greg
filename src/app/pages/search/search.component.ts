@@ -103,9 +103,8 @@ export class SearchComponent implements OnInit {
       this.dadosBusca = [];
 
       resultadoArr.forEach(usuario => {
-        this.dadosBusca.push(new Card(usuario.nome, usuario.tags, usuario.imagemUsuario.url));
+        this.dadosBusca.push(new Card(usuario.nome, usuario.tags, usuario.imagemUsuario.url, usuario.pagina.url));
       });
-
 
       this._loaderSrv.hideLoader();
     })
