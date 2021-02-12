@@ -1,4 +1,4 @@
-<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit}" [ngStyle]="customStyle()" *ngIf="(!dados.isEditable && dados.username) || dados.isEditable">
+<div class="aplicativo-main-container" [ngClass]="{'aplicativo-editing': dados.isEdit, 'aplicativo-error': errorState && dados.isEdit}" [ngStyle]="customStyle()" *ngIf="(!dados.isEditable && dados.username) || dados.isEditable">
 
   <!-- Header -->
   <div class="aplicativo-header-container" *ngIf="(dados.isEditable || dados.showAppTitle) && !loading">
@@ -19,8 +19,8 @@
   <div class="aplicativo-config-collapse-container" *ngIf="dados.isEdit && isConfigMenuOpen && !loading">
     <span class="aplicativo-config-label" style="color:inherit !important">Configurações do componente</span>
     <div class="aplicativo-config-container">
-      <app-config-menu-comp [dados]="dados" [hasCheckedApi]="hasCheckedApi" (colorChange)="onColorChange($event)"
-        (apiSubmit)="onUsernameSubmit($event)" (modalOpen)="onOpenModal()">
+      <app-config-menu-comp [dados]="dados" [hasCheckedApi]="hasCheckedApi" [msgErroExtra]="errorState ? 'Usuário informado não encontrado' : null" 
+        (colorChange)="onColorChange($event)" (apiSubmit)="onUsernameSubmit($event)" (modalOpen)="onOpenModal()">
       </app-config-menu-comp>
     </div>
   </div>
@@ -44,7 +44,7 @@
 
     <!-- Mostrar o input para inserção do username -->
     <div class="aplicativo-input-username-container" *ngIf="!hasCheckedApi">
-      <app-input-group [label]="'Username do Flickr'" [inputType]="'text'"
+      <app-input-group [label]="'Username do Flickr'" [inputType]="'text'" [msgErroExtra]="errorState ? 'Usuário informado não encontrado' : null"
         [placeholder]="'Insira seu username do Flickr'" [class]="'primary'" [buttonLabel]="'Buscar dados'"
         [required]="true" [campoObrigatorioMsg]="'O username é obrigatório'" (submitInput)="onUsernameSubmit($event)">
       </app-input-group>

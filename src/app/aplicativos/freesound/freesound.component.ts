@@ -97,6 +97,7 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
    */
   onOpenModal(): void {
     this.dados.audios = [];
+    this.errorState = false;
     this.openDialog(this._appServ.requestFreesoundData(this.dados));
   }
 
@@ -129,6 +130,7 @@ export class FreesoundComponent extends AplicativoGenericoApiComponent implement
     }, error => {
       this.dados.username = this.dadosBkp.username;
       this.tratarErros(error, 'FreeSound', true);
+      this.errorState = true;
       this.loading = false;
     })
   }

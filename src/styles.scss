@@ -73,6 +73,11 @@ html.transition *:after {
   box-shadow: 0px 0px 10px var(--color-warning) !important;
 }
 
+.aplicativo-error {
+  box-shadow: 0px 0px 15px var(--color-danger) !important;
+  border: 1px solid var(--color-danger) !important;
+}
+
 // APLICATIVOS GERAL =================================================================
 
 // Container principal dos aplicativos

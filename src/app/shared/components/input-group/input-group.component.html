@@ -13,7 +13,13 @@
       <div class="generic-input-error-msg" *ngIf="form.controls.generic_input.errors.required">
         {{campoObrigatorioMsg || 'Campo obrigatório'}}
       </div>
+      <div class="generic-input-error-msg" *ngIf="form.controls.generic_input.errors.extra">
+        {{msgErroExtra}}
+      </div>
     </div>
+    <!-- <div *ngIf="msgErroExtra !== null && msgErroExtra !== undefined" class="generic-input-extra-error-msg">
+      {{msgErroExtra}}
+    </div> -->
     <div class="input-group-append generic-input-submit-button">
       <button class="btn {{btnClass}}" type="button" id="button-addon2" (click)="onSubmit()">
         {{buttonLabel}}

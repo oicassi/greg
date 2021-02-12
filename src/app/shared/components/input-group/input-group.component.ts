@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
@@ -32,6 +33,7 @@ export class InputGroupComponent implements OnInit {
   @Input() bounceTime: number;                          // Tempo de espera para emissão do evento termOnInput
   @Input() required: boolean;                           // Se desejar adicionar a validação de campo obrigatório
   @Input() campoObrigatorioMsg: string;                 // Mensagem personalizada para o campo obrigatório
+  @Input() msgErroExtra: string;
   @Output() termOnInput: EventEmitter<string> = new EventEmitter<string>()    // Emissor de evento para enviar o texto que está sendo digitado
   @Output() submitInput: EventEmitter<string> = new EventEmitter<string>()         // Emissor de evento para enviar o texto quando o formulário é submetido
 
@@ -41,6 +43,7 @@ export class InputGroupComponent implements OnInit {
 
   // Formulário;
   form: FormGroup;
+  errorExtra: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
@@ -65,12 +68,24 @@ export class InputGroupComponent implements OnInit {
    * Inicializa os valores do inputGroup
    */
   initValues(): void {
+    console.log('init values');
+    console.log(this.msgErroExtra)
     this.setInputType();
     this.setPlaceholder();
     this.setBtnClass();
     this.setBtnLabel();
+    this.setErroExtra();
     this.initForm();
     this.onInput(this.inputValue);
+    
+  }
+
+  get erroFdp(): boolean {
+    return this.errorExtra;
+  }
+
+  set erroFdp(erro: boolean) {
+    this.errorExtra = erro;
   }
 
   /**
@@ -116,6 +131,12 @@ export class InputGroupComponent implements OnInit {
     }
   }
 
+  setErroExtra() {
+    if (this.msgErroExtra !== null && this.msgErroExtra !== undefined) {
+      this.errorExtra = true;
+    }
+  }
+
   /**
    * Inicializa o formulário
    */
@@ -128,6 +149,10 @@ export class InputGroupComponent implements OnInit {
       validadores.push(Validators.required);
     }
 
+    if (this.errorExtra) {
+      validadores.push(this.validadorForcado.bind(this));
+    }
+
     // Monta o formulário propriamente dito
     this.form = this._fb.group({
       generic_input: [
@@ -135,6 +160,11 @@ export class InputGroupComponent implements OnInit {
         validadores
       ]
     })
+
+    if (this.errorExtra) {
+      this.form.get('generic_input').markAsTouched();
+    }
+
 
     // this.form = this._fb.group({
     //   generic_input: ['', [Validators.required]]
@@ -146,6 +176,17 @@ export class InputGroupComponent implements OnInit {
    * @param term Termo digitado
    */
   onInput(inputTerm: string): void {
+    if (this.erroFdp) {
+      if (this.inputValue !== undefined &&  this.inputValue !== null && typeof this.inputValue === 'string') {
+        if (inputTerm.length !== this.inputValue.length) {
+          this.erroFdp = false;
+        }
+      } else {
+        if (inputTerm.length >= 0) {
+          this.erroFdp = false;
+        }
+      }
+    }
     this.term.next(inputTerm);
   }
 
@@ -153,7 +194,7 @@ export class InputGroupComponent implements OnInit {
    * Submit do termo digitado no input
    */
   onSubmit(): void {
- 
+    
     // Marcar os campos do formulário como dirty
     this.verificarCamposFormularios();
 
@@ -177,16 +218,26 @@ export class InputGroupComponent implements OnInit {
       control.markAsDirty({ onlySelf: true });
       control.markAsTouched({ onlySelf: true });
     });
+    
   }
 
   /**
    * Verificar se o formulário é válido
    */
   verificarValidadeForm(): boolean {
+    console.log(this.form.get('generic_input'));
     if (!this.form.get('generic_input').valid) {
       return false;
     }
     return true;
+  }
+
+  /**
+   * Validação de nome único de componente
+   * @param input Input que está sendo validado
+   */
+  validadorForcado() {
+    return  this.erroFdp ? { extra: true } : null;
   }
 
 }

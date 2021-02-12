@@ -58,3 +58,9 @@ input {
   justify-content: center;
   margin-top: 20px;
 }
+
+.generic-input-extra-error-msg {
+  color: var(--color-danger);
+  font-size: 80%;
+  margin-top: 0.25rem;
+}

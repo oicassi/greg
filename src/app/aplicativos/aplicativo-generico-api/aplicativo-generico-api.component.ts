@@ -26,6 +26,8 @@ export class AplicativoGenericoApiComponent extends AplicativoGenericoComponent 
   // Controle de estado
   hasCheckedApi = false;
 
+  errorState = false;
+
   constructor(
     _appServ: AplicativoService,
     alertService: AlertService,

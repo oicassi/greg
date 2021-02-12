@@ -86,6 +86,9 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
    */
   onClickEditar(): void {
     this.dados.isEdit = true;
+    if (this['errorState'] !== undefined && this['errorState'] !== null) {
+      this['errorState'] = false;
+    }
   }
 
   /**
@@ -190,7 +193,7 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
    * @param err Objeto de erros
    */
   tratarErros(err: Error, acao: string = null, isRequest: boolean = false) {
-    let msg = '%cOcorreu um erro';
+    let msg = 'Ocorreu um erro';
     
     if (isRequest) {
       msg = '[Erro ?] ';

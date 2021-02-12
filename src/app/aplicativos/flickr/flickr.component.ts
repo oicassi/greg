@@ -76,6 +76,7 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
    */
   onOpenModal(): void {
     this.dados.imagensFlickr = [];
+    this.errorState = false;
     this.openDialog(this._appServ.requestFlickrData(this.dados));
   }
 
@@ -109,6 +110,7 @@ export class FlickrComponent extends AplicativoGenericoApiComponent implements O
     }, error => {
       this.dados.username = this.dadosBkp.username;
       this.tratarErros(error, 'Flickr', true);
+      this.errorState = true;
       this.loading = false;
     })
   }

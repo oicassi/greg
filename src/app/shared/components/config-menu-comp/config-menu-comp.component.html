@@ -5,7 +5,7 @@
 
     <!-- Input group para colocar um novo username -->
     <div class="config-input-username-container" *ngIf="hasCheckedApi && checkComponenteApi()">
-      <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']"
+      <app-input-group [label]="textosInputApi.label" [inputType]="'text'" [inputValue]="dados['username']" [msgErroExtra]="msgErroExtra"
         [placeholder]="textosInputApi.placeholder" [class]="'primary'" [buttonLabel]="'Buscar dados'" [required]="true"
         [campoObrigatorioMsg]="'O username é obrigatório'" (submitInput)="onUsernameSubmit($event)">
       </app-input-group>

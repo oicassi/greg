@@ -77,6 +77,7 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
    */
   onOpenModal(): void {
     this.dados.repos = [];
+    this.errorState = false;
     this.openDialog(this._appServ.requestGithubData(this.dados));
   }
 
@@ -109,6 +110,7 @@ export class GithubComponent extends AplicativoGenericoApiComponent implements O
     }, error => {
       this.dados.username = this.dadosBkp.username;
       this.tratarErros(error, 'GitHub', true);
+      this.errorState = true;
       this.loading = false;
     })
 

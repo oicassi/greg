@@ -18,6 +18,7 @@ export class ConfigMenuCompComponent implements OnInit {
   }
   @Input() dados: AplicativoBase;
   @Input() hasCheckedApi: boolean;
+  @Input() msgErroExtra: string;
   @Output() apiSubmit: EventEmitter<string> = new EventEmitter<string>();
   @Output() colorChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() textCount: EventEmitter<string> = new EventEmitter<string>();

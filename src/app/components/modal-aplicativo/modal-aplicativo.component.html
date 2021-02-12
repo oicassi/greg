@@ -50,5 +50,5 @@
   </div>
 <hr/>
 <mat-dialog-actions align="end">
-  <button class="btn btn-outline-primary" [mat-dialog-close]="getModalData()" cdkFocusInitial>OK</button>
+  <button class="btn btn-outline-primary" [mat-dialog-close]="getModalData()" cdkFocusInitial>{{chosen && chosen.length ? 'OK' : 'Cancelar'}}</button>
 </mat-dialog-actions>
