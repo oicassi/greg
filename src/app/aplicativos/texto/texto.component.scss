@@ -78,3 +78,41 @@
 .texto-element-control-single-button:last-of-type {
     margin-right: 0;
 }
+
+.markdown-geral * {
+    color: inherit !important;
+    font-size: 0.9rem;
+}
+
+.markdown-geral a {
+    text-decoration: underline;
+    color: var(--color-main) !important;
+}
+
+.markdown-geral a:hover {
+    color: var(--color-main-darker) !important;
+}
+
+.markdown-geral h1 {
+    font-size: 2rem;
+}
+
+.markdown-geral h2 {
+    font-size: 1.8rem;
+}
+
+.markdown-geral h3 {
+    font-size: 1.6rem;
+}
+
+.markdown-geral h4 {
+    font-size: 1.4rem;
+}
+
+.markdown-geral h5 {
+    font-size: 1.2rem;
+}
+
+.markdown-geral h6 {
+    font-size: 1rem;
+}
