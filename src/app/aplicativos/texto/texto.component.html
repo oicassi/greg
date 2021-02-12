@@ -34,8 +34,12 @@
 				[title]="texto.title">
 				{{texto.title}}
 			</div>
-			<div class="texto-element-body-container" [innerHTML]="getTextoParsed(texto.body)">
+			<!-- <div class="texto-element-body-container" [innerHTML]="getTextoParsed(texto.body)"></div> -->
+			<div class="texto-element-body-container">
+				<markdown class="variable-binding" [data]="texto.body" style="color:green"></markdown>
 			</div>
+				
+			
 		</div>
 	</div>
 

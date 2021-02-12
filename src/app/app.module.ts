@@ -18,6 +18,8 @@ import {BnNgIdleService} from 'bn-ng-idle';
 import {AppComponent} from "./app.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import { MarkdownModule } from 'ngx-markdown';
+
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
     PagesModule,
     AplicativosModule,
     routing,
+    MarkdownModule.forRoot(),
   ],
   providers: [
     ApiService,

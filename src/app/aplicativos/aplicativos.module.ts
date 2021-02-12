@@ -1,3 +1,4 @@
+import { MarkdownModule } from 'ngx-markdown';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,6 +34,7 @@ import { BioComponent } from './bio/bio.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    MarkdownModule
   ],
   exports: [
     AplicativoBaseComponent, 

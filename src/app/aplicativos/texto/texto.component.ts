@@ -6,11 +6,13 @@ import { AplicativoService } from '@services/aplicativo.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Texto } from '@models/aplicativo-item';
 import { AlertService } from '@shared-components/alert/alert.service';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-texto',
   templateUrl: './texto.component.html',
-  styleUrls: ['./texto.component.scss']
+  styleUrls: ['./texto.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class TextoComponent extends AplicativoGenericoComponent implements OnInit {
 
@@ -22,6 +24,23 @@ export class TextoComponent extends AplicativoGenericoComponent implements OnIni
 
   // Formulário;
   form: FormGroup;
+
+  markdown = `## Markdown __rulez__!
+---
+
+### Syntax highlight
+\`\`\`typescript
+const language = 'typescript';
+\`\`\`
+
+### Lists
+1. Ordered list
+2. Another bullet point
+  - Unordered list
+  - Another unordered bullet point
+
+### Blockquote
+> Blockquote to the max`;
   
   constructor(
     _appServ: AplicativoService,
