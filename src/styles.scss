@@ -154,7 +154,7 @@ html.transition *:after {
   flex-flow: row wrap;
   justify-content: flex-start;
   flex: 1;
-  color: inherit;
+  color: inherit !important;
 }
 
 .aplicativo-config-page-collapse-container {

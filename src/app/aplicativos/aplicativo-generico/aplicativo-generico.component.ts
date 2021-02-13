@@ -24,7 +24,6 @@ export class AplicativoGenericoComponent implements OnInit, DoCheck {
   ) { }
 
   ngOnInit() {
-    
   }
 
   ngDoCheck() {

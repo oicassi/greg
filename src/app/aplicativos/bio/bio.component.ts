@@ -5,11 +5,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoService } from '@services/aplicativo.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AplicativoBio } from '@models/aplicativo';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-bio',
   templateUrl: './bio.component.html',
-  styleUrls: ['./bio.component.scss']
+  styleUrls: ['./bio.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class BioComponent extends AplicativoGenericoComponent implements OnInit {
 
