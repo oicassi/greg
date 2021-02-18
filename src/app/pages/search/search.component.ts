@@ -60,27 +60,20 @@ export class SearchComponent implements OnInit {
 
   buscarTags() {
     this.tagService.getAll().subscribe((tags: GenericResponse<string[]>) => this.setTagCloud(tags.data))
-      this.mostrarResultadoBusca(this.searchParam);
+    // this.mostrarResultadoBusca(this.searchParam);
   }
 
   previewSearch(term: string): void {
-    let terms = term.split(' ');
     this.tagCloud = [];
     if (!term || term === '') {
       this.tagCloud = Array.from(this.tagCloudRaw);
       return;
     }
+    term = term.trim();
     for (let tag of this.tagCloudRaw) {
-      let found = false;
-      terms.forEach((term) => {
-        if (found) {
-          return;
-        }
-        if (tag.text.toLowerCase().includes(term.toLowerCase())) {
-          this.tagCloud.push(tag);
-          found = true;
-        }
-      })
+      if (tag.text.toLowerCase().includes(term.toLowerCase())) {
+        this.tagCloud.push(tag);
+      }
     }
   }
 
@@ -91,26 +84,93 @@ export class SearchComponent implements OnInit {
   }
 
   irParaBusca(term: string): void {
+    if (term == '' || term == null) {
+      return;
+    }
     this.showContainer = false;
     this.showResultado = true;
     this.mostrarResultadoBusca(term);
   }
 
   mostrarResultadoBusca(term: string): void {
-    this._pagesSrv.searchCards(term).subscribe((resultado) => {
-      console.log(resultado.data);
-      let resultadoArr: Usuario[] = resultado.data;
-      this.dadosBusca = [];
+    this._loaderSrv.showLoader();
 
-      resultadoArr.forEach(usuario => {
-        this.dadosBusca.push(new Card(`${usuario.pessoa.nome} ${usuario.pessoa.sobrenome}`, usuario.tags, this.getImagemUsuario(usuario), usuario.pagina.url));
-      });
+    this._pagesSrv.searchCards(term).subscribe(
+      (resultado) => {
+        console.log(resultado.data);
+        let resultadoArr: Usuario[] = resultado.data;
 
-      this._loaderSrv.hideLoader();
-    })
+        // ordenar colocando primeiro os usuarios cujas tags fazem sentido com a busca
+        // Essa é a coisa mais horrorosa que existe aqui
+
+        let tagMatch: Usuario[] = [];
+        let tagUnmatch: Usuario[] = [];
+
+        resultadoArr.forEach(user => {
+          let found = false;
+          for (const tag of user.tags) {
+            if (tag.includes(term.toUpperCase())) {
+              tagMatch.push(user);
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            tagUnmatch.push(user);
+          }
+        })
+
+        // remover possíveis duplicados;
+        let tagMatchAux: Usuario[] = []
+        let tagUnmatchAux: Usuario[] = [];
+
+        tagMatch.forEach(user => {
+          let i = tagMatchAux.findIndex(u => u.id === user.id);
+          if (i < 0) {
+            tagMatchAux.push(user);
+          }
+        })
+
+        tagUnmatch.forEach(user => {
+          let i = tagUnmatchAux.findIndex(u => u.id === user.id);
+          if (i < 0) {
+            tagUnmatchAux.push(user);
+          }
+        })
+
+        tagMatchAux.sort((a, b) => {
+          if (`${a.pessoa.nome}${a.pessoa.sobrenome}` < `${b.pessoa.nome}${b.pessoa.sobrenome}`) { return -1; }
+          if (`${a.pessoa.nome}${a.pessoa.sobrenome}` > `${b.pessoa.nome}${b.pessoa.sobrenome}`) { return 1; }
+          return 0;
+        })
+
+        tagUnmatchAux.sort((a, b) => {
+          if (`${a.pessoa.nome}${a.pessoa.sobrenome}` < `${b.pessoa.nome}${b.pessoa.sobrenome}`) { return -1; }
+          if (`${a.pessoa.nome}${a.pessoa.sobrenome}` > `${b.pessoa.nome}${b.pessoa.sobrenome}`) { return 1; }
+          return 0;
+        })
+
+        resultadoArr = [];
+        resultadoArr = tagMatchAux.concat(tagUnmatchAux);
+
+        this.dadosBusca = [];
+
+        resultadoArr.forEach(usuario => {
+          this.dadosBusca.push(new Card(`${usuario.pessoa.nome} ${usuario.pessoa.sobrenome}`, usuario.tags, this.getImagemUsuario(usuario), usuario.pagina.url));
+        });
+
+        this._loaderSrv.hideLoader();
+      },
+      (err) => {
+        console.log('Ocorreu erro ao buscar tags');
+        console.log(err);
+        this.dadosBusca = [];
+        this._loaderSrv.hideLoader();
+      }
+    )
   }
 
-  getImagemUsuario(usuario: Usuario){
+  getImagemUsuario(usuario: Usuario) {
     let strImagemPadrao = 'https://www.w3schools.com/howto/img_avatar.png';
     let strImagem = 'data:image/jpeg;base64,'
 
@@ -144,8 +204,8 @@ export class SearchComponent implements OnInit {
 
   resetScreen() {
 
-    this.showContainer=true;
-    this.showResultado=false
+    this.showContainer = true;
+    this.showResultado = false
     this.searchParam = '';
 
     this.buscarTags();

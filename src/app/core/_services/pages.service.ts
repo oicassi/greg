@@ -1,8 +1,9 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {UserPageGlobal, Usuario} from '@models/user';
-import {environment} from 'src/environments/environment';
-import {GenericResponse} from "@models/responses/generic-response";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { UserPageGlobal, Usuario } from '@models/user';
+import { environment } from 'src/environments/environment';
+import { GenericResponse } from "@models/responses/generic-response";
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +25,9 @@ export class PagesService {
   }
 
   searchCards(terms: string) {
-    console.log(terms);
 
-    if (terms == '' || terms == null) {
-      return this.getAllTags();
-    } else {
-      return this._http.get<GenericResponse<Usuario[]>>(`${environment.apiUrl}/usuarios?busca=${terms}&limite=10`);
-    }
+    return this._http.get<GenericResponse<Usuario[]>>(`${environment.apiUrl}/usuarios?busca=${terms}`);
+
   }
 
   /**

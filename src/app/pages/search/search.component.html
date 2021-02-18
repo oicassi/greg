@@ -45,7 +45,7 @@
   <!-- Tag cloud -->
   <div
     class="tag-cloud-container"
-    *ngIf="!showResultado && tagCloud.length"
+    *ngIf="!showResultado && tagCloud.length && !_loaderSrv.getLoader()"
     [ngClass]="classe ? 'tag-cloud-container-result' : ''">
     <angular-tag-cloud
       [data]="tagCloud"
@@ -78,11 +78,9 @@
   </div>
 
   <!-- Exibição de Spinner durante o carregamento de informações -->
-  <div class="spinner-container" *ngIf="_loaderSrv.getLoader()">
-    <div>
-      <!--
-      <p-progressSpinner></p-progressSpinner>
-      -->
+  <div style="display: flex; width: 100%; height: 250px; justify-content: center; align-items: center;" *ngIf="_loaderSrv.getLoader()">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
   </div>
 
