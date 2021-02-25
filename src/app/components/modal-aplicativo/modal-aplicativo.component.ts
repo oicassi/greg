@@ -67,4 +67,18 @@ export class ModalAplicativoComponent implements OnInit {
   getModalData() {
     return {chosen: this.chosen, metadataChosen: this.metadataChosen};
   }
+
+  adicionarTudo() {
+    this.chosen = this.chosen.concat(this.received);
+    this.received = [];
+    this.metadataChosen = this.metadataChosen.concat(this.metadataReceived);
+    this.metadataReceived = [];
+  }
+
+  removerTudo() {
+    this.received = this.received.concat(this.chosen);
+    this.chosen = [];
+    this.metadataReceived = this.metadataReceived.concat(this.metadataChosen);
+    this.metadataChosen = [];
+  }
 }

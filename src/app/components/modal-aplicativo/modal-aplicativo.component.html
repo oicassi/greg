@@ -50,5 +50,7 @@
   </div>
 <hr/>
 <mat-dialog-actions align="end">
+  <button class="btn btn-outline-secondary"  (click)="removerTudo()" style="margin-right: 20px;">Remover tudo</button>
+  <button class="btn btn-outline-secondary"  (click)="adicionarTudo()" style="margin-right: 20px;">Adicionar tudo</button>
   <button class="btn btn-outline-primary" [mat-dialog-close]="getModalData()" cdkFocusInitial>{{chosen && chosen.length ? 'OK' : 'Cancelar'}}</button>
 </mat-dialog-actions>
