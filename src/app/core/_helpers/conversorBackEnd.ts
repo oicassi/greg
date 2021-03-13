@@ -1,4 +1,4 @@
-import { AplicativoFreesound, AplicativoGithub } from './../../shared/models/aplicativo';
+import { AplicativoFreesound, AplicativoGithub } from '@models/aplicativo';
 import { Texto } from '@models/aplicativo-item';
 import { AplicativoBase, AplicativoTexto, AplicativoBio, AplicativoFoto, AplicativoFlickr } from '@models/aplicativo';
 import { FileGregs } from '@models/file-greg';
@@ -7,6 +7,7 @@ export class ConversorBackEnd {
   /**
    * Constrói um payload para salvar um componente conforme especificações do servidor
    * @param app Aplicativo que está sendo salvo
+   * @param i index do app
    */
   static montarPayload(app: AplicativoBase, i:number): ComponenteBackBase {
     if (!app) {
@@ -37,6 +38,7 @@ export class ConversorBackEnd {
   /**
    * Constrói o payload para salvar um componente do tipo texto
    * @param app AplicativoTexto base
+   * @param i index do app
    */
   static montarTextoPayload(app: AplicativoTexto, i: number): ComponenteTexto {
     let componente = new ComponenteTexto();
@@ -60,6 +62,7 @@ export class ConversorBackEnd {
   /**
    * Constrói o payload para salvar um componente do tipo bio
    * @param app AplicativoBio base
+   * @param i index do app
    */
   static montarBioPayload(app: AplicativoBio, i: number): ComponenteBio {
     let componente = new ComponenteBio();
@@ -80,10 +83,10 @@ export class ConversorBackEnd {
         componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
       }
     }
-    
+
     return componente;
   }
-  
+
   /**
    * Constrói o payload para salvar um componente do tipo foto
    * @param app AplicativoFoto base
@@ -103,7 +106,7 @@ export class ConversorBackEnd {
         componente.imagem.base64Img = componente.imagem.base64Img.replace(/^data:image\/[a-z]+;base64,/, "");
       }
     }
-    
+
     return componente;
   }
 
@@ -149,7 +152,7 @@ export class ConversorBackEnd {
 
   /**
    * Constrói o payload para salvar um componente do tipo Freesound
-   * @param app 
+   * @param app
    */
   static montarFreesoundPayload(app: AplicativoFreesound, i: number): ComponenteFreesound {
     let componente = new ComponenteFreesound();
@@ -254,7 +257,7 @@ export class ConversorBackEnd {
       app.audios[i].id = response.audios[i].id;
     }
   }
-  
+
   /**
    * Atribui os ids retornados do backend para um componente do tipo Github
    * @param response Resposta do servidor
@@ -332,7 +335,9 @@ export class ConversorBackEnd {
     novoApp.isEditable = false;
     novoApp.isEdit = false;
     novoApp.imagem = dado.imagem ? Object.assign({}, dado.imagem) : null;
-    if (novoApp.imagem) {
+
+
+    if (novoApp.imagem && novoApp.imagem.base64Img) {
       novoApp.imagem.base64Img = `data:image/jpeg;base64,${novoApp.imagem.base64Img}`;
     }
     return novoApp;

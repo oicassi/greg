@@ -5,12 +5,3 @@ export class FileGregs  extends Blob{
     url: string;
 
 }
-
-
-// "imagem": 
-//       {
-//         "id": null,
-//         "titulo": null,
-//         "base64Img": "aquelabase64indescritivel",
-//         "url": "http:urlveridica.com"
-//       }

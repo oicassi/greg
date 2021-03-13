@@ -1,4 +1,4 @@
-import { FileGregs } from './../../shared/models/file-greg';
+import { FileGregs } from '@models/file-greg';
 import { AplicativoFoto } from '@models/aplicativo';
 import { Component, Input, OnInit } from '@angular/core';
 import { AplicativoGenericoComponent } from '@aplicativos/aplicativo-generico/aplicativo-generico.component';
@@ -39,4 +39,12 @@ export class FotosComponent extends AplicativoGenericoComponent implements OnIni
     this.dados.imagem = event;
     this.dadosBkp.imagem = event;
   }
+
+  getImagem(dados: AplicativoFoto) {
+    let strImagemPadrao = 'https://www.flaticon.com/svg/vstatic/svg/4305/4305633.svg?token=exp=1615669375~hmac=057f14cb03f0df54ca1e1e4bd9b2aac6';
+
+    return dados.imagem.base64Img ? dados.imagem.base64Img :
+                                    dados.imagem.url ? dados.imagem.url: strImagemPadrao;
+  }
+
 }

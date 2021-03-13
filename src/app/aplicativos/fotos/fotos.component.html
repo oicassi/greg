@@ -30,13 +30,13 @@
 
 		<!-- Container das imagens -->
 		<div class="fotos-photo-container" style="color: inherit;">
-			<img 
-				[src]="dados.imagem && dados.imagem.base64Img ? dados.imagem.base64Img : null" 
-				[alt]="dados.component_name" 
-				class="fotos-pic" 
-				*ngIf="dados.imagem && dados.imagem.base64Img"
+			<img
+				[src]="getImagem(dados)"
+				[alt]="dados.component_name"
+				class="fotos-pic"
+				*ngIf="dados.imagem"
 			>
-			<div class="fotos-msg-container" *ngIf="!dados.imagem || !dados.imagem.base64Img">
+			<div class="fotos-msg-container" *ngIf="!dados.imagem">
 				Nenhuma imagem carregada. Selecione uma através das configurações do componente
 			</div>
 		</div>
