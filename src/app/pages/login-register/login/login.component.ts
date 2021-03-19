@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    window.localStorage.clear();
     this.submitted = true;
 
     // stop here if form is invalid

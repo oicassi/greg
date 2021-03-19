@@ -20,3 +20,28 @@
 .tag-input{
   width: 100% !important;
 }
+
+.no-component-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 30px 0;
+  padding: 10px 20px;
+  background-color: var(--color-bg-0);
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  box-shadow: 0px 0px 1px #24242433;
+}
+
+.no-component-text {
+  margin-right: 100px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--color-main-dark);
+}
+
+.no-component-img {
+  width: 200px;
+  height: 200px;
+  margin-left: 20px;
+}
