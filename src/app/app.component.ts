@@ -54,7 +54,7 @@ export class AppComponent {
       }))
       .pipe(switchMap(route => route.data))
       .subscribe(event => {
-        this.titleService.setTitle('GREGS - ' + event.title)
+        this.titleService.setTitle('GREG - ' + event.title)
       });
   }
 

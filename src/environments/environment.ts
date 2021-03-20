@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8080',
   tagApiUrl: 'http://localhost:4000',
-  titulo: 'GREGS',
+  titulo: 'GREG',
   slogan: 'segura na mão de deus e vai'
 };
 
