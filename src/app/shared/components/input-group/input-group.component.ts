@@ -68,8 +68,6 @@ export class InputGroupComponent implements OnInit {
    * Inicializa os valores do inputGroup
    */
   initValues(): void {
-    console.log('init values');
-    console.log(this.msgErroExtra)
     this.setInputType();
     this.setPlaceholder();
     this.setBtnClass();
@@ -225,7 +223,6 @@ export class InputGroupComponent implements OnInit {
    * Verificar se o formulário é válido
    */
   verificarValidadeForm(): boolean {
-    console.log(this.form.get('generic_input'));
     if (!this.form.get('generic_input').valid) {
       return false;
     }

@@ -189,6 +189,7 @@ export class AplicativoService {
       return comp;
     })
 
+
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     const urlSalvar = `${this.baseURL}/componente/`;
@@ -265,7 +266,9 @@ export class AplicativoService {
   handleFreesoundData(profile: any, audios: any, audiosRef: AudioBack[] = null): AplicativoFreesound {
 
     let freeSound = new AplicativoFreesound();
-    freeSound.audio_array = this.handleFreesoundAudios(audios, audiosRef);
+    const audiosTemp = this.handleFreesoundAudios(audios, audiosRef);
+    freeSound.audio_array = audiosTemp.audioArray;
+    freeSound.audios = audiosTemp.audios;
     freeSound.description = profile.about || 'Descrição não informada';
     freeSound.profile_url = profile.url;
 
@@ -276,7 +279,7 @@ export class AplicativoService {
    * Trata as informações de áudios vindas do freesound e monta um array
    * @param audios Dados de áudios vindos da requisição
    */
-  handleFreesoundAudios(audios: any, audiosRef: AudioBack[] = null): Audio[] {
+  handleFreesoundAudios(audios: any, audiosRef: AudioBack[] = null): any {
     let audioArray: Audio[] = [];
     const { results } = audios;
 
@@ -284,7 +287,7 @@ export class AplicativoService {
     let secrets: Array<string> = [];
     if (audiosRef && audiosRef.length) {
       novoComp = false;
-      secrets = audiosRef.map(audio => audio.secretId);
+      secrets = audiosRef.map(audio => audio.name);
     }
 
     results.forEach((res, i) => {
@@ -308,12 +311,12 @@ export class AplicativoService {
       if (novoComp || secrets.includes(res.name)) {
         audioArray.push(novoAudio);
         if (novoComp) {
-          audiosRef.push({id: null, secretId: res.name});
+          audiosRef.push({id: null, name: res.name});
         }
       }
 
     })
-    return audioArray;
+    return { audioArray, audios: audiosRef };
   }
 
   /**

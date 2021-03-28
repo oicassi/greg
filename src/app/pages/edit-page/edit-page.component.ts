@@ -71,7 +71,6 @@ export class EditPageComponent implements OnInit {
     let urlUser;
     try {
       const resposta = await this._userSrv.getUser().toPromise();
-      console.log(resposta)
       if (resposta && resposta['data'] && resposta['data'].urlPagina) {
         urlUser = resposta['data']['urlPagina'];
       } else {

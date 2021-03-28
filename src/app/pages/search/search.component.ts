@@ -97,7 +97,6 @@ export class SearchComponent implements OnInit {
 
     this._pagesSrv.searchCards(term).subscribe(
       (resultado) => {
-        console.log(resultado.data);
         let resultadoArr: Usuario[] = resultado.data;
 
         // ordenar colocando primeiro os usuarios cujas tags fazem sentido com a busca
