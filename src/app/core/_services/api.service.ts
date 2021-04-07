@@ -11,23 +11,23 @@ import { UrlHandlingStrategy } from '@angular/router';
 })
 export class ApiService {
   // Infos para requests ao Github
-  gitHubUrl = 'https://api.github.com';                   // URL base para as requisições à API do GitHub
+  gitHubUrl = 'https://api.github.com';                         // URL base para as requisições à API do GitHub
 
   // Infos para requests ao Flickr
-  flickrUrl = 'https://api.flickr.com/services/rest/';    // URL base para requisições à API do Flickr (por enquanto só estão sendo usadas requisições GET)
-  flickrApiKey = 'e7e633e002953ef8985e906ba4475e33';      // AppKey fornecida pelo flickr no cadastro
-  flickrFormat = 'json';                                  // Especifiação do formato de resposta
-  flickrBuscaEmail = 'flickr.people.findByEmail';         // URL para buscar o NSID do usuário a partir de seu email
-  flickrBuscaUsername = 'flickr.people.findByUsername';   // URL para buscar o NSID do usuário a partir de seu user name
-  flickrProfile = 'flickr.people.getInfo';                // URL para buscar as informações do perfil do usuário (a partir de seu NSID)
-  flickrFotosPublicas = 'flickr.people.getPublicPhotos';  // URL para buscar as fotos públicas de um usuário (a partir do seu NSID)
+  flickrUrl = 'https://api.flickr.com/services/rest/';          // URL base para requisições à API do Flickr (por enquanto só estão sendo usadas requisições GET)
+  flickrApiKey = 'Insira sua API KEY do Flickr aqui';           // AppKey fornecida pelo flickr no cadastro
+  flickrFormat = 'json';                                        // Especifiação do formato de resposta
+  flickrBuscaEmail = 'flickr.people.findByEmail';               // URL para buscar o NSID do usuário a partir de seu email
+  flickrBuscaUsername = 'flickr.people.findByUsername';         // URL para buscar o NSID do usuário a partir de seu user name
+  flickrProfile = 'flickr.people.getInfo';                      // URL para buscar as informações do perfil do usuário (a partir de seu NSID)
+  flickrFotosPublicas = 'flickr.people.getPublicPhotos';        // URL para buscar as fotos públicas de um usuário (a partir do seu NSID)
   // OBS: As requisições tem um parâmetro 'nojsoncallback' setado para 1 que é para evitar que o Flicker coloque a resposta num wrapper inútil
 
   // Infos para requests ao Freesound
   freesoundUrl = '/apiv2/';                                     // URL base para as requisições à API do Freesound (por enquanto só requisições GET)
-  freesoundApiKey = '7hcXRSYLbFBBJ6nxwafrkPfp4XOmydctF4F5P2lH'; // Appkey fornecida pelo freesound no cadastro
+  freesoundApiKey = 'Insira sua API KEY do Freesound aqui';     // Appkey fornecida pelo freesound no cadastro
   freesoundProfile = 'users/';                                  // URL para buscar as informações de perfil de um usuário
-  freesoundAudios = 'users/' //<email>/sounds                // URL para buscar lista de músicas de um usuário. OBS: tem que completar a URL conforme o comentário
+  freesoundAudios = 'users/' //<email>/sounds                   // URL para buscar lista de músicas de um usuário. OBS: tem que completar a URL conforme o comentário
   freesoundBaseParams = 'name,previews,tags,description';
 
   constructor(private _http: HttpClient) {
