@@ -28,5 +28,5 @@ npm install
 #### Observações
 Para adquirir as API keys, basta acessar as páginas de cada API, criar um cadastro e seguir as instruções:
 
-- [API Flicker](https://www.flickr.com/services/developer/)
+- [API Flickr](https://www.flickr.com/services/developer/)
 - [API Freesound](https://freesound.org/docs/api/)
