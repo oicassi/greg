@@ -1,6 +1,6 @@
 # GREG
 
-## Como instalar e rodar:
+## Como instalar e rodar (front-end):
 
 Para o funcionamento da aplicação, primeiramente é necessário estar com o back-end configurado (Java + PostgreSQL + neo4j). Além disso, deve-se inserir as APIs keys para que as requests possam ser realizadas para as APIs de terceiro. Após isso, basta instalar as dependência e executar a aplicação. Os passos serão listados a seguir:
 
