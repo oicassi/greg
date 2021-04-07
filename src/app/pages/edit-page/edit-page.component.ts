@@ -133,6 +133,8 @@ export class EditPageComponent implements OnInit {
       }
 
     } catch (err) {
+      console.log('[EDIT PAGE]')
+      console.log(err)
       this.alertService.danger('Ocorreu um erro ao salvar/alterar os componentes')
     } finally {
       this.botaoSalvarDisabled = false;

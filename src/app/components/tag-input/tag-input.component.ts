@@ -26,6 +26,8 @@ export class TagInputComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    console.log('[TAG-INPUT] ngOnInit')
+    console.log(this.authService.currentUserValue)
     this.tags = this.authService.currentUserValue.tags.map(tag => {
       return {name: tag}
     });
@@ -53,7 +55,7 @@ export class TagInputComponent implements OnInit {
 
     // Add our tag
     if ((value || '').trim()) {
-      this.tags.push({name: value.trim()});
+      this.tags.push({name: value.trim().toUpperCase()});
     }
 
     // Reset the input value
@@ -81,6 +83,8 @@ export class TagInputComponent implements OnInit {
           .addTags(tagsJson)
           .subscribe(result =>{
         console.log(result);
+        this.authService.currentUserValue.tags = tagsJson.map(tag => tag.toUpperCase())
+        // this.authService.getUser();
         this.alertService.success("Tags inseridas com sucesso ")
       });
     }
